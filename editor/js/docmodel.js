@@ -91,12 +91,28 @@
   /* ---------- editable text containers ---------- */
   var INLINE = set('a abbr b bdi bdo br cite code em i kbd mark q s samp small span strong sub sup time u var wbr');
   var CONTAINER = set('h1 h2 h3 h4 h5 h6 p li td th dt dd figcaption blockquote caption summary label legend div span b strong i em small a');
+  /* headings and subtitles stay editable even when emptied, so they can be typed into again */
+  function isTextField(node) {
+    return /^h[1-6]$/.test(node.name) || (node.name === 'p' && S.hasClass(node, 'subtitle')) || S.hasClass(node, 'badge');
+  }
   function qualifies(src, node) {
     if (node.foreign || !CONTAINER[node.name] || ('id' in node.attrs)) return false;
     var ok = true;
     S.walk(node, function (x) { if (!INLINE[x.name] || ('id' in x.attrs)) { ok = false; return false; } });
     if (!ok) return false;
-    return S.text(src, node).trim() !== '';
+    return isTextField(node) || S.text(src, node).trim() !== '';
+  }
+  function hasIds(html) {
+    var r = unitRoot(html), found = false;
+    if (r) S.walk({ children: [r] }, function (x) { if ('id' in x.attrs) found = true; });
+    return found;
+  }
+  /* a duplicated slide must not repeat the ids its demo script binds to */
+  function stripIds(html) {
+    var r = unitRoot(html), edits = [];
+    if (!r) return html;
+    S.walk({ children: [r] }, function (x) { if ('id' in x.attrs) { var e = S.attrEdit(html, x, 'id', null); if (e) edits.push(e); } });
+    return S.splice(html, edits);
   }
   function editables(src, unitNode, kind) {
     var skip = (KINDS[kind] || KINDS.deck).skip, out = [];
@@ -280,7 +296,7 @@
       return '<section class="slide title-slide p2" aria-hidden="true"><div class="badge">חלק ב׳</div><h1>כותרת החלק</h1><p>משפט שמסביר מה מגיע בחלק הזה.</p><aside class="speaker-note">מה אומרים במעבר בין החלקים.</aside>' + ctx.footer + '</section>';
     }
     var eyebrow = { limits: 'מגבלות', question: 'שאלה', key: 'מסר', steps: 'תהליך', table: 'השוואה' }[layout] || 'נושא';
-    var title = { limits: 'מה ההדגמות לא אומרות', question: 'שאלה לכיתה', blank: 'כותרת השקופית' }[layout] || 'כותרת השקופית';
+    var title = { limits: 'מה ההדגמה לא אומרת', question: 'שאלה לכיתה', blank: 'כותרת השקופית' }[layout] || 'כותרת השקופית';
     var body;
     switch (layout) {
       case 'bullets': body = '<ul class="checklist"><li>נקודה ראשונה</li><li>נקודה שנייה</li><li>נקודה שלישית</li></ul>'; break;
@@ -524,7 +540,7 @@
     var isDeck = doc.kind === 'deck';
     doc.units.forEach(function (u, i) {
       var sec = unitRoot(u.html);
-      if (!sec) { out.push({ level: 'error', unit: i, msg: 'מבנה ה-HTML של היחידה לא תקין' }); return; }
+      if (!sec) { out.push({ level: 'error', unit: i, msg: isDeck ? 'מבנה ה-HTML של השקופית לא תקין' : 'מבנה ה-HTML של העמוד לא תקין' }); return; }
       if (isDeck) {
         var note = S.qs(sec, 'aside.speaker-note');
         if (!note || !S.textCompact(u.html, note)) out.push({ level: 'warn', unit: i, msg: 'אין הערות מדריך (aside.speaker-note)' });
@@ -538,12 +554,12 @@
           while ((m = re.exec(t))) ranges.push(t.slice(Math.max(0, m.index - 6), m.index + 8).trim());
         }
       }, false);
-      if (dashes) out.push({ level: 'warn', unit: i, msg: dashes + ' קווים ארוכים (—) בטקסט; בסט נקבע שלא משתמשים בהם' });
+      if (dashes) out.push({ level: 'warn', unit: i, msg: (dashes === 1 ? 'קו ארוך אחד (—)' : dashes + ' קווים ארוכים (—)') + ' בטקסט. בסט לא משתמשים בקו ארוך.' });
       if (ranges.length) out.push({ level: 'warn', unit: i, msg: 'טווח מספרים בלי <span class="ltr"> עלול להתהפך: ' + ranges.slice(0, 3).join(' · ') });
     });
     if (isDeck) {
       var r = renumberDeck({ units: doc.units.map(function (u) { return { html: u.html }; }) }, true);
-      if (r.length) out.push({ level: 'info', unit: null, msg: 'מספור השקופיות לא עדכני ב-' + r.length + ' שקופיות; השמירה תעדכן אותו' });
+      if (r.length) out.push({ level: 'info', unit: null, msg: 'מספור השקופיות לא עדכני ' + (r.length === 1 ? 'בשקופית אחת' : 'ב-' + r.length + ' שקופיות') + '. הוספה, הזזה או מחיקה של שקופית מעדכנת אותו.' });
     }
     return out;
   }
@@ -583,7 +599,7 @@
   var api = {
     KINDS: KINDS, LAYOUTS: LAYOUTS, detectKind: detectKind, pad: pad,
     parseUnits: parseUnits, serializeUnits: serializeUnits, unitRoot: unitRoot, unitOffset: unitOffset,
-    editables: editables, editableSignature: editableSignature, setEditableInner: setEditableInner, getEditableInner: getEditableInner,
+    editables: editables, editableSignature: editableSignature, hasIds: hasIds, stripIds: stripIds, setEditableInner: setEditableInner, getEditableInner: getEditableInner,
     fieldNode: fieldNode, getField: getField, setField: setField, fieldEditableIndex: fieldEditableIndex,
     slideInfo: slideInfo, pageInfo: pageInfo, renumberDeck: renumberDeck, slideContext: slideContext, newSlide: newSlide,
     deckMeta: deckMeta, setDeckMeta: setDeckMeta, instantiateDeck: instantiateDeck, instantiateGuide: instantiateGuide,

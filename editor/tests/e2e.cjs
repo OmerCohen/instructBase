@@ -151,7 +151,7 @@ async function step(name, fn) {
   });
 
   await step('side panel: speaker note edit reaches the source', async () => {
-    const box = page.locator('.props .field', { hasText: 'הערות למדריך' }).locator('.rich');
+    const box = page.locator('.props .field', { hasText: 'הערות מדריך' }).locator('.rich');
     await box.click();
     await page.keyboard.press('End');
     await page.keyboard.type(' הערה נוספת.');
@@ -336,6 +336,114 @@ async function step(name, fn) {
       return { n: files.length, size: blob.size, sig: [b[0], b[1], b[2], b[3]], b64: btoa(String.fromCharCode.apply(null, b.subarray(0, 0))) };
     });
     assert.ok(r.n >= 3); assert.deepStrictEqual(r.sig, [0x50, 0x4b, 3, 4]);
+  });
+
+  /* ---- regressions from the 2026-11-03 independent review ---- */
+  const D01 = 'devices/01-mq-710/01-mq-710-deck.html';
+  const ser = () => page.evaluate(() => window.IBApp.serialize(window.IBApp.activeDoc()));
+
+  await step('review #3: an edit still being typed survives a tab switch (draft is applied)', async () => {
+    await page.evaluate((p) => window.IBApp.openDoc(p, { kind: 'deck' }), D01);
+    await page.waitForTimeout(1200);
+    await page.evaluate(() => window.IBApp.gotoUnit(window.IBApp.activeDoc(), 3));
+    await page.waitForTimeout(500);
+    await frame().locator('section.slide.active h1.title').click();
+    await page.keyboard.press('Control+End');
+    await page.keyboard.type(' טיוטה');
+    await page.waitForTimeout(100);
+    // a programmatic click does not move focus out of the preview, so no commit is sent:
+    // only the draft can carry the text across
+    await page.evaluate(() => document.querySelector('#tabs button.tab').click());
+    await page.waitForTimeout(200);
+    const t = await page.evaluate((p) => window.IBApp.serialize(window.IBApp.state.docs.find((d) => d.path === p)), D01);
+    assert.ok(t.includes(' טיוטה</h1>'), 'draft lost on tab switch');
+    await page.evaluate((p) => window.IBApp.openDoc(p), D01);
+    await page.waitForTimeout(1200);
+  });
+
+  await step('review #3: an edit still being typed survives a structural change from the rail', async () => {
+    await page.evaluate(() => window.IBApp.gotoUnit(window.IBApp.activeDoc(), 4));
+    await page.waitForTimeout(500);
+    await frame().locator('section.slide.active h1.title').click();
+    await page.keyboard.press('Control+End');
+    await page.keyboard.type(' לפני הזזה');
+    await page.waitForTimeout(100);
+    await page.evaluate(() => window.IBApp.moveUnit(window.IBApp.activeDoc(), 4, 5));
+    await page.waitForTimeout(600);
+    const t = await ser();
+    const doc = M.parseUnits(t, 'deck');
+    assert.ok(M.slideInfo(doc.units[5].html).title.endsWith('לפני הזזה'), 'draft lost on move: ' + M.slideInfo(doc.units[5].html).title);
+    assert.deepStrictEqual(M.renumberDeck(doc, true), []);
+  });
+
+  await step('review #1: an edit made while a slow save is writing stays dirty', async () => {
+    const r = await page.evaluate(async (p) => {
+      const app = window.IBApp, d = app.activeDoc(), fsx = app.state.fs, orig = fsx.write.bind(fsx);
+      fsx.write = async (path, data) => { await new Promise((res) => setTimeout(res, 400)); return orig(path, data); };
+      app.change(d, () => { d.model.units[2].html = window.IBModel.setField(d.model.units[2].html, 'title', 'גרסה A'); });
+      const saving = app.saveDoc(d);
+      await new Promise((res) => setTimeout(res, 150));
+      app.change(d, () => { d.model.units[2].html = window.IBModel.setField(d.model.units[2].html, 'title', 'גרסה B'); });
+      await saving;
+      fsx.write = orig;
+      const disk = await fsx.readText(p);
+      return { dirty: d.dirty, diskHasA: disk.includes('>גרסה A</h1>'), modelHasB: app.serialize(d).includes('>גרסה B</h1>') };
+    }, D01);
+    assert.deepStrictEqual(r, { dirty: true, diskHasA: true, modelHasB: true });
+  });
+
+  await step('review #2: in the full-source view the preview does not take edits', async () => {
+    await page.locator('.toolbar button', { hasText: 'קוד מלא' }).click();
+    await page.waitForTimeout(1200);
+    await frame().locator('section.slide.active h1').first().click();
+    await page.waitForTimeout(200);
+    const editable = await frame().locator('[contenteditable="true"]').count();
+    assert.strictEqual(editable, 0);
+    await page.locator('.toolbar button', { hasText: 'חזרה לעורך החזותי' }).click();
+    await page.waitForTimeout(1200);
+  });
+
+  await step('review #5/#6: an emptied subtitle stays editable; Enter at the end leaves no <br>', async () => {
+    await page.evaluate(() => window.IBApp.gotoUnit(window.IBApp.activeDoc(), 6));
+    await page.waitForTimeout(500);
+    const sub = frame().locator('section.slide.active p.subtitle');
+    await sub.click();
+    await page.keyboard.press('Control+a');
+    await page.keyboard.press('Backspace');
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(1200);
+    let t = await ser();
+    let u = M.parseUnits(t, 'deck').units[6].html;
+    assert.strictEqual(M.getField(u, 'subtitle'), '');
+    assert.strictEqual(await frame().locator('section.slide.active p.subtitle[data-ib]').count(), 1, 'empty subtitle not editable');
+    await frame().locator('section.slide.active p.subtitle').click();
+    await page.keyboard.type('שורה');
+    await page.keyboard.press('Enter');
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(400);
+    t = await ser();
+    u = M.parseUnits(t, 'deck').units[6].html;
+    assert.strictEqual(M.getField(u, 'subtitle'), 'שורה');
+  });
+
+  await step('review #7: duplicating a live slide strips the ids in the copy', async () => {
+    const before = M.parseUnits(await ser(), 'deck');
+    const live = before.units.findIndex((x, i) => i > 0 && M.hasIds(x.html));
+    assert.ok(live > 0, 'no live slide with ids');
+    await page.evaluate((i) => window.IBApp.gotoUnit(window.IBApp.activeDoc(), i), live);
+    await page.waitForTimeout(300);
+    await page.locator('.units li').nth(live).hover();
+    await page.locator('.units li').nth(live).locator('button[title="שכפול"]').click();
+    await page.waitForTimeout(800);
+    const after = M.parseUnits(await ser(), 'deck');
+    assert.strictEqual(after.units.length, before.units.length + 1);
+    // the original keeps its ids and content (only its footer counter moves on)
+    const ids0 = (before.units[live].html.match(/\sid="[^"]+"/g) || []);
+    assert.deepStrictEqual(after.units[live].html.match(/\sid="[^"]+"/g) || [], ids0);
+    assert.strictEqual(M.slideInfo(after.units[live].html).title, M.slideInfo(before.units[live].html).title);
+    assert.ok(!M.hasIds(after.units[live + 1].html), 'copy still has ids');
+    const ids = (after.units.map((x) => x.html).join('').match(/\sid="[^"]+"/g) || []);
+    assert.strictEqual(new Set(ids).size, ids.length, 'duplicate ids');
   });
 
   const relevant = errors.filter((e) => !/favicon|Failed to load resource/.test(e));

@@ -52,6 +52,8 @@
     try { if (v === undefined) return localStorage.getItem('ib.' + k); localStorage.setItem('ib.' + k, v); } catch (e) { return null; }
   }
   function esc(s) { return S.escapeText(s); }
+  /* Hebrew count: count(1, 'קובץ אחד', 'קבצים') -> 'קובץ אחד', count(3, ...) -> '3 קבצים' */
+  function count(n, one, many) { return n === 1 ? one : n + ' ' + many; }
 
   /* ================================================================== */
   /* rich-text helpers (side panel boxes)                                */
@@ -65,21 +67,37 @@
     if (origHtml) frag(origHtml).content.querySelectorAll('[style]').forEach(function (n) { styles.add(n.getAttribute('style')); });
     (function clean(node) {
       Array.prototype.slice.call(node.childNodes).forEach(function (ch) {
-        if (ch.nodeType === 8) { ch.remove(); return; }
-        if (ch.nodeType !== 1) return;
+        if (ch.nodeType !== 1) return;          // text and comments stay as they are
         clean(ch);
         ch.removeAttribute('contenteditable'); ch.removeAttribute('data-ib');
         if (ch.hasAttribute('style') && !styles.has(ch.getAttribute('style'))) ch.removeAttribute('style');
         var tag = ch.tagName.toLowerCase();
         if (tag === 'div' || tag === 'p') {
+          // a browser block is one line: one <br> before it, and an empty <div><br></div> adds nothing more
+          if (ch.childNodes.length === 1 && ch.firstChild.nodeName === 'BR') ch.removeChild(ch.firstChild);
           if (ch.previousSibling) ch.parentNode.insertBefore(document.createElement('br'), ch);
           unwrapNode(ch); return;
         }
         if (!INLINE_OK[tag] || (tag === 'span' && !ch.attributes.length)) unwrapNode(ch);
       });
     })(t.content);
-    var last = t.content.lastChild;
-    if (last && last.nodeName === 'BR' && !(origHtml && /<br\s*\/?>\s*$/i.test(origHtml))) last.remove();
+    // a line break typed at the very end renders nothing; keep only as many trailing <br> as the original had
+    var keep = 0, om = /((?:<br\s*\/?>\s*)+)$/i.exec(origHtml || '');
+    if (om) keep = (om[1].match(/<br/gi) || []).length;
+    function trailingBrs() {
+      var n = 0;
+      for (var c = t.content.lastChild; c; c = c.previousSibling) {
+        if (c.nodeName === 'BR') n++;
+        else if (!(c.nodeType === 3 && !c.data.trim())) break;
+      }
+      return n;
+    }
+    while (trailingBrs() > keep) {
+      var c = t.content.lastChild;
+      while (c && c.nodeName !== 'BR') c = c.previousSibling;
+      if (!c) break;
+      c.remove();
+    }
     // Chrome types U+00A0 for a space at a line end or next to another space.
     // If the original had none, they are typing artefacts: make them plain spaces.
     if (!/&nbsp;|\u00a0/.test(origHtml || '')) {
@@ -88,10 +106,14 @@
     }
     return t.innerHTML;
   }
-  function sameHtml(a, b) {
+  /* loose: ignore trailing <br> and whitespace (Chrome leaves a placeholder <br> in an emptied element) */
+  function sameHtml(a, b, loose) {
     var x = frag(a).content, y = frag(b).content;
-    [x, y].forEach(function (f) { f.querySelectorAll('[data-ib],[contenteditable]').forEach(function (n) { n.removeAttribute('data-ib'); n.removeAttribute('contenteditable'); }); });
-    x.normalize(); y.normalize();
+    [x, y].forEach(function (f) {
+      f.querySelectorAll('[data-ib],[contenteditable]').forEach(function (n) { n.removeAttribute('data-ib'); n.removeAttribute('contenteditable'); });
+      if (loose) while (f.lastChild && (f.lastChild.nodeName === 'BR' || (f.lastChild.nodeType === 3 && !f.lastChild.data.trim()))) f.removeChild(f.lastChild);
+      f.normalize();
+    });
     return x.isEqualNode(y);
   }
   function wrapIn(box, tag, cls) {
@@ -176,9 +198,18 @@
     }
     d.kind = 'raw'; d.model = { text: text };
   }
+  /* An edit in progress in the preview reaches the editor as 'draft' messages.
+     Anything that replaces the preview, reads the model or changes it applies
+     the draft first, so a pending edit is never dropped by a reload or a tab switch. */
+  function flushDraft(d) {
+    if (!d || !d.draft) return;
+    var x = d.draft; d.draft = null;
+    applyEdit(d, x.id, x.html);
+  }
   /* every mutation goes through here: undo snapshot, dirty flag, refresh */
   function change(d, fn, opts) {
     opts = opts || {};
+    flushDraft(d);
     var before = serialize(d);
     fn();
     var after = serialize(d);
@@ -205,14 +236,18 @@
     setTimeout(function () { if (d.propsEl && !d.propsEl.contains(document.activeElement)) renderProps(d); }, 0);
   }
   function undo(d) {
-    if (!d || !d.undo.length) return;
+    if (!d) return;
+    flushDraft(d);
+    if (!d.undo.length) return;
     d.redo.push(serialize(d));
     loadModel(d, d.undo.pop());
     d.dirty = serialize(d) !== d.diskText;
     renderActive(true);
   }
   function redo(d) {
-    if (!d || !d.redo.length) return;
+    if (!d) return;
+    flushDraft(d);
+    if (!d.redo.length) return;
     d.undo.push(serialize(d));
     loadModel(d, d.redo.pop());
     d.dirty = serialize(d) !== d.diskText;
@@ -235,6 +270,7 @@
     return d;
   }
   function closeDoc(d) {
+    flushDraft(d);
     if (d.dirty && !confirm('יש שינויים שלא נשמרו ב-' + d.path + '. לסגור בלי לשמור?')) return;
     state.docs = state.docs.filter(function (x) { return x !== d; });
     if (state.active === d.id) state.active = 'home';
@@ -242,7 +278,7 @@
   }
   function activate(id) {
     var cur = activeDoc();
-    if (cur && cur.frame) sendPreview(cur, { type: 'cmd', cmd: 'commit' });
+    if (cur) flushDraft(cur);
     state.active = id;
     renderActive();
   }
@@ -250,10 +286,19 @@
   /* ---------- saving ---------- */
   async function saveDoc(d) {
     if (!d) return false;
-    if (d.frame) sendPreview(d, { type: 'cmd', cmd: 'commit' });
+    if (d.saving) { d.saveAgain = true; return false; }   // one save at a time per document
+    d.saving = true;
+    try { return await saveDocNow(d); }
+    finally {
+      d.saving = false;
+      if (d.saveAgain) { d.saveAgain = false; if (d.dirty) saveDoc(d); }
+    }
+  }
+  async function saveDocNow(d) {
     var a = document.activeElement; if (a && a.classList && a.classList.contains('rich')) a.blur();
-    await new Promise(function (r) { setTimeout(r, 60); });
+    flushDraft(d);
     var text = serialize(d);
+    if (d.wantKind !== d.kind && d.wantKind !== 'raw' && !confirm('הקובץ ' + d.path + ' כבר לא מזוהה כ' + ({ deck: 'מצגת', guide: 'מקור דף הנחיה', index: 'אינדקס' })[d.wantKind] + ', ולכן הבדיקות של העורך החזותי לא חלות עליו. לשמור בכל זאת?')) return false;
     // gate: every inline script must still parse (house rule: never ship a dead script)
     var fails = M.checkScripts(text, d.origText);
     var newFails = fails.filter(function (f) { return f.changed; });
@@ -276,11 +321,12 @@
       toast('השמירה נכשלה: ' + (e && e.message || e), 'error', 10000);
       return false;
     }
-    d.diskText = text; d.dirty = false;
+    d.diskText = text;
+    d.dirty = serialize(d) !== text;   // edits made while the file was being written stay unsaved
     renderTabs();
     if (state.fs.kind === 'memory') toast('נשמר בזיכרון הדפדפן. כדי לקבל את הקבצים, הורידו ZIP של השינויים.', 'warn');
     else toast('נשמר: ' + d.path, 'ok');
-    if (fails.length) toast('שימו לב: ' + fails.length + ' סקריפטים בקובץ לא עברו בדיקת תחביר גם לפני העריכה.', 'warn', 8000);
+    if (fails.length) toast('שימו לב: ' + count(fails.length, 'סקריפט אחד', 'סקריפטים') + ' בקובץ לא עוברים בדיקת תחביר, גם לפני העריכה.', 'warn', 8000);
     if (d.kind === 'index' || /-deck\.html$/.test(d.path)) refreshLibrary();
     return true;
   }
@@ -483,7 +529,7 @@
       h('div', { class: 'note ' + (supported ? '' : 'warn') }, supported
         ? 'בחרו את תיקיית השורש של המאגר (זו שיש בה index.html). הדפדפן יבקש אישור לקריאה ולכתיבה; השמירה נעשית ישירות בקבצים.'
         : 'הדפדפן הזה לא תומך בכתיבה לתיקייה מקומית (File System Access). אפשר לפתוח תיקייה לקריאה, לערוך, ולהוריד את הקבצים ששונו כ-ZIP. לשמירה ישירה פתחו את העורך ב-Chrome או ב-Edge.'),
-      h('div', { class: 'note' }, h('b', null, 'כדאי לדעת: '), 'העורך משנה רק את הבתים שערכתם. סקריפטים, סגנונות והדגמות חיות נשארים כמו שהם, ושמירה של קובץ שבו סקריפט לא עובר בדיקת תחביר נחסמת. ',
+      h('div', { class: 'note' }, h('b', null, 'כדאי לדעת: '), 'העורך משנה רק את הקטע שערכתם. סקריפטים, סגנונות והדגמות חיות נשארים כמו שהם, ושמירה של קובץ שבו סקריפט לא עובר בדיקת תחביר נחסמת. ',
         'לפני כל שמירה נשמר עותק של הקובץ הקודם ב-', h('code', null, '.editor-backups/'), ' (עד 20 עותקים לקובץ).'));
   }
   async function linkPdfInIndex(ti, ii, href) {
@@ -520,7 +566,7 @@
       h('span', { class: 'sep' }),
       toolBtn('B', 'strong', 'הדגשה (Ctrl+B)'),
       toolBtn('LTR', 'ltr', 'עטיפה ב-<span class="ltr"> לטקסט באנגלית, פקודות ומספרים (Ctrl+L)'),
-      toolBtn('נקה עיצוב', 'clear', 'הסרת עיצוב מהטקסט המסומן'),
+      toolBtn('ניקוי עיצוב', 'clear', 'הסרת עיצוב מהטקסט המסומן'),
       h('span', { class: 'sep' }),
       btn('‹ הקודם', function () { gotoUnit(d, d.cur - 1); }, 'small'),
       btn('הבא ›', function () { gotoUnit(d, d.cur + 1); }, 'small'),
@@ -529,7 +575,7 @@
       btn('קוד מלא', function () { d.view = 'source'; renderActive(); }, 'small', 'עריכת קוד המקור של כל הקובץ (מתקדם)'));
     d.frameWrap = h('div', { class: 'frame-wrap' + (isDeck ? ' deck' : ' guide') });
     var center = h('section', { class: 'center' }, tools, d.frameWrap,
-      h('p', { class: 'hint' }, 'לחצו על טקסט בתצוגה כדי לערוך אותו. Enter שובר שורה, Esc מסיים. טקסט שנוצר על ידי סקריפט של ההדגמה, ותוויות בתוך איורי SVG, נערכים ב"HTML של ' + T(d).the + '".'));
+      h('p', { class: 'hint' }, 'לחצו על טקסט בתצוגה כדי לערוך אותו. Enter שובר שורה, Esc מסיים. את הטקסט שההדגמה כותבת בזמן ריצה, ואת התוויות בתוך איורי SVG, עורכים ב"HTML של ' + T(d).the + '".'));
     var props = h('aside', { class: 'props' }, d.propsEl,
       h('details', { class: 'panel', open: true }, h('summary', null, 'בדיקות לפי כללי הבית'), d.lintEl));
     main.appendChild(h('div', { class: 'ed-grid' }, rail, center, props));
@@ -576,7 +622,7 @@
     change(d, function () { fn(); if (d.kind === 'deck') M.renumberDeck(d.model); if (newCur != null) d.cur = newCur; }, { reload: true });
     if (d.kind === 'deck' && !d.warnedRefs) {
       d.warnedRefs = true;
-      toast('המספור בכותרות ובתחתית עודכן. הפניות למספרי שקופיות בתוך הטקסט (בהערות המדריך ובדף ההנחיה) לא מתעדכנות לבד.', 'warn', 9000);
+      toast('המספור בכותרות-העל ובתחתית עודכן. הפניות למספרי שקופיות בתוך הטקסט (בהערות המדריך ובדף ההנחיה) לא מתעדכנות לבד.', 'warn', 9000);
     }
   }
   function moveUnit(d, from, to) {
@@ -584,7 +630,12 @@
     structural(d, function () { var u = d.model.units.splice(from, 1)[0]; d.model.units.splice(to, 0, u); }, to);
   }
   function duplicateUnit(d, i) {
-    structural(d, function () { var u = d.model.units[i]; d.model.units.splice(i + 1, 0, { lead: u.lead || (d.kind === 'guide' ? '\n\n' : ''), html: u.html }); }, i + 1);
+    var u = d.model.units[i], html = u.html;
+    if (M.hasIds(html)) {
+      if (!confirm('יש ב' + T(d).the + ' הדגמה חיה. בעותק ההדגמה לא תפעל: המזהים (id) שלה מוסרים מהעותק, כדי שלא יתנגשו במקור. לשכפל בכל זאת?')) return;
+      html = M.stripIds(html);
+    }
+    structural(d, function () { d.model.units.splice(i + 1, 0, { lead: u.lead || (d.kind === 'guide' ? '\n\n' : ''), html: html }); }, i + 1);
   }
   function deleteUnit(d, i) {
     if (d.model.units.length <= 1) { toast(T(d).only + ', ולכן אי אפשר למחוק.', 'warn'); return; }
@@ -611,7 +662,7 @@
         pickImage(function (src, name) { insertUnit(d, M.newSlide('image', M.slideContext(d.model, at), { imageSrc: src, imageAlt: name }), at); });
       }));
     } else {
-      menu.appendChild(btn('עמוד ריק בתבנית המדריך', function () {
+      menu.appendChild(btn('עמוד ריק בתבנית דף ההנחיה', function () {
         closeMenus();
         insertUnit(d, '<div class="pg">\n  <div class="eyebrow">00 · פרק</div>\n  <h1>כותרת העמוד</h1><hr class="rule">\n  <h2>כותרת משנה</h2>\n  <p>טקסט.</p>\n</div>', at);
       }));
@@ -627,7 +678,7 @@
   function closeMenus() { document.querySelectorAll('.menu').forEach(function (m) { m.remove(); }); }
 
   /* ---------- side panel ---------- */
-  var FIELD_LABELS = { eyebrow: 'כותרת-על', badge: 'תגית בשער', title: 'כותרת', subtitle: 'כותרת משנה', note: 'הערות למדריך (מקש N במצגת)' };
+  var FIELD_LABELS = { eyebrow: 'כותרת-על', badge: 'תגית בשער', title: 'כותרת', subtitle: 'כותרת משנה', note: 'הערות מדריך (מקש N במצגת)' };
   var FIELD_SEL = { eyebrow: '.eyebrow', badge: '.badge', title: 'h1.title, h1', subtitle: 'p.subtitle, :scope > p', note: 'aside.speaker-note' };
   function renderProps(d) {
     if (!d.propsEl) return;
@@ -657,7 +708,7 @@
         btn('החלה', function () { applyUnitHtml(d, i, ta.value); }, 'primary small'),
         btn('הוספת תמונה במקום הסמן…', function () { pickImage(function (src, name) { insertAtCursor(ta, '<img src="' + src + '" alt="' + S.escapeAttr(name) + '" style="max-width:100%;max-height:100%;object-fit:contain">'); }); }, 'small'),
         btn('ביטול שינויים בתיבה', function () { ta.value = d.model.units[i].html; }, 'small')),
-      h('p', { class: 'muted small' }, 'כאן נערכים איורי SVG, טבלאות ותוכן שהממשק הוויזואלי לא מגיע אליו. מזהים (id) של הדגמות חיות צריכים להישאר כמו שהם, אחרת הסקריפט לא ימצא אותם.'));
+      h('p', { class: 'muted small' }, 'כאן נערכים איורי SVG, טבלאות ותוכן שהעורך החזותי לא מגיע אליו. מזהים (id) של הדגמות חיות צריכים להישאר כמו שהם, אחרת הסקריפט לא ימצא אותם.'));
     rawPanel.addEventListener('toggle', function () { d.rawOpen = rawPanel.open; });
     box.appendChild(rawPanel);
     if (isDeck) box.appendChild(deckSettingsPanel(d));
@@ -689,7 +740,7 @@
     return h('details', { class: 'panel' }, h('summary', null, 'הגדרות המצגת'),
       h('div', { class: 'field' }, h('label', null, 'שם המצגת (כותרת הלשונית בדפדפן)'), t),
       h('div', { class: 'field' }, h('label', null, 'תווית התחתית (מופיעה בהדפסה)'), f),
-      h('p', { class: 'muted small' }, 'התווית מוחלפת רק בשקופיות שבהן היא זהה לתווית הנפוצה (' + Object.keys(meta.footerLabels).length + ' תוויות שונות בקובץ).'),
+      h('p', { class: 'muted small' }, 'התווית מוחלפת רק בשקופיות שבהן היא זהה לתווית הנפוצה (בקובץ ' + count(Object.keys(meta.footerLabels).length, 'תווית אחת', 'תוויות שונות') + ').'),
       btn('עדכון', function () {
         change(d, function () { M.setDeckMeta(d.model, { title: t.value.trim(), footerLabel: esc(f.value.trim()), oldFooterLabel: meta.footerLabel }); }, { reload: true });
       }, 'small primary'));
@@ -733,7 +784,7 @@
     if (!d.lintEl) return;
     var list = clear(d.lintEl);
     var items = M.lintUnits(d.model);
-    if (!items.length) { list.appendChild(h('li', { class: 'ok' }, 'אין הערות.')); return; }
+    if (!items.length) { list.appendChild(h('li', { class: 'ok' }, 'אין ממצאים.')); return; }
     items.forEach(function (x) {
       list.appendChild(h('li', { class: x.level }, x.unit != null ? btn(unitName(d) + ' ' + (x.unit + 1), function () { gotoUnit(d, x.unit); }, 'link') : null, ' ', x.msg));
     });
@@ -766,9 +817,11 @@
     var fr = h('iframe', { sandbox: 'allow-scripts allow-modals', allow: 'fullscreen', title: 'תצוגה מקדימה' });
     fr.srcdoc = buildPreview(d, true);
     d.frame = fr;
+    d.draft = null;   // drafts belong to the old frame; change() applied them before the reload
     d.frameWrap.appendChild(fr);
     if (old) setTimeout(function () { old.remove(); }, 250);
-    fr.addEventListener('load', function () { sendPreview(d, { type: 'mode', editing: d.editing !== false && (d.kind === 'deck' || d.kind === 'guide') }); });
+    // in the full-source view the textarea is the only editor, so the preview is read-only
+    fr.addEventListener('load', function () { sendPreview(d, { type: 'mode', editing: d.editing !== false && (d.kind === 'deck' || d.kind === 'guide') && d.view !== 'source' }); });
   }
   function sendPreview(d, msg) {
     if (!d.frame || !d.frame.contentWindow) return;
@@ -783,6 +836,8 @@
     if (m.type === 'unit') {
       if ((d.kind === 'deck' || d.kind === 'guide') && m.index !== d.cur) { d.cur = m.index; renderRail(d); renderProps(d); }
     } else if (m.type === 'begin') onBegin(d, m);
+    else if (m.type === 'draft') { if (m.id !== d.deniedId) d.draft = { id: m.id, html: m.html }; }
+    else if (m.type === 'end') { if (d.draft && d.draft.id === m.id) d.draft = null; if (m.id === d.deniedId) d.deniedId = null; }
     else if (m.type === 'commit') onCommit(d, m);
     else if (m.type === 'hotkey') {
       if (m.key === 's') saveDoc(d);
@@ -794,7 +849,9 @@
   function onBegin(d, m) {
     var id = parseId(m.id), u = d.model.units[id.unit];
     var srcInner = u && M.getEditableInner(u.html, d.kind, id.k);
-    if (srcInner == null || !sameHtml(srcInner, m.html)) {
+    d.draft = null;
+    if (srcInner == null || !sameHtml(srcInner, m.html, true)) {
+      d.deniedId = m.id;
       sendPreview(d, { type: 'deny', id: m.id });
       toast('את הטקסט הזה ההדגמה כותבת בזמן ריצה, ולכן לא עורכים אותו בתצוגה. ערכו אותו ב"HTML של ' + T(d).the + '", או כבו את מצב העריכה כדי להפעיל את ההדגמה.', 'warn', 8000);
       return;
@@ -802,11 +859,16 @@
     if (id.unit !== d.cur) { d.cur = id.unit; renderRail(d); renderProps(d); }
   }
   function onCommit(d, m) {
-    var id = parseId(m.id), u = d.model.units[id.unit];
+    if (d.draft && d.draft.id === m.id) d.draft = null;
+    if (m.id === d.deniedId) return;
+    applyEdit(d, m.id, m.html);
+  }
+  function applyEdit(d, rawId, html) {
+    var id = parseId(rawId), u = d.model.units[id.unit];
     if (!u) return;
     var srcInner = M.getEditableInner(u.html, d.kind, id.k);
     if (srcInner == null) { toast('לא מצאתי את האלמנט שנערך; התצוגה תיטען מחדש.', 'error'); reloadPreview(d); return; }
-    var v = sanitize(m.html, srcInner);
+    var v = sanitize(html, srcInner);
     if (sameHtml(v, srcInner)) return;
     var sigBefore = d.sigs && d.sigs[id.unit];
     change(d, function () { u.html = M.setEditableInner(u.html, d.kind, id.k, v); });
@@ -814,7 +876,10 @@
   }
   function onPreviewLink(d, href) {
     if (!href || !M.isLocalHref(href)) { if (href) toast('קישור חיצוני: ' + href); return; }
-    var path = href.split('#')[0];
+    // relative to the document that contains the link, not to the folder root
+    var path;
+    try { path = decodeURIComponent(new URL(href.split('#')[0], 'http://ib.invalid/' + d.path).pathname.slice(1)); }
+    catch (e) { path = href.split('#')[0]; }
     if (/\.html?$/i.test(path) && state.lib && state.lib.files.has(path)) openDoc(path);
     else toast('הקישור מפנה אל ' + path + (state.lib && state.lib.files.has(path) ? '' : ' (לא נמצא בתיקייה)'), 'warn');
   }
@@ -832,7 +897,7 @@
     fr.addEventListener('load', function () { try { fr.focus(); } catch (e) { /* ignore */ } });
     try { w.opener = null; } catch (e) { /* ignore */ }
   }
-  function presentDoc(d) { openSandboxed(serialize(d), M.deckMeta(serialize(d)).title); }
+  function presentDoc(d) { flushDraft(d); openSandboxed(serialize(d), M.deckMeta(serialize(d)).title); }
   function printHtml(html, target) {
     var t = S.qs(S.scan(html), 'body');
     var at = t ? t.closeStart : html.length;
@@ -840,7 +905,7 @@
     openSandboxed(withPrint, target ? target.split('/').pop().replace(/\.pdf$/, '') : '');
     toast('בחלון ההדפסה בחרו "שמירה כ-PDF"' + (target ? ' ושמרו בשם ' + target : '') + '. דפי ההנחיה נבדקו ב-Chrome; בדפדפן אחר המספור בתחתית עלול לא להופיע.', 'ok', 12000);
   }
-  function printGuide(d) { printHtml(serialize(d), guidePdfTarget(d.path)); }
+  function printGuide(d) { flushDraft(d); printHtml(serialize(d), guidePdfTarget(d.path)); }
   async function printGuidePath(path, target) {
     var d = state.docs.find(function (x) { return x.path === path; });
     printHtml(d ? serialize(d) : await state.fs.readText(path), target);
@@ -867,7 +932,7 @@
       h('section', { class: 'src-pane' },
         h('div', { class: 'toolbar' }, h('b', null, 'קוד המקור · ' + d.path), h('span', { class: 'grow' }),
           btn('החלה ותצוגה', function () { applySource(d, ta.value); }, 'primary small'), back),
-        h('p', { class: 'warnline' }, 'עריכה כאן עוקפת את ההגנות של העורך החזותי. לפני שמירה כל סקריפט בקובץ נבדק לתחביר, אבל לוגיקה שבורה לא תתגלה בבדיקה הזו.'),
+        h('p', { class: 'warnline' }, 'עריכה כאן עוקפת את ההגנות של העורך החזותי. לפני שמירה כל סקריפט בקובץ עובר בדיקת תחביר, אבל לוגיקה שבורה לא תתגלה בה.'),
         ta),
       h('section', { class: 'center' }, d.frameWrap)));
     d.railEl = null; d.propsEl = null; d.lintEl = null;
@@ -881,6 +946,7 @@
     d.dirty = text !== d.diskText;
     renderTabs();
     reloadPreview(d);
+    if (d.kind === 'raw' && d.wantKind !== 'raw') toast('אחרי השינוי הקובץ כבר לא מזוהה כ' + ({ deck: 'מצגת', guide: 'מקור דף הנחיה', index: 'אינדקס' })[d.wantKind] + '. העורך החזותי והבדיקות שלו לא חלים עליו עד שהמבנה יחזור. אפשר לבטל עם Ctrl+Z.', 'warn', 10000);
     var fails = M.checkScripts(text, d.origText).filter(function (f) { return f.changed; });
     if (fails.length) toast('סקריפט ' + (fails[0].index + 1) + ' לא עובר בדיקת תחביר: ' + fails[0].message, 'error', 10000);
   }
@@ -1014,7 +1080,7 @@
     return last && !last.hasCnt ? m.tracks.length - 1 : m.tracks.length;   // before "חומרי עזר"
   }
   function addTrack(d) {
-    var name = prompt('שם המסלול (יופיע כותרת באינדקס):');
+    var name = prompt('שם המסלול (יופיע ככותרת באינדקס):');
     if (!name) return;
     change(d, function () { d.model.tracks.splice(trackInsertIndex(d.model), 0, M.newTrack(esc(name.trim()), 'תיאור קצר של המסלול.')); });
   }
@@ -1249,7 +1315,7 @@
         }
         var blob = await Z.makeZip(entries, { onProgress: function (n, t) { prog.max = t; prog.value = n; } });
         download(blob, (state.fs.name || 'instructbase').replace(/[^\w.-]+/g, '-') + '-' + dateStr() + '.zip');
-        toast('נוצר ZIP עם ' + files.length + ' קבצים (' + fmtBytes(blob.size) + ').', 'ok');
+        toast('נוצר ZIP עם ' + count(files.length, 'קובץ אחד', 'קבצים') + ' (' + fmtBytes(blob.size) + ').', 'ok');
         dlg.close();
       } catch (err) { toast('יצירת ה-ZIP נכשלה: ' + (err && err.message || err), 'error'); }
       finally { go.disabled = false; }
@@ -1257,8 +1323,8 @@
     var dlg = dialog('הורדת ZIP', h('div', null,
       h('p', { class: 'muted' }, 'הקבצים נקראים מהדיסק: שינויים שלא נשמרו לא ייכנסו. התיקיות שמסומנות מראש הן הסט שמתפרסם (מה שהאינדקס מקשר אליו).'),
       list,
-      state.fs.kind === 'memory' ? h('label', { class: 'check' }, onlyChanged, ' רק הקבצים ששיניתי (' + state.fs.changed.size + ')') : null,
-      h('p', { class: 'muted small' }, 'עותק קפוא של כל החומר כפי שהיה ב-3.11.2026 נמצא ב-archive/ (כולל ZIP מוכן).'),
+      state.fs.kind === 'memory' ? h('label', { class: 'check' }, onlyChanged, ' רק הקבצים ששונו (' + state.fs.changed.size + ')') : null,
+      h('p', { class: 'muted small' }, 'עותקים קפואים של החומר לפי תאריך, כולל ZIP מוכן, נמצאים ב-archive/.'),
       prog), go);
   }
 

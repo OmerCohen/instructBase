@@ -92,11 +92,44 @@ saving through the File System Access API (Chrome/Edge), no server.
   the index. History keeps it either way.
 - `README.md` was literally `"# instructBase" ` (a Windows `echo` artefact). Replaced with an overview.
 
+## Independent review (same day, two Fable agents, given the code and not my conclusions)
+
+**Code review.** It verified invariants 1-6 with its own probes and found three ways to lose an edit.
+All are fixed and each has a regression test that drives the failure path:
+1. *Edits during a save were marked clean.* `saveDoc` set `dirty = false` after several awaits, so a change
+   that landed during a slow write disappeared from the dirty state (Save disabled, no unload warning).
+   Now `dirty = serialize(d) !== text`, and saves of one document are serialised (a second save during a
+   write runs after it; before, it compared the disk with the stale `diskText` and asked a false
+   "changed on disk" question).
+2. *The full-source view still accepted clicks in the preview*, then "החלה" restored the stale textarea and
+   erased them. The preview is now read-only while `view === 'source'`.
+3. *An edit in progress was dropped when the preview frame was replaced* (tab switch, rail move/delete,
+   undo) before the agent's `commit` message arrived. Real users were protected by mouse timing, not by
+   design. The agent now posts a `draft` on every input. `change()`, undo/redo, save, close, tab switch,
+   present and print apply the pending draft before they read or replace anything.
+Smaller, also fixed: a deck that stops parsing in the source view now gets a toast, and a confirm before
+saving. Duplicating a slide with ids strips the ids from the copy, with a confirm, so the original demo
+keeps its bindings. Emptied headings/subtitles stay editable, and in the preview only they get a minimum
+size and an "(ריק)" marker (the test caught a second bug here: Chrome's placeholder `<br>` made the next edit look
+script-written, so it was refused). Enter at the end no longer leaves a trailing `<br>`. The sanitizer no
+longer drops comments. Links in the preview resolve relative to the document.
+Not changed, recorded: `checkScripts` skips `type="module"` scripts (none in the set). The preview's
+postMessage channel is unauthenticated: a deck's own script could post a fake commit or save of *its
+own* file. That is not an escape: the sandbox has no same-origin, so the script cannot reach the editor,
+IndexedDB or other files.
+
+**Hebrew review** (house tone rules + israeli-hebrew-writer). Applied: no internal history on the public
+archive page ("לפני המעבר לעורך"), one name per thing in the UI ("הערות מדריך", "העורך החזותי",
+"התצוגה המקדימה"), "אין ממצאים" instead of "אין הערות" in the lint panel (it read as "no speaker
+notes"), number agreement through a `count(n, one, many)` helper ("קובץ אחד", not "1 קבצים"), no
+hard-coded date in the ZIP dialog, "ניקוי עיצוב" to match the other noun labels, guide-template
+heading matches its content.
+
 ## Tests
 
 - `node editor/tests/model.test.cjs`: 92 tests over the real files (round trips, renumber no-op,
   field set/get identity, slide operations, index regeneration, templates, lint baseline).
-- `node editor/tests/e2e.cjs`: 20 tests in headless Chromium. The repo is copied into the Origin Private
+- `node editor/tests/e2e.cjs`: 26 tests in headless Chromium (6 of them are regressions from the review). The repo is copied into the Origin Private
   File System, whose directory handle has the same API as a picked folder, so the real save path runs.
   Covers visual edit, LTR/bold, side panel, layouts, move, refused runtime text, raw HTML validation,
   undo/redo, save + backup, blocked save on a broken script, heavy decks (r06/n08/d01), sandboxed present

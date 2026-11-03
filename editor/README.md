@@ -68,7 +68,7 @@ editor/
   templates/deck-template.html   תבנית הבית למצגת חדשה (CSS וניווט מתוך רשתות 01)
   templates/guide-template.html  תבנית לדף הנחיה חדש (מתוך מקור ההנחיה של רשתות 01)
   tests/model.test.cjs    92 בדיקות על כל החומר האמיתי:   node editor/tests/model.test.cjs
-  tests/e2e.cjs           20 בדיקות בדפדפן (Playwright):    node editor/tests/e2e.cjs
+  tests/e2e.cjs           26 בדיקות בדפדפן (Playwright):    node editor/tests/e2e.cjs
 ```
 
 כשמשנים את בסיס ה-CSS של המצגות בכל הסט, צריך לעדכן גם את `templates/deck-template.html`.

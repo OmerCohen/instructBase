@@ -19,7 +19,10 @@ function IBPreviewAgent(KIND) {
     'html.ib-edit [data-ib]{cursor:text}' +
     'html.ib-edit [data-ib]:hover{outline:2px dashed rgba(251,191,36,.8);outline-offset:3px}' +
     '[data-ib][contenteditable="true"]{outline:2px solid #fbbf24!important;outline-offset:3px;background:rgba(251,191,36,.07)}' +
-    '[data-ib].ib-flash{outline:2px solid #22d3ee!important;outline-offset:3px}';
+    '[data-ib].ib-flash{outline:2px solid #22d3ee!important;outline-offset:3px}' +
+    // an emptied heading or subtitle has no height; keep it clickable (preview only, never saved)
+    'html.ib-edit [data-ib]:empty{min-height:1.1em;min-width:4em}' +
+    'html.ib-edit [data-ib]:empty:not([contenteditable="true"])::before{content:"(ריק)";opacity:.45;font-weight:400}';
   if (KIND === 'guide') {
     // screen-only page look for A4 guide sources; never saved to the file
     css.textContent += '@media screen{html{background:#e9eef3}body{max-width:794px;margin:18px auto!important;background:#fff;padding:56px 60px!important;box-shadow:0 2px 18px rgba(15,39,64,.18)}.pg{border-bottom:2px dashed #cbd5e1;padding-bottom:28px;margin-bottom:28px}.pg:last-child{border-bottom:0}.title-pg{height:auto!important;min-height:520px}}';
@@ -77,6 +80,7 @@ function IBPreviewAgent(KIND) {
     if (!cur) return;
     var el = cur; cur = null; saved = null;
     if (!keep) el.innerHTML = orig;
+    if (el.innerHTML === '<br>') el.innerHTML = '';   // Chrome's placeholder in an emptied block
     el.removeAttribute('contenteditable');
     var html = el.innerHTML;
     if (keep && html !== orig) post({ type: 'commit', id: el.getAttribute('data-ib'), html: html });
@@ -127,6 +131,10 @@ function IBPreviewAgent(KIND) {
     document.execCommand('insertText', false, t.replace(/\r?\n/g, ' '));
   }, true);
   document.addEventListener('drop', function (e) { if (cur) e.preventDefault(); }, true);
+  // every change to the edited element is reported as a draft, so the editor
+  // can apply it even if this frame is replaced before the edit is committed
+  function draft() { if (cur) post({ type: 'draft', id: cur.getAttribute('data-ib'), html: cur.innerHTML }); }
+  document.addEventListener('input', function (e) { if (cur && (e.target === cur || cur.contains(e.target))) draft(); }, true);
   // Focus moving anywhere else (another element, or out to the editor) ends the
   // edit. A window switch (Alt+Tab) keeps activeElement and does not commit.
   document.addEventListener('focusout', function (e) {
@@ -153,7 +161,7 @@ function IBPreviewAgent(KIND) {
     var anc = r.commonAncestorContainer.nodeType === 1 ? r.commonAncestorContainer : r.commonAncestorContainer.parentNode;
     var sel = cls ? tag + '.' + cls : (tag === 'strong' ? 'strong,b' : tag);
     var hit = anc.closest(sel);
-    if (hit && hit !== cur && cur.contains(hit)) { unwrap(hit); return; }
+    if (hit && hit !== cur && cur.contains(hit)) { unwrap(hit); draft(); return; }
     if (r.collapsed) return;
     var w = document.createElement(tag);
     if (cls) w.className = cls;
@@ -161,6 +169,7 @@ function IBPreviewAgent(KIND) {
     r.insertNode(w);
     var s = getSelection(), nr = document.createRange();
     nr.selectNodeContents(w); s.removeAllRanges(); s.addRange(nr);
+    draft();
   }
   function clearFormat() {
     if (!cur) return;
@@ -170,12 +179,13 @@ function IBPreviewAgent(KIND) {
     r.deleteContents();
     r.insertNode(document.createTextNode(t));
     cur.normalize();
+    draft();
   }
 
   addEventListener('message', function (e) {
     var d = e.data;
     if (!d || d.__ib !== 2) return;
-    if (d.type === 'goto') goTo(d.index);
+    if (d.type === 'goto') { if (cur) commit(); goTo(d.index); }
     else if (d.type === 'mode') {
       editing = !!d.editing;
       docEl.classList.toggle('ib-edit', editing);
