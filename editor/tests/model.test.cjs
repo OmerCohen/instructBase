@@ -61,6 +61,34 @@ for (const f of decks) {
   });
 }
 
+test('every deck and the template keep the stage at 1280x720 (flex-shrink:0)', () => {
+  const files = decks.concat([path.join(ROOT, 'editor', 'templates', 'deck-template.html')]);
+  const bad = files.filter((f) => M.stageKeepsSize(fs.readFileSync(f, 'utf8')) !== true).map(rel);
+  assert.deepStrictEqual(bad, []);
+  const doc = M.parseUnits(fs.readFileSync(files[0], 'utf8'), 'deck');
+  assert.ok(!M.lintUnits(doc).some((x) => /flex-shrink/.test(x.msg)));
+});
+test('a deck made from a source without the stage fix gets it', () => {
+  const src = fs.readFileSync(decks[0], 'utf8').replace('flex-shrink:0;position:relative;', 'position:relative;');
+  assert.strictEqual(M.stageKeepsSize(src), false);
+  assert.ok(M.lintUnits(M.parseUnits(src, 'deck')).some((x) => /flex-shrink/.test(x.msg)), 'lint misses it');
+  const out = M.instantiateDeck(src, { title: 'בדיקה', footerLabel: 'בדיקה' });
+  assert.strictEqual(M.stageKeepsSize(out), true);
+});
+
+test('the service worker precaches every file the editor needs offline', () => {
+  const sw = fs.readFileSync(path.join(ROOT, 'editor', 'sw.js'), 'utf8');
+  const list = JSON.parse('[' + /const ASSETS = \[([\s\S]*?)\];/.exec(sw)[1].replace(/'/g, '"') + ']');
+  const need = ['index.html', 'manifest.webmanifest']
+    .concat(['css', 'js', 'icons', 'templates'].flatMap((d) => fs.readdirSync(path.join(ROOT, 'editor', d)).map((f) => d + '/' + f)));
+  const missing = need.filter((f) => list.indexOf('./' + f) < 0);
+  assert.deepStrictEqual(missing, [], 'add to ASSETS in editor/sw.js and bump VERSION');
+  const extra = list.filter((u) => u !== './' && !fs.existsSync(path.join(ROOT, 'editor', u)));
+  assert.deepStrictEqual(extra, []);
+  const man = JSON.parse(fs.readFileSync(path.join(ROOT, 'editor', 'manifest.webmanifest'), 'utf8'));
+  man.icons.forEach((ic) => assert.ok(fs.existsSync(path.join(ROOT, 'editor', ic.src)), ic.src));
+});
+
 test('slide operations: move, duplicate, delete, insert, then renumber', () => {
   const f = decks.find((p) => /01-layers-and-metrics-deck/.test(p));
   const src = fs.readFileSync(f, 'utf8');

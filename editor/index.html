@@ -4,7 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer">
+<!-- nothing outside the editor's own origin: no network, no external scripts, fonts or images -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; media-src 'self' data: blob:; connect-src 'self'; worker-src 'self' blob:; frame-src 'self' blob: data: about:; object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>עורך חומרי הדרכה</title>
+<meta name="theme-color" content="#050910">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="css/editor.css">
 </head>
 <body>
@@ -17,6 +22,7 @@
     <button type="button" id="btn-save" class="primary" title="שמירה (Ctrl+S). Ctrl+Shift+S שומר את כל המסמכים הפתוחים" disabled>שמירה</button>
     <button type="button" id="btn-zip" title="הורדת התיקייה כ-ZIP">ZIP</button>
     <button type="button" id="btn-open" title="פתיחת תיקייה אחרת">תיקייה…</button>
+    <button type="button" id="btn-install" hidden title="התקנת העורך כאפליקציה שעובדת גם בלי שרת ובלי רשת">התקנה</button>
     <label class="opt" title="לפני כל שמירה נשמר עותק של הקובץ הקודם ב-.editor-backups"><input type="checkbox" id="opt-backup"> גיבוי בשמירה</label>
   </div>
 </header>

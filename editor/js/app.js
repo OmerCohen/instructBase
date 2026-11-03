@@ -453,6 +453,7 @@
       h('div', { class: 'note ' + (supported ? '' : 'warn') }, supported
         ? 'בחרו את תיקיית השורש של המאגר (זו שיש בה index.html). הדפדפן יבקש אישור לקריאה ולכתיבה; השמירה נעשית ישירות בקבצים.'
         : 'הדפדפן הזה לא תומך בכתיבה לתיקייה מקומית (File System Access). אפשר לפתוח תיקייה לקריאה, לערוך, ולהוריד את הקבצים ששונו כ-ZIP. לשמירה ישירה פתחו את העורך ב-Chrome או ב-Edge.'),
+      location.protocol === 'file:' ? h('div', { class: 'note' }, h('b', null, 'נפתח מקובץ. '), 'העורך עובד כך במלואו, אבל אי אפשר להתקין אותו כאפליקציה. להתקנה (עבודה בלי שרת ובלי רשת, בחלון משלו) מפעילים את ', h('code', null, 'editor/serve.cmd'), ' ופותחים את הכתובת שהוא מציג; ההסבר ב-', h('code', null, 'editor/README.md'), '.') : null,
       h('div', { class: 'note' }, h('b', null, 'כדאי לדעת: '), 'העורך משנה רק את הקטע שערכתם. סקריפטים, סגנונות והדגמות חיות נשארים כמו שהם, ושמירה של קובץ שבו סקריפט לא עובר בדיקת תחביר נחסמת. ',
         'לפני כל שמירה נשמר עותק של הקובץ הקודם ב-', h('code', null, '.editor-backups/'), ' (עד 20 עותקים לקובץ).'));
   }
@@ -1276,7 +1277,24 @@
   /* ================================================================== */
   /* boot                                                                */
   /* ================================================================== */
+  /* PWA: the service worker and app install need a secure origin (https or
+     localhost). Opened as a file, the editor still works, but cannot install. */
+  var deferredInstall = null;
+  function isSecureOrigin() { return location.protocol === 'https:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname); }
+  function setupPwa() {
+    if (!('serviceWorker' in navigator) || !isSecureOrigin()) return;
+    navigator.serviceWorker.register('sw.js').catch(function (e) { if (window.console) console.warn('service worker:', e); });
+    var b = $('#btn-install');
+    window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); deferredInstall = e; b.hidden = false; });
+    window.addEventListener('appinstalled', function () { deferredInstall = null; b.hidden = true; toast('העורך הותקן כאפליקציה. מעכשיו אפשר לפתוח אותו מתפריט ההתחלה, גם בלי השרת המקומי.', 'ok', 9000); });
+    b.addEventListener('click', function () {
+      if (!deferredInstall) return;
+      deferredInstall.prompt();
+      deferredInstall.userChoice.then(function () { deferredInstall = null; b.hidden = true; });
+    });
+  }
   function boot() {
+    setupPwa();
     $('#btn-open').addEventListener('click', pickFolder);
     $('#btn-save').addEventListener('click', function () { saveDoc(activeDoc()); });
     $('#btn-undo').addEventListener('click', function () { undo(activeDoc()); });

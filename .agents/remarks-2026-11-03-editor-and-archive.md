@@ -184,11 +184,47 @@ Critical remarks / limits:
   main preview were removed; the modal title no longer carries the file name (tooltip instead), so
   the header fits in one row at ~1200 px.
 
+## Follow-up 3: stage fix in the set, and the editor as a PWA
+
+**Stage fix (approved by Omer).** `flex-shrink:0` added to the screen `.stage` rule in all 16 decks and in
+`editor/templates/deck-template.html`: one exact replacement per file, asserted to occur once, with
+every other byte and every `<script>` verified unchanged. Verification, with JavaScript off to isolate the
+CSS (scripts size some demo elements from the on-screen scale): every visible slide element in
+1093 px vs 1920 px windows. Before: almost all elements moved in every deck (e.g. 450/460 in n01).
+After: 0 in all 17 files. With scripts on, the stage is 1280x720 at 1093/1366/1920 in every deck,
+with no page errors. A first comparison reported false differences: hidden elements (`display:none` notes and
+footers) report the window corner, not a position inside the slide. They were excluded before trusting the
+result. Guard against regressions: lint warning in the editor, `instantiateDeck` adds the rule to decks made from
+older sources, model test over all decks + template, standing rule in `.agents/README.md`, and the
+convention line in `agents.md`. `archive/` was not touched (frozen).
+
+**PWA.** `editor/manifest.webmanifest`, `editor/sw.js` (precache + network-first with a 3 s timeout,
+limited to the editor's own scope; lesson files never pass through it), icons in house colours, an
+"התקנה" button (beforeinstallprompt), and a CSP on the editor page that allows nothing outside
+its own origin. The CSP also covers the preview and present windows, which inherit it. Tested: Chrome
+parses the manifest with no errors and reports no installability errors (apart from Playwright's
+incognito context); after one visit the editor loads with the network off; `fetch` to another origin is
+blocked; the full suite runs under the CSP with no violations. A test keeps the `ASSETS` list
+in `sw.js` in step with the files in `editor/`.
+
+Critical remarks:
+- Install and service worker need a secure origin (https or localhost). `file://` works but cannot
+  install. **Intranet IIS over plain http blocks both the install and the File System Access API**:
+  the editor would not open a folder there at all. Options: https on IIS, or `editor/serve.cmd` per machine.
+- **`editor/serve.ps1` has not been executed.** There is no PowerShell in this cloud environment, and
+  downloading it was blocked by the session's permission policy. It uses only `HttpListener` on
+  `http://localhost:8765/`, serves only `editor/`, blocks path traversal, sends correct MIME types and
+  `no-cache`. Omer should run it once on a Windows machine before relying on it. The Python alternative in
+  the README is standard `http.server`.
+- The installed app's origin is the exact URL (`http://localhost:8765`): folder permission, the stored
+  folder handle and the cache all belong to it. Changing port or host means a separate app.
+
 ## Tests
 
 - `node editor/tests/model.test.cjs`: 92 tests over the real files (round trips, renumber no-op,
   field set/get identity, slide operations, index regeneration, templates, lint baseline).
-- `node editor/tests/e2e.cjs`: 34 tests in headless Chromium (6 regressions from the review, 8 for the slide modal). The repo is copied into the Origin Private
+- `node editor/tests/e2e.cjs`: 36 tests in headless Chromium (6 regressions from the review, 8 for the slide modal, PWA offline + CSP).
+- Model tests now 95 (stage rule in every deck, auto-fix for new decks, service-worker precache list). The repo is copied into the Origin Private
   File System, whose directory handle has the same API as a picked folder, so the real save path runs.
   Covers visual edit, LTR/bold, side panel, layouts, move, refused runtime text, raw HTML validation,
   undo/redo, save + backup, blocked save on a broken script, heavy decks (r06/n08/d01), sandboxed present

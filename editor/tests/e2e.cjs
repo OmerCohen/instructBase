@@ -33,7 +33,7 @@ function serve() {
       const p = path.join(ROOT, decodeURIComponent(req.url.split('?')[0]));
       if (!p.startsWith(ROOT) || !fs.existsSync(p) || fs.statSync(p).isDirectory()) { res.writeHead(404); res.end(); return; }
       const ext = path.extname(p);
-      res.writeHead(200, { 'content-type': { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.pdf': 'application/pdf' }[ext] || 'application/octet-stream' });
+      res.writeHead(200, { 'content-type': { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.pdf': 'application/pdf', '.webmanifest': 'application/manifest+json', '.svg': 'image/svg+xml', '.png': 'image/png' }[ext] || 'application/octet-stream' });
       fs.createReadStream(p).pipe(res);
     });
     srv.listen(0, '127.0.0.1', () => resolve(srv));
@@ -620,7 +620,37 @@ async function step(name, fn) {
     assert.strictEqual(after.replace('<div class="note amber"><h3>כותרת</h3><p>טקסט. נוסף</p></div>', ''), before, 'other bytes changed');
   });
 
-  const relevant = errors.filter((e) => !/favicon|Failed to load resource/.test(e));
+  /* ---- PWA: installable, and the editor starts with no network after one visit ---- */
+  await step('PWA: manifest parses, no installability errors, editor loads offline from its cache', async () => {
+    const ctx = await browser.newContext();
+    const p = await ctx.newPage();
+    const pe = [];
+    p.on('pageerror', (e) => pe.push(e.message));
+    await p.goto(base + '/editor/index.html');
+    await p.evaluate(() => navigator.serviceWorker.ready);
+    const cdp = await ctx.newCDPSession(p);
+    const man = await cdp.send('Page.getAppManifest');
+    assert.deepStrictEqual(man.errors, [], JSON.stringify(man.errors));
+    assert.ok(/"short_name": "עורך הדרכה"/.test(man.data));
+    const inst = await cdp.send('Page.getInstallabilityErrors');
+    const real = inst.installabilityErrors.map((e) => e.errorId).filter((id) => id !== 'in-incognito');   // Playwright contexts are incognito
+    assert.deepStrictEqual(real, []);
+    await p.reload();
+    assert.ok(await p.evaluate(() => !!navigator.serviceWorker.controller), 'page not controlled by the service worker');
+    await ctx.setOffline(true);
+    await p.reload();
+    await p.waitForSelector('.welcome');
+    assert.deepStrictEqual(await p.evaluate(() => [typeof window.IBApp, typeof window.IBSlideEditor, typeof window.IBZip]), ['object', 'object', 'object']);
+    assert.ok(await p.evaluate(() => getComputedStyle(document.querySelector('.topbar')).display === 'flex'), 'stylesheet missing offline');
+    assert.deepStrictEqual(pe, []);
+    await ctx.close();
+  });
+  await step('CSP: the editor cannot reach any other origin', async () => {
+    const r = await page.evaluate(async () => { try { await fetch('https://example.com/'); return 'reached'; } catch (e) { return 'blocked'; } });
+    assert.strictEqual(r, 'blocked');
+  });
+
+  const relevant = errors.filter((e) => !/favicon|Failed to load resource|example\.com/.test(e));
   await step('no page errors', async () => { assert.deepStrictEqual(relevant, [], relevant.join('\n')); });
 
   console.log('\n' + passed + ' passed, ' + failed + ' failed');
