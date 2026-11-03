@@ -1,0 +1,550 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>כלי תחקור ב-Windows</title><style>
+@page{size:A4;margin:52pt 54pt 46pt 54pt;
+  @bottom-right{content:"מחלקת תקשוב · כלי תחקור · שיעור 4";
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:right;vertical-align:top;padding-top:10pt;direction:rtl}
+  @bottom-left{content:counter(page) " / " counter(pages);
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:left;vertical-align:top;padding-top:10pt;direction:ltr}}
+@page:first{@bottom-right{content:""}@bottom-left{content:""}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Liberation Sans",Arial,sans-serif;color:#1b2a38;font-size:10pt;line-height:1.55;direction:rtl}
+.pg{page-break-after:always}
+.pg:last-child{page-break-after:auto}
+.eyebrow{font-size:9pt;font-weight:bold;color:#0f2740;margin-bottom:9pt}
+h1{font-size:20pt;font-weight:bold;margin:0 0 14pt;color:#0f2740;line-height:1.24;text-align:center}
+h2{font-size:13pt;margin:16pt 0 8pt;color:#0f2740;font-weight:bold}
+.rule{border:0;border-top:1px solid #dbe3ea;margin:0 0 16pt}
+p{margin:0 0 7pt}
+ul{margin:0 0 7pt;padding-right:15pt}
+li{margin-bottom:4pt}
+
+/* stat chips */
+.chips{display:flex;gap:11pt;margin:0 0 16pt}
+.chip{flex:1;background:#0f2740;border-radius:6pt;padding:11pt 8pt;text-align:center}
+.chip b{display:block;font-size:14pt;color:#3fd0e0;line-height:1.15}
+.chip span{display:block;font-size:8.5pt;color:#b6c6d4;margin-top:3pt}
+
+/* two rounded cards with a coloured inner edge */
+.cards{display:flex;gap:11pt;margin:0 0 14pt}
+.cards.three>*{flex:1}
+.cards>*{flex:1;min-width:0}
+.pc{border-radius:7pt;padding:10pt 13pt;position:relative;overflow:hidden}
+.pc::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.pc h3{margin:0 0 5pt;font-size:10pt;font-weight:bold}
+.pc p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.pc p:last-child{margin-bottom:0}
+.pc.teal{background:#e9f4f7}.pc.teal::after{background:#0f8793}.pc.teal h3{color:#0f6f7a}
+.pc.amber{background:#fdf4e6}.pc.amber::after{background:#e0a038}.pc.amber h3{color:#a8701a}
+.pc.red{background:#fdeef0}.pc.red::after{background:#d9556a}.pc.red h3{color:#a83a4c}
+.pc.green{background:#eef7f0}.pc.green::after{background:#4a9c62}.pc.green h3{color:#2f7546}
+
+/* full-width note block, same visual family */
+.note{border-radius:7pt;padding:9pt 13pt;margin:0 0 10pt;position:relative;overflow:hidden}
+.note::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.note h3{margin:0 0 4pt;font-size:9pt;font-weight:bold;letter-spacing:.02em}
+.note p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.note p:last-child{margin-bottom:0}
+.note.teal{background:#e9f4f7}.note.teal::after{background:#0f8793}.note.teal h3{color:#0f6f7a}
+.note.amber{background:#fdf4e6}.note.amber::after{background:#e0a038}.note.amber h3{color:#a8701a}
+.note.red{background:#fdeef0}.note.red::after{background:#d9556a}.note.red h3{color:#a83a4c}
+.note.green{background:#eef7f0}.note.green::after{background:#4a9c62}.note.green h3{color:#2f7546}
+
+/* dark headline band (used for the formula / the one-line rule of a page) */
+.band{background:#0f2740;border-radius:8pt;padding:14pt 18pt;margin:0 0 14pt;text-align:center;
+  color:#3fd0e0;font-size:16pt;font-weight:bold}
+.band.sm{font-size:12.5pt;padding:11pt 16pt}
+.band .w{color:#fff}
+
+table{width:100%;border-collapse:collapse;font-size:9pt;margin:0 0 11pt}
+th,td{border:1px solid #dbe3ea;padding:5pt 8pt;text-align:right;vertical-align:top}
+th{background:#eef4f8;color:#0f6f7a;font-weight:bold}
+td.k{font-weight:bold;color:#0f2740}
+td.n,th.n{text-align:center;width:52pt;white-space:nowrap;direction:ltr;unicode-bidi:embed}
+.ltr{direction:ltr;unicode-bidi:embed;display:inline-block}
+
+.title-pg{height:660pt;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.title-pg .kick{font-size:10pt;color:#0f8793;font-weight:bold;margin-bottom:20pt}
+.title-pg h1{font-size:27pt;margin-bottom:12pt}
+.title-pg .sub{font-size:12pt;color:#5b7186;margin:0 auto 26pt;max-width:400pt;line-height:1.55}
+.title-pg .meta{font-size:9.5pt;color:#5b7186}
+</style></head><body>
+
+<!-- שער -->
+<div class="pg title-pg">
+  <div class="kick">מחלקת תקשוב · רשתות · מדריך למעביר השיעור</div>
+  <h1>כלי תחקור ב-Windows</h1>
+  <div class="sub">הסבר מלא לכל שקופית: מה כל פקודה בודקת, איך קוראים את הפלט שלה, מה התוצאה עדיין לא מוכיחה, ואיך מעבירים את ההדגמות ואת סימולטור התחקור.</div>
+  <div class="chips" style="width:400pt;margin:0 auto">
+    <div class="chip"><b>16</b><span>שקופיות</span></div>
+    <div class="chip"><b>כ-70 דקות</b><span>משך מומלץ</span></div>
+    <div class="chip"><b>6 שלבים</b><span>בסימולטור התחקור</span></div>
+  </div>
+  <div class="meta" style="margin-top:20pt">לטכנאי שטח בסביבת Windows מנוהלת · כלים מובנים בלבד, בלי שינוי הגדרות</div>
+</div>
+
+<!-- הכנה -->
+<div class="pg">
+  <div class="eyebrow">00 · לפני השיעור</div>
+  <h1>מטרה, הכנה וחלוקת זמן</h1><hr class="rule">
+  <h2>למי המדריך הזה</h2>
+  <p>המדריך כתוב למי שמעביר את השיעור, גם אם הוא לא עובד עם הכלים האלה כל יום. לכל שקופית יש הסבר רחב יותר ממה שמופיע על המסך: מה הפקודה עושה בפועל, אילו שדות בפלט חשובים, ואיפה טכנאים נוטים להסיק יותר ממה שהפלט מראה. לא צריך להקריא את הרקע. קחו ממנו את מה שמתאים לקבוצה, והשאירו את השאר לשאלות.</p>
+
+  <h2>מטרת השיעור</h2>
+  <p>שהטכנאי יבחר כלי לפי השאלה שעדיין פתוחה, ויקרא נכון את הפלט. בסוף השיעור חניך אמור לדעת, מול תקלת רשת או כניסה בתחנת Windows, איזו פקודה עונה על כל שאלה (יש Link? יש כתובת נכונה? יש שכן? יש דרך? השם נפתר? השירות מקבל חיבור? התחנה מוכרת בדומיין?), להצביע בפלט על השדה שעונה עליה, ולהגיד מה התוצאה עדיין לא מוכיחה.</p>
+
+  <h2>הכנה</h2>
+  <ul>
+    <li>פתחו את המצגת ב-Chrome או ב-Edge במחשב שמחובר למקרן, ועברו על כל השקופיות. המצגת לא צריכה חיבור לרשת.</li>
+    <li>הניווט: חצים, רווח או <span class="ltr">PageUp/PageDown</span>. <span class="ltr">Home</span> ו-<span class="ltr">End</span> קופצים לשקופית הראשונה והאחרונה. <span class="ltr">N</span> פותח את הערות המדריך, <span class="ltr">F</span> מסך מלא, <span class="ltr">A</span> מכבה ומדליק אנימציות (כשהן כבויות מופיע תג ״אנימציות כבויות״).</li>
+    <li>בשקופיות 4 ו-7 יש שדות הקלדה. הקלדה בשדה לא מעבירה שקופית, ו-<span class="ltr">Esc</span> יוצא מהשדה כדי שהחצים יעבדו שוב. בשקופיות 2, 13 ו-14 עובדים בלחיצות עכבר. כשהפוקוס על כפתור, רווח וחצים עדיין מעבירים שקופית, ולכן לא לוחצים רווח כדי להפעיל כפתור.</li>
+    <li>מספרי השקופיות במדריך הם המספרים שבמונה בתחתית המסך (״<span class="ltr">2 / 16</span>״). המספר הקטן שליד הכותרת בכל שקופית נמוך באחד, כי שקופית השער לא ממוספרת.</li>
+    <li>ודאו שהפקודות זמינות בגרסת Windows של התחנה שבה תשתמשו. ב-Windows 10 ו-11 כל הפקודות בשיעור מובנות. הכירו את החלון הגרפי המקביל לכל cmdlet של PowerShell, למקרה שהוא חסר בתחנה ישנה.</li>
+    <li>אם אתם רוצים להראות פלט אמיתי ליד השקופיות, הכינו תחנת תרגול והשתמשו בכתובות ובשמות לדוגמה, בלי נתונים רגישים. פלט של תחנה אמיתית מציג כתובות, שמות שרתים ושמות משתמשים.</li>
+  </ul>
+  <div class="note amber"><h3>היקף השיעור</h3>
+    <p>עובדים רק בכלים המובנים ב-Windows, ומכל פלט קוראים את השדה שעונה על השאלה. הגדרות מערכת לא משנים בשיעור: לא משחררים כתובת, לא מוחקים מטמון, לא מצרפים תחנה לדומיין. תיקון ערוץ אמון, שמופיע בסיכום הסימולטור, דורש הרשאות דומיין ונעשה בידי הגורם המוסמך לפי נוהל היחידה. השיעור גם לא נכנס ל-UDP ולא למצבי TCP מעבר ל-LISTENING ו-ESTABLISHED.</p>
+  </div>
+
+  <h2>חלוקת זמן מוצעת</h2>
+  <table>
+    <tr><th>חלק</th><th>שקופיות</th><th>מה מעבירים</th><th class="n">דקות</th></tr>
+    <tr><td class="k">פתיחה</td><td class="n"><span class="ltr">1-2</span></td><td>בחירת כלי לפי שאלה</td><td class="n">6</td></tr>
+    <tr><td class="k">מתאם וכתובת</td><td class="n"><span class="ltr">3-4</span></td><td>Get-NetAdapter ו-ipconfig, עם הדגמת ההשוואה לתכנון</td><td class="n">12</td></tr>
+    <tr><td class="k">שכנות ומסלול</td><td class="n"><span class="ltr">5-7</span></td><td><span class="ltr">ping</span>, <span class="ltr">arp</span>, <span class="ltr">route</span> ו-tracert, עם הדגמת טבלת הניתוב</td><td class="n">14</td></tr>
+    <tr><td class="k">שם ופורט</td><td class="n"><span class="ltr">8-9</span></td><td>Resolve-DnsName ו-Test-NetConnection</td><td class="n">10</td></tr>
+    <tr><td class="k">מצב חיבורים</td><td class="n">10</td><td>netstat / Get-NetTCPConnection</td><td class="n">6</td></tr>
+    <tr><td class="k">Domain ואמון</td><td class="n"><span class="ltr">11-12</span></td><td><span class="ltr">w32tm</span>, <span class="ltr">nltest</span>, <span class="ltr">klist</span>, תעודות ואירועים</td><td class="n">4</td></tr>
+    <tr><td class="k">סימולטור</td><td class="n">13</td><td>סימולטור התחקור</td><td class="n">8</td></tr>
+    <tr><td class="k">תרגול</td><td class="n">14</td><td>קריאת פלט</td><td class="n">5</td></tr>
+    <tr><td class="k">מגבלות</td><td class="n">15</td><td>מה הסימולטור וההדגמות מפשטים</td><td class="n">2</td></tr>
+    <tr><td class="k">סגירה</td><td class="n">16</td><td>שרשרת ראיות</td><td class="n">3</td></tr>
+  </table>
+  <p>סך הכול 70 דקות. הפתיחה החיה בשקופית 2 לוקחת דקה, כל אחת מההדגמות בשקופיות 4 ו-7 שתי דקות, התרגול בשקופית 14 חמש דקות והמגבלות בשקופית 15 שתיים. לסימולטור יש שמונה דקות נפרדות משקופיות 11 ו-12, כי כשנותנים לכיתה לבחור בכל שלב צריך את כל הזמן הזה.</p>
+  <p>אם יש רק 55 דקות, אלה המקומות לקצר: עצרו בסימולטור אחרי שלב 4 ובקשו מהחניכים להציע את הבדיקות שנשארו; בשקופית 14 העבירו רק את שאלה 1; בשקופיות 4 ו-7 הראו רק את מצב ברירת המחדל; וקצרו את שקופיות 10 ו-12. את שקופית 15 עדיף לא לדלג, היא לוקחת דקה או שתיים.</p>
+  <div class="note teal"><h3>שאלה לפתיחה</h3>
+    <p>איזו פקודה עונה על השאלה ״האם Windows רואה Link״? (Get-NetAdapter, שקופית 3). שאלו אותה לפני שמראים את שקופית 2, ואחר כך לחצו בשקופית על השאלה הראשונה ובדקו את התשובות.</p>
+  </div>
+</div>
+
+<!-- 1-2 -->
+<div class="pg">
+  <div class="eyebrow">01 · שקופיות <span class="ltr">1-2</span></div>
+  <h1>פתיחה: כלי לכל שאלה</h1><hr class="rule">
+
+  <h2>שקופית 1 · כלי Windows: מה בודקים בכל פקודה</h2>
+  <p>בשער מופיעה רשימת השאלות של השיעור: Link, כתובת, שכנות, מסלול, DNS, שירות, Domain ואמון. לאורך כל השיעור, בכל כלי מראים את השדה שעונה על השאלה ואומרים מה התוצאה עדיין לא מוכיחה. את רשימת הפקודות לא צריך לשנן: טכנאי שזוכר איזו שאלה כל פקודה עונה עליה ימצא את התחביר בעזרה (<span class="ltr">Get-Help</span> או <span class="ltr">/?</span>).</p>
+  <p>מהלך השיעור: שקופית 2 פותחת בבחירת כלי לפי שאלה, שקופיות 3 עד 12 עוברות על הכלים לפי סדר התלות, ואחריהן סימולטור התחקור (13), תרגול בקריאת פלט (14), מגבלות ההדגמות (15) ושרשרת הראיות (16). בשקופיות 2, 4, 7 ו-14 אפשר ללחוץ ולהקליד.</p>
+
+  <h2>שקופית 2 · איזה כלי עונה על איזו שאלה</h2>
+  <p><strong>על המסך:</strong> מימין רשימת שאלות אבחון לפי סדר התלות: Link, כתובת, שער, שכן, מסלול, שם, שירות, האזנה בשרת, שעון, בקר דומיין וכרטיס Kerberos. לחיצה על שאלה מציגה משמאל את שם הכלי, את מספר השקופית שבה הוא נלמד, פלט קצר של הפקודה שבו השורה שעונה על השאלה מסומנת בצהוב, ומתחת שתי שורות: ״קוראים״, מה רואים בשורה המסומנת, ו״עוד לא הוכח״, מה הפלט הזה לא מוכיח. כותרת המשנה: בוחרים שאלה ורואים איזו פקודה עונה עליה, באיזו שורה בפלט מסתכלים ומה התשובה עוד לא מוכיחה.</p>
+  <p><strong>רקע.</strong> הסדר ברשימה הוא סדר התלות. בלי Link אין כתובת. לשער מגיעים רק עם כתובת ומסכה נכונות, ואחר כך התחנה צריכה למצוא את ה-MAC של השער. לשרת ברשת אחרת צריך גם מסלול, ולפנייה לשרת בשם צריך DNS. רק אחרי כל אלה יש טעם לבדוק אם השירות מקבל חיבור, ובסוף אם התחנה והמשתמש מוכרים בדומיין. כל כלי בודק חוליה אחת, ותוצאה תקינה בחוליה אחת לא אומרת כלום על החוליות שאחריה.</p>
+  <p>את הבדיקה הבאה בוחרים לפי מה שהכלי הקודם הראה, ושאר הבדיקות עדיין נדרשות. לא מריצים את כל הפקודות בכל תקלה, וגם לא קופצים ישר לסוף. אם המשתמש מתלונן שאתר פנימי לא נפתח אבל שאר הרשת עובדת, אין טעם להתחיל מ-Get-NetAdapter. מתחילים מהשם ומהשירות. אם התחנה לא מגיעה לשום דבר, מתחילים מה-Link. מריצים את הכלי שעונה על השאלה הפתוחה ומשווים את התוצאה לצפוי.</p>
+  <p><strong>ההדגמה.</strong> השקופית נפתחת על השאלה ״השירות בשרת מקבל חיבור בפורט שלו?״: הכלי Test-NetConnection (שקופית 9), הפקודה <span class="ltr">Test-NetConnection server.unit -Port 443</span>, והשורה המסומנת <span class="ltr">TcpTestSucceeded : True</span>. בשורה ״קוראים״ כתוב שחיבור TCP לפורט 443 נפתח ושהשם תורגם ל-<span class="ltr">10.20.40.25</span>, ובשורה ״עוד לא הוכח״ שהפלט לא מוכיח שהיישום מחזיר תוכן תקין, שהתעודה תקינה או שהמשתמש מורשה. ברירת המחדל היא השאלה הזו, כי הטעות הנפוצה כאן היא לענות על שאלת השירות ב-ping. לפני כל לחיצה שאלו את הכיתה איזו פקודה תענה, ורק אז לחצו.</p>
+  <p>כל הפלטים בשקופית שייכים לאותה רשת לדוגמה שמופיעה בשקופיות <span class="ltr">3-10</span>: התחנה <span class="ltr">10.20.30.15</span>, השער <span class="ltr">10.20.30.1</span>, שרת ה-DNS <span class="ltr">10.20.10.10</span> והשרת <span class="ltr">server.unit</span> בכתובת <span class="ltr">10.20.40.25</span>. בשאלות על השעון ועל בקר הדומיין הבקר הוא <span class="ltr">dc01.unit.local</span>. הסימולטור בשקופית 13 משתמש ברשת אחרת (<span class="ltr">10.20.4.x</span>), ושווה לומר את זה כשמגיעים אליו.</p>
+  <table>
+    <tr><th>שאלה</th><th>פקודה</th><th>השורה המסומנת</th><th class="n">שקופית</th></tr>
+    <tr><td class="k">יש <span class="ltr">Link</span> לכרטיס הרשת?</td><td><span class="ltr">Get-NetAdapter</span></td><td><span class="ltr">Status : Up, LinkSpeed : 1 Gbps</span></td><td class="n">3</td></tr>
+    <tr><td class="k">הכתובת, המסכה, השער וה-DNS לפי התכנון?</td><td><span class="ltr">ipconfig /all</span></td><td><span class="ltr">IPv4 Address, Subnet Mask, Default Gateway, DNS Servers</span></td><td class="n">4</td></tr>
+    <tr><td class="k">השער עונה?</td><td><span class="ltr">ping 10.20.30.1</span></td><td><span class="ltr">Reply from 10.20.30.1</span></td><td class="n">5</td></tr>
+    <tr><td class="k">איזה MAC עונה על הכתובת של השער?</td><td><span class="ltr">arp -a</span></td><td><span class="ltr">10.20.30.1 00-15-5d-01-02-03 dynamic</span></td><td class="n">6</td></tr>
+    <tr><td class="k">לאיזה שער תצא תעבורה לשרת ברשת אחרת?</td><td><span class="ltr">route print -4</span></td><td><span class="ltr">10.20.40.0 255.255.255.0 10.20.30.2</span></td><td class="n">7</td></tr>
+    <tr><td class="k">שם השרת מתורגם לכתובת הנכונה?</td><td><span class="ltr">Resolve-DnsName server.unit</span></td><td><span class="ltr">server.unit A 300 Answer 10.20.40.25</span></td><td class="n">8</td></tr>
+    <tr><td class="k">השירות בשרת מקבל חיבור בפורט שלו?</td><td><span class="ltr">Test-NetConnection server.unit -Port 443</span></td><td><span class="ltr">TcpTestSucceeded : True</span></td><td class="n">9</td></tr>
+    <tr><td class="k">השירות מאזין בשרת עצמו?</td><td><span class="ltr">netstat -ano | findstr :443</span></td><td><span class="ltr">0.0.0.0:443 LISTENING</span></td><td class="n">10</td></tr>
+    <tr><td class="k">השעון של התחנה מסונכרן מול ה-DC?</td><td><span class="ltr">w32tm /query /status</span></td><td><span class="ltr">Last Successful Sync Time, Source: dc01.unit.local</span></td><td class="n">11</td></tr>
+    <tr><td class="k">התחנה מוצאת בקר דומיין?</td><td><span class="ltr">nltest /dsgetdc:unit.local</span></td><td><span class="ltr">DC: \\dc01.unit.local</span></td><td class="n">11</td></tr>
+    <tr><td class="k">יש למשתמש כרטיס <span class="ltr">Kerberos</span> בתוקף?</td><td><span class="ltr">klist</span></td><td><span class="ltr">Server: krbtgt/UNIT.LOCAL, End Time</span></td><td class="n">11</td></tr>
+  </table>
+  <p><strong>איך להעביר.</strong> לא צריך לעבור על כל השאלות בפתיחה. כמה שאלות מספיקות כדי שהחניכים יבינו את השיטה: שאלה, כלי, שורה בפלט, ומה עוד פתוח. כל שאלה חוזרת בשקופית שרשומה ליד שם הכלי, ושם מרחיבים.</p>
+  <p>ברשימה לא מופיעים Certificate Viewer ו-Event Viewer (שקופית 12), כי אלה חלונות גרפיים ולא פקודה עם פלט. הם שייכים לשאלת האמון.</p>
+  <table>
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">למה לא להריץ את כל הפקודות כל פעם, ליתר ביטחון?</td><td>כי פלט שלא מחפשים בו תשובה לשאלה מסוימת לא עוזר לאבחון ורק מבלבל. מי שמריץ עשר פקודות בלי שאלה נוטה להיתפס בשורה שנראית חשודה ולא קשורה לתקלה.</td></tr>
+  </table>
+</div>
+
+<!-- 3-4 -->
+<div class="pg">
+  <div class="eyebrow">02 · שקופיות <span class="ltr">3-4</span></div>
+  <h1>המתאם והזהות המקומית</h1><hr class="rule">
+
+  <h2>שקופית 3 · Get-NetAdapter מראה אם Windows מזהה מתאם, Link וקצב קישור</h2>
+  <p><strong>על המסך:</strong> פלט מקוצר של Get-NetAdapter עם שני מתאמים: <span class="ltr">Ethernet0</span> במצב Up בקצב <span class="ltr">1 Gbps</span>, ו-<span class="ltr">Ethernet1</span> במצב Disconnected. מתחת: הפלט מתאר רק את המתאם בתחנה, והרשת שמעבר לכבל לא נבדקת.</p>
+  <p><strong>רקע.</strong> Get-NetAdapter הוא cmdlet של PowerShell שמציג את מתאמי הרשת ש-Windows מכיר. בפלט האמיתי העמודות הן <span class="ltr">Name</span>, <span class="ltr">InterfaceDescription</span> (שם הדגם והיצרן), <span class="ltr">ifIndex</span>, <span class="ltr">Status</span>, <span class="ltr">MacAddress</span> ו-LinkSpeed. בשקופית הוצגו רק ארבע מהן.</p>
+  <ul>
+    <li><strong>Status</strong> הוא מצב הקישור. Up אומר שהכרטיס מזהה אות חשמלי או אופטי מהצד השני וסיכם איתו קצב. Disconnected אומר שאין Link: כבל מנותק, כבל פגום, יציאה כבויה במתג. Disabled אומר שמישהו השבית את המתאם ב-Windows. Not Present מופיע כשהמתאם הוגדר אבל החומרה לא נמצאת.</li>
+    <li><strong>LinkSpeed</strong> הוא הקצב שסוכם מול המתג. קצב נמוך מהצפוי הוא ממצא: כרטיס ומתג של <span class="ltr">1 Gbps</span> שסיכמו על <span class="ltr">100 Mbps</span> מצביעים לרוב על כבל או מחבר. קישור של <span class="ltr">1 Gbps</span> בנחושת משתמש בכל ארבעת זוגות הכבל, וכשזוג אחד פגום הכרטיסים יכולים לרדת ל-<span class="ltr">100 Mbps</span>, שמסתפק בשני זוגות.</li>
+    <li><strong>MacAddress</strong> הוא הכתובת הפיזית של הכרטיס. נשתמש בה בשקופית 6 כשמשווים לטבלת ARP של תחנה אחרת, או לטבלת הכתובות במתג.</li>
+  </ul>
+  <p>כותרת המשנה היא העיקר: בלי Up אין טעם להמשיך, אבל Up לא מוכיח שהיציאה במתג משויכת ל-VLAN הנכון, שהכתובת נכונה או שיש מסלול. כבל תקין ליציאה ב-VLAN הלא נכון נותן Up מושלם, ותחנה שלא מגיעה לשום דבר.</p>
+  <p><strong>מתאמים וירטואליים.</strong> בתחנה יכולים להופיע מתאמים שאינם כרטיס פיזי: מתאם VPN, מתאם וירטואלי של Hyper-V או של תוכנת מכונות וירטואליות, מתאם Bluetooth. חלקם מופיעים במצב Up גם בלי שום כבל. לפני שמסיקים משהו, בודקים שמסתכלים על המתאם שהתחנה באמת משתמשת בו. <span class="ltr">Get-NetAdapter -Physical</span> מציג רק מתאמים פיזיים, ושדה InterfaceDescription עוזר לזהות איזה מהם הוא כרטיס הרשת שמחובר לשקע.</p>
+  <p><strong>החלופה הגרפית.</strong> אם הכלי לא זמין בגרסת PowerShell המקומית, בודקים את אותם שדות בחלון Network Connections (<span class="ltr">ncpa.cpl</span>). שם רואים את המתאמים ואת המצב שלהם, ובחלון Status של מתאם רואים את הקצב (Speed). ב-Windows 10 ו-11 הכלי קיים תמיד. החלופה רלוונטית בעיקר לתחנות ישנות.</p>
+  <table>
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">יש Up אבל אין רשת. מה הלאה?</td><td>הכתובת (שקופית 4) והשער (שקופיות 5 ו-6). אם הכתובת היא <span class="ltr">169.254.x.x</span> בתחנה שאמורה לקבל DHCP, התחנה לא קיבלה תשובה משרת DHCP, ובדרך כלל זה מצביע על VLAN או על היציאה במתג.</td></tr>
+  </table>
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>לראות Up ולסמן ״הרשת תקינה״. Up אומר רק שיש קישור פיזי בין הכרטיס ליציאה במתג. הוא לא מוכיח <span class="ltr">VLAN</span>, <span class="ltr">IP</span> או דרך. טעות שנייה: לבדוק את המתאם הלא נכון, למשל מתאם וירטואלי שנמצא תמיד ב-Up.</p>
+  </div>
+
+  <h2>שקופית 4 · <span class="ltr">ipconfig /all</span> מציג את הזהות המקומית של התחנה ברשת</h2>
+  <p><strong>על המסך:</strong> מימין טבלה בצורת הפלט של <span class="ltr">ipconfig /all</span> למתאם Ethernet0, עם חמישה שדות: <span class="ltr">DHCP Enabled</span>, <span class="ltr">IPv4 Address</span>, <span class="ltr">Subnet Mask</span>, <span class="ltr">Default Gateway</span> ו-<span class="ltr">DNS Servers</span>. לכל שדה יש ערך שאפשר לערוך, הערך שבתכנון (<span class="ltr">No</span>, <span class="ltr">10.20.30.15</span>, <span class="ltr">255.255.255.0</span>, <span class="ltr">10.20.30.1</span>, <span class="ltr">10.20.10.10</span>) וסימן ירוק או אדום לפי ההתאמה. מעל הטבלה כפתורי מצבים: ״לפי התכנון״, ״מסכה רחבה״, ״Gateway שגוי״, ״DNS אחר״ ו-APIPA. מתחת לטבלה מחושבת הרשת המקומית שהכתובת והמסכה מגדירות. משמאל: לאן התחנה תשלח תעבורה לשער, לשרת ה-DNS, לשרת <span class="ltr">server.unit</span> (<span class="ltr">10.20.40.25</span>) ולתחנה שכנה (<span class="ltr">10.20.30.80</span>), ומתחת רשימת ממצאים.</p>
+  <p><strong>רקע.</strong> <span class="ltr">ipconfig</span> בלי פרמטרים מציג רק כתובת, מסכה ושער. עם <span class="ltr">/all</span> הוא מציג לכל מתאם גם את שם המתאם והדגם (Description), את הכתובת הפיזית (Physical Address), אם הכתובת מגיעה מ-DHCP (DHCP Enabled), את שרתי ה-DNS, ובראש הפלט את שם התחנה (Host Name) ואת סיומת הדומיין (Primary Dns Suffix). כשהכתובת מגיעה מ-DHCP מופיעים גם שרת ה-DHCP ומועדי החכירה.</p>
+  <p>כל שדה עונה על שאלה אחרת, וכל אחד יכול להיות שגוי בלי שהאחרים ייראו חשודים:</p>
+  <ul>
+    <li><strong>IPv4 Address.</strong> ליד הכתובת כתוב <span class="ltr">(Preferred)</span> כשהכל תקין. <span class="ltr">(Duplicate)</span> אומר ש-Windows זיהה תחנה אחרת עם אותה כתובת. כתובת <span class="ltr">169.254.x.x</span> היא כתובת ש-Windows נתן לעצמו כשלא קיבל תשובה מ-DHCP.</li>
+    <li><strong>Subnet Mask.</strong> המסכה קובעת אילו כתובות התחנה מחשיבה ״מקומיות״ ושולחת אליהן ישירות, ואילו היא שולחת לשער. מסכה רחבה מדי (למשל <span class="ltr">255.255.0.0</span> במקום <span class="ltr">255.255.255.0</span>) גורמת לתחנה לחשוב ששרת ברשת אחרת נמצא לידה. היא מחפשת אותו ב-ARP במקום לשלוח לשער, ואף אחד לא עונה. כל השאר נראה תקין.</li>
+    <li><strong>Default Gateway.</strong> לאן נשלחת כל תעבורה ליעד שאינו מקומי. שער שגוי, או שער שלא נמצא בתוך הרשת שהמסכה מגדירה, משאיר את התחנה מחוברת רק לרשת המקומית.</li>
+    <li><strong>DNS Servers.</strong> את מי התחנה שואלת על שמות. בתחנה בדומיין זה צריך להיות שרת DNS של הדומיין. תחנה שמצביעה על שרת DNS אחר תפתור אולי שמות כלליים, אבל לא תמצא את בקר הדומיין. אם רשומים כמה שרתים, השני נשאל רק כשהראשון לא עונה בכלל. אם הראשון עונה ״אין שם כזה״, התחנה לא ממשיכה לשני.</li>
+    <li><strong>DHCP Enabled.</strong> בסביבה סטטית הערך צריך להיות No. Yes בתחנה שאמורה להיות סטטית אומר שמישהו שינה את ההגדרה, והכתובת עלולה להשתנות.</li>
+  </ul>
+  <p><strong>ההדגמה.</strong> השקופית נפתחת במצב ״מסכה רחבה״: <span class="ltr">255.255.0.0</span> במקום <span class="ltr">255.255.255.0</span>, וכל שאר השדות לפי התכנון. רק בשורת Subnet Mask מופיע סימן אדום. הרשת המקומית מחושבת כ-<span class="ltr">10.20.0.0/16</span>, כתובות <span class="ltr">10.20.0.1</span> עד <span class="ltr">10.20.255.254</span>. משמאל רואים את התוצאה: שרת ה-DNS <span class="ltr">10.20.10.10</span> והשרת <span class="ltr">10.20.40.25</span> מסומנים ״ישירות ברשת המקומית, ב-ARP״, ובסוגריים ״בתכנון: דרך ה-Gateway <span class="ltr">10.20.30.1</span>״. הממצא אומר שהתחנה מחפשת את השרתים האלה ב-ARP ולא מקבלת תשובה, ושבתוך הרשת המקומית הכול נראה תקין. זה בדיוק התסמין שהטכנאי פוגש: התחנה רואה את השכנים שלה ואת השער, ולא מגיעה לשום שרת ברשת אחרת.</p>
+  <p>אחר כך לחצו על המצבים האחרים. ״לפי התכנון״ מראה את התמונה התקינה: רשת <span class="ltr">10.20.30.0/24</span>, השרתים דרך השער, התחנה השכנה ישירות, וממצא אחד ירוק שמפנה לבדיקה הבאה (שקופית 5). ״Gateway שגוי״ מציב <span class="ltr">10.20.3.1</span>, טעות הקלדה של ספרה אחת: השער מחוץ לרשת המקומית, וכל התעבורה לרשתות אחרות נתקעת, בזמן שהתחנה השכנה עדיין עובדת. ״DNS אחר״ מציב <span class="ltr">10.20.10.11</span>: הניתוב תקין לגמרי, ורק התשובות לשמות יגיעו משרת אחר. APIPA מציב את מה שתחנה עם DHCP רואה כשאף שרת DHCP לא ענה: <span class="ltr">DHCP Enabled: Yes</span>, כתובת <span class="ltr">169.254.31.7</span>, מסכה <span class="ltr">255.255.0.0</span>, בלי שער ובלי DNS. כל חמשת הסימנים אדומים, ואף יעד מחוץ לרשת <span class="ltr">169.254.0.0/16</span> לא נגיש.</p>
+  <p>אפשר גם להקליד ערכים. דוגמה טובה לכיתה: מסכה <span class="ltr">255.255.240.0</span> (<span class="ltr">/20</span>). הרשת נהיית <span class="ltr">10.20.16.0/20</span>, והממצא מסמן מסכה רחבה מהתכנון, אבל משמאל כל היעדים נשארים ירוקים: השרתים ב-<span class="ltr">10.20.10.x</span> וב-<span class="ltr">10.20.40.x</span> עדיין מחוץ לרשת המחושבת. מכאן שמסכה שגויה לא תמיד שוברת משהו מיד. הקלקול מופיע רק כשפונים ליעד ברשת אחרת שנופל בטווח שנוסף, למשל <span class="ltr">10.20.20.5</span>, שהתחנה תחפש ב-ARP במקום לשלוח לשער. ערך שאינו כתובת תקינה מסומן במסגרת אדומה, ומסכה לא רציפה (למשל <span class="ltr">255.0.255.0</span>) מסומנת כמסכה שאינה קיימת.</p>
+  <p>בסביבה סטטית משווים כל שדה לתכנון, או לתחנה תקינה באותה רשת, גם כשהערכים נראים סבירים. אין להסתפק בכתובת IP. השוו גם מסכה, <span class="ltr">Gateway</span>, <span class="ltr">DNS</span>, <span class="ltr">DHCP Enabled</span> ושם המתאם. טעות נפוצה היא לבדוק רק את שורת <span class="ltr">IPv4 Address</span>. כתובת שנראית סבירה יכולה להיות תפוסה בידי תחנה אחרת, ושרת DNS שנראה סביר אולי כבר הוצא משימוש.</p>
+  <p><strong>בשטח.</strong> ב-PowerShell יש מקבילה קצרה, <span class="ltr">Get-NetIPConfiguration</span>, שמציגה לכל מתאם את הכתובת, השער וה-DNS. בחלון הגרפי: Network Connections, לחיצה כפולה על המתאם ואז Details. מקור הערכים הנכונים (תכנון הכתובות של הרשת) נקבע לפי נוהל היחידה.</p>
+  <table>
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">למה יש בפלט כל כך הרבה מתאמים?</td><td>ipconfig מציג כל מתאם ש-Windows מכיר, כולל וירטואליים, VPN ו-Bluetooth. מתאם שאין לו Link מופיע עם <span class="ltr">Media disconnected</span>. מחפשים את המתאם שמחובר בפועל.</td></tr>
+  </table>
+</div>
+
+<!-- 5-7 -->
+<div class="pg">
+  <div class="eyebrow">03 · שקופיות <span class="ltr">5-7</span></div>
+  <h1><span class="ltr">Ping</span>, <span class="ltr">ARP</span>, <span class="ltr">route</span> ו-tracert</h1><hr class="rule">
+
+  <h2>שקופית 5 · Ping בודק תשובת ICMP ומודד RTT</h2>
+  <p><strong>על המסך:</strong> ארבעה יעדים ברצף: <span class="ltr">127.0.0.1</span> (TCP/IP מקומי), כתובת התחנה (ממשק מקומי), Gateway (הרשת המקומית) ויעד מרוחק (מסלול מקצה לקצה). בתחתית: כישלון לא מוכיח שהיעד כבוי, כי ICMP עשוי להיות מסונן.</p>
+  <p><strong>רקע.</strong> ping שולח הודעת ICMP מסוג Echo Request ומחכה ל-Echo Reply. ב-Windows ברירת המחדל היא ארבע בקשות של 32 בתים, וכל בקשה מחכה לתשובה עד ארבע שניות. בכל שורת תשובה רואים <span class="ltr">bytes</span>, <span class="ltr">time</span> (זמן הלוך-חזור, RTT) ו-TTL. בסוף מופיע סיכום: כמה נשלחו, כמה התקבלו ואחוז האובדן, ואחריו RTT מינימלי, מקסימלי וממוצע.</p>
+  <p>TTL בתשובה הוא הערך שהיעד שלח, פחות מספר הנתבים שבדרך. Windows שולח בדרך כלל 128, Linux בדרך כלל 64, ורכיבי רשת רבים 255. תשובה עם TTL של 128 מתחנה ברשת המקומית מתאימה לשרת Windows שעונה ישירות. TTL של 126 מאותו שרת אומר שיש שני נתבים בדרך.</p>
+  <p><strong>הסדרה שבשקופית.</strong> כל יעד מוסיף חוליה אחת:</p>
+  <ul>
+    <li><span class="ltr">127.0.0.1</span> לא יוצא מהתחנה בכלל. הצלחה מראה שרכיב ה-TCP/IP של Windows עובד. כישלון כאן נדיר מאוד ומצביע על בעיה בתחנה עצמה.</li>
+    <li>הכתובת של התחנה עצמה גם היא לא יוצאת לרשת. הצלחה מראה שהכתובת מוגדרת ופעילה על המתאם.</li>
+    <li>ה-Gateway הוא היעד הראשון שבאמת יוצא לכבל. הצלחה מראה שיש Link, שהכתובת והמסכה מאפשרות לדבר עם השער, ושהשער נמצא ב-ARP (שקופית 6).</li>
+    <li>יעד מרוחק בודק גם את המסלול שמעבר לשער, ואת הדרך חזרה.</li>
+  </ul>
+  <p>הסדרה ממחישה מה בודק כל יעד, ולא חייבים להריץ את כולה בכל תקלה. אם השער עונה, אין טעם לבדוק את <span class="ltr">127.0.0.1</span>.</p>
+  <p><strong>הודעות השגיאה אומרות דברים שונים.</strong></p>
+  <table>
+    <tr><th style="width:36%">הודעה</th><th>מה היא אומרת</th></tr>
+    <tr><td class="k ltr" style="display:table-cell">Request timed out.</td><td>לא חזרה תשובה בזמן. היעד כבוי, מסנן ICMP, או שהתשובה לא מוצאת דרך חזרה.</td></tr>
+    <tr><td class="k ltr" style="display:table-cell">Destination host unreachable.</td><td>מישהו בדרך הודיע שאין לו איך להגיע. אם התשובה מגיעה מהכתובת של התחנה עצמה, התחנה לא מצאה ב-ARP את היעד ברשת המקומית, או את השער שדרכו הוא יוצא. אם היא מגיעה מכתובת של נתב, הנתב הוא שלא הצליח.</td></tr>
+    <tr><td class="k ltr" style="display:table-cell">TTL expired in transit.</td><td>החבילה עברה יותר מדי נתבים. בדרך כלל לולאת ניתוב.</td></tr>
+    <tr><td class="k ltr" style="display:table-cell">Ping request could not find host</td><td>השם לא נפתר. זו תקלת DNS (שקופית 8), ושום חבילת ICMP לא נשלחה.</td></tr>
+  </table>
+  <p><strong>מה ping לא בודק.</strong> כותרת המשנה: הוא לא בודק זמינות של יישום. שרת יכול לענות ל-ping כשהשירות עליו נפל, ושרת יכול לא לענות ל-ping כשהשירות עובד מצוין. בהגדרות ברירת המחדל של חומת האש של Windows, תחנת קצה בדרך כלל לא עונה ל-ping נכנס, אלא אם הופעל הכלל המתאים, לרוב במדיניות. שרתים, נתבים וחומות אש רבים מסננים ICMP בכוונה.</p>
+  <p><strong>בשטח.</strong> <span class="ltr">ping -t</span> שולח בלי הפסקה עד <span class="ltr">Ctrl+C</span>, ומתאים למעקב בזמן שמחברים כבל או מזיזים ציוד. <span class="ltr">ping -n 20</span> שולח 20 בקשות, ומראה אובדן לסירוגין שארבע בקשות לא יתפסו. <span class="ltr">ping -4</span> מכריח IPv4 כשהשם נפתר גם לכתובת IPv6.</p>
+  <table>
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">Ping לשרת נכשל. השרת כבוי?</td><td>לא בהכרח. בודקים אם ping לשער עובד, ואם השירות עצמו מקבל חיבור (Test-NetConnection עם הפורט, שקופית 9).</td></tr>
+  </table>
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>לקרוא רק את שורת הסיכום. כשהתחנה עצמה עונה <span class="ltr">Destination host unreachable</span>, Windows סופר את זה כתשובה שהתקבלה, ושורת הסיכום מראה <span class="ltr">Lost = 0 (0% loss)</span> למרות שהיעד לא ענה אף פעם. קוראים את שורות התשובה ובודקים מאיזו כתובת הגיעה התשובה.</p>
+  </div>
+
+  <h2>שקופית 6 · <span class="ltr">arp -a</span> מראה איזה MAC משויך ל-IP המקומי או ל-Gateway</h2>
+  <p><strong>על המסך:</strong> פלט של <span class="ltr">arp -a</span> עם שתי רשומות: השער <span class="ltr">10.20.30.1</span> עם MAC <span class="ltr">00-15-5d-01-02-03</span>, ותחנה <span class="ltr">10.20.30.80</span> עם MAC <span class="ltr">34-7a-60-aa-bb-cc</span>, שתיהן dynamic. בתחתית: רשומה חסרה או MAC לא צפוי מכוונים לבעיה מקומית, VLAN או שכנות.</p>
+  <p><strong>רקע.</strong> ברשת מקומית (Ethernet או Wi-Fi) מסגרות נשלחות לפי כתובת MAC. כשהתחנה צריכה לשלוח חבילה לכתובת IP ברשת המקומית שלה, היא שואלת בשידור לכולם ״מי מחזיק את הכתובת הזו?״, והבעלים עונה עם ה-MAC שלו. זה ARP. התשובה נשמרת לזמן קצר בטבלה, כדי לא לשאול שוב לפני כל חבילה, ו-<span class="ltr">arp -a</span> מציג את הטבלה הזו.</p>
+  <p>הפלט מחולק לפי ממשק. מעל כל קבוצה מופיעה שורה כמו <span class="ltr">Interface: 10.20.30.15 --- 0xb</span>, ומתחתיה שלוש עמודות: <span class="ltr">Internet Address</span>, <span class="ltr">Physical Address</span> ו-Type. dynamic נלמד מתשובת ARP. static הוגדר ידנית, או שייך לכתובות שידור ו-multicast (למשל כתובת השידור של הרשת עם <span class="ltr">ff-ff-ff-ff-ff-ff</span>), שמופיעות בטבלה תמיד ולא צריך להתייחס אליהן.</p>
+  <p><strong>מה רואים ומה לא.</strong> בטבלה מופיעות רק כתובות מהרשת המקומית. תחנה שפונה לשרת ברשת אחרת שולחת את המסגרת ל-MAC של השער, ולכן הכתובת של השרת המרוחק לא תופיע ב-ARP לעולם. השער מעביר את החבילה הלאה, ובכל קפיצה נבנית מסגרת Ethernet חדשה עם כתובות MAC חדשות, בעוד שכתובות ה-IP של המקור והיעד נשארות כמו שהן.</p>
+  <p>הממצאים שכותרת המשנה מתכוונת אליהם:</p>
+  <ul>
+    <li><strong>רשומה חסרה לשער</strong> אחרי שניסו לשלוח אליו. התחנה שאלה ואף אחד לא ענה: השער לא באותו VLAN, היציאה במתג משויכת לרשת אחרת, או שהמסכה שגויה. ב-PowerShell, <span class="ltr">Get-NetNeighbor</span> מראה גם רשומות שנכשלו, עם מצב Unreachable, וזה ממצא ברור יותר מרשומה חסרה.</li>
+    <li><strong>MAC לא צפוי.</strong> אם ה-MAC של השער שונה מזה שבתחנה תקינה באותה רשת, מכשיר אחר עונה על הכתובת של השער: מכשיר עם הגדרה שגויה, או ניסיון התחזות.</li>
+    <li><strong>כפילות.</strong> אותו IP שה-MAC שלו מתחלף בין בדיקה לבדיקה מצביע על שני מכשירים עם אותה כתובת.</li>
+  </ul>
+  <p>משווים למערכת תקינה או לתכנון. כתובת MAC לבדה אינה ״טובה״ או ״רעה״.</p>
+  <div class="note red"><h3>שימו לב</h3>
+    <p>רשומת ARP חסרה לבדה אינה תקלה. ייתכן שעדיין לא נשלחה תעבורה ליעד, או שהרשומה פגה כי לא הייתה תעבורה זמן מה. קודם שולחים משהו ליעד (למשל ping), ורק אז בודקים את הטבלה.</p>
+  </div>
+  <table>
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">למה השרת שאני עובד מולו לא מופיע בטבלה?</td><td>כי הוא ברשת אחרת. מה שמופיע הוא ה-MAC של השער, ודרכו עוברת כל התעבורה לשרת.</td></tr>
+    <tr><td class="k">אפשר לדעת מ-MAC מי היצרן?</td><td>שלושת הבתים הראשונים מזהים בדרך כלל את יצרן הכרטיס. זה עוזר להבחין, למשל, בין מתג למחשב, אבל לא מוכיח זהות, כי אפשר לשנות MAC בתוכנה.</td></tr>
+  </table>
+
+  <h2>שקופית 7 · route print ו-tracert בודקים את המסלול</h2>
+  <p><strong>על המסך:</strong> מימין שדה ״יעד״ עם ארבעה כפתורי קיצור (<span class="ltr">10.20.40.25</span>, <span class="ltr">10.20.30.80</span>, <span class="ltr">10.20.10.10</span>, <span class="ltr">127.0.0.1</span>), ומתחתיו טבלת הניתוב של התחנה <span class="ltr">10.20.30.15</span> כפי ש-<span class="ltr">route print -4</span> מציג אותה, מקוצרת לחמש שורות: <span class="ltr">0.0.0.0/0</span> דרך <span class="ltr">10.20.30.1</span>, <span class="ltr">10.20.30.0/24</span> On-link, <span class="ltr">10.20.30.15/32</span> On-link, <span class="ltr">10.20.40.0/24</span> דרך <span class="ltr">10.20.30.2</span>, ו-<span class="ltr">127.0.0.0/8</span> On-link. שורות שמתאימות ליעד מודגשות ומסומנות באורך המסכה שלהן, והשורה שנבחרה צבועה בצהוב. מתחת: הסבר הבחירה. משמאל: פלט <span class="ltr">tracert -d</span> ליעד, תיבת סימון ״נתב הביניים לא משיב ל-tracert״, ושורת הסבר.</p>
+  <p><strong>route print.</strong> הפקודה מציגה את טבלת הניתוב של התחנה: לאיזה שער התחנה תשלח, עוד לפני שיש תעבורה. בפלט האמיתי יש קודם רשימת ממשקים, ואחריה הטבלה של IPv4 (Active Routes) עם חמש עמודות: <span class="ltr">Network Destination</span>, <span class="ltr">Netmask</span>, <span class="ltr">Gateway</span>, <span class="ltr">Interface</span> ו-Metric. בהדגמה מוצגות כל חמש העמודות, בחמש שורות בלבד. On-link בעמודת Gateway אומר שהיעד ברשת המקומית ונשלח ישירות. בסוף מופיעים Persistent Routes, מסלולים שהוגדרו ידנית ונשמרים אחרי אתחול.</p>
+  <p>כשיש כמה שורות שמתאימות ליעד, נבחרת השורה הספציפית ביותר, זו עם המסכה הארוכה ביותר. רק כשיש שתי שורות באותו אורך מסכה, המטריקה הנמוכה מכריעה. <span class="ltr">0.0.0.0</span> עם מסכה <span class="ltr">0.0.0.0</span> מתאים לכל יעד, והוא ברירת המחדל: מה שלא מתאים לשום שורה אחרת יוצא לשער שלו.</p>
+  <p><strong>tracert.</strong> tracert מראה מי השיב לאורך הדרך. הוא שולח חבילות עם TTL שעולה בהדרגה: 1, אחר כך 2, וכן הלאה. כל נתב מוריד את ה-TTL באחד, ונתב שמקבל חבילה עם TTL שנגמר זורק אותה ושולח בחזרה הודעת ICMP ״Time Exceeded״. מהכתובת של ההודעה הזו tracert יודע מי הנתב בכל קפיצה. ב-Windows החבילות הן ICMP Echo, שלוש לכל קפיצה, עד 30 קפיצות כברירת מחדל, ולכן בכל שורה יש שלושה זמנים. tracert של Windows גם מנסה לתרגם כל כתובת לשם, וזה מאט אותו. <span class="ltr">tracert -d</span> מדלג על התרגום.</p>
+  <p>ב-tracert מסתכלים קודם על הקפיצה האחרונה שענתה. כשהמסלול נקטע, tracert מראה עד איפה הגיעו תשובות, והקפיצה האחרונה שענתה מסמנת את האזור שבו כדאי לחפש. כשיש רק כוכביות מקפיצה מסוימת ועד הסוף, זה מצביע על נקודה שאחריה החבילות לא עוברות, או שהיעד מסנן ICMP.</p>
+  <p>יש ציוד שאינו משיב, או מגביל את קצב התשובות שלו, אבל ממשיך להעביר תעבורה. אם אחרי שורה של כוכביות מופיעות קפיצות שעונות, החבילות עברו דרך הציוד השקט.</p>
+  <p><strong>ההדגמה.</strong> ברירת המחדל היא היעד <span class="ltr">10.20.40.25</span>. שתי שורות מתאימות לו, <span class="ltr">/0</span> ו-<span class="ltr">/24</span>, ונבחרת <span class="ltr">10.20.40.0/24</span>, זו עם המסכה הארוכה ביותר. השער הוא <span class="ltr">10.20.30.2</span>, ולכן גם הקפיצה הראשונה ב-tracert היא <span class="ltr">10.20.30.2</span>, אחריה <span class="ltr">10.20.35.1</span>, והיעד בקפיצה 3. לפני כל לחיצה שאלו לאיזה שער ייצא היעד:</p>
+  <ul>
+    <li><span class="ltr">10.20.30.80</span>: מתאימות <span class="ltr">/0</span> ו-<span class="ltr">/24</span>, נבחרת <span class="ltr">10.20.30.0/24</span> On-link. היעד מקומי, וב-tracert יש קפיצה אחת: היעד עצמו.</li>
+    <li><span class="ltr">10.20.10.10</span>: רק שורת ברירת המחדל מתאימה, ולכן השער הוא <span class="ltr">10.20.30.1</span>. ב-tracert שתי קפיצות, השער והיעד.</li>
+    <li><span class="ltr">127.0.0.1</span>: נבחרת <span class="ltr">127.0.0.0/8</span> On-link. התעבורה לא יוצאת מהתחנה.</li>
+    <li>אפשר להקליד את הכתובת של התחנה עצמה, <span class="ltr">10.20.30.15</span>: שלוש שורות מתאימות, ונבחרת <span class="ltr">/32</span>.</li>
+  </ul>
+  <p>סמנו ״נתב הביניים לא משיב ל-tracert״ כשהיעד הוא <span class="ltr">10.20.40.25</span>: בקפיצה 2 מופיעות כוכביות ו-<span class="ltr">Request timed out.</span>, והיעד עדיין עונה בקפיצה 3. ליעדים שאין בדרך אליהם נתב אחרי השער, הסימון לא משנה את הפלט. ליעד מחוץ ל-<span class="ltr">10.20.0.0/16</span>, למשל <span class="ltr">192.168.1.10</span>, ההדגמה מציגה רק את הקפיצה הראשונה, כי המשך הדרך תלוי ברשת שמעבר לשער.</p>
+  <p>בהדגמה הראו שהקפיצה הראשונה ב-tracert היא השער שנבחר בטבלה. כך זה גם בשטח, בתחנה אחת ובאותו רגע (ואם השער לא משיב, יופיעו בקפיצה הראשונה כוכביות). אם בשטח רואים קפיצה ראשונה אחרת, הטבלה שנבדקה לא שייכת לאותה תחנה, או שהמסלול השתנה בין שתי הבדיקות. טעות נפוצה היא לבחור את השורה הראשונה שמתאימה, או את שער ברירת המחדל, במקום השורה עם המסכה הארוכה.</p>
+  <p><strong>בשטח.</strong> ב-PowerShell, <span class="ltr">Find-NetRoute -RemoteIPAddress 10.20.40.25</span> מראה איזה מסלול וכתובת מקור Windows יבחר ליעד מסוים, בלי לחשב בראש. <span class="ltr">pathping</span> משלב tracert עם סטטיסטיקת אובדן לכל קפיצה, אבל לוקח כמה דקות.</p>
+  <table>
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">הקפיצה השנייה מראה כוכביות, אבל היעד עונה. יש בעיה?</td><td>לא. הנתב בקפיצה השנייה לא שולח הודעות Time Exceeded, אבל מעביר תעבורה. אם היעד עונה, הדרך תקינה.</td></tr>
+    <tr><td class="k">למה הזמן בקפיצה באמצע גבוה מהזמן ליעד?</td><td>נתבים מטפלים בתשובות ICMP בעדיפות נמוכה. זמן גבוה בקפיצה אחת, כשהקפיצות שאחריה מהירות, לא מעיד על עומס בדרך.</td></tr>
+  </table>
+</div>
+
+<!-- 8-10 -->
+<div class="pg">
+  <div class="eyebrow">04 · שקופיות <span class="ltr">8-10</span></div>
+  <h1>שם, פורט ומצב חיבורים</h1><hr class="rule">
+
+  <h2>שקופית 8 · Resolve-DnsName או nslookup בודקים את ה-DNS בנפרד מהשירות</h2>
+  <p><strong>על המסך:</strong> <span class="ltr">Resolve-DnsName server.unit</span> ושורת תשובה: השם, סוג רשומה <span class="ltr">A</span>, <span class="ltr">TTL</span> של 300 והכתובת <span class="ltr">10.20.40.25</span>. מתחת: בודקים גם איזה שם נשאל ומה נשמר ב-Cache, עם הפקודה <span class="ltr">ipconfig /displaydns</span>.</p>
+  <p><strong>רקע.</strong> כשמשתמש פונה לשרת בשם, התחנה צריכה קודם להפוך את השם לכתובת. אם השלב הזה נכשל, או מחזיר כתובת שגויה, שום בדיקה של השירות לא תעזור. לכן בודקים את השם לבד: כשהמשתמש פונה בשם, בודקים קודם את פתרון השם, ורק אחר כך את השירות בכתובת שהוחזרה.</p>
+  <p>בתשובה מחפשים:</p>
+  <ul>
+    <li><strong>איזה שם נשאל.</strong> כשמשתמש מקליד שם קצר, כמו <span class="ltr">server</span>, Windows משלים אותו בסיומת הדומיין (למשל <span class="ltr">server.unit.local</span>) ושואל על השם המלא. עמודת Name בתשובה מראה על מה בדיוק נשאל.</li>
+    <li><strong>סוג הרשומה.</strong> A היא כתובת <span class="ltr">IPv4</span>, <span class="ltr">AAAA</span> כתובת <span class="ltr">IPv6</span>, <span class="ltr">CNAME</span> שם חלופי שמפנה לשם אחר, PTR תרגום הפוך מכתובת לשם, ו-SRV רשומה שמפרסמת שירות (איזה שרת ובאיזה פורט). בסימולטור, בשקופית 13, רואים איך תחנה מוצאת את בקר הדומיין דרך רשומת SRV.</li>
+    <li><strong>הכתובת שהוחזרה.</strong> משווים לכתובת המתוכננת של השרת. כתובת ישנה מצביעה על רשומה שלא עודכנה או על מטמון.</li>
+    <li><strong>מי ענה.</strong> כותרת המשנה מזכירה שאת שרת ה-DNS שענה מראה nslookup. זה הבדל בין שני הכלים: nslookup מדפיס בראש הפלט <span class="ltr">Server:</span> ו-<span class="ltr">Address:</span> של שרת ה-DNS שענה, ו-Resolve-DnsName לא מציג את זה. כדי לשאול שרת מסוים ב-Resolve-DnsName מוסיפים <span class="ltr">-Server 10.20.4.10</span>, וב-nslookup כותבים את השרת אחרי השם: <span class="ltr">nslookup server.unit 10.20.4.10</span>.</li>
+  </ul>
+  <p><strong>TTL והמטמון.</strong> TTL הוא מספר השניות שמותר לשמור את התשובה. התחנה שומרת תשובות במטמון (Cache) של Windows, ובפעם הבאה עונה מהמטמון בלי לשאול. אם שואלים שוב תוך זמן קצר, ה-TTL שמוצג קטן יותר, כי זו אותה תשובה שמחכה לפוג. <span class="ltr">ipconfig /displaydns</span> מציג את המטמון, ו-<span class="ltr">Get-DnsClientCache</span> הוא המקבילה ב-PowerShell. גם תשובה שלילית (״אין שם כזה״) נשמרת זמן מה, ולכן תחנה יכולה להמשיך ״לא למצוא״ שרת דקות אחרי שהרשומה תוקנה. את המטמון מוחקים (<span class="ltr">ipconfig /flushdns</span>) רק בשטח, כשיש לזה סיבה.</p>
+  <p><strong>ההבדל בין שני הכלים.</strong> Resolve-DnsName עובר דרך רכיב פתרון השמות של Windows, כמו כל תוכנה בתחנה: הוא מתחשב בקובץ hosts ובמטמון, ואם DNS לא עונה הוא עשוי לנסות גם שיטות מקומיות (LLMNR ו-NetBIOS). <span class="ltr">-DnsOnly</span> מגביל אותו ל-DNS. nslookup הוא כלי נפרד ששולח שאילתה ישירות לשרת DNS, בלי קובץ hosts ובלי המטמון של Windows. לכן כששני הכלים נותנים תשובות שונות, זה ממצא: כנראה יש רשומה בקובץ hosts (<span class="ltr">C:\Windows\System32\drivers\etc\hosts</span>) או תשובה ישנה במטמון.</p>
+  <p>כאשר צריך לבדוק SRV, מציינים את סוג הרשומה במפורש (<span class="ltr">-Type SRV</span>). אין צורך ללמד תחביר מתקדם.</p>
+  <table>
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">nslookup מראה <span class="ltr">Server: UnKnown</span>. ה-DNS לא תקין?</td><td>לא בהכרח. nslookup מנסה להציג את שם השרת לפי הכתובת שלו, ואם אין לשרת רשומת PTR הוא כותב UnKnown. התשובה עצמה מופיעה מתחת, וזה מה שבודקים.</td></tr>
+    <tr><td class="k">מה זה <span class="ltr">Non-authoritative answer</span>?</td><td>שהשרת שענה אינו השרת שאחראי על השם, והוא ענה ממה ששמר אצלו. זה המצב הרגיל ואינו תקלה.</td></tr>
+    <tr><td class="k">השם נפתר, אבל לכתובת אחרת מזו שבתכנון. מה עושים?</td><td>בודקים אם התשובה הגיעה מהמטמון או מקובץ hosts (משווים ל-nslookup מול השרת), ומדווחים על הרשומה לגורם שמנהל את ה-DNS.</td></tr>
+  </table>
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>לבדוק DNS עם שם של אתר כללי ולהסיק שה-DNS תקין. שרת DNS יכול לפתור שמות כלליים ולא להכיר את שמות הדומיין, ולהפך. בודקים בדיוק את השם שנכשל.</p>
+  </div>
+
+  <h2>שקופית 9 · Test-NetConnection בודק אם ניתן לפתוח חיבור TCP לפורט מסוים</h2>
+  <p><strong>על המסך:</strong> <span class="ltr">Test-NetConnection server.unit -Port 443</span> וארבעה שדות: <span class="ltr">ComputerName</span>, <span class="ltr">RemoteAddress 10.20.40.25</span>, <span class="ltr">RemotePort 443</span> ו-<span class="ltr">TcpTestSucceeded True</span>. מתחת: מוכיח פתיחת TCP ליעד ולפורט, ותקינות היישום עצמו לא נבדקת.</p>
+  <p><strong>רקע.</strong> שירות ברשת מאזין לפורט: שרת אינטרנט ל-443 (HTTPS) או 80 (HTTP), שיתוף קבצים ל-445, שולחן עבודה מרוחק ל-3389, LDAP ל-389. כדי לדבר עם שירות בפרוטוקול TCP, הלקוח פותח חיבור בלחיצת יד של שלוש הודעות: הלקוח שולח SYN, השרת עונה SYN-ACK אם יש שירות שמאזין, והלקוח מאשר ב-ACK. Test-NetConnection עם <span class="ltr">-Port</span> מנסה בדיוק את זה ומדווח אם הצליח.</p>
+  <p>כותרת המשנה אומרת שהתוצאה מרכזת שם, כתובת, מסלול ופורט בבדיקה אחת. בפלט המלא מופיעים: ComputerName (השם שנבדק), RemoteAddress (הכתובת שהשם נפתר אליה, כך שרואים גם את תוצאת ה-DNS), <span class="ltr">RemotePort</span>, <span class="ltr">InterfaceAlias</span> ו-SourceAddress (דרך איזה מתאם ומאיזו כתובת יצא החיבור, וזה החלק של ״מסלול״), ובסוף TcpTestSucceeded. בשקופית הוצגו ארבעה שדות מתוכם.</p>
+  <p><strong>כשהבדיקה נכשלת</strong> מופיעה אזהרה צהובה (<span class="ltr">WARNING: TCP connect to ... failed</span>), ו-Test-NetConnection מוסיף מעצמו בדיקת ping: PingSucceeded ו-PingReplyDetails. הצירוף שימושי. ping מצליח ופורט נכשל אומר שיש דרך לשרת אבל השירות לא מאזין, או שחומת אש חוסמת את הפורט. שניהם נכשלים: אולי אין דרך בכלל, ואולי פשוט שניהם מסוננים. אם השם עצמו לא נפתר, מופיעה אזהרה על Name resolution, וזו כבר שאלה של שקופית 8.</p>
+  <p>בלי <span class="ltr">-Port</span> הפקודה עושה רק ping ומציגה PingSucceeded. זה מקור לבלבול: מי ששוכח את הפורט בודק רק ICMP.</p>
+  <div class="note amber"><h3>מה לא הוכח</h3>
+    <p><span class="ltr">TcpTestSucceeded : True</span> מוכיח שנפתח חיבור TCP ליעד ולפורט. הוא לא מוכיח שהיישום החזיר תוכן תקין. שרת אינטרנט יכול לקבל חיבור ולהחזיר דף שגיאה, להציג שגיאת תעודה או לדחות את המשתמש בהרשאות. את אלה בודקים ביישום עצמו, למשל בדפדפן.</p>
+  </div>
+  <p>במערכת שבה השירות אינו TCP, משתמשים בכלי הייעודי. UDP אינו מוקד השיעור. Test-NetConnection לא בודק UDP כלל, ובפרוטוקול בלי לחיצת יד אין דרך פשוטה לדעת מבחוץ אם מישהו מאזין.</p>
+  <p><strong>בשטח.</strong> הכינוי הקצר הוא <span class="ltr">tnc</span>. <span class="ltr">-InformationLevel Quiet</span> מחזיר רק True או False, נוח לבדיקה מהירה. כשחיבור נכשל מהר, בדרך כלל משהו דחה אותו באופן פעיל (השרת בלי שירות בפורט, או חומת אש שמחזירה דחייה). כשהוא נכשל רק אחרי המתנה ארוכה, בדרך כלל משהו בדרך זורק את החבילות בשקט.</p>
+  <table>
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">True, ובכל זאת האתר לא עולה. איפה ממשיכים?</td><td>ביישום: הודעת השגיאה בדפדפן, התעודה (שקופית 12), ההרשאות של המשתמש. הרשת עד הפורט כבר נבדקה.</td></tr>
+    <tr><td class="k">אפשר לבדוק כך פורט בתחנה שלי?</td><td>כן, <span class="ltr">Test-NetConnection localhost -Port 443</span> בודק אם משהו מאזין מקומית. כדי לדעת מי מאזין, עוברים לשקופית הבאה.</td></tr>
+  </table>
+
+  <h2>שקופית 10 · Get-NetTCPConnection או netstat מראים מי מאזין ומי מחובר</h2>
+  <p><strong>על המסך:</strong> פלט של Get-NetTCPConnection עם שתי שורות: <span class="ltr">0.0.0.0</span> פורט 443 במצב Listen, ו-<span class="ltr">10.20.30.15</span> פורט 52144 מול <span class="ltr">10.20.40.25</span> במצב Established. בתחתית: LISTENING אומר ששירות מחכה, ESTABLISHED אומר שנוצר חיבור.</p>
+  <p><strong>רקע.</strong> Test-NetConnection בודק מבחוץ. כאן מסתכלים מבפנים, על המחשב עצמו: אילו פורטים פתוחים להאזנה, ואילו חיבורים קיימים כרגע. שני הכלים מציגים את אותו מידע. netstat ותיק וקיים בכל גרסה, ו-Get-NetTCPConnection הוא ה-cmdlet של PowerShell. שימו לב לכתיב: netstat כותב LISTENING ו-ESTABLISHED, וב-PowerShell אותם מצבים נקראים Listen ו-Established. בשקופית מופיעים שני הכתיבים.</p>
+  <p>כותרת המשנה מתארת את שני המצבים שחשובים בשיעור:</p>
+  <ul>
+    <li><strong>LISTENING</strong> מופיע בצד השרת: שירות פתח פורט ומחכה לחיבורים. לרשומה כזו אין צד שני, ולכן הכתובת המרוחקת היא <span class="ltr">0.0.0.0</span>. הכתובת המקומית חשובה: <span class="ltr">0.0.0.0</span> אומר שהשירות מאזין בכל הכתובות של המחשב, ו-<span class="ltr">127.0.0.1</span> אומר שהוא מאזין רק למחשב עצמו, ומבחוץ אי אפשר להגיע אליו. שירות שמאזין רק ב-<span class="ltr">127.0.0.1</span> יעבוד בבדיקה מקומית וייכשל בכל בדיקה מתחנה אחרת.</li>
+    <li><strong>ESTABLISHED</strong> הוא חיבור שכבר נוצר, עם הכתובת והפורט של הצד השני. בשורה השנייה בשקופית התחנה <span class="ltr">10.20.30.15</span> מחוברת לשרת <span class="ltr">10.20.40.25</span>. הפורט המקומי, 52144, נבחר אוטומטית מטווח של פורטים זמניים, שב-Windows מתחיל בדרך כלל ב-49152. הפורט של השירות הוא הפורט בצד של השרת.</li>
+  </ul>
+  <p><strong>PID ותהליך.</strong> במידת הצורך מקשרים PID לתהליך. כל שורה שייכת לתהליך במחשב. <span class="ltr">netstat -ano</span> מציג את כל החיבורים (a), בכתובות ובמספרים בלי תרגום לשמות (n), עם מספר התהליך (o). ב-PowerShell העמודה נקראת OwningProcess. אחרי שיש מספר, <span class="ltr">Get-Process -Id 1234</span> או <span class="ltr">tasklist /fi "PID eq 1234"</span> מראים איזו תוכנה זו. כך עונים על שאלות כמו ״מי תופס את פורט 443 בשרת הזה?״. הפקודה <span class="ltr">netstat -ano | findstr :443</span> מסננת את הפלט לפורט אחד.</p>
+  <p>במצבי TCP האחרים אין צורך להעמיק. אם חניך שואל: TIME_WAIT הוא חיבור שנסגר ונשמר עוד זמן קצר, ומופיע בכמויות גם במחשב תקין. SYN_SENT שנשאר זמן רב בצד הלקוח אומר שהלקוח שלח בקשה ולא קיבל תשובה, וזה מתאים לפורט מסונן בדרך.</p>
+  <p><strong>החלופה הגרפית.</strong> Resource Monitor (<span class="ltr">resmon</span>), בלשונית Network, מציג Listening Ports ו-TCP Connections עם שם התהליך.</p>
+  <table>
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">השירות רץ, אבל הפורט לא מופיע ב-LISTENING. מה זה אומר?</td><td>שהשירות לא פתח את הפורט שציפינו לו: הוא לא עלה עד הסוף, הוגדר לפורט אחר, או שתוכנה אחרת כבר תופסת את הפורט. בודקים לפי PID מי מאזין לפורט.</td></tr>
+    <tr><td class="k">למה יש כל כך הרבה שורות?</td><td>כל תוכנה שמדברת ברשת פותחת חיבורים. מסננים לפי פורט או לפי כתובת, למשל <span class="ltr">Get-NetTCPConnection -LocalPort 443</span>.</td></tr>
+  </table>
+</div>
+
+<!-- 11-12 -->
+<div class="pg">
+  <div class="eyebrow">05 · שקופיות <span class="ltr">11-12</span></div>
+  <h1>Domain, זמן, תעודה ואירועים</h1><hr class="rule">
+
+  <h2>שקופית 11 · בדיקות Kerberos: זמן, איתור DC וכרטיסים</h2>
+  <p><strong>על המסך:</strong> שלושה כרטיסים: <span class="ltr">w32tm /query /status</span> (זמן ומקור סנכרון, משווים לשעה של ה-DC), <span class="ltr">nltest /dsgetdc:domain</span> (איתור Domain Controller: איזה DC נמצא, אם בכלל), ו-klist (כרטיסי Kerberos: יש כרטיסים בתוקף?).</p>
+  <p><strong>רקע.</strong> כשמשתמש רשתי נכנס לתחנה בדומיין, התחנה מאמתת אותו מול בקר דומיין (DC) בפרוטוקול Kerberos. המשתמש מקבל ״כרטיס״ ראשי (TGT), ובכל פעם שהוא ניגש לשירות ברשת, כמו שיתוף קבצים, התחנה מבקשת בעזרתו כרטיס לאותו שירות. כדי שזה יעבוד צריכים להתקיים כמה תנאים, וכל אחד מהם נבדק בכלי אחר:</p>
+  <table>
+    <tr><th>חוליה</th><th>מה היא נותנת</th><th>איך בודקים</th></tr>
+    <tr><td class="k">DNS</td><td>איתור DC: התחנה מוצאת את בקר הדומיין לפי רשומות SRV ב-DNS</td><td><span class="ltr">nltest /dsgetdc</span>, או Resolve-DnsName על רשומת ה-SRV</td></tr>
+    <tr><td class="k">זמן</td><td>תוקף הכרטיס: כרטיסים כוללים זמנים, וההפרש בין התחנה ל-DC חייב להיות קטן</td><td><span class="ltr">w32tm</span></td></tr>
+    <tr><td class="k">Kerberos</td><td>אימות: המשתמש והתחנה מוכחים מול ה-DC</td><td>klist</td></tr>
+    <tr><td class="k">הרשאה</td><td>קבוצות: מה המשתמש רשאי לעשות אחרי שאומת</td><td><span class="ltr">whoami /groups</span>, ו-gpresult למדיניות</td></tr>
+  </table>
+  <p><strong>w32tm.</strong> Kerberos דוחה בקשות כשההפרש בין שעון התחנה לשעון ה-DC גדול מחמש דקות (ברירת המחדל במדיניות הדומיין). הסיבה: כל בקשה כוללת חותמת זמן, והגבלת ההפרש מונעת שימוש חוזר בבקשה שהוקלטה. התסמין נראה כמו בעיית סיסמה או הרשאה, ולכן כדאי לשלול את השעון מוקדם. <span class="ltr">w32tm /query /status</span> מציג את מצב שירות הזמן של Windows. השורות החשובות:</p>
+  <ul>
+    <li><strong>Source</strong>: מאיפה התחנה מקבלת זמן. בתחנה בדומיין זה צריך להיות שם של DC. <span class="ltr">Local CMOS Clock</span> או <span class="ltr">Free-running System Clock</span> אומרים שהתחנה לא מסונכרנת לשום מקור.</li>
+    <li><strong>Last Successful Sync Time</strong>: מתי הסתנכרנה בפעם האחרונה. תאריך ישן מאוד אומר שהסנכרון נכשל מאז, גם אם המקור רשום נכון.</li>
+    <li><strong>Stratum</strong>: כמה רמות התחנה רחוקה ממקור זמן מדויק. תחנה בדומיין נמצאת בדרך כלל רמה אחת מתחת ל-DC שלה.</li>
+  </ul>
+  <p>הפקודה הזו לא מודדת ישירות את ההפרש מול ה-DC. כדי למדוד אותו מריצים <span class="ltr">w32tm /stripchart /computer:dc01.unit.local /samples:3 /dataonly</span>, שמציג בכל שורה את ההפרש בשניות בין התחנה לשרת. לזה מתכוון המשפט ״משווים לשעה של ה-DC״ שבכרטיס. בשלב 5 של הסימולטור (שקופית 13) מריצים בדיוק את הפקודה הזו.</p>
+  <p><strong>nltest /dsgetdc.</strong> במקום <span class="ltr">domain</span> כותבים את שם הדומיין, למשל <span class="ltr">nltest /dsgetdc:unit.local</span>. הפקודה מבקשת מ-Windows לאתר DC לדומיין, כמו שהתחנה עושה בכניסה. בהצלחה מופיעים בין השאר <span class="ltr">DC: \\dc01.unit.local</span>, הכתובת שלו, שם הדומיין, האתר (Site) של ה-DC והאתר של התחנה, ושורת Flags עם התפקידים שלו. בכישלון מופיעה שורה כמו <span class="ltr">Getting DC name failed: Status = 1355 0x54b ERROR_NO_SUCH_DOMAIN</span>, ובדרך כלל הסיבה היא DNS: התחנה שואלת שרת שלא מכיר את הדומיין. nltest הוא כלי בשורת הפקודה, ויש לו עוד בדיקות. בסימולטור, בשקופית 13, משתמשים ב-<span class="ltr">/sc_verify</span>, שבודק את ערוץ האמון.</p>
+  <p><strong>klist.</strong> מציג את כרטיסי ה-Kerberos של המשתמש המחובר. בראש הפלט <span class="ltr">Cached Tickets: (n)</span>, ואחריו לכל כרטיס: Client (המשתמש), Server (השירות שהכרטיס פותח), ו-<span class="ltr">Start Time</span>, <span class="ltr">End Time</span>, <span class="ltr">Renew Time</span>. כרטיס שה-Server שלו מתחיל ב-<span class="ltr">krbtgt/</span> הוא ה-TGT. כרטיסים אחרים פותחים שירותים, למשל <span class="ltr">cifs/fs01.unit.local</span> לשיתוף קבצים. בברירת המחדל של הדומיין TGT תקף כעשר שעות וניתן לחידוש עד שבעה ימים. משתמש מקומי לא עובר דרך Kerberos, ולכן אצלו klist מציג אפס כרטיסים, וזה תקין.</p>
+  <p>כשהבעיה במדיניות, מוסיפים gpresult (<span class="ltr">gpresult /r</span> מציג אילו מדיניות הוחלו על המחשב ועל המשתמש). אל תציגו את כל פלט הפקודות. סמנו את השורה הרלוונטית.</p>
+  <table>
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">הוסיפו משתמש לקבוצה, והוא עדיין בלי הרשאה. למה?</td><td>הקבוצות נכנסות לאסימון של המשתמש בכניסה. צריך להתנתק ולהיכנס מחדש. <span class="ltr">whoami /groups</span> מראה את הקבוצות שבאסימון הנוכחי.</td></tr>
+    <tr><td class="k">klist בחלון Administrator מראה רשימה ריקה. אין כרטיסים?</td><td>לא בהכרח. חלון שנפתח כמנהל רץ בהקשר כניסה נפרד, עם רשימת כרטיסים משלו. מריצים klist בחלון רגיל של המשתמש.</td></tr>
+    <tr><td class="k">השעה בתחנה נכונה לפי השעון על הקיר. זה מספיק?</td><td>Kerberos משווה לשעה של ה-DC. גם אזור זמן שגוי משנה את השעה האמיתית של התחנה, אפילו כשהשעה שמוצגת נראית נכונה.</td></tr>
+  </table>
+
+  <h2>שקופית 12 · Certificate Viewer ו-Event Viewer</h2>
+  <p><strong>על המסך:</strong> בשמאל Certificate Viewer עם <span class="ltr">Subject server.unit</span>, <span class="ltr">Issuer Unit-CA</span> ו-<span class="ltr">Valid to 2027-07-15</span>, ומתחת ״שם · זמן · שרשרת״. בימין Event Viewer: שעה, מקור ו-Event ID, הודעה מלאה, אירועים לפני ואחרי.</p>
+  <p><strong>Certificate Viewer.</strong> זה החלון של Windows שנפתח כשלוחצים לחיצה כפולה על קובץ תעודה, כשפותחים תעודה מהדפדפן, או מתוך מאגרי התעודות (<span class="ltr">certmgr.msc</span> לתעודות של המשתמש, <span class="ltr">certlm.msc</span> לתעודות של המחשב). יש בו שלוש לשוניות. General מציג למי הונפקה (Issued to), מי הנפיק (Issued by) ותאריכי התוקף. Details מציג את כל השדות. Certification Path מציג את השרשרת עד תעודת השורש, ובתחתית שלה את מצב התעודה. בתעודה בודקים:</p>
+  <ul>
+    <li><strong>שם.</strong> Subject הוא השם שהתעודה הונפקה לו. הדפדפנים היום בודקים את רשימת השמות שבשדה <span class="ltr">Subject Alternative Name</span> בלשונית Details. השם שהמשתמש הקליד צריך להופיע שם בדיוק.</li>
+    <li><strong>זמן.</strong> <span class="ltr">Valid from</span> ו-<span class="ltr">Valid to</span>. התחנה משווה אותם לשעון שלה, ולכן שעון שגוי בתחנה נראה כמו תעודה שפג תוקפה.</li>
+    <li><strong>מנפיק ושרשרת.</strong> Issuer הוא מי שחתם על התעודה. בלשונית Certification Path רואים אם השרשרת מגיעה לשורש שהתחנה סומכת עליו. תחנה שחסר בה השורש הפנימי של הארגון לא תסמוך על אף תעודה שהוא הנפיק.</li>
+  </ul>
+  <p>שגיאות תעודה וההסבר למה כל חוליה נבדקת מפורטים בשיעור 8 (הצפנה וזהות). כאן מספיק לדעת איפה רואים כל שדה.</p>
+  <p><strong>Event Viewer</strong> (<span class="ltr">eventvwr.msc</span>) מציג את יומני האירועים של Windows. תחת Windows Logs נמצאים System (שירותים, מנהלי התקן, רשת, שירות הזמן, Netlogon), Application (תוכנות), ו-Security (כניסות וביקורת, צריך הרשאת מנהל). לכל אירוע יש רמה (<span class="ltr">Information</span>, <span class="ltr">Warning</span>, <span class="ltr">Error</span>), תאריך ושעה, מקור (Source), מזהה (<span class="ltr">Event ID</span>) והודעה. Event ID מזהה סוג אירוע של מקור מסוים, ולכן מתעדים תמיד את שניהם יחד. <span class="ltr">Filter Current Log</span> מסנן לפי זמן, רמה, מקור ומזהה, וכשיש מאות אירועים זה הכלי שמוצא את הרלוונטי.</p>
+  <p>כותרת המשנה מבקשת להצליב: בתעודה בודקים תאריך, <span class="ltr">Subject</span>, <span class="ltr">Issuer</span> ושרשרת, ומצליבים אותם עם האירועים מאותה שעה ב-Event Viewer כדי לראות מה קרה קודם ומה גרם למה. למשל, אם תעודה פגה ב-08:00, ושגיאות התחברות מתחילות ב-08:00, הקשר ברור. אם התחילו שגיאות Kerberos מיד אחרי אירוע של שירות הזמן על שינוי שעה, החשוד הוא השעון. דוגמאות לאירועים שקשורים לנושאי השיעור, בלוג System ובמקור NETLOGON: 5719 (התחנה לא הצליחה ליצור ערוץ מאובטח עם DC, לרוב בגלל רשת או DNS), ו-3210 (התחנה לא הצליחה להזדהות מול DC, לרוב בגלל חשבון מחשב שלא תואם). בלוג <span class="ltr">Security</span>, <span class="ltr">4625</span> הוא כניסה שנכשלה ו-4624 כניסה שהצליחה.</p>
+  <p>הקפידו לתעד הודעה מלאה, Event ID ושעה. צילום חלון ללא זמן או הקשר מקשה על השוואה. בלחיצה ימנית על האירוע יש <span class="ltr">Copy</span> ואז <span class="ltr">Copy Details as Text</span>, שמעתיק את כל השדות כטקסט, וזה עדיף על צילום מסך.</p>
+  <p><strong>בשטח.</strong> Event Viewer מציג זמן מקומי. כשמשווים לאירועים בשרת, מוודאים שלשני המחשבים אותו אזור זמן, או משווים לפי הזמן ב-UTC שמופיע בתצוגת XML של האירוע (בלשונית Details). ב-PowerShell אפשר לשלוף אירועים עם Get-WinEvent, למשל <span class="ltr">Get-WinEvent -LogName System -MaxEvents 50</span>.</p>
+  <table>
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">יש המון אירועים אדומים ביומן. זו התקלה?</td><td>כמעט תמיד לא. בתחנה תקינה יש אירועי Error ו-Warning כל הזמן. מחפשים אירועים מהזמן שבו התחילה התקלה ומהמקור שקשור אליה.</td></tr>
+  </table>
+  <div class="note teal"><h3>חלופה</h3>
+    <p>אם כלי PowerShell אינו קיים בגרסה המקומית, משתמשים בחלון המקביל ובודקים בו את אותם שדות: Network Connections במקום <span class="ltr">Get-NetAdapter</span>, <span class="ltr">Resource Monitor</span> במקום <span class="ltr">Get-NetTCPConnection</span>, <span class="ltr">Event Viewer</span> במקום Get-WinEvent.</p>
+  </div>
+</div>
+
+<!-- 13-14 -->
+<div class="pg">
+  <div class="eyebrow">06 · שקופית 13</div>
+  <h1>סימולטור התחקור</h1><hr class="rule">
+
+  <h2>שקופית 13 · תרגול אבחון: משתמש מקומי נכנס, משתמש רשתי לא</h2>
+  <p><strong>על המסך:</strong> בשמאל חלון PowerShell מדומה, בכותרת <span class="ltr">Administrator: Windows PowerShell, WS-4487</span>. שורת הפקודה בחלון היא <span class="ltr">PS C:\Windows\system32&gt;</span>, כמו בחלון PowerShell שנפתח כמנהל. בימין לוח השלבים: מספר השלב מתוך שישה, שם הבדיקה, למה בודקים אותה, הפקודה, וכפתור ״הרץ את הפקודה״. כותרת המשנה מתארת את הלולאה של כל שלב: מה בודקים ולמה, מריצים, קוראים את הפלט, ובוחרים את הצעד הבא לפי מה שהפלט מראה.</p>
+  <p><strong>התרחיש.</strong> בתחנה <span class="ltr">WS-4487</span> משתמש מקומי מצליח להיכנס, ומשתמש רשתי לא. הסימפטום הזה כבר אומר הרבה: התחנה עצמה עובדת, ומשתמש מקומי נבדק מול מאגר החשבונות של התחנה עצמה, בלי DC. כל מה שמשתמש רשתי צריך ומשתמש מקומי לא צריך נמצא בחשד: הרשת עד ה-DC, ה-DNS, השירות, השעה, והאמון בין התחנה לדומיין. ששת השלבים שוללים אותם אחד אחרי השני.</p>
+  <p><strong>איך הסימולטור עובד.</strong> לחיצה על ״הרץ את הפקודה״ מקלידה את הפקודה בחלון ומציגה את הפלט. השורות החשובות מודגשות, ושורות שגיאה מופיעות באדום. מתחת מופיעה קריאת הפלט, ואחריה השאלה ״מה השלב הבא?״ עם שלוש אפשרויות. סדר האפשרויות קבוע, אבל שונה משלב לשלב, כך שהאפשרות הנכונה לא נמצאת תמיד באותו מקום. בחירה שגויה מציגה הסבר קצר ומשאירה את השלב פתוח, כך שאפשר לבחור שוב. בחירה נכונה עוברת לשלב הבא, והפלט של השלבים הקודמים נשאר בחלון. בשלב 6 אין בחירה. מופיע כפתור ״לסיכום״, ובסיכום יש כפתור ״התחל מחדש״, שמנקה את החלון וחוזר לשלב 1. באמצע הריצה אין כפתור איפוס: מי שרוצה להתחיל מחדש באמצע צריך לטעון את המצגת מחדש (<span class="ltr">F5</span>), והיא נפתחת בשקופית 1. מעבר לשקופית אחרת וחזרה שומר את המצב.</p>
+  <p><strong>איך להעביר.</strong> הריצו מול הכיתה ותנו לחניכים לבחור את הצעד הבא. הדגישו את סדר הבדיקות: כל שלב שולל סיבה אחת. האפשרויות השגויות הן קיצורי דרך שטכנאים עושים הרבה בשטח, ולכן כדאי לבחור אותן בכוונה מדי פעם ולקרוא את ההסבר. בקשו הצבעה לפני שאתם לוחצים. כדי שתדעו מראש: האפשרות הנכונה היא השנייה ברשימה בשלב 1, השלישית בשלב 2, הראשונה בשלב 3, השלישית בשלב 4 והשנייה בשלב 5.</p>
+
+  <table>
+    <tr><th class="n">שלב</th><th>פקודה</th><th>השורה שמראים</th><th>הצעד הנכון</th></tr>
+    <tr><td class="n">1</td><td class="ltr" style="display:table-cell">ipconfig /all</td><td><span class="ltr">Primary Dns Suffix: unit.local</span>, <span class="ltr">DNS Servers: 10.20.4.10</span></td><td>לבדוק שהשרת שרשום כ-DNS בכלל עונה</td></tr>
+    <tr><td class="n">2</td><td class="ltr" style="display:table-cell">ping 10.20.4.10</td><td><span class="ltr">Sent = 4, Received = 4, Lost = 0 (0% loss)</span></td><td>לשאול את ה-DNS על הדומיין עצמו</td></tr>
+    <tr><td class="n">3</td><td class="ltr" style="display:table-cell">Resolve-DnsName -Name _ldap._tcp.dc._msdcs.unit.local -Type SRV</td><td>רשומת SRV שמחזירה את <span class="ltr">dc01.unit.local</span> בפורט 389</td><td>לבדוק שאפשר באמת לפתוח חיבור ל-LDAP</td></tr>
+    <tr><td class="n">4</td><td class="ltr" style="display:table-cell">Test-NetConnection dc01.unit.local -Port 389</td><td><span class="ltr">TcpTestSucceeded : True</span></td><td>לשלול הפרש שעונים לפני שבודקים אמון</td></tr>
+    <tr><td class="n">5</td><td class="ltr" style="display:table-cell">w32tm /stripchart /computer:dc01.unit.local /samples:3 /dataonly</td><td>שלוש מדידות של כ-<span class="ltr">+00.041s</span></td><td>לבדוק את ערוץ האמון של התחנה מול הדומיין</td></tr>
+    <tr><td class="n">6</td><td class="ltr" style="display:table-cell">nltest /sc_verify:unit.local</td><td>שתי שורות <span class="ltr">Status = 1787 0x6fb ERROR_NO_TRUST_SAM_ACCOUNT</span></td><td>(אין בחירה, ״לסיכום״)</td></tr>
+  </table>
+
+  <p><strong>שלב 1: הגדרות IP וזהות התחנה.</strong> לפני שמאשימים את הדומיין מוודאים שיש כתובת ושער, ובעיקר שה-DNS מצביע על בקר הדומיין ולא על שרת אינטרנט. בפלט: הכתובת <span class="ltr">10.20.4.87</span> עם <span class="ltr">(Preferred)</span>, שער <span class="ltr">10.20.4.1</span>, סיומת <span class="ltr">unit.local</span>, ו-DNS <span class="ltr">10.20.4.10</span>, שהוא ה-DC. האפשרויות השגויות: להריץ מיד nltest (מוקדם מדי: אם השרת לא זמין גם בדיקת האמון תיכשל, ולא נדע ממה), ולהחליף כרטיס רשת (יש כתובת, שער ו-DNS, כך שהכרטיס עובד). שאלו את הכיתה מה היה קורה אם ב-DNS Servers הייתה רשומה כתובת של שרת DNS חיצוני: כל השלבים הבאים היו נכשלים כבר בשלב 3.</p>
+  <p><strong>שלב 2: זמינות בקר הדומיין ברשת.</strong> ping מבדיל בין ״אין נתיב״ לבין ״יש נתיב אבל השירות לא עונה״. ארבע תשובות, אפס אובדן, זמנים של <span class="ltr">1</span>, פחות מ-1, <span class="ltr">1</span> ו-<span class="ltr">2</span> מילישניות. Windows מחשב תשובה של פחות ממילישנייה כאפס, ולכן בסיכום <span class="ltr">Minimum = 0ms</span>, <span class="ltr">Maximum = 2ms</span> והממוצע <span class="ltr">1ms</span>. ה-TTL הוא 128, כצפוי משרת Windows באותה רשת. כאן עצרו והדגישו ש-ping תקין עדיין לא אומר שהשירות עונה. האפשרות השגויה ״לסמן DNS תקין״ היא בדיוק הטעות הזו (Ping בודק ICMP, לא את השירות, ושרת יכול לענות ולא לשרת שאילתות). האפשרות ״להריץ tracert לבקר״ מיותרת: ה-RTT הממוצע הוא מילישנייה אחת ואין אובדן, אז אין מה לחפש בדרך.</p>
+  <p><strong>שלב 3: זיהוי הדומיין ובקר הדומיין.</strong> תחנה שמתחברת לדומיין מאתרת את הבקר לפי רשומת SRV, ולכן שואלים בדיוק עליה. השם <span class="ltr">_ldap._tcp.dc._msdcs.unit.local</span> נראה מאיים, אבל הוא בנוי מחלקים פשוטים: שירות LDAP, בפרוטוקול TCP, של בקרי דומיין (dc), באזור <span class="ltr">_msdcs</span> שבו Active Directory רושם את הרשומות שלו, בדומיין <span class="ltr">unit.local</span>. התשובה: <span class="ltr">dc01.unit.local</span> בפורט 389, ובחלק התחתון של הפלט גם הכתובת של dc01: <span class="ltr">10.20.4.10</span>. זו אותה כתובת שרשומה כ-DNS. האפשרויות השגויות: nslookup על אתר אינטרנט (שם כללי לא עוזר, שאלנו על הדומיין וקיבלנו תשובה), ולהסיק שהתקלה ב-DNS (ה-DNS החזיר את התשובה הנכונה).</p>
+  <p><strong>שלב 4: פתיחת חיבור לשירות עצמו.</strong> רשומת DNS רק מצביעה על השרת. חיבור שנפתח לפורט 389 מראה שהשירות מאזין ושאין חוסם בדרך. בפלט <span class="ltr">TcpTestSucceeded : True</span>, וגם <span class="ltr">SourceAddress 10.20.4.87</span>, כלומר החיבור יצא מהמתאם הנכון. עד כאן נשללה כל שכבת הרשת. האפשרויות השגויות: לאתחל את התחנה (אתחול יכול להסתיר את הממצא בלי להסביר אותו), ולפתוח קריאה לצוות התשתיות (אין עדיין ממצא להעביר). אם הזמן קצר, עצרו כאן ובקשו מהחניכים להציע את שאר הבדיקות. תשובה טובה: שעון ואמון.</p>
+  <p><strong>שלב 5: הפרש שעונים מול הדומיין.</strong> Kerberos פוסל כרטיס כשההפרש עולה על חמש דקות (ברירת המחדל בדומיין), והתסמין נראה בדיוק כמו בעיית הרשאות. הבדיקה זולה, ולכן שוללים אותה לפני הבדיקה האחרונה. הפקודה <span class="ltr">w32tm /stripchart /computer:dc01.unit.local /samples:3 /dataonly</span> מודדת את ההפרש ישירות מול בקר הדומיין: היא פונה לשירות הזמן שלו בפורט 123, כמו שרואים בשורה <span class="ltr">Tracking dc01.unit.local [10.20.4.10:123].</span>, ומדפיסה שלוש מדידות, כל אחת עם השעה וההפרש בשניות. כאן ההפרש הוא כ-0.04 שניות בכל המדידות, הרבה מתחת לחמש דקות. <span class="ltr">w32tm /query /status</span> משקופית 11 היה מראה מאיפה התחנה מסתנכרנת ומתי הצליחה לאחרונה, אבל לא את ההפרש עצמו. האפשרויות השגויות: לחבר מחדש את התחנה לדומיין עכשיו (אולי יעבוד, אבל לא נדע מה היה שבור ואם זה יחזור), ולאפס את סיסמת המשתמש (התקלה אצל כל המשתמשים הרשתיים, כך שהמשתמש אינו החשוד).</p>
+  <p><strong>שלב 6: ערוץ האמון בין התחנה לדומיין.</strong> גם לתחנה יש בדומיין חשבון, ״חשבון מחשב״, עם סיסמה שהתחנה והדומיין מכירים ומחליפים מעצמם מדי פעם. בעזרתה התחנה פותחת מול ה-DC ערוץ מאובטח, ודרכו היא מעבירה את בקשות הכניסה של משתמשים רשתיים. אם החשבון חסר בדומיין, או שהסיסמה בתחנה ובדומיין לא תואמות, אין ערוץ, ואף משתמש רשתי לא נכנס. <span class="ltr">nltest /sc_verify</span> בודק בדיוק את הערוץ הזה. בתשובה תקינה שתי שורות הסטטוס מסתיימות ב-<span class="ltr">0 0x0 NERR_Success</span>. כאן מופיע בשתיהן קוד 1787 (<span class="ltr">ERROR_NO_TRUST_SAM_ACCOUNT</span>): בדומיין אין חשבון מחשב תקף לתחנה הזו. וזה גם ההסבר לסימפטום: משתמש מקומי עובד כי הוא לא עובר דרך הדומיין בכלל.</p>
+  <p><strong>הסיכום</strong> שעל המסך: הבדיקות שללו את הכתובת, הנתיב, ה-DNS, השירות והשעה, והצביעו על חשבון המחשב. התיקון שמוצע שם הוא חידוש סיסמת חשבון המחשב או צירוף מחדש לדומיין. שני התיקונים דורשים הרשאות בדומיין ונעשים לפי נוהל היחידה. כשחשבון המחשב נמחק מהדומיין, חידוש סיסמה לא יעזור, כי אין לו חשבון לחדש, וצריך צירוף מחדש או שחזור של החשבון.</p>
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>הפלט של nltest מסתיים בשורה <span class="ltr">The command completed successfully</span>, והטכנאי מסיק שה-Domain תקין, אף שהבדיקה עצמה נכשלה. השורה הזו אומרת רק ש-nltest הצליח לבצע את השאילתה. התשובה לשאילתה נמצאת בשורות ה-Status. כאן עצרו בפעם השנייה.</p>
+  </div>
+  <table>
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">למה לא לצרף מחדש לדומיין כבר בהתחלה? זה פותר הרבה תקלות.</td><td>כי בלי בדיקה לא יודעים מה היה שבור. אם הבעיה הייתה DNS או שעון, הצירוף ייכשל או שהתקלה תחזור. וצירוף מחדש הוא שינוי בדומיין, שלא עושים בלי ממצא.</td></tr>
+    <tr><td class="k">איך זה קורה, שחשבון מחשב ״נעלם״ או לא תואם?</td><td>סיבות נפוצות: מישהו מחק או השבית את חשבון המחשב בדומיין, תחנה שוחזרה מגיבוי או מתמונה ישנה עם סיסמה ישנה, או שתי תחנות עם אותו שם.</td></tr>
+    <tr><td class="k">יש דרך לבדוק את זה ב-PowerShell?</td><td><span class="ltr">Test-ComputerSecureChannel</span> מחזיר True או False. הפרמטר <span class="ltr">-Repair</span> שלו מתקן, ודורש הרשאות דומיין, ולכן לא משתמשים בו בשיעור.</td></tr>
+  </table>
+</div>
+
+<!-- 14-16 -->
+<div class="pg">
+  <div class="eyebrow">07 · שקופיות <span class="ltr">14-16</span></div>
+  <h1>תרגול, מגבלות ושרשרת הראיות</h1><hr class="rule">
+
+  <h2>שקופית 14 · קריאת פלט: מה הוכח ומה בודקים עכשיו</h2>
+  <p><strong>על המסך:</strong> מימין שלוש שאלות וכפתור ״הצג תשובה״, משמאל חלון עם הפלט של השאלה שנבחרה. כותרת המשנה: בוחרים פלט, עונים בעל פה, ורק אחר כך פותחים את התשובה. השקופית נפתחת בשאלה 1, והתשובה מוסתרת. לחיצה על ״הצג תשובה״ פותחת אותה מתחת לחלון והכפתור מתחלף ל״הסתר תשובה״. מעבר לשאלה אחרת מסתיר את התשובה שוב.</p>
+  <p><strong>איך להעביר.</strong> בחרו שאלה, תנו לכיתה חצי דקה לקרוא את הפלט, ובקשו תשובה בעל פה: מה הפלט מראה, מה הוא עוד לא מוכיח, ומה בודקים עכשיו. רק אחרי שנאמרה תשובה פתחו את התשובה שעל המסך. שאלות 2 ו-3 הן המשך של אותה תקלה, ולכן כדאי להעביר אותן ברצף.</p>
+  <p><strong>שאלה 1: <span class="ltr">ping</span> לתחנה שכנה מסתיים ב-<span class="ltr">Lost = 0</span>. התחנה ענתה?</strong> בפלט <span class="ltr">ping 10.20.30.80</span> מופיעות ארבע שורות <span class="ltr">Reply from 10.20.30.15: Destination host unreachable.</span>, ובסיכום <span class="ltr">Sent = 4, Received = 4, Lost = 0 (0% loss)</span>. התשובה: לא. כל התשובות הגיעו מהכתובת של התחנה עצמה. היא שאלה ב-ARP מי מחזיק את <span class="ltr">10.20.30.80</span>, לא קיבלה תשובה, ודיווחה לעצמה שהיעד לא נגיש. Windows סופר הודעה כזו כתשובה שהתקבלה, ולכן שורת הסיכום נראית מושלמת. זו בדיוק הטעות הנפוצה משקופית 5. הבדיקה הבאה: <span class="ltr">arp -a</span> או Get-NetNeighbor (רשומה במצב Unreachable מאשרת), ואם התחנה השכנה באמת מחוברת, היציאה שלה במתג וה-VLAN.</p>
+  <p><strong>שאלה 2: <span class="ltr">ping</span> לשרת מצליח, והפורט נכשל.</strong> בפלט של <span class="ltr">Test-NetConnection server.unit -Port 443</span> מופיעה בראש האזהרה <span class="ltr">WARNING: TCP connect to (10.20.40.25 : 443) failed</span>, ובסוף <span class="ltr">PingSucceeded : True</span> ו-<span class="ltr">TcpTestSucceeded : False</span>. שדות ה-Ping מופיעים כי Test-NetConnection מוסיף בדיקת ping מעצמו כשבדיקת הפורט נכשלת (שקופית 9). מה הוכח: השם תורגם (RemoteAddress), ויש דרך לשרת. מה לא: שהשירות מאזין. פורט 443 לא נפתח, כי השירות לא מאזין או כי חומת אש חוסמת את הפורט. הבדיקה הבאה נעשית בשרת עצמו: <span class="ltr">netstat -ano | findstr :443</span> או <span class="ltr">Get-NetTCPConnection -LocalPort 443</span>.</p>
+  <p><strong>שאלה 3: בשרת השירות מאזין, ומתחנה אחרת הפורט עדיין נכשל.</strong> בפלט של <span class="ltr">netstat -ano | findstr :443</span> בשרת יש שורה אחת: <span class="ltr">TCP 127.0.0.1:443 0.0.0.0:0 LISTENING 3120</span>. השירות מאזין רק בכתובת <span class="ltr">127.0.0.1</span>, כלומר רק למחשב עצמו (שקופית 10). בדיקה מקומית בשרת תצליח, ומכל תחנה אחרת תיכשל. זו הגדרה של היישום, ומעבירים אותה לגורם האחראי לפי נוהל היחידה. כדי לדעת איזו תוכנה מאזינה, <span class="ltr">Get-Process -Id 3120</span>. זה גם מה שהבדיקה מתשובה 2 מוצאת.</p>
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>לקרוא בכל פלט רק את שורת הסיכום או את השדה האחרון: <span class="ltr">Lost = 0</span> בשאלה 1, <span class="ltr">PingSucceeded : True</span> בשאלה 2, LISTENING בשאלה 3. בכל אחת מהן התשובה נמצאת בשורה אחרת: מאיזו כתובת הגיעה התשובה, איזה פורט נבדק, ובאיזו כתובת השירות מאזין.</p>
+  </div>
+
+  <h2>שקופית 15 · מגבלות הסימולטור וההדגמות</h2>
+  <p><strong>על המסך:</strong> טבלה עם שלוש עמודות, הדגמה, מה הופשט ומה יש בפועל, ובה השורות: סימולטור התחקור (מסלול אחד), תחילת התרחיש (ההודעה במסך הכניסה ואירוע NETLOGON 3210), שלבים 2 ו-4 (ping ל-DC ופורט אחד), nltest בשלב 6 (קוד שגיאה אחד), ו-ipconfig וטבלת הניתוב (מתאם אחד, IPv4 בלבד וטבלה מקוצרת). כותרת המשנה: הפקודות, שמות השדות וקודי השגיאה הם של Windows; הפלט מקוצר, והתרחיש בנוי כך שלכל שלב יש תשובה אחת.</p>
+  <p><strong>רקע.</strong> חניכים יוצאים לפעמים מתרגול כזה עם הרושם שתחקור אמיתי הוא שישה צעדים בסדר קבוע עם תשובה אחת נכונה. הסדר והפקודות נכונים, אבל בתרגיל ובהדגמות יש פישוטים שכדאי להכיר:</p>
+  <ul>
+    <li><strong>מסלול אחד.</strong> לכל שלב יש תשובה נכונה אחת. בשטח אפשר להריץ כמה בדיקות במקביל, ולפעמים סדר אחר נכון באותה מידה, למשל להתחיל מ-nltest כשכבר יודעים שהרשת תקינה בתחנה הסמוכה.</li>
+    <li><strong>אין סימפטום ואין יומן.</strong> התרגיל מתחיל משורת הפקודה. בתחנה אמיתית רואים קודם את הודעת השגיאה במסך הכניסה, ובתקלה הזו היא בדרך כלל <span class="ltr">The trust relationship between this workstation and the primary domain failed.</span> ביומן System של התחנה מופיע אירוע NETLOGON 3210. שני אלה מצביעים על ערוץ האמון כבר בהתחלה. הבדיקות בסימולטור הן הדרך לאשר את החשד ולשלול סיבות אחרות, וזה מה שמעבירים הלאה.</li>
+    <li><strong>פלט מקוצר.</strong> כל הפקודות והשדות בסימולטור אמיתיים, אבל חלק מהשורות הושמטו. ב-<span class="ltr">ipconfig /all</span> חסרים בין השאר <span class="ltr">Description</span>, <span class="ltr">Physical Address</span> ו-<span class="ltr">DHCP Enabled</span>. ב-Resolve-DnsName חסרות העמודות <span class="ltr">Section</span>, <span class="ltr">Priority</span> ו-Weight. ב-Test-NetConnection חסר InterfaceAlias.</li>
+    <li><strong>השעון.</strong> בשלב 5 ההפרש נמדד ב-<span class="ltr">w32tm /stripchart</span> מול ה-DC, כמו שעושים בשטח. הפלט האמיתי של <span class="ltr">w32tm /query /status</span>, שמופיע מקוצר בשקופית 2, ארוך יותר (<span class="ltr">Precision</span>, <span class="ltr">Root Delay</span>, <span class="ltr">Root Dispersion</span> ועוד). השורה <span class="ltr">Phase Offset</span> מופיעה בו רק כשמוסיפים <span class="ltr">/verbose</span>, והיא מתארת את התיקון ששירות הזמן עוד מבצע בשעון המקומי. זו אינה מדידה מול ה-DC, ולכן לא מסיקים ממנה כמה התחנה רחוקה ממנו.</li>
+    <li><strong>ping ל-DC.</strong> בסימולטור הוא עונה. בשטח בקר דומיין יכול לסנן ICMP, ואז כישלון בשלב 2 לא אומר שאין נתיב. במקרה כזה ממשיכים לשלב 4, שבודק את הפורט ישירות.</li>
+    <li><strong>פורט אחד.</strong> שלב 4 בודק רק LDAP בפורט 389. כניסה של משתמש רשתי משתמשת בעוד פורטים, ובהם DNS (53), Kerberos (88), SMB (445) ו-RPC (135 ועוד פורטים דינמיים). חומת אש שפותחת 389 וחוסמת 88 תעבור את שלב 4 ותכשיל כניסה.</li>
+    <li><strong>הפלט של nltest משתנה לפי הסיבה.</strong> בתקלות אמיתיות השורות יכולות להיראות אחרת: <span class="ltr">Flags: 0</span>, שורת <span class="ltr">Trusted DC Name</span> ריקה, וקודים אחרים, למשל <span class="ltr">5 0x5 ERROR_ACCESS_DENIED</span> כשהסיסמאות לא תואמות, או <span class="ltr">1311 0x51f ERROR_NO_LOGON_SERVERS</span> כשהתחנה לא מגיעה לאף DC. הכלל לא משתנה: קוראים את שורות ה-Status, ורק <span class="ltr">0 0x0 NERR_Success</span> הוא תקין.</li>
+    <li><strong>דומיין עם בקר אחד.</strong> ברשת אמיתית יש בדרך כלל כמה בקרים, ורשומת ה-SRV מחזירה את כולם. תחנה יכולה לעבוד מול בקר אחד ולהיכשל מול אחר. <span class="ltr">nltest /dsgetdc</span> מראה מול איזה בקר התחנה עובדת כרגע.</li>
+    <li><strong>פרטים שמורים.</strong> בתקלת אמון, משתמש רשתי שכבר נכנס בעבר לתחנה עשוי בחלק מהמקרים להיכנס עם הפרטים השמורים בה. אז נראה שהתקלה ״רק אצל חלק מהמשתמשים״, ומי שבודק את המשתמש במקום את התחנה הולך לכיוון הלא נכון.</li>
+    <li><strong>זמן ותיקון.</strong> בסימולטור כל פקודה מחזירה תשובה מיד. בשטח בדיקה שנכשלת מחכה לפעמים עשרות שניות עד שהיא מוותרת. והתרגיל נגמר באבחון. התיקון עצמו (<span class="ltr">nltest /sc_reset</span>, <span class="ltr">Test-ComputerSecureChannel -Repair</span>, או צירוף מחדש, ואחריהם אתחול) דורש הרשאות דומיין ונעשה לפי נוהל היחידה.</li>
+    <li><strong>ההדגמות בשקופיות 4 ו-7.</strong> מתאם אחד ו-IPv4 בלבד. ב-<span class="ltr">ipconfig /all</span> אמיתי מופיעים כל המתאמים, כולל וירטואליים ו-VPN, וגם כתובות IPv6, וכתובת APIPA מופיעה בשורה בשם <span class="ltr">Autoconfiguration IPv4 Address</span>. ההדגמה מסמנת כתובת ששונה מהתכנון באותה רשת כחשד לכפילות; כפילות ש-Windows זיהה מופיעה בפלט כ-<span class="ltr">(Duplicate)</span>. טבלת הניתוב מקוצרת לחמש שורות, ובטבלה אמיתית יש גם שורות לכתובת השידור של הרשת, ל-multicast ול-<span class="ltr">255.255.255.255</span>. ב-tracert הזמנים קבועים, והדרך שמעבר לשער מוצגת רק ליעדים בתוך <span class="ltr">10.20.0.0/16</span>.</li>
+    <li><strong>פרטים קוסמטיים.</strong> תבנית התאריך בפלט של w32tm ושל klist תלויה בהגדרות האזור של התחנה.</li>
+  </ul>
+  <div class="note amber"><h3>מה מעבירים הלאה</h3>
+    <p>הסימולטור כן מלמד את השיטה: בכל שלב שוללים סיבה אחת, וממצא תקין בשלב אחד עדיין לא מוכיח את הבא. הוא גם מלמד לקרוא בפלט את שורות הסטטוס ולא להסתמך על שורת הסיום של הפקודה. למי מעבירים ממצא כזה ובאיזו צורה נקבע לפי נוהל היחידה. כדאי לצרף את הפקודות שהורצו ואת שורות הסטטוס כטקסט, עם השעה.</p>
+  </div>
+
+  <h2>שקופית 16 · שרשרת הראיות מהמתאם עד הזהות</h2>
+  <p><strong>על המסך:</strong> חמש תחנות ברצף: Get-NetAdapter (יש Link), <span class="ltr">ipconfig / arp</span> (זהות ושכן), <span class="ltr">route / tracert</span> (יש דרך), <span class="ltr">DNS / Port</span> (יש שם ושירות), <span class="ltr">Domain / Cert</span> (יש אמון). כותרת המשנה: עוצרים ובודקים לעומק רק בשלב שבו התוצאה אינה תואמת לתכנון או לייחוס.</p>
+  <p><strong>רקע.</strong> אלה השאלות של שקופית 2, מקובצות לחמש חוליות. כל חוליה נשענת על זו שלפניה, וכל כלי מוסיף ראיה אחת. אם הממצא תואם לתכנון ממשיכים, ואם לא, עוצרים ובודקים לעומק. הסימולטור עבר בדיוק בדרך הזו. חמש בדיקות תאמו לצפוי, והשישית חרגה.</p>
+  <p>לאורך כל השיעור משווים לתכנון של הרשת או לתחנה תקינה שעומדת ליד. בלי משהו להשוות אליו, אי אפשר לדעת אם <span class="ltr">10.20.30.15</span> או <span class="ltr">00-15-5d-01-02-03</span> נכונים. ההדגמה בשקופית 4 עושה בדיוק את זה, שדה מול שדה.</p>
+  <p><strong>איך להעביר.</strong> התרגול נעשה בשקופיות 13 ו-14. סיימו במפה שבשקף ועברו בקצרה על מה שכל כלי בדק. אפשר לעבור על החוליות מימין לשמאל ולשאול על כל אחת: איזו פקודה, איזה שדה, ומה עוד לא הוכח.</p>
+  <div class="note green"><h3>שאלת סיום</h3>
+    <p>איזו תוצאה של Test-NetConnection מוכיחה פתיחת TCP, ומה היא אינה מוכיחה לגבי היישום? (<span class="ltr">TcpTestSucceeded : True</span>. היא לא מוכיחה שהיישום מחזיר תוכן תקין, שהתעודה תקינה או שהמשתמש מורשה.)</p>
+  </div>
+</div>
+
+<!-- נספחים -->
+<div class="pg">
+  <div class="eyebrow">נספחים</div>
+  <h1>מפת המצגת, ערכי בדיקה ומילון</h1><hr class="rule">
+  <h2>מפת המצגת</h2>
+  <table>
+    <tr><th class="n">מס׳</th><th>כותרת השקופית</th><th class="n">מס׳</th><th>כותרת השקופית</th></tr>
+    <tr><td class="n">1</td><td>כלי Windows: מה בודקים בכל פקודה (שער)</td><td class="n">9</td><td>Test-NetConnection בודק אם ניתן לפתוח חיבור TCP לפורט מסוים</td></tr>
+    <tr><td class="n">2</td><td>איזה כלי עונה על איזו שאלה</td><td class="n">10</td><td>Get-NetTCPConnection או netstat מראים מי מאזין ומי מחובר</td></tr>
+    <tr><td class="n">3</td><td>Get-NetAdapter מראה אם Windows מזהה מתאם, Link וקצב קישור</td><td class="n">11</td><td>בדיקות Kerberos: זמן, איתור DC וכרטיסים</td></tr>
+    <tr><td class="n">4</td><td><span class="ltr">ipconfig /all</span> מציג את הזהות המקומית של התחנה ברשת</td><td class="n">12</td><td>Certificate Viewer ו-Event Viewer</td></tr>
+    <tr><td class="n">5</td><td>Ping בודק תשובת ICMP ומודד RTT</td><td class="n">13</td><td>תרגול אבחון: משתמש מקומי נכנס, משתמש רשתי לא</td></tr>
+    <tr><td class="n">6</td><td><span class="ltr">arp -a</span> מראה איזה MAC משויך ל-IP המקומי או ל-Gateway</td><td class="n">14</td><td>קריאת פלט: מה הוכח ומה בודקים עכשיו</td></tr>
+    <tr><td class="n">7</td><td>route print ו-tracert בודקים את המסלול</td><td class="n">15</td><td>מגבלות הסימולטור וההדגמות</td></tr>
+    <tr><td class="n">8</td><td>Resolve-DnsName או nslookup בודקים את ה-DNS בנפרד מהשירות</td><td class="n">16</td><td>שרשרת הראיות מהמתאם עד הזהות</td></tr>
+  </table>
+
+  <h2>ערכי בדיקה להדגמות</h2>
+  <p>אם רוצים לוודא לפני השיעור שהכול עובד, אלה התוצאות שצריכות להופיע. בשקופיות 4 ו-7 אפשר להקליד ערכים נוספים; הערכים כאן נבדקו מול חישוב נפרד של הרשתות והמסלולים.</p>
+  <table>
+    <tr><th>שקופית</th><th>מה בודקים</th><th>מה צריך להופיע</th></tr>
+    <tr><td class="k">2 · פתיחה</td><td>מצב ברירת המחדל</td><td>השאלה ״השירות בשרת מקבל חיבור בפורט שלו?״ מסומנת, הכלי Test-NetConnection (שקופית 9), השורה <span class="ltr">TcpTestSucceeded : True</span> בצהוב</td></tr>
+    <tr><td class="k">4 · ״מסכה רחבה״</td><td>ברירת המחדל: מסכה <span class="ltr">255.255.0.0</span></td><td>רשת <span class="ltr">10.20.0.0/16</span>, כתובות <span class="ltr">10.20.0.1</span> עד <span class="ltr">10.20.255.254</span>. שרת DNS ו-<span class="ltr">server.unit</span>: ישירות ב-ARP (בתכנון: דרך <span class="ltr">10.20.30.1</span>). סימן אדום רק ב-Subnet Mask</td></tr>
+    <tr><td class="k">4 · ״לפי התכנון״</td><td>כל השדות לפי התכנון</td><td>רשת <span class="ltr">10.20.30.0/24</span>, כתובות <span class="ltr">10.20.30.1</span> עד <span class="ltr">10.20.30.254</span>. השרתים דרך <span class="ltr">10.20.30.1</span>, התחנה השכנה ישירות. ממצא ירוק אחד</td></tr>
+    <tr><td class="k">4 · ״Gateway שגוי״</td><td>שער <span class="ltr">10.20.3.1</span></td><td>השער ״מחוץ לרשת המקומית״, השרתים ״ל-Gateway <span class="ltr">10.20.3.1</span>, שנמצא מחוץ לרשת המקומית״, התחנה השכנה ישירות</td></tr>
+    <tr><td class="k">4 · ״DNS אחר״</td><td>DNS <span class="ltr">10.20.10.11</span></td><td>ניתוב תקין, סימן אדום רק ב-DNS Servers, ממצא כתום על שרת DNS שונה מהתכנון</td></tr>
+    <tr><td class="k">4 · APIPA</td><td><span class="ltr">169.254.31.7</span>, <span class="ltr">255.255.0.0</span>, DHCP Yes</td><td>רשת <span class="ltr">169.254.0.0/16</span>, כל חמשת הסימנים אדומים, ארבעה ממצאים: כתובת APIPA, שדה DHCP Enabled, אין Gateway ואין DNS</td></tr>
+    <tr><td class="k">4 · הקלדה</td><td>מסכה <span class="ltr">255.255.240.0</span></td><td>רשת <span class="ltr">10.20.16.0/20</span>, כתובות <span class="ltr">10.20.16.1</span> עד <span class="ltr">10.20.31.254</span>. כל היעדים כמו בתכנון; ממצא: מסכה רחבה (<span class="ltr">/20</span> במקום <span class="ltr">/24</span>)</td></tr>
+    <tr><td class="k">7 · ברירת מחדל</td><td>יעד <span class="ltr">10.20.40.25</span></td><td>מתאימות <span class="ltr">/0</span> ו-<span class="ltr">/24</span>, נבחרת <span class="ltr">10.20.40.0/24</span>, שער <span class="ltr">10.20.30.2</span>. ב-tracert: <span class="ltr">10.20.30.2</span>, <span class="ltr">10.20.35.1</span>, <span class="ltr">10.20.40.25</span></td></tr>
+    <tr><td class="k">7 · יעדים נוספים</td><td><span class="ltr">10.20.30.80</span>, <span class="ltr">10.20.10.10</span>, <span class="ltr">127.0.0.1</span>, <span class="ltr">10.20.30.15</span></td><td><span class="ltr">10.20.30.0/24</span> On-link (קפיצה אחת); <span class="ltr">0.0.0.0/0</span> דרך <span class="ltr">10.20.30.1</span> (שתי קפיצות); <span class="ltr">127.0.0.0/8</span> On-link; <span class="ltr">10.20.30.15/32</span> On-link (שלוש שורות מתאימות)</td></tr>
+    <tr><td class="k">7 · נתב ביניים</td><td>הסימון מופעל, יעד <span class="ltr">10.20.40.25</span></td><td>קפיצה 2: <span class="ltr">* * * Request timed out.</span>, קפיצה 3: <span class="ltr">10.20.40.25</span></td></tr>
+    <tr><td class="k">13 · שלב 1</td><td><span class="ltr">ipconfig /all</span></td><td><span class="ltr">10.20.4.87</span>, שער <span class="ltr">10.20.4.1</span>, DNS <span class="ltr">10.20.4.10</span></td></tr>
+    <tr><td class="k">13 · שלב 2</td><td><span class="ltr">ping 10.20.4.10</span></td><td>4 תשובות, <span class="ltr">0% loss</span>, <span class="ltr">TTL=128</span>, <span class="ltr">Minimum = 0ms, Maximum = 2ms, Average = 1ms</span></td></tr>
+    <tr><td class="k">13 · שלב 3</td><td>רשומת SRV של בקר הדומיין</td><td><span class="ltr">dc01.unit.local</span>, פורט 389, TTL 600, <span class="ltr">10.20.4.10</span></td></tr>
+    <tr><td class="k">13 · שלב 4</td><td>פורט 389</td><td><span class="ltr">TcpTestSucceeded : True</span></td></tr>
+    <tr><td class="k">13 · שלב 5</td><td>שעון</td><td><span class="ltr">+00.0412375s</span>, <span class="ltr">+00.0409813s</span>, <span class="ltr">+00.0411092s</span> מול <span class="ltr">dc01.unit.local [10.20.4.10:123]</span></td></tr>
+    <tr><td class="k">13 · שלב 6</td><td>ערוץ אמון</td><td><span class="ltr">1787 0x6fb ERROR_NO_TRUST_SAM_ACCOUNT</span>, ובסוף <span class="ltr">The command completed successfully</span></td></tr>
+    <tr><td class="k">13 · שלבים <span class="ltr">1-5</span></td><td>מקום האפשרות הנכונה</td><td>שנייה, שלישית, ראשונה, שלישית, שנייה. כל בחירה שגויה מציגה הסבר ומשאירה את השלב פתוח</td></tr>
+    <tr><td class="k">14 · תרגול</td><td>שאלות <span class="ltr">1-3</span></td><td>השקופית נפתחת בשאלה 1. התשובה מוסתרת עד ״הצג תשובה״, ומעבר שאלה מסתיר אותה</td></tr>
+  </table>
+
+  <h2>מילון קצר</h2>
+  <table>
+    <tr><th>מונח</th><th>הסבר</th><th>מונח</th><th>הסבר</th></tr>
+    <tr><td class="k">Status Up</td><td>המתאם רואה קישור פיזי.</td><td class="k">RTT</td><td>זמן הלוך ושוב של חבילה.</td></tr>
+    <tr><td class="k">TTL</td><td>מונה קפיצות בחבילת IP. ב-DNS: כמה זמן מותר לשמור תשובה.</td><td class="k">ARP</td><td>מציאת MAC לפי IP ברשת המקומית.</td></tr>
+    <tr><td class="k">Route</td><td>כלל בחירת דרך: לאיזה שער שולחים יעד מסוים.</td><td class="k">Gateway</td><td>הנתב שאליו נשלחת תעבורה לרשתות אחרות.</td></tr>
+    <tr><td class="k">Cache</td><td>מידע שמור זמנית, למשל תשובות DNS.</td><td class="k">SRV</td><td>רשומת DNS לאיתור שירות: שרת ופורט.</td></tr>
+    <tr><td class="k">Listener</td><td>שירות שמאזין לפורט (LISTENING).</td><td class="k">Established</td><td>חיבור TCP שנוצר.</td></tr>
+    <tr><td class="k">PID</td><td>מספר התהליך שמחזיק פורט או חיבור.</td><td class="k">DC</td><td>בקר דומיין: השרת שמאמת משתמשים ומחשבים.</td></tr>
+    <tr><td class="k">TGT</td><td>כרטיס Kerberos ראשי, שממנו מבקשים כרטיסים לשירותים.</td><td class="k">ערוץ אמון</td><td>הערוץ המאובטח בין התחנה ל-DC, לפי חשבון המחשב.</td></tr>
+    <tr><td class="k">Event ID</td><td>מזהה סוג אירוע של מקור מסוים.</td><td class="k">ייחוס</td><td>תחנה או ערך תקין שמשווים אליו.</td></tr>
+    <tr><td class="k">APIPA</td><td>כתובת <span class="ltr">169.254.x.x</span> ש-Windows נותן לעצמו כשאין תשובה מ-DHCP.</td><td class="k">On-link</td><td>יעד ברשת המקומית, שנשלח ישירות בלי שער.</td></tr>
+  </table>
+</div>
+</body></html>

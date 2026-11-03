@@ -1,0 +1,547 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><title>כלי Windows: מה בודקים בכל פקודה</title></head><body><style>
+:root{--deep:#04070d;--panel:#0b1220;--panel2:#101b30;--card:rgba(255,255,255,.052);--border:rgba(255,255,255,.105);--cyan:#22d3ee;--cyan2:#0891b2;--amber:#fbbf24;--red:#fb7185;--green:#4ade80;--ink:#f1f5f9;--muted:#a7b7c9;--dim:#8ba0b5}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;font-family:"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased}button{font:inherit}.deck-root{position:fixed;inset:0;background:radial-gradient(circle at 50% 24%,#0c1a2b 0,#000 76%);direction:rtl}.stage-shell{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}.stage{width:1280px;height:720px;position:relative;transform-origin:center;background:linear-gradient(155deg,#08111e 0%,#0a1829 58%,#07101c 100%);border-radius:16px;box-shadow:0 42px 110px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.06);overflow:hidden}.stage::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(34,211,238,.035) 1px,transparent 1px);background-size:100% 56px}.slide{position:absolute;inset:0;padding:43px 62px 66px;display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateX(-14px);transition:opacity .28s ease,transform .28s ease}.slide.active{opacity:1;pointer-events:auto;transform:none}.eyebrow{display:flex;align-items:center;gap:10px;padding-right:122px;color:var(--cyan);font-size:15px;font-weight:700;margin-bottom:8px}.eyebrow .num{display:inline-flex;align-items:center;justify-content:center;width:29px;height:29px;border-radius:8px;background:rgba(34,211,238,.11);border:1px solid rgba(34,211,238,.35);font-size:12px}.title{font-size:42px;line-height:1.13;color:var(--ink);font-weight:800;margin:0 0 7px}.subtitle{font-size:19px;line-height:1.5;color:var(--muted);margin:0 0 15px;max-width:1080px}.body{flex:1;min-height:0;display:flex;flex-direction:column}.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.34fr);gap:34px;flex:1;min-height:0;align-items:stretch}.split.text-wide{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}.stack{display:flex;flex-direction:column;gap:13px;min-width:0}.copy{font-size:19px;line-height:1.58;color:var(--muted);margin:0}.copy strong{color:var(--ink)}.key{background:rgba(34,211,238,.065);border-right:4px solid var(--cyan);border-radius:12px;padding:14px 17px;color:var(--ink);font-size:18px;line-height:1.5}.key.amber{background:rgba(251,191,36,.07);border-color:var(--amber)}.key.red{background:rgba(251,113,133,.07);border-color:var(--red)}.visual{position:relative;min-height:0;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:16px;background:radial-gradient(circle at 50% 40%,rgba(34,211,238,.075),transparent 67%),var(--panel);overflow:hidden;padding:16px}.visual.flat{border:0;background:transparent;padding:0}.visual svg{width:100%;height:100%;max-height:500px;overflow:visible}.visual-label{position:absolute;inset:auto 18px 12px;font-size:14px;color:var(--dim);text-align:center}.formula{direction:ltr;unicode-bidi:isolate;display:flex;align-items:center;justify-content:center;gap:15px;border:1px solid var(--border);background:var(--panel2);border-radius:14px;padding:15px 22px;color:var(--ink);font-size:31px;font-weight:800}.formula .accent{color:var(--cyan)}.formula .amber{color:var(--amber)}.grid2,.grid3,.grid4{display:grid;gap:16px;flex:1;align-content:stretch}.grid2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid4{grid-template-columns:repeat(4,minmax(0,1fr))}.card{border:1px solid var(--border);border-radius:15px;background:var(--card);padding:17px 19px;min-width:0}.card h3{margin:0 0 7px;color:var(--ink);font-size:22px}.card p{margin:0;color:var(--muted);font-size:16.5px;line-height:1.48}.card .tag{font-size:13px;font-weight:800;color:var(--cyan);margin-bottom:7px}.card.amber .tag{color:var(--amber)}.card.red .tag{color:var(--red)}.card.green .tag{color:var(--green)}.steps{display:flex;align-items:stretch;gap:26px;direction:rtl;flex:1}.step{flex:1 1 0;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:22px 22px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.025);overflow-wrap:anywhere;word-break:break-word}.step:not(:last-child)::after{content:"←";position:absolute;left:-26px;top:50%;transform:translateY(-50%);z-index:2;width:26px;height:26px;display:grid;place-items:center;border-radius:50%;background:var(--panel2);border:1px solid var(--border);color:var(--cyan)}.step strong{font-size:19px;color:var(--ink);margin-bottom:6px}.step span{font-size:15px;color:var(--muted);line-height:1.4}.metric{display:flex;align-items:baseline;gap:10px;direction:ltr;justify-content:center}.metric .value{font-size:58px;color:var(--cyan);font-weight:800}.metric .unit{font-size:20px;color:var(--muted)}.ltr{direction:ltr;unicode-bidi:isolate}span.ltr,b.ltr,i.ltr,em.ltr{display:inline;white-space:nowrap}.table{width:100%;border-collapse:collapse;font-size:16px}.table th,.table td{padding:11px 14px;border:1px solid var(--border);text-align:center}.table th{background:var(--panel2);color:var(--cyan)}.table td{background:rgba(255,255,255,.025);color:var(--muted)}.table td:first-child{color:var(--ink);font-weight:700}.checklist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}.checklist li{display:block;position:relative;padding-right:36px;min-height:24px;color:var(--muted);font-size:18px;line-height:1.45}.checklist li::before{content:"•";flex:0 0 25px;width:25px;height:25px;border-radius:7px;display:grid;place-items:center;background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.3);color:var(--green);font-weight:800}.question{font-size:28px;color:var(--ink);font-weight:800;line-height:1.35}.answer-row{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:20px}.answer{border:1px solid var(--border);border-radius:14px;padding:18px;background:rgba(255,255,255,.035);color:var(--muted);font-size:17px;line-height:1.45}.answer strong{display:block;color:var(--cyan);font-size:20px;margin-bottom:5px}.sources{font-size:13px;color:var(--dim);line-height:1.45;margin-top:8px}.sources a{color:var(--dim)}.footer{position:absolute;right:62px;left:62px;bottom:24px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--dim)}.title-slide{align-items:center;justify-content:center;text-align:center}.title-slide .badge{display:inline-flex;align-items:center;padding:8px 20px;border-radius:999px;border:1px solid rgba(34,211,238,.36);background:rgba(34,211,238,.09);color:var(--cyan);font-size:16px;font-weight:700;margin-bottom:25px}.title-slide h1{font-size:70px;line-height:1.08;margin:0 0 16px;color:var(--ink)}.title-slide p{font-size:24px;color:var(--muted);line-height:1.55;max-width:900px;margin:0 auto 28px}.hero-wave{width:650px;height:88px;max-width:72%}.nav{position:absolute;z-index:20;right:0;left:0;bottom:0;display:flex;align-items:center;gap:12px;padding:10px 25px;background:linear-gradient(0deg,rgba(0,0,0,.72),transparent)}.nav button{border:1px solid var(--border);background:rgba(255,255,255,.065);color:var(--ink);padding:7px 13px;border-radius:9px;cursor:pointer}.nav button:hover:not(:disabled){background:rgba(34,211,238,.14)}.nav button:disabled{opacity:.28;cursor:default}.progress{flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden}.progress>span{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--amber));transition:width .25s}.counter{direction:ltr;color:var(--dim);font-size:14px;min-width:58px;text-align:center}.notes-panel{position:absolute;z-index:30;left:24px;bottom:58px;width:390px;max-height:220px;overflow:auto;border:1px solid rgba(251,191,36,.36);border-radius:13px;background:rgba(6,10,18,.96);padding:14px 16px;color:var(--muted);font-size:15px;line-height:1.5;box-shadow:0 18px 60px rgba(0,0,0,.5)}.notes-panel[hidden]{display:none}.notes-panel strong{color:var(--amber);display:block;margin-bottom:5px}.speaker-note{display:none}.kbd-hint{position:absolute;left:21px;top:18px;color:var(--dim);font-size:11px}svg text{paint-order:stroke;stroke:#071019;stroke-width:2.4px;stroke-linejoin:round}.visual svg text,.card svg text{font-family:"Segoe UI",Arial,sans-serif}.flow{stroke-dasharray:8 10;animation:dash 2s linear infinite}.pulse{animation:pulse 1.7s ease-in-out infinite}.float{animation:float 3s ease-in-out infinite}.rotate{transform-origin:center;animation:spin 8s linear infinite}@keyframes dash{to{stroke-dashoffset:-72}}@keyframes pulse{50%{opacity:.35}}@keyframes float{50%{transform:translateY(-7px)}}@keyframes spin{to{transform:rotate(360deg)}}.flow.rev{animation-direction:reverse}.flow.slow{animation-duration:3.6s}.flow.fast{animation-duration:1.1s}.wave{transform-box:fill-box;animation:travel 2.6s linear infinite}.wave.rev{animation-direction:reverse}.wave.slow{animation-duration:4.2s}@keyframes travel{to{transform:translateX(var(--period,120px))}}.pkt{transform-box:fill-box;animation:pkt 2.8s ease-in-out infinite}@keyframes pkt{0%{opacity:0}8%{opacity:1}92%{opacity:1}100%{opacity:0;transform:translateX(var(--run,220px))}}.pkt.rev{animation-name:pktr}@keyframes pktr{0%{opacity:0}8%{opacity:1}92%{opacity:1}100%{opacity:0;transform:translateX(calc(-1*var(--run,220px)))}}.pkt.d1{animation-delay:.35s}.pkt.d2{animation-delay:.7s}.pkt.d3{animation-delay:1.05s}.blink{animation:blink 1.8s steps(1,end) infinite}@keyframes blink{0%,55%{opacity:1}56%,100%{opacity:.2}}.breathe{transform-box:fill-box;transform-origin:center;animation:breathe 2.4s ease-in-out infinite}@keyframes breathe{50%{transform:scale(1.12)}}.fade-cycle{animation:fadecyc 3.2s ease-in-out infinite}@keyframes fadecyc{0%,100%{opacity:.15}45%,55%{opacity:1}}@media(prefers-reduced-motion:reduce){.deck-root:not(.motion-on) *{animation:none!important;transition:none!important}}.motion-badge{position:absolute;left:21px;top:38px;z-index:6;font-size:11px;color:var(--cyan);background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.35);border-radius:6px;padding:2px 7px;pointer-events:none}.motion-badge[hidden]{display:none}
+@media print{html,body{height:auto;overflow:visible;background:#fff}.deck-root{position:static;background:#fff}.stage-shell{position:static;display:block;overflow:visible}.stage{width:1280px;height:auto;transform:none!important;border-radius:0;box-shadow:none;overflow:visible;background:#08111e}.slide{position:relative;width:1280px;height:720px;opacity:1!important;transform:none!important;pointer-events:auto;page-break-after:always}.nav,.notes-panel,.kbd-hint{display:none!important}}
+.tsim{display:flex;gap:20px;flex:1;min-height:0}.tsim-guide{flex:0 0 400px;display:flex;flex-direction:column;gap:11px;min-height:0;overflow:auto;padding-left:6px}.tsim-guide>.tsim-why{flex:0 0 auto}.tsim-spacer{flex:1 1 auto;min-height:0}.tsim-term{flex:1;min-width:0;display:flex;flex-direction:column;background:#05080f;border:1px solid var(--border);border-radius:14px;overflow:hidden}.tsim-bar{display:flex;align-items:center;gap:7px;padding:9px 13px;background:#0d1626;border-bottom:1px solid var(--border);flex:0 0 auto;direction:ltr}.tsim-bar i{width:11px;height:11px;border-radius:50%;display:block}.tsim-bar b{color:#8ba0b5;font-size:12.5px;font-weight:600;margin-left:10px;letter-spacing:.02em;direction:ltr;unicode-bidi:isolate}.tsim-out{flex:1;min-height:0;overflow:auto;direction:ltr;text-align:left;padding:12px 15px;font-family:Consolas,'Courier New',monospace;font-size:13.5px;line-height:1.52;color:#c3d7e8;white-space:pre-wrap;word-break:break-word}.tsim-out .tsim-boot{color:#5b7086;margin-bottom:2px}.tsim-out .caret{color:#4ade80;animation:tscar 1.1s steps(1,end) infinite}@keyframes tscar{0%,50%{opacity:1}51%,100%{opacity:0}}.tsim-out .p{color:#4ade80}.tsim-out .c{color:#f1f5f9;font-weight:700}.tsim-out .e{color:#fb7185}.tsim-out .h{color:#fbbf24}.tsim-out .cur{color:#4ade80}.tsim-hd{display:flex;align-items:baseline;gap:9px;flex:0 0 auto}.tsim-hd span{color:var(--cyan);font-size:13.5px;font-weight:800;letter-spacing:.02em}.tsim-hd b{color:var(--ink);font-size:19.5px;font-weight:800;line-height:1.25}.tsim-why{color:var(--muted);font-size:15.5px;line-height:1.46;margin:0}.tsim-cmd{direction:ltr;unicode-bidi:isolate;text-align:left;font-family:Consolas,'Courier New',monospace;font-size:13.5px;color:#fde68a;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.32);border-radius:9px;padding:8px 11px;word-break:break-all}.tsim-btn{appearance:none;cursor:pointer;font-family:inherit;text-align:right;border-radius:10px;padding:9px 13px;font-size:15.5px;line-height:1.35;border:1px solid var(--border);background:var(--card);color:var(--ink);transition:border-color .15s,background .15s}.tsim-btn:hover{border-color:var(--cyan);background:rgba(34,211,238,.11)}.tsim-btn:disabled{opacity:.45;cursor:default}.tsim-go{background:rgba(34,211,238,.16);border-color:rgba(34,211,238,.65);color:#e6fbff;font-weight:800;font-size:16px;text-align:center}.tsim-read{color:var(--ink);font-size:15.5px;line-height:1.45;background:rgba(34,211,238,.065);border-right:4px solid var(--cyan);border-radius:10px;padding:10px 13px}.tsim-read.win{background:rgba(74,222,128,.09);border-right-color:var(--green)}.tsim-fb{font-size:15px;line-height:1.4;border-radius:9px;padding:9px 12px;color:#fecdd3;background:rgba(251,113,133,.1);border-right:3px solid var(--red)}.tsim-ask{color:var(--muted);font-size:14px;font-weight:700;margin:2px 0 -3px}.tsim-ch{display:flex;flex-direction:column;gap:7px}.tsim-warn{color:#fde68a;font-size:15px;line-height:1.45;background:rgba(251,191,36,.09);border-right:4px solid var(--amber);border-radius:10px;padding:10px 13px}svg text.ltrtx,svg tspan.ltrtx{direction:ltr;unicode-bidi:isolate}svg text.nohalo{stroke:none;paint-order:normal}.table td,.table th,.rt td,.rt th{unicode-bidi:plaintext}.table td.fx,.rt td.fx{unicode-bidi:isolate}.crest{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJoAAADYBAMAAADhQedDAAAAMFBMVEUYYSdRJg8AAAD10TIhFwfq0VNiTxrVrlWilzSqok2PaCZviSmNdFbLpje5xFavqZ1xtXLwAAAAEHRSTlP+/QD+/v78/v77/v70/v4RyQVSPwAAFsBJREFUeNqtm3t8FeWZx79558whp0EI3tJaicNwUxE8DYXSeouoVTlFBzCgi21PQSPKZ0uERVu3tVkRPqhbm91qQKx6LIt0yUpH8aDd9ZKVtbZVwhgbqgsZhxNXK6Ie1JBwJjPZP+bcbwnU+YNPeGfmN8/7vs/197yn4gc6X9wlzZw0dcrekrcb9g4bSV4wqdtHVKOh9DMNoGvDRvShtQ31TNswsRrwoUvBL2bRHBD2F7cFNkL+ArcU8UWC4QNwzjrf+wOgvT757/OAb+DSgfZEpBF857cDl+a93l4PDLQDruVARaPuBsXosh/cSnhG+1BiXaQ7StRnA7hW6aVQvrGVSABziBW7aFjrpvgMYENQGdYulN1Toaq+RRGANWLYu1DiUiHwrS97dtUfNP82DRG+xjFiWcpI1yh/g2yKhTL5sqwBt47MVgn3mGRT7lLxN2ePJHqyluDMEq8Vt1MxoatOnZg79mhdZm/m/vqYZPva+/dqeY4yYaVWTt3UtLn+GNDUFz9gpZQ3+ETqFQlnsjgW2drGIg3kRQw7NdXJ6E3Vx6C9guaWvuB7+VNNCm7JO1COQbYKJIPYy3mjmxVvorrUx8vHgDZAXyVPOeHc0aSS1XB/kJ3D1xDVB9NaXCVvOok6ACVIZxPasNdNmA40GXZwX1H33xRwYNYwZFNVVQVlvdvCYICVbrjIC7U4U5CNoddN+GYurVfV1svqu7DnIg0Um88UmpsQ5tBWryzSqLqzejXGZ6C1NAVnFlnTJrkHfr69rGxCATFOg97bb4qw2dGQDGIrc571e4ZQUQNBqxyaUITCWQfTutCi0FfFjjwdMVCoocUg0FzO6oVy8alCXR9J64LxNkzR+pScpGIp6r1KkE4dR5pfAs0GkG558AbfHZnhaxxoqib4WvZEz+ESw9cUcOB+9wOlzExnweUjIlkZituCFOBH2Tqy9Jof/PCtscydgmycvVGUQVOASLbaB7voG8vRgSwR+m6fgzGFYBPiXSsRVkqjFaSrVg8063Ywy2VGIiwVnn6ICPPqlGJoMuCL5I9vHtCQo8RyJ3R6Uj9mQGLdbHXYMcutP0SvxI7z1tUZjAEYjGNqA8+2/CeB5sVA7233FmQcHlpfAVpCeQWmtfyYPXuyRpvPoUvH8WkAvbc+3d1OToLiw5agtTDNX3A1rPzB4pg6z+J5AF89g6/v3fBHuP+p5Bev8N9Ye31TloA+ZBe2FZmq29JUYfuuXr4xNbIV5Fuf/A4B4+z0DB6ke+kjipWrvU2FaImggRP76/LcQPMLxUD6INuuNl1xksjVkESxfbA+4M5v5a+Avfk91ju5YxszqidKbuxm+7qXC4376LQmY0be2EKRq2/FdeTvzygy/K8DVr7a9gbzrL7IlVDunFIsLLzlK/DI7w4tG9eIYqlzn+IUjP1aKWML/3VZ8kM6sMFSn/3dzypuT9+trip4obfOKjnTys3hVMSH1id3t52++PkX1maCR7H9V0rG+u/2ael7codrmm9Za086cE+64CiS0GweOu91APtTwKx8detjo++LesNPFwmLbul107Ld02+/b0H/3mVnLksP3VZk/+tipWTTU75zALDrFNQJJ7p715ZNxpMLVwQtEMhsAtyKmLhx/abPKsrCbS65bg/bkdwlmQxsveNUrcxKu4Xam1SMvidz7PwuPCW+sZxsifr8Ly1LKUGuSzFUciLRYFG4eB7aso9WljD//Cy26DZk0MTOxsbnPmJi0ef+YNUfY13/2Ed7HjZ9xfOe4TFDkSw7dWOupV4QKVnADX2Fs9fNRQT+lP9Eyh/0HgPnICdXef1pBUJ5mG5saBh/ri2ICXcUe+qhFsBpKY/03Mb/WmPkoCmFq+ZCoG3nahnr2bIs145HXtj0upXtQ4R0SzE9c1zL3dnsdm+eLJTnS1Fd55iZHBUbEGddW0p5zLCFu3j3a22Hby6BllIhKW2ns0rNJeItr2ma5r4ScIaS3jFPtm/fUlyxK0RXOklzze6NRbfj8dmqqvqMtA9JvFIqQtNXp6pqMobs316UTUrcdmXgEi9p9jKH4lYgYyvxFXXq9NTGm8UttneJWBYZItaDBUHLvvfgPfNVRQzDSsvGeoCV/wc6t1yrerWq8bdxg4MTALihd/rX00NlIqaXqZa87LGpvDLwTQtvHvLxyaYARkoR+9RUMuQePwu6I10apZO0gXAZtPIUbV9aeVYq5aQaJkObduSD6tAM3PD5XrtfDAOtrPZmX/82XxkabfjU9iohHf9MC9S0T+tvOm60QkVYRRwIHA9a1U8LMkVX+QCwI8cjW+Gs7KB73DO9pIhLOe5d6P1hYZkhDRZf0GHIlqjXCgsZ7bh9yMeFjntUfbGyfUiWAMA6VDg0skQ1M7Rsm9/PStS94Pe0Be7b4eOyeiejJPd1peI57O/feVw+5C+pP1p1zwUMyIDb/di640BznWSysGh7kvWwfQCu9ebxyGbuu+khjet+9VGaQpmfzM8Abj6mPQVMutVG9zdm+quPAkJpPQXg9IXbjgEt/CGYIrc/tRXAtxrAb/gLZ1o6bxxrAa5pWrlhT4z32khLCkOISIYRf5F8tkSe4LvWE2BsPuerpWbqX19ZkMJJpHK3XGLM8cCqOsSMLZlPf88CzSdr28H/s1cLhbu+/7SiaEmr/7uPsz3g0ikW6D47Cqx53TyzsAQ4vCn558iZ2XBSOAL4g49OmhLJ8K2Dmart9ULa23+XYecXNSm3BCC/KETGpYv2eEZ7izjoJa+VLK/2ArhCyWqlf9dzLL7IjduLFWb+sR+WdDwSgGjxn5Kf2WrilTawhcd+ZOthh7irOJbsNZN6x+WCtYOtC2SQqgtK4icRJdQt4da/l6nXn1uXVDVPttRD+3OqWn/EkkrGdSPTMFr2yJ51gN8QgI2ot5OmldO9WuKKmpIpZ1ajYKxp7VkHsuGZlA/Z8/Turp2edIkIMPY1NfhEKbijSoo0q+zAtVhvntEhgiAnfKklZP9jyaA8pSuyrAPR5C/pDoJJwpefdniG8ok1CbDxpXfTNYWCifoC0nO7XxPjS2K9y8oL1zNN3+Rfst17Mc1r+A6OA54+30oNm6A+4sII7n89iwIR2eom0abuNtefkFV2DYAMvtNl4Gt5DhdUK6tllZvJ9bc0BU0TsdvMDQjGV/E5OUdN1JS/kPTKXIo5YxnCwFIsXBPUtHep/RiiBz1FSNmpEHXJkrqG+4NF6QwYP4IdyW+febeSw08IrxZLyqHOuVdL1RpGRnsHVDWre/SXqZrr+VHpgYtS5lcNNkIQBuzkJ6QmVikAalNgMJMM2XX4MtjKymo7CCC+gp1cXKUdGjze1DNUQAykHN54nK9mZfgrGiqzfUiAlUpSoGR+KHQcQNClaxnCNuXxRtBiZPkB+6ZsK+5zPKekZLhaEQQSCM+5CwvA9UFfUAXVkt/QRclYG2/pqwMhDLg/i5TT4iIGDsSSnFEL/IuiCEmXjpYrDA1iilDn6ASMDP3aNrJaxP1Z+mk934K9RVVuz9ePrOsq6AvwFOqcJuTlngaLWuji81pR7dhyWuHc/mc1+rYo/47RhOQURauXYar2oDi7CVZ0WGkFQYsg6NMwsJOB2Oz+CvRt2XfTIKwvnlRYPdBU85txLdCaAsPy4qyoVSKkVQTcfTdD34ndIAfdovSHNtBCRffEh+FX21Ngqo4TQgjpjKNPrbk6TkUqxz3sXtJB1z/88e9f6D5QLBMJ7D/gf/v6UzbAotfSZn/yKAardxyJSwEmVQ/G+WPKnQ5+UrHg90RX7dB+P1i5vxBt/t5B/3f2/wYCX+9Ia9voPgZfSRxFCJp0B6Zk1Nd6owVWXNjhKUxBxQBO5xUQWJzlkL4Ksn09CGJ+Oy/aKztbsNcqCtbbhamOiRBzmpAX/zVr9CQwtM9rFQEOUQM3075Uz71wp0bfFhV33+r8Vau0hHpuE6yIXXpXDoerEQGB4jVOMtpasXxt7Veg7zMV840fZ2uJvGGxKZTx90Fr55ymzBYJC4doO1SoJxx+fMv2IOMPJbdbnB9hxAUTN0DrdhMVdZzHqI9xLdeq/FGzd2fcw1R+K6Ugkw/iTNQPofgAo03rIfallNhBrjvB3HfzBm5p3W5aNzyfWW3f1yY3T9wAi7Zz4KGbHDX1/dMPgp0gHhR8Zq3OoeYrA+s+ZJ62bzXcMl/h1adORTrJNX1jxgSd5rek9yFwgnRKsK2xJe2QasFgJNUI+NQvRw2PdQLob7PmbVpueXqiKiQeZtZmEJs2WUIYV+oEFpvy1ntP4bephVMMkPVLaxUEVDshLWNbQqzetJzrOlxzp4YdDES8ECPuA5cfSE2w3LTeWs3WTaekqCBh4YS0yGgQUFuTzcyocy4n0Fpl4Zr18LINtABsgi0VAwJkw8J9Y1kLWx+7K8k8A0TbDyf9dtiem3KYQmqSWxfrVrpug4QO1llWMqf0FN10n7mpJWUqNUA0Mbszidalpx2m29z6fX3i6DuTKlh/LxD/vaw6Eeh9erOUCpZnX+PsvPmKtCV0aSPj1SCNoeJAuzT1pS8PTHkHYM/bJx99oNuMw+DeqQeOHHkOzrn7lxNnPQfYI8Zd9Yd/eRao8N/95qp3/2d0HBjXH+ebnHH7mOSXnAbAOxI6YeKcDbr8cwC6T13sM3iRjXfYD3jhtLf+z41eXvS+Zi97fL4KCMnCsT0CRxoDo0a+OH1ynM3T4oivb3iODaf+4R0vWMQvWlt1uDFqOIeS2vDSpE/e8cLWyMaRe6NnS3EqqvsYbJ/6cz2dSbXrDkwHmMxDjU+mD8tdfAsO8Sx6uO/UlD0r+478WHsS4EIwZH12ZzIWi9hlyB5rWhlobBPzjiT1yHcLfDeX1HsweeLPlbbUv3akpdlLY2RtIdWpyB73oxtIQfhyG/M2Lp/lASiLACWPRHeTJzl6+u54pX5xM0ywcEL257VKCm2aE9I81lQ0bFrOdZ6LVr+tAfdckFcuJM9KvrWavjtu/BbCAdBXeM5MBU44/HhDqAd/IHZ+hMBPXzQBVKkyAvgLDhr88H3v/oSpywl8M/Z9nU44RFq2w3QlF646sPO89jsBVf1lZSRTsmRfG4MqwF+/99tlDyaZeM0fj6dlwzjtS7hBxsXVoyPG/+Sl7wnFV9dVkgL0/6LdBN/ZV+5uuW3nxEM4E+3BdpGpKEc5IVuDd7HOPni7706h/HLE6tJ8YuK2ehXc6g2bHu/nKyDb8goy68YJhx+P0IMY/ZN65BUd4tuvRMrSJFX3tpti/JVNjLjg6gidoai3bEnZPrO69KiBG9wS2PD9DuG/sRyYfye9twbV2u6df2yRRRMQnRNPZp1jvHyhvZLBLyN9sunBPfFT/GV7HI50/Vd3/88/76nu3rP/4fbROOed6dw+JptHqnVC2lw40H+nJdTJ5afp/8afZoUTl5+kqKbbfCHIsCKXlRpdE/aqOwultTl5r7HEJvzZfaE/zMbDQdXFAAN9eix7F8D0V9tSkHEfxyYkz3MtH7v7vOIFr/+dq1SpMoJ/x6+kQzgKVXefmNvx/FSyZaBHTPBIIv/6g7tLasjdirmvP0zi8pO+Ccg8kDrnnJLN5WLoQSyo0QCWTW03xYStJdX3UcT4yghcCp2aflAo+WzeDFk2cF/VAP/6j140USaXFO5NFdc5L5lr6v5P8/k3YZz2JS0ZB5efttsEtfWUIlJ5ZrtxrWtZ/7nuDh84dmhwmpLPNE5zQvZc8EHV2R0mCF9utvW7dQDPtXr/+6fZimvuaa2HLuQVViFvOSkclQ3Af8eLFoizFuVq3cCeZvBPfikMjZC4bTZYuwDkbdNFAZrYFfLKgaUGIM46My+9f4a3wyQi1hGq1uvQ++bTCmPB0ezrXKVQtlGOZs8F3zmmJdQJ16Zb5Enq4RH2zwTLlcJ/dxPAxjVC+RgMXV6kFGFolZrFRA0wQHlg0ZwUjv+XyX0MurvgCXX/JMVjUjae7LMAbdvsziJoInZZ1NagR1W/fbundO8BUopYeFfZ30xvUOm8SooAgdZHqsCh7fqPq4uxx64U0hw4qlzsOST/+9uA/0iZ7CPC3QdrSNE+L22zoAuWBovNFKUmLEcNpA89PtT/MxTwRwCq1odJBHGh/4YkNyp4AhwYnB4ryh4LY9Sp9gIrecZr+WlGQIOlBwF6bzoP3lX2hyNcfv+rzsa4tLq3flAHzR6MqMV58lGBUEOqilx2sMNMAKdbg0AVr8GvvTLgR403vLD7T60IA7psOecUZzaaUjODqAH1+O/5yLWQoMpAAnqbHej1zpMnLrv8ZKyX2WPhhKI7s3Y040NIBkLN7oHJpxkmiMVN3PixdeYWYK1RFSHa3JYUJBoJiHfBmWgP7vmsVEfggs9DyECiwwQUBX+KHrXQYIECVG1shHn1fRrQpcsXvVGyv3BYmdGmK9CTYtGXdCQpn80euXUb8MKn60jcuvgZcLSQf4EoiSZiq2QcGKjzyFv/WCtNCFtJ3N6gs0cnoVnQ1aZfM00p3fuorWkLyQb8qwIMsqQDXNmzKw1oloF1Lfx7GB84oYbB2bEynRQRC0X1uXCuCrj+sRYghQGC/wiEHQj3rmHgCPWAbGuuUq4v434e0nQD91MFrKUdAH+ZBPCMG2aJW0HVTDaGGWwBx7Cj+b+iyUNTlBk0aPCOAMerMd3O+8Lw2ED/PR+xP2y/FGZePT5A1hcuiZVFE7FV2AJcjfRZ2+4/zQS31tlmgpKoX0dilU8Hw9auuaC8bNTWLJYxUr9VSJKtuyBxounR96tWQX8VOA3yb2e/OUQ/S3SGdHsuDGQfe96vJ4s6V9C/yItsXYTiU5WhumOjPm+Towbsyh58LyVst44GPnA0oqPfGLLXppx7kR6aCwOzsz6codlnAtSDgb2gRwyJJt4kJEcNuDu7H5ii2d2Vnk90aIvOnKYM3QesVbboobkwJUu4DBHZvQ7qoatBW7ggNoyuooglQrJswDP5rRgA981Gj1qPFqhH8R5lrbJFZy7YGeHczGP7P6sHbHvh7DeH1fEUMSlkywbsyNx0wukGxSxwuhqi19Qqw+uf1tbMiLbNhYEMG2TNTFLJYsIakEP2wtmxYXZjReeqELIBr2QOcb18JFkXzgriKHJx0XLjQvpd3qu2tR4YF89rwonxh2C3RlVr0T578R81xKSQFjXgQP4rynfA0aIlRCsuW0a4iYdy+pPquA7oDFF5T7Uy/C62iCU+1KIG7MshkYX4GBxbjjZOK97WKy4bJxy2Tg3RA/6qrJVTz9nlifbQMf0+i886aYvKYyFxYuZzQt7lrdrMqcqx9esvUK6w22QD/jc9V6F+CZwuPXRwwa4Sb5WYKVjufzcQ6gF/VXIj1PN3QKfdsC1e8mxdSTRXvH+trLtBmHjITO+nM9GObltiKcd6akKYNTPaQvMN2DdfAVTpUXC6YOFss3SfdkypO2MOPPO7teMnfwpvXPlJXJw8shL+HJJ2XP2XE0uWriVnCi4ffNeO2tNBnGtxdQQcRda31VGykVH2F6OxmmA0hAHuZuXiCDhdsr1w9rTSYOVkw42NeEHT7B5ANYHdDXb0d/NiyvGh4XKoIUoomc7tRuagiJcRrfxpExE7+Vxb0z1hHBpYKGrLgZWXDTfm/j6k6VIQHEMODUaUcvMc6iSMqFUv0aPMN3C6CEXDanmwIWTzlk6XQ7psa9FtdaOGeHqok4Wi8+Q2zUa2tejB2dOGABvqlA5Mi9Weh64RXdhaO8Q8h54puML0h23Z/4AyJFgZO01/74SqkbumJzapB4YE4/8BA2NXN/WVcGQAAAAASUVORK5CYII=);background-size:contain;background-position:center;background-repeat:no-repeat;display:inline-block;flex:0 0 auto}.crest-lg{width:76px;height:107px}.crest-sm{width:27px;height:38px}.brand{display:flex;align-items:center;gap:15px;margin-bottom:22px;direction:rtl}.brand-txt{display:flex;flex-direction:column;align-items:flex-start;line-height:1.18;text-align:right}.brand-txt b{font-size:25px;font-weight:800;color:var(--ink);letter-spacing:.01em}.brand-txt i{font-size:16px;font-style:normal;color:var(--cyan);font-weight:600}.slide-mark{position:absolute;top:28px;right:62px;z-index:4;display:flex;align-items:flex-end;gap:9px;font-size:13px;font-weight:600;color:var(--dim);letter-spacing:.01em;pointer-events:none}.slide-mark>span:last-child{padding-bottom:3px}.foot-brand{display:inline-flex;align-items:center;gap:7px;color:var(--dim);white-space:nowrap}</style><style>@page{size:13.333in 7.5in;margin:0}svg text[font-family*="Consolas"],svg text[font-family*="monospace"]{direction:ltr;unicode-bidi:bidi-override}</style><style>/* nav bar covers the slide footer on screen; the counter is in the nav */@media screen{.stage .footer{display:none}}/* A pauses CSS animations too, not only SVG ones */.deck-root:not(.motion-on) *,.deck-root:not(.motion-on) *::before,.deck-root:not(.motion-on) *::after{animation-play-state:paused!important}</style><style>
+/* lesson 4: live opening, ipconfig and route demos, output-reading exercise */
+.n4-row{display:flex;gap:10px;align-items:center;min-width:0}
+.n4-col{display:flex;flex-direction:column;gap:9px;min-width:0;min-height:0}
+.n4-lbl{font-size:13.5px;font-weight:700;color:var(--dim);white-space:nowrap}
+.n4-btn{appearance:none;cursor:pointer;font-family:inherit;text-align:right;border:1px solid var(--border);background:rgba(255,255,255,.045);color:var(--ink);border-radius:9px;padding:6px 12px;font-size:14.5px;line-height:1.3;transition:border-color .15s,background .15s}
+.n4-btn:hover{border-color:var(--cyan)}
+.n4-btn.on{border-color:var(--cyan);background:rgba(34,211,238,.15)}
+.n4-btn.sm{padding:4px 10px;font-size:13.5px}
+.n4-in{width:100%;min-width:0;background:#050a12;border:1px solid rgba(255,255,255,.18);border-radius:7px;color:var(--ink);font-family:Consolas,"Courier New",monospace;font-size:15px;padding:4px 9px;outline:none;direction:ltr;text-align:left}
+.n4-in:focus{border-color:var(--cyan);box-shadow:0 0 0 2px rgba(34,211,238,.18)}
+.n4-in.bad{border-color:var(--red)}
+.n4-term{background:#05080f;border:1px solid var(--border);border-radius:12px;padding:10px 14px;font-family:Consolas,"Courier New",monospace;font-size:13.5px;line-height:1.48;color:#c3d7e8;direction:ltr;text-align:left;white-space:pre;overflow:hidden;min-width:0}
+.n4-term .p{color:#4ade80}.n4-term .c{color:#f1f5f9;font-weight:700}.n4-term .e{color:#fb7185}.n4-term .d{color:#5b7086}
+.n4-term .hl{display:block;background:rgba(251,191,36,.15);color:#fde68a;border-radius:3px;margin:0 -5px;padding:0 5px}
+.n4-mono{font-family:Consolas,"Courier New",monospace;direction:ltr;unicode-bidi:isolate}
+.n4-tag{font-size:13px;font-weight:800;color:var(--cyan)}
+.n4-box{border-radius:10px;padding:9px 13px;font-size:15.5px;line-height:1.45;color:var(--ink);background:rgba(34,211,238,.065);border-right:4px solid var(--cyan)}
+.n4-box.amber{background:rgba(251,191,36,.08);border-right-color:var(--amber)}
+.n4-box.red{background:rgba(251,113,133,.08);border-right-color:var(--red)}
+.n4-box.green{background:rgba(74,222,128,.08);border-right-color:var(--green)}
+.n4-box b{color:var(--ink)}
+/* opening: question picker */
+.n4-q{display:grid;grid-template-columns:372px minmax(0,1fr);gap:22px;flex:1;min-height:0}
+.n4-qlist{display:flex;flex-direction:column;gap:5px;min-height:0}
+.n4-qlist .n4-btn{padding:5px 12px}
+.n4-qhd{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.n4-qhd b{font-size:20px;color:var(--ink)}
+.n4-qhd span{font-size:13.5px;color:var(--dim)}
+/* ipconfig check */
+.n4-ip{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:22px;flex:1;min-height:0}
+.n4-tbl{width:100%;border-collapse:collapse;font-size:14.5px}
+.n4-tbl th,.n4-tbl td{padding:5px 8px;border-bottom:1px solid var(--border);text-align:right;color:var(--muted)}
+.n4-tbl th{color:var(--cyan);font-size:13px;font-weight:800}
+.n4-tbl td.f{color:var(--ink);font-family:Consolas,"Courier New",monospace;direction:ltr;text-align:left;font-size:13.5px;white-space:nowrap}
+.n4-tbl td.pl{font-family:Consolas,"Courier New",monospace;direction:ltr;text-align:left;font-size:14px}
+.n4-tbl td.mk{width:26px;text-align:center;font-weight:800}
+.n4-ok{color:var(--green)!important}.n4-bad{color:var(--red)!important}.n4-warn{color:var(--amber)!important}
+.n4-dest{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;font-size:14.5px;line-height:1.4;color:var(--muted)}
+.n4-dest b{color:var(--ink);font-weight:700}
+.n4-find{display:flex;flex-direction:column;gap:6px;min-height:0}
+.n4-find .n4-box{font-size:14.5px;padding:7px 12px}
+/* route lookup */
+.n4-rt{width:100%;border-collapse:collapse;font-family:Consolas,"Courier New",monospace;font-size:12.5px;direction:ltr}
+.n4-rt th,.n4-rt td{padding:5px 6px;text-align:right;border-bottom:1px solid var(--border);color:#8ba0b5;white-space:nowrap}
+.n4-rt th{color:var(--cyan);font-weight:700;font-size:12px}
+.n4-rt tr.m td{color:#e2e8f0}
+.n4-rt tr.win td{color:#fde68a;background:rgba(251,191,36,.12)}
+.n4-rt td.pf{font-family:"Segoe UI",Arial,sans-serif;font-size:13px;text-align:left}
+.n4-chk{display:flex;align-items:center;gap:8px;font-size:14.5px;color:var(--muted);cursor:pointer}
+.n4-chk input{accent-color:var(--cyan);width:17px;height:17px}
+/* exercise */
+.n4-ex{display:grid;grid-template-columns:350px minmax(0,1fr);gap:22px;flex:1;min-height:0}
+.n4-exq{display:flex;flex-direction:column;gap:8px}
+.n4-exq .n4-btn{padding:9px 13px;font-size:15.5px;line-height:1.4}
+.n4-exq .n4-btn small{display:block;color:var(--cyan);font-size:12.5px;font-weight:800;margin-bottom:2px}
+.n4-ans[hidden]{display:none}
+@media (prefers-reduced-motion:no-preference){.deck-root.motion-on .n4-fade{animation:n4fade .35s ease both}}
+@keyframes n4fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style><div class="deck-root motion-on" id="network-lesson-4" dir="rtl"><div class="stage-shell"><main class="stage" aria-label="כלי Windows: מה בודקים בכל פקודה"><div class="motion-badge" hidden>אנימציות כבויות</div><div class="kbd-hint">← → ניווט · N הערות · F מסך מלא · A כיבוי אנימציות</div><section class="slide title-slide active" aria-hidden="false"><div class="brand"><span class="crest crest-lg" role="img" aria-label="סמל היחידה"></span><span class="brand-txt"><b>גדס״ם 5059</b><i>מחלקת תקשוב</i></span></div><div class="badge">Windows</div><h1>כלי Windows: מה בודקים בכל פקודה</h1><p>כלים מובנים ב-Windows לבדיקת Link, כתובת, שכנות, מסלול, DNS, שירות, Domain ואמון.</p><svg class="hero-wave" viewBox="0 0 650 88" role="img" aria-label="זרימת מנות ברשת"><path d="M20 44 H140 L175 20 H305 L340 68 H470 L505 44 H630" fill="none" stroke="#22d3ee" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="140" cy="44" r="8" fill="#fbbf24"/><circle cx="305" cy="20" r="8" fill="#4ade80"/><circle cx="470" cy="68" r="8" fill="#fb7185"/></svg><aside class="speaker-note">בכל כלי הראו את השדה שעונה על השאלה, וציינו מה התוצאה עדיין לא מוכיחה. אין צורך לשנן את רשימת הפקודות. מהלך השיעור: בשקופית 2 בוחרים שאלה ורואים איזה כלי עונה עליה. שקופיות 3 עד 12 עוברות על הכלים לפי סדר התלות: Link, כתובת, בדיקת ping, טבלת ARP, מסלול, DNS, פורט, מצב חיבורים, Domain וזמן, תעודות ואירועים. בשקופית 13 סימולטור התחקור, בשקופית 14 תרגול בקריאת פלט, ואחריהן מגבלות ההדגמות ושרשרת הראיות. בשקופיות 2, 4, 7 ו-14 אפשר ללחוץ ולהקליד; הקלדה בשדה לא מעבירה שקופית, ו-Esc יוצא מהשדה.</aside></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">01</span>בחירת כלי</div><h1 class="title">איזה כלי עונה על איזו שאלה</h1><p class="subtitle">בוחרים שאלה ורואים איזו פקודה עונה עליה, באיזו שורה בפלט מסתכלים ומה התשובה עוד לא מוכיחה.</p><div class="body"><div class="n4-q"><div class="n4-qlist" id="n4qList"><button type="button" class="n4-btn" data-q="0">יש Link לכרטיס הרשת?</button><button type="button" class="n4-btn" data-q="1">הכתובת, המסכה, השער וה-DNS לפי התכנון?</button><button type="button" class="n4-btn" data-q="2">השער עונה?</button><button type="button" class="n4-btn" data-q="3">איזה MAC עונה על הכתובת של השער?</button><button type="button" class="n4-btn" data-q="4">לאיזה שער תצא תעבורה לשרת ברשת אחרת?</button><button type="button" class="n4-btn" data-q="5">שם השרת מתורגם לכתובת הנכונה?</button><button type="button" class="n4-btn" data-q="6">השירות בשרת מקבל חיבור בפורט שלו?</button><button type="button" class="n4-btn" data-q="7">השירות מאזין בשרת עצמו?</button><button type="button" class="n4-btn" data-q="8">השעון של התחנה מסונכרן מול ה-DC?</button><button type="button" class="n4-btn" data-q="9">התחנה מוצאת בקר דומיין?</button><button type="button" class="n4-btn" data-q="10">יש למשתמש כרטיס Kerberos בתוקף?</button></div><div class="n4-col" style="gap:10px"><div class="n4-qhd"><b class="n4-mono" id="n4qTool"></b><span id="n4qRef"></span></div><div class="n4-term" id="n4qTerm"></div><div class="n4-box" id="n4qRead"></div><div class="n4-box amber" id="n4qNot"></div></div></div></div><aside class="speaker-note">ברירת המחדל היא השאלה ״השירות בשרת מקבל חיבור בפורט שלו?״: Test-NetConnection, והשורה המסומנת היא TcpTestSucceeded : True. לפני כל לחיצה שאלו את הכיתה איזו פקודה תענה, ורק אז לחצו. בכל שאלה הצביעו על השורה המסומנת בצהוב, וקראו את מה שעוד לא הוכח. הטעות הנפוצה היא לענות על שאלת השירות ב-ping. השאלות מסודרות לפי סדר התלות: Link, כתובת, שער, שכן, מסלול, שם, שירות, ובסוף זמן, בקר דומיין וכרטיסים. לא צריך לעבור על כולן עכשיו; כל אחת חוזרת בשקופית שרשומה ליד שם הכלי.</aside><div class="footer"><span>שיעור 4 · כלי תחקור ב-Windows</span><span class="ltr">02 / 16</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">02</span>Link ומתאם</div><h1 class="title">Get-NetAdapter מראה אם Windows מזהה מתאם, Link וקצב קישור</h1><p class="subtitle">בלי Status Up אין טעם להמשיך, אבל גם כשהוא Up עדיין לא ידוע אם ה-VLAN, ה-IP והמסלול תקינים.</p><div class="body"><div class="visual"><svg viewBox="0 0 1080 420" role="img" aria-label="פלט Get-NetAdapter עם מתאם מחובר ומנותק"><rect x="80" y="55" width="920" height="315" rx="20" fill="#050a12" stroke="#8ba0b5" stroke-width="2"/><text class="ltrtx" x="115" y="95" fill="#4ade80" font-family="Consolas,monospace" font-size="18">Get-NetAdapter</text><text class="ltrtx" x="115" y="140" fill="#9fb0c3" font-family="Consolas,monospace" font-size="16">Name       Status   LinkSpeed   MacAddress</text><rect x="105" y="160" width="870" height="62" rx="9" fill="#4ade8012"/><text class="ltrtx" x="120" y="198" fill="#f1f5f9" font-family="Consolas,monospace" font-size="18">Ethernet0  Up       1 Gbps      34-7A-...</text><rect x="105" y="235" width="870" height="62" rx="9" fill="#fb718512"/><text class="ltrtx" x="120" y="273" fill="#f1f5f9" font-family="Consolas,monospace" font-size="18">Ethernet1  Disconnected       8C-16-...</text><text x="540" y="335" text-anchor="middle" fill="#22d3ee" font-size="18">הפלט מתאר רק את המתאם בתחנה. הרשת שמעבר לכבל לא נבדקת</text></svg></div></div><aside class="speaker-note">אם הכלי אינו זמין בגרסת PowerShell המקומית, בודקים את אותם שדות בחלון Network Connections.</aside><div class="footer"><span>שיעור 4 · כלי תחקור ב-Windows</span><span class="ltr">03 / 16</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">03</span>הגדרת IP</div><h1 class="title">ipconfig /all מציג את הזהות המקומית של התחנה ברשת</h1><p class="subtitle">בסביבה סטטית כתובת, מסכה, Gateway ו-DNS צריכים להתאים בדיוק לתכנון.</p><div class="body"><div class="n4-ip"><div class="n4-col"><div class="n4-row" style="flex-wrap:wrap;gap:6px" id="n4ipPre"><button type="button" class="n4-btn sm" data-p="plan">לפי התכנון</button><button type="button" class="n4-btn sm" data-p="mask">מסכה רחבה</button><button type="button" class="n4-btn sm" data-p="gw">Gateway שגוי</button><button type="button" class="n4-btn sm" data-p="dns">DNS אחר</button><button type="button" class="n4-btn sm" data-p="apipa">APIPA</button></div><div class="n4-term" style="padding:8px 12px;white-space:normal"><div class="n4-row" style="margin-bottom:4px"><span class="p">PS&gt;</span><span class="c">ipconfig /all</span><span class="d" style="margin-right:auto">Ethernet adapter Ethernet0</span></div><table class="n4-tbl" dir="rtl"><tr><th>שדה בפלט</th><th>ערך (אפשר לערוך)</th><th>בתכנון</th><th></th></tr><tr><td class="f">DHCP Enabled</td><td><input class="n4-in" id="n4ipDhcp" value="No" autocomplete="off" spellcheck="false" aria-label="DHCP Enabled"></td><td class="pl">No</td><td class="mk" id="n4ipMk0"></td></tr><tr><td class="f">IPv4 Address</td><td><input class="n4-in" id="n4ipIp" value="10.20.30.15" autocomplete="off" spellcheck="false" aria-label="IPv4 Address"></td><td class="pl">10.20.30.15</td><td class="mk" id="n4ipMk1"></td></tr><tr><td class="f">Subnet Mask</td><td><input class="n4-in" id="n4ipMask" value="255.255.0.0" autocomplete="off" spellcheck="false" aria-label="Subnet Mask"></td><td class="pl">255.255.255.0</td><td class="mk" id="n4ipMk2"></td></tr><tr><td class="f">Default Gateway</td><td><input class="n4-in" id="n4ipGw" value="10.20.30.1" autocomplete="off" spellcheck="false" aria-label="Default Gateway"></td><td class="pl">10.20.30.1</td><td class="mk" id="n4ipMk3"></td></tr><tr><td class="f">DNS Servers</td><td><input class="n4-in" id="n4ipDns" value="10.20.10.10" autocomplete="off" spellcheck="false" aria-label="DNS Servers"></td><td class="pl">10.20.10.10</td><td class="mk" id="n4ipMk4"></td></tr></table></div><div class="n4-box" id="n4ipNet" style="font-size:14.5px"></div></div><div class="n4-col"><div class="n4-tag">לאן התחנה תשלח, לפי הערכים שבפלט</div><div class="n4-dest" id="n4ipDest"></div><div class="n4-tag" style="margin-top:4px">ממצאים</div><div class="n4-find" id="n4ipFind"></div></div></div></div><aside class="speaker-note">ההדגמה נפתחת במצב ״מסכה רחבה״: <span class="ltr">255.255.0.0</span> במקום <span class="ltr">255.255.255.0</span>, וכל שאר השדות לפי התכנון. הכתובת נראית תקינה, אבל הרשת המקומית נהיית <span class="ltr">10.20.0.0/16</span>, ולכן השרת <span class="ltr">10.20.40.25</span> ושרת ה-DNS <span class="ltr">10.20.10.10</span> נשלחים ישירות ב-ARP במקום דרך <span class="ltr">10.20.30.1</span>. אף אחד לא יענה, ובתוך הרשת המקומית הכול ייראה תקין. אחר כך לחצו על המצבים האחרים, או בקשו מחניך להקליד ערך. אין להסתפק בכתובת IP. השוו גם את המסכה, את ה-Gateway, את ה-DNS, את DHCP Enabled ואת שם המתאם. הטעות הנפוצה היא לבדוק רק את שורת IPv4 Address.</aside><div class="footer"><span>שיעור 4 · כלי תחקור ב-Windows</span><span class="ltr">04 / 16</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">04</span>Ping</div><h1 class="title">Ping בודק תשובת ICMP ומודד RTT</h1><p class="subtitle">הוא אינו בודק זמינות של יישום. Ping לסדרת יעדים מראה באיזה שלב בדרך מתחילה הבעיה.</p><div class="body"><div class="visual"><svg viewBox="0 0 1080 420" role="img" aria-label="רצף בדיקות Ping מלולאה מקומית עד יעד מרוחק"><defs><marker id="pingA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#22d3ee"/></marker></defs><rect x="60" y="135" width="210" height="125" rx="18" fill="#101b30" stroke="#4ade80" stroke-width="3"/><text class="ltrtx" x="165" y="188.5" text-anchor="middle" fill="#f1f5f9" font-size="19" font-weight="700">127.0.0.1</text><text x="165" y="221.5" text-anchor="middle" fill="#9fb0c3" font-size="16">TCP/IP מקומי</text><path d="M276 198 H304" stroke="#22d3ee" stroke-width="5" marker-end="url(#pingA)"/><circle class="pkt" style="--run:34px;animation-duration:2.4s;animation-delay:0.0s" cx="273" cy="190" r="6" fill="#22d3ee"/><circle class="pkt rev" style="--run:34px;animation-duration:2.4s;animation-delay:1.2s" cx="307" cy="208" r="6" fill="#4ade80"/><rect x="310" y="135" width="210" height="125" rx="18" fill="#101b30" stroke="#22d3ee" stroke-width="3"/><text x="415" y="188.5" text-anchor="middle" fill="#f1f5f9" font-size="19" font-weight="700">כתובת התחנה</text><text x="415" y="221.5" text-anchor="middle" fill="#9fb0c3" font-size="16">ממשק מקומי</text><path d="M526 198 H554" stroke="#22d3ee" stroke-width="5" marker-end="url(#pingA)"/><circle class="pkt" style="--run:34px;animation-duration:2.4s;animation-delay:0.3s" cx="523" cy="190" r="6" fill="#22d3ee"/><circle class="pkt rev" style="--run:34px;animation-duration:2.4s;animation-delay:1.5s" cx="557" cy="208" r="6" fill="#4ade80"/><rect x="560" y="135" width="210" height="125" rx="18" fill="#101b30" stroke="#fbbf24" stroke-width="3"/><text class="ltrtx" x="665" y="188.5" text-anchor="middle" fill="#f1f5f9" font-size="19" font-weight="700">Gateway</text><text x="665" y="221.5" text-anchor="middle" fill="#9fb0c3" font-size="16">הרשת המקומית</text><path d="M776 198 H804" stroke="#22d3ee" stroke-width="5" marker-end="url(#pingA)"/><circle class="pkt" style="--run:34px;animation-duration:2.4s;animation-delay:0.6s" cx="773" cy="190" r="6" fill="#22d3ee"/><circle class="pkt rev" style="--run:34px;animation-duration:2.4s;animation-delay:1.8s" cx="807" cy="208" r="6" fill="#4ade80"/><rect x="810" y="135" width="210" height="125" rx="18" fill="#101b30" stroke="#8b5cf6" stroke-width="3"/><text x="915" y="188.5" text-anchor="middle" fill="#f1f5f9" font-size="19" font-weight="700">יעד מרוחק</text><text x="915" y="221.5" text-anchor="middle" fill="#9fb0c3" font-size="16">מסלול מקצה לקצה</text><text x="540" y="335" text-anchor="middle" fill="#fb7185" font-size="18">כישלון אינו מוכיח שהיעד כבוי; ICMP עשוי להיות מסונן</text></svg></div></div><aside class="speaker-note">הסדרה ממחישה מה בודק כל יעד. לא חייבים להריץ את כולה בכל תקלה. הזכירו ש-ICMP יכול להיות חסום.</aside><div class="footer"><span>שיעור 4 · כלי תחקור ב-Windows</span><span class="ltr">05 / 16</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">05</span>שכנות מקומית</div><h1 class="title">arp -a מראה איזה MAC משויך ל-IP המקומי או ל-Gateway</h1><p class="subtitle">הטבלה עוזרת לזהות שכנות חסרה, כפילות או יעד לא צפוי.</p><div class="body"><div class="visual"><svg viewBox="0 0 1080 420" role="img" aria-label="פלט arp -a עם שתי רשומות"><rect x="115" y="65" width="850" height="285" rx="20" fill="#050a12" stroke="#8ba0b5" stroke-width="2"/><g direction="ltr" unicode-bidi="bidi-override"><text class="ltrtx" x="150" y="105" fill="#4ade80" font-size="18" font-family="Consolas,monospace">arp -a</text><text class="ltrtx" x="150" y="150" fill="#9fb0c3" font-size="17" font-family="Consolas,monospace">Internet Address      Physical Address      Type</text><text class="ltrtx" x="150" y="190" fill="#f1f5f9" font-size="18" font-family="Consolas,monospace">10.20.30.1          00-15-5d-01-02-03     dynamic</text><text class="ltrtx" x="150" y="230" fill="#f1f5f9" font-size="18" font-family="Consolas,monospace">10.20.30.80         34-7a-60-aa-bb-cc     dynamic</text></g><rect x="135" y="248" width="795" height="60" rx="10" fill="#fb718516" stroke="#fb7185" stroke-width="2"/><text x="900" y="286" fill="#fb7185" font-size="18">רשומה חסרה או MAC לא צפוי מכוונים לבעיה מקומית, VLAN או שכנות</text></svg></div></div><aside class="speaker-note">השוו למערכת תקינה או לתכנון. כתובת MAC לבדה אינה “טובה” או “רעה”.</aside><div class="footer"><span>שיעור 4 · כלי תחקור ב-Windows</span><span class="ltr">06 / 16</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">06</span>מסלול</div><h1 class="title">route print ו-tracert בודקים את המסלול</h1><p class="subtitle">route print מראה לאיזה שער התחנה תשלח, עוד לפני שיש תעבורה. tracert מראה מי השיב לאורך הדרך, ולכן תלוי בתגובות של ציוד הביניים.</p><div class="body"><div class="n4-ip" style="grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)"><div class="n4-col"><div class="n4-row"><span class="n4-lbl">יעד</span><input class="n4-in" id="n4rtDst" value="10.20.40.25" autocomplete="off" spellcheck="false" aria-label="כתובת יעד" style="width:170px;flex:0 0 170px"><span class="n4-row" style="gap:5px;flex-wrap:wrap" id="n4rtPre"><button type="button" class="n4-btn sm" data-d="10.20.40.25">10.20.40.25</button><button type="button" class="n4-btn sm" data-d="10.20.30.80">10.20.30.80</button><button type="button" class="n4-btn sm" data-d="10.20.10.10">10.20.10.10</button><button type="button" class="n4-btn sm" data-d="127.0.0.1">127.0.0.1</button></span></div><div class="n4-term" style="padding:8px 10px;white-space:normal"><div style="margin:0 2px 4px"><span class="p">PS&gt; </span><span class="c">route print -4</span><span class="d" style="margin-left:14px">Active Routes:</span></div><table class="n4-rt" id="n4rtTbl"><tr><th>Network Destination</th><th>Netmask</th><th>Gateway</th><th>Interface</th><th>Metric</th><th></th></tr></table></div><div class="n4-box" id="n4rtWhy" style="font-size:15px"></div></div><div class="n4-col"><div class="n4-term" id="n4rtTr" style="font-size:13px"></div><label class="n4-chk"><input type="checkbox" id="n4rtQuiet">נתב הביניים לא משיב ל-tracert</label><div class="n4-box amber" id="n4rtNote" style="font-size:14.5px"></div></div></div></div><aside class="speaker-note">ברירת המחדל: יעד <span class="ltr">10.20.40.25</span>. שתי שורות מתאימות לו, <span class="ltr">0.0.0.0/0</span> ו-<span class="ltr">10.20.40.0/24</span>, ונבחרת זו עם המסכה הארוכה, דרך <span class="ltr">10.20.30.2</span>. לכן גם הקפיצה הראשונה ב-tracert היא <span class="ltr">10.20.30.2</span>. לפני כל לחיצה שאלו לאיזה שער ייצא היעד: <span class="ltr">10.20.30.80</span> יוצא ישירות (On-link), <span class="ltr">10.20.10.10</span> לשער ברירת המחדל <span class="ltr">10.20.30.1</span>. סמנו ״נתב הביניים לא משיב״: בקפיצה 2 מופיעות כוכביות, והיעד עדיין עונה בקפיצה 3. כוכבית ב-tracert אינה בהכרח תקלה. יש ציוד שאינו משיב אך ממשיך להעביר תעבורה. הטעות הנפוצה היא לבחור את השורה הראשונה שמתאימה, או את שער ברירת המחדל, במקום השורה עם המסכה הארוכה.</aside><div class="footer"><span>שיעור 4 · כלי תחקור ב-Windows</span><span class="ltr">07 / 16</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">07</span>פתרון שמות</div><h1 class="title">Resolve-DnsName או nslookup בודקים את ה-DNS בנפרד מהשירות</h1><p class="subtitle">מחפשים איזה שם נשאל, את סוג הרשומה ואת הכתובת שהוחזרה. איזה שרת DNS ענה מראה nslookup, בשורות Server ו-Address שבראש הפלט.</p><div class="body"><div class="visual"><svg viewBox="0 0 1080 420" role="img" aria-label="פלט Resolve-DnsName ורמז ל-cache DNS"><rect x="65" y="45" width="950" height="335" rx="20" fill="#050a12" stroke="#8ba0b5" stroke-width="2"/><text class="ltrtx" x="100" y="90" fill="#4ade80" font-family="Consolas,monospace" font-size="18">Resolve-DnsName server.unit</text><text class="ltrtx" x="100" y="145" fill="#9fb0c3" font-family="Consolas,monospace" font-size="16">Name              Type   TTL   IPAddress</text><rect x="90" y="165" width="900" height="65" rx="10" fill="#4ade8012"/><text class="ltrtx" x="110" y="205" fill="#f1f5f9" font-family="Consolas,monospace" font-size="18">server.unit       A      300   10.20.40.25</text><text x="540" y="275" text-anchor="middle" fill="#22d3ee" font-size="18">בודקים גם איזה שם נשאל ומה נשמר ב-Cache</text><text class="ltrtx" x="100" y="330" fill="#fbbf24" font-family="Consolas,monospace" font-size="17">ipconfig /displaydns</text></svg></div></div><aside class="speaker-note">כאשר צריך לבדוק SRV, ציינו את סוג הרשומה במפורש. אין צורך ללמד תחביר מתקדם.</aside><div class="footer"><span>שיעור 4 · כלי תחקור ב-Windows</span><span class="ltr">08 / 16</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">08</span>בדיקת פורט</div><h1 class="title">Test-NetConnection בודק אם ניתן לפתוח חיבור TCP לפורט מסוים</h1><p class="subtitle">התוצאה מרכזת שם, כתובת, מסלול ופורט בבדיקה אחת.</p><div class="body"><div class="visual"><svg viewBox="0 0 1080 420" role="img" aria-label="פלט Test-NetConnection לפורט 443"><rect x="65" y="45" width="950" height="335" rx="20" fill="#050a12" stroke="#8ba0b5" stroke-width="2"/><text class="ltrtx" x="100" y="90" fill="#4ade80" font-family="Consolas,monospace" font-size="18">Test-NetConnection server.unit -Port 443</text><text class="ltrtx" x="110" y="145" fill="#9fb0c3" font-family="Consolas,monospace" font-size="17">ComputerName</text><text class="ltrtx" x="520" y="145" fill="#22d3ee" font-family="Consolas,monospace" font-size="18">server.unit</text><text class="ltrtx" x="110" y="195" fill="#9fb0c3" font-family="Consolas,monospace" font-size="17">RemoteAddress</text><text class="ltrtx" x="520" y="195" fill="#4ade80" font-family="Consolas,monospace" font-size="18">10.20.40.25</text><text class="ltrtx" x="110" y="245" fill="#9fb0c3" font-family="Consolas,monospace" font-size="17">RemotePort</text><text class="ltrtx" x="520" y="245" fill="#fbbf24" font-family="Consolas,monospace" font-size="18">443</text><text class="ltrtx" x="110" y="295" fill="#9fb0c3" font-family="Consolas,monospace" font-size="17">TcpTestSucceeded</text><text class="ltrtx" x="520" y="295" fill="#4ade80" font-family="Consolas,monospace" font-size="18">True</text><text x="540" y="355" text-anchor="middle" fill="#f1f5f9" font-size="17">מוכיח פתיחת TCP ליעד ולפורט. תקינות היישום עצמו לא נבדקת</text></svg></div></div><aside class="speaker-note">במערכת שבה השירות אינו TCP, השתמשו בכלי הייעודי. UDP אינו מוקד השיעור.</aside><div class="footer"><span>שיעור 4 · כלי תחקור ב-Windows</span><span class="ltr">09 / 16</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">09</span>מצב חיבורים</div><h1 class="title">Get-NetTCPConnection או netstat מראים מי מאזין ומי מחובר</h1><p class="subtitle">בצד השרת השירות מופיע כ-LISTENING. חיבור שכבר נוצר מופיע כ-ESTABLISHED, עם הכתובת של הצד השני.</p><div class="body"><div class="visual"><svg viewBox="0 0 1080 420" role="img" aria-label="פלט Get-NetTCPConnection עם Listen ו-Established"><rect x="65" y="45" width="950" height="335" rx="20" fill="#050a12" stroke="#8ba0b5" stroke-width="2"/><text class="ltrtx" x="100" y="88" fill="#4ade80" font-family="Consolas,monospace" font-size="18">Get-NetTCPConnection</text><text class="ltrtx" x="100" y="135" fill="#9fb0c3" font-family="Consolas,monospace" font-size="15">LocalAddress  LocalPort  RemoteAddress  State</text><rect x="90" y="155" width="900" height="58" rx="9" fill="#4ade8012"/><text class="ltrtx" x="110" y="191" fill="#f1f5f9" font-family="Consolas,monospace" font-size="17">0.0.0.0       443        0.0.0.0        Listen</text><rect x="90" y="225" width="900" height="58" rx="9" fill="#22d3ee12"/><text class="ltrtx" x="110" y="261" fill="#f1f5f9" font-family="Consolas,monospace" font-size="17">10.20.30.15   52144      10.20.40.25    Established</text><text x="540" y="330" text-anchor="middle" fill="#fbbf24" font-size="18">LISTENING אומר ששירות מחכה; ESTABLISHED אומר שנוצר חיבור</text></svg></div></div><aside class="speaker-note">במידת הצורך מקשרים PID לתהליך. אין צורך להעמיק במצבי TCP האחרים.</aside><div class="footer"><span>שיעור 4 · כלי תחקור ב-Windows</span><span class="ltr">10 / 16</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">10</span>Domain וזמן</div><h1 class="title">בדיקות Kerberos: זמן, איתור DC וכרטיסים</h1><p class="subtitle">w32tm בודק זמן ומקור סנכרון, nltest מאתר Domain Controller ו-klist מציג כרטיסים. אימות Kerberos תלוי בשלושתם.</p><div class="body"><div class="visual"><svg viewBox="0 0 1080 420" role="img" aria-label="שלושה כלי Domain וזמן ב-Windows"><rect x="60" y="95" width="285" height="220" rx="20" fill="#050a12" stroke="#fbbf24" stroke-width="3"/><text class="ltrtx" x="202" y="145" text-anchor="middle" fill="#fbbf24" font-family="Consolas,monospace" font-size="16">w32tm /query /status</text><line x1="85" y1="175" x2="320" y2="175" stroke="#8ba0b5"/><text x="202" y="230" text-anchor="middle" fill="#f1f5f9" font-size="19">זמן ומקור סנכרון</text><text x="202" y="270" text-anchor="middle" fill="#9fb0c3" font-size="15">משווים לשעה של ה-DC</text><rect x="405" y="95" width="285" height="220" rx="20" fill="#050a12" stroke="#22d3ee" stroke-width="3"/><text class="ltrtx" x="547" y="145" text-anchor="middle" fill="#22d3ee" font-family="Consolas,monospace" font-size="16">nltest /dsgetdc:domain</text><line x1="430" y1="175" x2="665" y2="175" stroke="#8ba0b5"/><text x="547" y="230" text-anchor="middle" fill="#f1f5f9" font-size="19">איתור Domain Controller</text><text x="547" y="270" text-anchor="middle" fill="#9fb0c3" font-size="15">איזה DC נמצא, אם בכלל</text><rect x="750" y="95" width="285" height="220" rx="20" fill="#050a12" stroke="#4ade80" stroke-width="3"/><text class="ltrtx" x="892" y="145" text-anchor="middle" fill="#4ade80" font-family="Consolas,monospace" font-size="16">klist</text><line x1="775" y1="175" x2="1010" y2="175" stroke="#8ba0b5"/><text x="892" y="230" text-anchor="middle" fill="#f1f5f9" font-size="19">כרטיסי Kerberos</text><text x="892" y="270" text-anchor="middle" fill="#9fb0c3" font-size="15">יש כרטיסים בתוקף?</text></svg></div></div><aside class="speaker-note">כשהבעיה במדיניות, מוסיפים gpresult. אל תציגו את כל פלט הפקודות; סמנו את השורה הרלוונטית. <span class="ltr">w32tm /query /status</span> מראה מקור סנכרון ומועד סנכרון אחרון, אבל לא את ההפרש מול ה-DC. את ההפרש מודדים ב-<span class="ltr">w32tm /stripchart /computer:dc01.unit.local /samples:3 /dataonly</span>, כמו בשלב 5 של הסימולטור.</aside><div class="footer"><span>שיעור 4 · כלי תחקור ב-Windows</span><span class="ltr">11 / 16</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">11</span>תעודה ואירועים</div><h1 class="title">Certificate Viewer ו-Event Viewer</h1><p class="subtitle">בתעודה בודקים תאריך, <span class="ltr">Subject</span>, <span class="ltr">Issuer</span> ושרשרת, ומצליבים אותם עם האירועים מאותה שעה ב-Event Viewer כדי לראות מה קרה קודם ומה גרם למה.</p><div class="body"><div class="visual"><svg viewBox="0 0 1080 420" role="img" aria-label="בודק תעודה לצד Event Viewer"><rect x="70" y="65" width="430" height="300" rx="20" fill="#101b30" stroke="#22d3ee" stroke-width="3"/><text class="ltrtx" x="285" y="110" text-anchor="middle" direction="ltr" fill="#22d3ee" font-size="21">Certificate Viewer</text><text class="ltrtx" x="115" y="165" direction="ltr" fill="#9fb0c3" font-size="17">Subject</text><text class="ltrtx" x="300" y="165" direction="ltr" fill="#f1f5f9" font-size="17">server.unit</text><text class="ltrtx" x="115" y="215" direction="ltr" fill="#9fb0c3" font-size="17">Issuer</text><text class="ltrtx" x="300" y="215" direction="ltr" fill="#f1f5f9" font-size="17">Unit-CA</text><text class="ltrtx" x="115" y="265" direction="ltr" fill="#9fb0c3" font-size="17">Valid to</text><text class="ltrtx" x="300" y="265" direction="ltr" fill="#4ade80" font-size="17">2027-07-15</text><text x="285" y="325" text-anchor="middle" fill="#fbbf24" font-size="17">שם · זמן · שרשרת</text><rect x="580" y="65" width="430" height="300" rx="20" fill="#101b30" stroke="#fbbf24" stroke-width="3"/><text class="ltrtx" x="795" y="110" text-anchor="middle" direction="ltr" fill="#fbbf24" font-size="21">Event Viewer</text><path d="M625 178 H930 M625 233 H930 M625 288 H930" stroke="#8ba0b5" stroke-width="2"/><circle cx="950" cy="145" r="9" fill="#fb7185"/><circle cx="950" cy="200" r="9" fill="#fbbf24"/><circle cx="950" cy="255" r="9" fill="#22d3ee"/><text x="930" y="151" fill="#f1f5f9" font-size="16">שעה · מקור · Event ID</text><text x="930" y="206" fill="#f1f5f9" font-size="16">הודעה מלאה</text><text x="930" y="261" fill="#f1f5f9" font-size="16">אירועים לפני ואחרי</text></svg></div></div><aside class="speaker-note">הקפידו לתעד הודעה מלאה, Event ID ושעה. צילום חלון ללא זמן או הקשר מקשה על השוואה.</aside><div class="footer"><span>שיעור 4 · כלי תחקור ב-Windows</span><span class="ltr">12 / 16</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">12</span>סימולטור תחקור</div><h1 class="title">תרגול אבחון: משתמש מקומי נכנס, משתמש רשתי לא</h1><p class="subtitle">בכל שלב: מה בודקים ולמה ← מריצים ← קוראים את הפלט ← בוחרים את הצעד הבא לפי מה שהפלט מראה.</p><div class="body"><div class="tsim"><div class="tsim-guide" id="tsGuide"></div><div class="tsim-term"><div class="tsim-bar"><i style="background:#fb7185"></i><i style="background:#fbbf24"></i><i style="background:#4ade80"></i><b>Administrator: Windows PowerShell, WS-4487</b></div><div class="tsim-out" id="tsOut" dir="ltr" role="log" aria-live="polite"></div></div></div></div><aside class="speaker-note">הריצו מול הכיתה ותנו לחניכים לבחור את הצעד הבא. הדגישו את סדר הבדיקות: כל שלב שולל סיבה אחת. האפשרויות השגויות הן קיצורי דרך שטכנאים עושים הרבה בשטח. עצרו על שלב 2 (ping תקין עדיין לא אומר שהשירות עונה) ועל השורה האחרונה של nltest (״הפקודה הצליחה״ בזמן שהבדיקה נכשלה). אם הזמן קצר, עצרו אחרי שלב 4 ובקשו מהחניכים להציע את שאר הבדיקות.</aside><div class="footer"><span>שיעור 4 · כלי תחקור ב-Windows</span><span class="ltr">13 / 16</span></div></section><section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">13</span>תרגול</div><h1 class="title">קריאת פלט: מה הוכח ומה בודקים עכשיו</h1><p class="subtitle">בוחרים פלט, עונים בעל פה, ורק אחר כך פותחים את התשובה.</p><div class="body"><div class="n4-ex"><div class="n4-exq" id="n4exList"><button type="button" class="n4-btn" data-x="0"><small>שאלה 1</small>ping לתחנה שכנה מסתיים ב-<span class="ltr">Lost = 0</span>. התחנה ענתה?</button><button type="button" class="n4-btn" data-x="1"><small>שאלה 2</small>ping לשרת מצליח, והפורט נכשל. מה זה אומר ומה בודקים הלאה?</button><button type="button" class="n4-btn" data-x="2"><small>שאלה 3</small>בשרת עצמו השירות מאזין, ומתחנה אחרת הפורט עדיין נכשל. למה?</button><button type="button" class="n4-btn" id="n4exShow" style="margin-top:6px;text-align:center;border-color:var(--amber)">הצג תשובה</button></div><div class="n4-col"><div class="n4-term" id="n4exTerm"></div><div class="n4-box green n4-ans" id="n4exAns" hidden></div></div></div></div><aside class="speaker-note">השקופית נפתחת בשאלה 1, והתשובה מוסתרת עד לחיצה על ״הצג תשובה״. 1: לא. כל התשובות הגיעו מהכתובת של התחנה עצמה, <span class="ltr">10.20.30.15</span>, עם Destination host unreachable: היא לא מצאה את <span class="ltr">10.20.30.80</span> ב-ARP. Windows סופר את זה כתשובה שהתקבלה, ולכן <span class="ltr">Lost = 0</span>. בודקים <span class="ltr">arp -a</span> או Get-NetNeighbor, ואם התחנה השכנה באמת מחוברת, את היציאה שלה במתג ואת ה-VLAN. 2: השם תורגם (RemoteAddress) ויש דרך לשרת (<span class="ltr">PingSucceeded : True</span>). פורט 443 לא נפתח: השירות לא מאזין, או שחומת אש חוסמת את הפורט. הבדיקה הבאה נעשית בשרת: <span class="ltr">netstat -ano | findstr :443</span> או <span class="ltr">Get-NetTCPConnection -LocalPort 443</span>. 3: השירות מאזין רק ב-<span class="ltr">127.0.0.1</span>, כלומר רק למחשב עצמו. בדיקה מקומית בשרת תצליח, ומכל תחנה אחרת תיכשל. זו הגדרה של היישום, ומעבירים אותה לגורם האחראי לפי נוהל היחידה. שאלות 2 ו-3 הן אותה תקלה: הממצא של שאלה 3 הוא מה שהבדיקה מתשובה 2 מוצאת.</aside><div class="footer"><span>שיעור 4 · כלי תחקור ב-Windows</span><span class="ltr">14 / 16</span></div></section><section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">14</span>גבולות ההדגמות</div><h1 class="title">מגבלות הסימולטור וההדגמות</h1><p class="subtitle">הפקודות, שמות השדות וקודי השגיאה הם של Windows. הפלט מקוצר, והתרחיש בנוי כך שלכל שלב יש תשובה אחת.</p><div class="body"><table class="table" style="font-size:15px"><tr><th style="width:19%">הדגמה</th><th style="width:37%">מה הופשט</th><th>מה יש בפועל</th></tr><tr><td class="fx">סימולטור התחקור</td><td class="fx">מסלול אחד, ובכל שלב תשובה נכונה אחת.</td><td class="fx">אפשר להריץ כמה בדיקות במקביל, ולפעמים סדר אחר נכון באותה מידה</td></tr><tr><td class="fx">תחילת התרחיש</td><td class="fx">התרגיל מתחיל משורת הפקודה.</td><td class="fx">קודם רואים את ההודעה במסך הכניסה, <span class="ltr">The trust relationship between this workstation and the primary domain failed</span>, ואירוע NETLOGON <span class="ltr">3210</span> ביומן System. שניהם מכוונים לערוץ האמון כבר בהתחלה</td></tr><tr><td class="fx">שלבים 2 ו-4</td><td class="fx">ה-DC עונה ל-ping, ונבדק רק LDAP בפורט 389.</td><td class="fx">DC יכול לסנן ICMP. כניסה רשתית צריכה גם את DNS בפורט 53, את Kerberos בפורט 88, את SMB בפורט 445 ואת RPC בפורט 135 ובפורטים דינמיים</td></tr><tr><td class="fx">nltest בשלב 6</td><td class="fx">קוד שגיאה אחד, 1787.</td><td class="fx">הקוד משתנה לפי הסיבה, למשל 5 או 1311. רק <span class="ltr">0 0x0 NERR_Success</span> הוא תקין</td></tr><tr><td class="fx">ipconfig וטבלת הניתוב</td><td class="fx">מתאם אחד, IPv4 בלבד, טבלה של חמש שורות, ו-tracert עם זמנים קבועים.</td><td class="fx">כמה מתאמים (גם וירטואליים ו-VPN), כתובות IPv6, ובטבלה גם שורות שידור ו-multicast</td></tr></table></div><aside class="speaker-note">דקה אחת אחרי התרגול. המטרה היא שהחניכים לא ייצאו עם הרושם שתחקור אמיתי הוא שישה צעדים בסדר קבוע. הסימולטור כן מלמד את השיטה: בכל שלב שוללים סיבה אחת, וממצא תקין בשלב אחד עדיין לא מוכיח את הבא. הוא גם מלמד לקרוא בפלט את שורות הסטטוס ולא להסתמך על שורת הסיום של הפקודה. התיקון עצמו (חידוש סיסמת חשבון המחשב או צירוף מחדש) דורש הרשאות דומיין ונעשה לפי נוהל היחידה.</aside><div class="footer"><span>שיעור 4 · כלי תחקור ב-Windows</span><span class="ltr">15 / 16</span></div></section><section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">15</span>רצף תחקור</div><h1 class="title">שרשרת הראיות מהמתאם עד הזהות</h1><p class="subtitle">עוצרים ובודקים לעומק רק בשלב שבו התוצאה אינה תואמת לתכנון או לייחוס.</p><div class="body"><div class="steps"><div class="step"><strong>Get-NetAdapter</strong><span>יש Link</span></div><div class="step"><strong>ipconfig / arp</strong><span>זהות ושכן</span></div><div class="step"><strong>route / tracert</strong><span>יש דרך</span></div><div class="step"><strong>DNS / Port</strong><span>יש שם ושירות</span></div><div class="step"><strong>Domain / Cert</strong><span>יש אמון</span></div></div></div><aside class="speaker-note">התרגול נעשה בשקופיות 13 ו-14. סיימו במפה שבשקף ועברו בקצרה על מה שכל כלי בדק.</aside><div class="footer"><span>שיעור 4 · כלי תחקור ב-Windows</span><span class="ltr">16 / 16</span></div></section><div class="nav"><button type="button" data-prev aria-label="שקופית קודמת">הקודם</button><button type="button" data-next aria-label="שקופית הבאה">הבא</button><div class="progress" aria-hidden="true"><span></span></div><div class="counter"></div><button type="button" data-notes>הערות</button></div><div class="notes-panel" hidden></div></main></div></div><script>
+(() => {
+  const root = document.querySelector('.deck-root');
+  const stage = root.querySelector('.stage');
+  const slides = [...root.querySelectorAll('.slide')];
+  const prev = root.querySelector('[data-prev]');
+  const next = root.querySelector('[data-next]');
+  const counter = root.querySelector('.counter');
+  const progress = root.querySelector('.progress span');
+  const notesButton = root.querySelector('[data-notes]');
+  const notesPanel = root.querySelector('.notes-panel');
+  let index = 0;
+  function scaleStage(){
+    const s = Math.min((innerWidth-20)/1280,(innerHeight-20)/720);
+    stage.style.transform = 'scale('+Math.max(.2,s)+')';
+  }
+  function show(i){
+    index = Math.max(0,Math.min(slides.length-1,i));
+    slides.forEach((s,n)=>{const active=n===index;s.classList.toggle('active',active);s.setAttribute('aria-hidden',String(!active));});
+    prev.disabled=index===0; next.disabled=index===slides.length-1;
+    counter.textContent=(index+1)+' / '+slides.length;
+    progress.style.width=((index+1)/slides.length*100)+'%';
+    notesPanel.hidden=true;
+  }
+  prev.addEventListener('click',()=>show(index-1));
+  next.addEventListener('click',()=>show(index+1));
+  notesButton.addEventListener('click',()=>{
+    const note=slides[index].querySelector('.speaker-note');
+    notesPanel.innerHTML='<strong>הערות למעביר</strong>'+(note?note.innerHTML:'אין הערות לשקופית זו.');
+    notesPanel.hidden=!notesPanel.hidden;
+  });
+  addEventListener('keydown',(e)=>{
+    if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(index+1)}
+    else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(index-1)}
+    else if(e.key==='Home')show(0);else if(e.key==='End')show(slides.length-1);
+    else if(e.key.toLowerCase()==='n')notesButton.click();
+    else if(e.key.toLowerCase()==='a'){root.classList.toggle('motion-on');var mb=root.querySelector('.motion-badge');if(mb)mb.hidden=root.classList.contains('motion-on');root.querySelectorAll('svg').forEach(function(v){if(v.pauseAnimations){root.classList.contains('motion-on')?v.unpauseAnimations():v.pauseAnimations();}});}else if(e.key.toLowerCase()==='f'){if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()}
+  });
+  
+  addEventListener('resize',scaleStage);scaleStage();show(0);
+})();
+
+(() => {
+  const STEPS=[{"n": "הגדרות IP וזהות התחנה", "why": "לפני שמאשימים את הדומיין: לוודא שיש כתובת, שער, ובעיקר שה-DNS מצביע על בקר הדומיין ולא על שרת אינטרנט.", "cmd": "ipconfig /all", "out": [["", "Windows IP Configuration"], ["", ""], ["", "   Host Name . . . . . . . . . . . . : WS-4487"], ["h", "   Primary Dns Suffix  . . . . . . . : unit.local"], ["", ""], ["", "Ethernet adapter Ethernet:"], ["", ""], ["", "   Connection-specific DNS Suffix  . : unit.local"], ["", "   IPv4 Address. . . . . . . . . . . : 10.20.4.87(Preferred)"], ["", "   Subnet Mask . . . . . . . . . . . : 255.255.255.0"], ["", "   Default Gateway . . . . . . . . . : 10.20.4.1"], ["h", "   DNS Servers . . . . . . . . . . . : 10.20.4.10"]], "read": "כתובת, שער וסיומת דומיין תקינים, וה-DNS הוא בקר הדומיין. שכבת הרשת המקומית אינה החשודה.", "choices": [["לבדוק שהשרת שרשום כ-DNS בכלל עונה", 1, ""], ["להריץ מיד nltest ולבדוק את האמון", 0, "מוקדם מדי. אם השרת לא זמין גם בדיקת האמון תיכשל, ולא נדע ממה."], ["להחליף כרטיס רשת", 0, "יש כתובת, שער ו-DNS, כך שהכרטיס עובד."]]}, {"n": "זמינות בקר הדומיין ברשת", "why": "בדיקה מהירה שמבדילה בין ״אין נתיב״ לבין ״יש נתיב אבל השירות לא עונה״.", "cmd": "ping 10.20.4.10", "out": [["", "Pinging 10.20.4.10 with 32 bytes of data:"], ["", "Reply from 10.20.4.10: bytes=32 time=1ms TTL=128"], ["", "Reply from 10.20.4.10: bytes=32 time<1ms TTL=128"], ["", "Reply from 10.20.4.10: bytes=32 time=1ms TTL=128"], ["", "Reply from 10.20.4.10: bytes=32 time=2ms TTL=128"], ["", ""], ["", "Ping statistics for 10.20.4.10:"], ["h", "    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),"], ["", "Approximate round trip times in milli-seconds:"], ["", "    Minimum = 0ms, Maximum = 2ms, Average = 1ms"]], "read": "השרת עונה ל-ICMP, ולכן יש אליו נתיב. זה עדיין לא אומר ששירות ה-DNS עצמו עובד.", "choices": [["לשאול את ה-DNS על הדומיין עצמו", 1, ""], ["לסמן ״DNS תקין״ ולהמשיך הלאה", 0, "Ping בודק ICMP, לא את השירות. שרת יכול לענות ולא לשרת שאילתות."], ["להריץ tracert לבקר", 0, "ה-RTT הממוצע הוא מילישנייה אחת ואין אובדן. אין מה לחפש בדרך."]]}, {"n": "זיהוי הדומיין ובקר הדומיין", "why": "תחנה שמתחברת לדומיין מאתרת את הבקר לפי רשומת SRV, ולכן שואלים על הרשומה הזו.", "cmd": "Resolve-DnsName -Name _ldap._tcp.dc._msdcs.unit.local -Type SRV", "out": [["", "Name                             Type TTL  NameTarget         Port"], ["", "----                             ---- ---  ----------         ----"], ["h", "_ldap._tcp.dc._msdcs.unit.local  SRV  600  dc01.unit.local    389"], ["", ""], ["", "Name       : dc01.unit.local"], ["", "QueryType  : A"], ["", "IP4Address : 10.20.4.10"]], "read": "הדומיין מזוהה ורשומת ה-SRV מחזירה את dc01 בפורט 389. שירות ה-DNS עונה בדיוק את מה שהתחנה צריכה.", "choices": [["לבדוק שאפשר באמת לפתוח חיבור ל-LDAP", 1, ""], ["להריץ nslookup על אתר אינטרנט", 0, "תרגום של שם כללי לא עוזר כאן. אנחנו שואלים על הדומיין, וכבר קיבלנו עליו תשובה."], ["להסיק שהתקלה ב-DNS", 0, "ה-DNS החזיר את התשובה הנכונה. אין כאן ממצא."]]}, {"n": "פתיחת חיבור לשירות עצמו", "why": "רשומת DNS רק מצביעה על השרת. חיבור שנפתח לפורט 389 מראה שהשירות מאזין ושאין חוסם בדרך.", "cmd": "Test-NetConnection dc01.unit.local -Port 389", "out": [["", "ComputerName     : dc01.unit.local"], ["", "RemoteAddress    : 10.20.4.10"], ["", "RemotePort       : 389"], ["", "SourceAddress    : 10.20.4.87"], ["h", "TcpTestSucceeded : True"]], "read": "החיבור נפתח, כך שהרשת תקינה עד השירות. ממשיכים לבדיקות זהות.", "choices": [["לשלול הפרש שעונים לפני שבודקים אמון", 1, ""], ["לאתחל את התחנה", 0, "אתחול יכול להסתיר את הממצא בלי להסביר אותו. עוד לא מדדנו כלום שנכשל."], ["לפתוח קריאה לצוות התשתיות", 0, "עד כאן הכול תקין מהצד שלנו. אין עדיין ממצא להעביר הלאה."]]}, {"n": "הפרש שעונים מול הדומיין", "why": "Kerberos פוסל כרטיס כשההפרש עולה על 5 דקות (ברירת המחדל בדומיין), והתסמין נראה בדיוק כמו בעיית הרשאות. זולה לבדיקה, ולכן נשללת ראשונה. מודדים את ההפרש ישירות מול בקר הדומיין.", "cmd": "w32tm /stripchart /computer:dc01.unit.local /samples:3 /dataonly", "out": [["", "Tracking dc01.unit.local [10.20.4.10:123]."], ["", "Collecting 3 samples."], ["", "The current time is 26/07/2026 08:31:05."], ["h", "08:31:05, +00.0412375s"], ["h", "08:31:07, +00.0409813s"], ["h", "08:31:09, +00.0411092s"]], "read": "ההפרש מול dc01 הוא כ-0.04 שניות בכל שלוש המדידות, הרבה מתחת ל-5 דקות. השעה אינה הסיבה.", "choices": [["לבדוק את ערוץ האמון של התחנה מול הדומיין", 1, ""], ["לחבר מחדש את התחנה לדומיין עכשיו", 0, "ייתכן שזה יעבוד, אבל לא נדע מה היה שבור ואם זה יחזור."], ["לאפס את סיסמת המשתמש", 0, "המשתמש אינו החשוד. התקלה אצל כל המשתמשים הרשתיים."]]}, {"n": "ערוץ האמון בין התחנה לדומיין", "why": "לתחנה יש חשבון מחשב וסיסמה משלה בדומיין. אם הם לא תואמים, אין ערוץ מאובטח, ואף משתמש רשתי לא יוכל להיכנס.", "cmd": "nltest /sc_verify:unit.local", "out": [["", "Flags: b0 HAS_IP  HAS_TIMESERV"], ["", "Trusted DC Name \\\\dc01.unit.local"], ["e", "Trusted DC Connection Status Status = 1787 0x6fb ERROR_NO_TRUST_SAM_ACCOUNT"], ["e", "Trust Verification Status = 1787 0x6fb ERROR_NO_TRUST_SAM_ACCOUNT"], ["", "The command completed successfully"]], "read": "לדומיין אין חשבון מחשב תקף לתחנה הזו, ולכן אין ערוץ אמון. משתמש מקומי עובד כי הוא לא עובר דרך הדומיין בכלל.", "choices": []}], FINAL={"title": "התקלה בערוץ האמון של התחנה מול הדומיין", "body": "הבדיקות שללו את הכתובת, הנתיב, ה-DNS, השירות והשעה, והצביעו על חשבון המחשב. התיקון: חידוש סיסמת חשבון המחשב או צירוף מחדש לדומיין.", "warn": "שימו לב לשורה האחרונה: ‏nltest הדפיס ״The command completed successfully״ למרות שבדיקת האמון נכשלה. צריך לקרוא את שורות הסטטוס, כי שורת הסיום מטעה כאן."};
+  const guide=document.getElementById('tsGuide'), out=document.getElementById('tsOut');
+  if(!guide||!out) return;
+  function idle(){
+    out.textContent='';
+    const b=document.createElement('div'); b.className='tsim-boot';
+    b.textContent='Windows PowerShell\nCopyright (C) Microsoft Corporation. All rights reserved.\n';
+    out.appendChild(b);
+    const d=document.createElement('div');
+    const p=document.createElement('span'); p.className='p'; p.textContent=PROMPT; d.appendChild(p);
+    const c=document.createElement('span'); c.className='caret'; c.textContent='\u2588'; d.appendChild(c);
+    out.appendChild(d);
+  }
+  const PROMPT='PS C:\\Windows\\system32> ';
+  let i=0, busy=false;
+  const el=(t,c,x)=>{const n=document.createElement(t); if(c)n.className=c; if(x!=null)n.textContent=x; return n;};
+  function line(cls,txt){const d=el('div',cls,txt); out.appendChild(d); out.scrollTop=out.scrollHeight; return d;}
+  function type(cmd,done){
+    busy=true;
+    if(i===0&&!out.querySelector('.c')) out.textContent='';
+    const d=line(null,''); const p=el('span','p',PROMPT); d.appendChild(p);
+    const c=el('span','c',''); d.appendChild(c);
+    let k=0;
+    (function tick(){
+      if(k<=cmd.length){ c.textContent=cmd.slice(0,k++); out.scrollTop=out.scrollHeight; setTimeout(tick,16); }
+      else { setTimeout(()=>{ busy=false; done(); },220); }
+    })();
+  }
+  function render(){
+    guide.textContent='';
+    if(i>=STEPS.length){
+      const h=el('div','tsim-hd'); h.appendChild(el('span',null,'סיכום'));
+      h.appendChild(el('b',null,FINAL.title)); guide.appendChild(h);
+      guide.appendChild(el('p','tsim-why',FINAL.body));
+      guide.appendChild(el('div','tsim-warn',FINAL.warn));
+      const again=el('button','tsim-btn','התחל מחדש');
+      again.type='button';
+      again.onclick=()=>{ i=0; idle(); render(); };
+      guide.appendChild(again); return;
+    }
+    const s=STEPS[i];
+    const h=el('div','tsim-hd'); h.appendChild(el('span',null,'שלב '+(i+1)+' / '+STEPS.length));
+    h.appendChild(el('b',null,s.n)); guide.appendChild(h);
+    guide.appendChild(el('p','tsim-why',s.why));
+    guide.appendChild(el('div','tsim-cmd',s.cmd));
+    const go=el('button','tsim-btn tsim-go','הרץ את הפקודה');
+    go.type='button';
+    go.onclick=()=>{ if(busy) return; go.disabled=true; type(s.cmd,()=>{
+        s.out.forEach(o=>line(o[0]||null,o[1])); line(null,''); reveal();
+    }); };
+    guide.appendChild(go);
+  }
+  function reveal(){
+    const s=STEPS[i];
+    const r=el('div','tsim-read'+(s.choices.length?'':' win'),s.read);
+    guide.appendChild(r);
+    if(!s.choices.length){
+      const nx=el('button','tsim-btn tsim-go','לסיכום');
+      nx.type='button'; nx.onclick=()=>{ i++; render(); };
+      guide.appendChild(nx); guide.scrollTop=guide.scrollHeight; return;
+    }
+    guide.appendChild(el('p','tsim-ask','מה השלב הבא?'));
+    const box=el('div','tsim-ch');
+    const ORDER=[[1,0,2],[2,1,0],[0,2,1],[1,2,0],[2,0,1]];
+    (ORDER[i]||s.choices.map((_,k)=>k)).map(k=>s.choices[k]).forEach(c=>{
+      const b=el('button','tsim-btn',c[0]); b.type='button';
+      b.onclick=()=>{
+        const old=box.parentNode.querySelector('.tsim-fb'); if(old) old.remove();
+        if(c[1]){ i++; render(); }
+        else { const f=el('div','tsim-fb',c[2]); box.parentNode.appendChild(f); guide.scrollTop=guide.scrollHeight; }
+      };
+      box.appendChild(b);
+    });
+    guide.appendChild(box);
+    guide.scrollTop=guide.scrollHeight;
+  }
+  idle();
+  render();
+})();
+
+</script><script>
+(function () {
+  'use strict';
+  var root = document.querySelector('.deck-root');
+  function $(id) { return document.getElementById(id); }
+  function safe(name, fn) { try { fn(); } catch (err) { if (window.console) console.error('[net04] ' + name, err); } }
+  function onInput(node, fn) { node.addEventListener('input', fn); }
+  function motionOK() {
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return !reduce && !!(root && root.classList.contains('motion-on'));
+  }
+  function activeSlideOf(node) { var s = node && node.closest('.slide'); return !!(s && s.classList.contains('active')); }
+  function mk(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function rich(node, text, keep) {
+    if (!keep) node.textContent = '';
+    String(text).split(/(\{[^}]*\})/).forEach(function (part) {
+      if (!part) return;
+      if (part.charAt(0) === '{' && part.charAt(part.length - 1) === '}') node.appendChild(mk('span', 'ltr', part.slice(1, -1)));
+      else node.appendChild(document.createTextNode(part));
+    });
+  }
+  function fade(node) { if (!motionOK() || !activeSlideOf(node)) return; node.classList.remove('n4-fade'); void node.offsetWidth; node.classList.add('n4-fade'); }
+
+  /* typing inside a field must not drive the deck (space, n, a, f, arrows) */
+  document.querySelectorAll('.deck-root input:not([type=range]), .deck-root textarea, .deck-root select').forEach(function (f) {
+    f.addEventListener('keydown', function (e) { e.stopPropagation(); if (e.key === 'Escape') f.blur(); });
+  });
+
+  /* terminal: prompt + command, then output lines [cls, text] */
+  function term(box, cmd, lines) {
+    box.textContent = '';
+    var d = mk('div');
+    d.appendChild(mk('span', 'p', 'PS> '));
+    d.appendChild(mk('span', 'c', cmd));
+    box.appendChild(d);
+    lines.forEach(function (l) {
+      var row = mk('div', l[0] || null, l[1] === '' ? ' ' : l[1]);
+      box.appendChild(row);
+    });
+  }
+
+  /* ---------- IPv4 helpers ---------- */
+  function ip2n(s) {
+    var m = /^\s*(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})\s*$/.exec(String(s));
+    if (!m) return null;
+    var n = 0;
+    for (var k = 1; k <= 4; k++) { var o = +m[k]; if (o > 255) return null; n = n * 256 + o; }
+    return n;
+  }
+  function n2ip(n) { return [n >>> 24, (n >>> 16) & 255, (n >>> 8) & 255, n & 255].join('.'); }
+  function maskOf(p) { return p === 0 ? 0 : (0xFFFFFFFF << (32 - p)) >>> 0; }
+  function prefixOf(m) { for (var p = 0; p <= 32; p++) if (maskOf(p) === m) return p; return -1; }
+  function netOf(ip, p) { return (ip & maskOf(p)) >>> 0; }
+  function inNet(a, net, p) { return netOf(a, p) === net; }
+
+  /* ================= opening: which tool answers which question ================= */
+  safe('opening', function () {
+    var list = $('n4qList'); if (!list) return;
+    var Q = [
+      { tool: 'Get-NetAdapter', ref: 3, cmd: 'Get-NetAdapter -Name Ethernet0 | Format-List Name,Status,LinkSpeed,MacAddress',
+        out: [['', ''], ['', 'Name       : Ethernet0'], ['hl', 'Status     : Up'], ['hl', 'LinkSpeed  : 1 Gbps'], ['', 'MacAddress : 34-7A-60-11-22-33']],
+        read: '{Status: Up} אומר שיש קישור פיזי מול היציאה במתג. LinkSpeed הוא הקצב שסוכם, וקצב נמוך מהצפוי מכוון לכבל או למחבר.',
+        not: 'שהיציאה ב-VLAN הנכון, שהכתובת נכונה ושיש מסלול.' },
+      { tool: 'ipconfig /all', ref: 4, cmd: 'ipconfig /all',
+        out: [['d', '...'], ['', 'Ethernet adapter Ethernet0:'], ['', ''], ['', '   DHCP Enabled. . . . . . . . . . . : No'], ['hl', '   IPv4 Address. . . . . . . . . . . : 10.20.30.15(Preferred)'], ['hl', '   Subnet Mask . . . . . . . . . . . : 255.255.255.0'], ['hl', '   Default Gateway . . . . . . . . . : 10.20.30.1'], ['hl', '   DNS Servers . . . . . . . . . . . : 10.20.10.10']],
+        read: 'משווים כל שדה לתכנון: כתובת, מסכה, שער ו-DNS. שדה אחד שגוי מספיק כדי שחלק מהרשת לא יעבוד.',
+        not: 'שהשער ושרת ה-DNS באמת עונים.' },
+      { tool: 'ping', ref: 5, cmd: 'ping 10.20.30.1',
+        out: [['', ''], ['', 'Pinging 10.20.30.1 with 32 bytes of data:'], ['hl', 'Reply from 10.20.30.1: bytes=32 time=1ms TTL=255'], ['hl', 'Reply from 10.20.30.1: bytes=32 time<1ms TTL=255'], ['hl', 'Reply from 10.20.30.1: bytes=32 time=1ms TTL=255'], ['hl', 'Reply from 10.20.30.1: bytes=32 time=2ms TTL=255'], ['', ''], ['', 'Ping statistics for 10.20.30.1:'], ['', '    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),'], ['', 'Approximate round trip times in milli-seconds:'], ['', '    Minimum = 0ms, Maximum = 2ms, Average = 1ms']],
+        read: 'ארבע שורות {Reply from} עם הכתובת של השער עצמו. קוראים מאיזו כתובת הגיעה כל תשובה, ולא רק את שורת הסיכום.',
+        not: 'שאיזשהו שירות עובד. כישלון גם לא היה מוכיח שהשער כבוי, כי ICMP יכול להיות מסונן.' },
+      { tool: 'arp -a', ref: 6, cmd: 'arp -a',
+        out: [['', ''], ['', 'Interface: 10.20.30.15 --- 0xc'], ['', '  Internet Address      Physical Address      Type'], ['hl', '  10.20.30.1            00-15-5d-01-02-03     dynamic'], ['', '  10.20.30.80           34-7a-60-aa-bb-cc     dynamic'], ['', '  10.20.30.255          ff-ff-ff-ff-ff-ff     static']],
+        read: 'ה-MAC שמשויך ל-{10.20.30.1}, מסוג dynamic. משווים ל-MAC של השער בתחנה תקינה באותה רשת.',
+        not: 'שהשער מעביר תעבורה לרשתות אחרות.' },
+      { tool: 'route print', ref: 7, cmd: 'route print -4',
+        out: [['d', '...'], ['', 'Active Routes:'], ['', 'Network Destination        Netmask          Gateway       Interface  Metric'], ['', '          0.0.0.0          0.0.0.0       10.20.30.1      10.20.30.15     25'], ['', '       10.20.30.0    255.255.255.0         On-link       10.20.30.15    281'], ['hl', '       10.20.40.0    255.255.255.0       10.20.30.2      10.20.30.15     26']],
+        read: 'ליעד {10.20.40.25} מתאימות שתי שורות, ונבחרת זו עם המסכה הארוכה: {10.20.40.0}, דרך {10.20.30.2}.',
+        not: 'ש-{10.20.30.2} מעביר הלאה. מי עונה לאורך הדרך מראה tracert.' },
+      { tool: 'Resolve-DnsName', ref: 8, cmd: 'Resolve-DnsName server.unit',
+        out: [['', ''], ['', 'Name                Type   TTL   Section    IPAddress'], ['', '----                ----   ---   -------    ---------'], ['hl', 'server.unit         A      300   Answer     10.20.40.25']],
+        read: 'רשומת A עם הכתובת {10.20.40.25}. משווים לכתובת המתוכננת של השרת.',
+        not: 'שהשירות בשרת עונה. גם השרת שענה לא מופיע כאן; אותו מראה nslookup.' },
+      { tool: 'Test-NetConnection', ref: 9, cmd: 'Test-NetConnection server.unit -Port 443',
+        out: [['', ''], ['', 'ComputerName     : server.unit'], ['', 'RemoteAddress    : 10.20.40.25'], ['', 'RemotePort       : 443'], ['', 'InterfaceAlias   : Ethernet0'], ['', 'SourceAddress    : 10.20.30.15'], ['hl', 'TcpTestSucceeded : True']],
+        read: '{TcpTestSucceeded : True} אומר שחיבור TCP לפורט 443 נפתח. RemoteAddress מראה גם לאיזו כתובת השם תורגם.',
+        not: 'שהיישום מחזיר תוכן תקין, שהתעודה תקינה או שהמשתמש מורשה.' },
+      { tool: 'netstat', ref: 10, cmd: 'netstat -ano | findstr :443',
+        out: [['', ''], ['hl', '  TCP    0.0.0.0:443            0.0.0.0:0              LISTENING       4'], ['', '  TCP    10.20.40.25:443        10.20.30.15:52144      ESTABLISHED     4'], ['', '  TCP    [::]:443               [::]:0                 LISTENING       4']],
+        read: 'בשרת: LISTENING על {0.0.0.0:443}, כלומר השירות מחכה לחיבורים בכל הכתובות של השרת. המספר בסוף השורה הוא ה-PID.',
+        not: 'שחומת האש של השרת מאפשרת חיבור מתחנה אחרת.' },
+      { tool: 'w32tm', ref: 11, cmd: 'w32tm /query /status',
+        out: [['', 'Leap Indicator: 0(no warning)'], ['', 'Stratum: 4 (secondary reference - syncd by (S)NTP)'], ['d', '...'], ['', 'ReferenceId: 0x0A140A0A (source IP:  10.20.10.10)'], ['hl', 'Last Successful Sync Time: 30/10/2026 07:42:10'], ['hl', 'Source: dc01.unit.local'], ['', 'Poll Interval: 10 (1024s)']],
+        read: 'Source הוא בקר הדומיין, והסנכרון האחרון הצליח הבוקר.',
+        not: 'כמה השעון רחוק מה-DC. את ההפרש עצמו מודדים ב-{w32tm /stripchart}.' },
+      { tool: 'nltest', ref: 11, cmd: 'nltest /dsgetdc:unit.local',
+        out: [['hl', '           DC: \\\\dc01.unit.local'], ['', '      Address: \\\\10.20.10.10'], ['', '     Dom Name: unit.local'], ['', '  Forest Name: unit.local'], ['', ' Dc Site Name: Default-First-Site-Name'], ['', 'Our Site Name: Default-First-Site-Name'], ['', 'The command completed successfully']],
+        read: 'השורה DC מראה איזה בקר נמצא, והשורה Address את הכתובת שלו.',
+        not: 'שלתחנה יש ערוץ אמון תקין מול הדומיין. אותו בודק {nltest /sc_verify}.' },
+      { tool: 'klist', ref: 11, cmd: 'klist',
+        out: [['', ''], ['', 'Current LogonId is 0:0x5a3c1'], ['', ''], ['', 'Cached Tickets: (2)'], ['', ''], ['', '#0>     Client: user1 @ UNIT.LOCAL'], ['hl', '        Server: krbtgt/UNIT.LOCAL @ UNIT.LOCAL'], ['', '        Start Time: 30/10/2026 7:45:02 (local)'], ['hl', '        End Time:   30/10/2026 17:45:02 (local)']],
+        read: 'יש TGT (השורה krbtgt) ושעת הסיום עוד לא עברה. אצל משתמש מקומי הרשימה ריקה, וזה תקין.',
+        not: 'שהמשתמש בקבוצות הנכונות. את זה מראה {whoami /groups}.' }
+    ];
+    var tool = $('n4qTool'), ref = $('n4qRef'), box = $('n4qTerm'), rd = $('n4qRead'), nt = $('n4qNot');
+    var btns = [].slice.call(list.querySelectorAll('[data-q]'));
+    function show(i) {
+      var q = Q[i];
+      btns.forEach(function (b) { b.classList.toggle('on', +b.getAttribute('data-q') === i); });
+      tool.textContent = q.tool;
+      ref.textContent = 'שקופית ' + q.ref;
+      term(box, q.cmd, q.out);
+      rd.textContent = ''; rd.appendChild(mk('b', null, 'קוראים: ')); rich(rd, q.read, true);
+      nt.textContent = ''; nt.appendChild(mk('b', null, 'עוד לא הוכח: ')); rich(nt, q.not, true);
+      fade(box);
+    }
+    btns.forEach(function (b) { b.addEventListener('click', function () { show(+b.getAttribute('data-q')); }); });
+    show(6);
+  });
+
+  /* ================= ipconfig /all: compare with the plan ================= */
+  safe('ipconfig', function () {
+    var fIp = $('n4ipIp'); if (!fIp) return;
+    var fMask = $('n4ipMask'), fGw = $('n4ipGw'), fDns = $('n4ipDns'), fDhcp = $('n4ipDhcp');
+    var netBox = $('n4ipNet'), dest = $('n4ipDest'), find = $('n4ipFind');
+    var PLAN = { dhcp: 'No', ip: '10.20.30.15', mask: '255.255.255.0', gw: '10.20.30.1', dns: '10.20.10.10' };
+    var PRE = {
+      plan: {},
+      mask: { mask: '255.255.0.0' },
+      gw: { gw: '10.20.3.1' },
+      dns: { dns: '10.20.10.11' },
+      apipa: { dhcp: 'Yes', ip: '169.254.31.7', mask: '255.255.0.0', gw: '', dns: '' }
+    };
+    var SERVER = '10.20.40.25', NEIGH = '10.20.30.80';
+    var APIPA = ip2n('169.254.0.0');
+    var preBtns = [].slice.call(document.querySelectorAll('#n4ipPre [data-p]'));
+    var fields = { dhcp: fDhcp, ip: fIp, mask: fMask, gw: fGw, dns: fDns };
+
+    /* where a packet to dst goes under config c = {ip, p, gw} (numbers, gw may be null) */
+    function route(c, dst) {
+      if (dst === c.ip) return { k: 'self' };
+      if (inNet(dst, netOf(c.ip, c.p), c.p)) return { k: 'local' };
+      if (c.gw === null) return { k: 'none' };
+      if (!inNet(c.gw, netOf(c.ip, c.p), c.p)) return { k: 'gwout', gw: c.gw };
+      return { k: 'gw', gw: c.gw };
+    }
+    function say(r) {
+      if (r.k === 'self') return 'הכתובת של התחנה עצמה';
+      if (r.k === 'local') return 'ישירות ברשת המקומית, ב-ARP';
+      if (r.k === 'none') return 'אין לאן לשלוח: אין Gateway';
+      if (r.k === 'gwout') return 'ל-Gateway {' + n2ip(r.gw) + '}, שנמצא מחוץ לרשת המקומית';
+      return 'דרך ה-Gateway {' + n2ip(r.gw) + '}';
+    }
+    function same(a, b) { return a.k === b.k && (a.gw === undefined || a.gw === b.gw); }
+    var planC = { ip: ip2n(PLAN.ip), p: 24, gw: ip2n(PLAN.gw) };
+
+    function row(label, text, cls) {
+      var b = mk('b'); rich(b, label); dest.appendChild(b);
+      var s = mk('span', cls || null); rich(s, text); dest.appendChild(s);
+    }
+    function add(cls, text) { var d = mk('div', 'n4-box ' + cls); rich(d, text); find.appendChild(d); }
+
+    function update() {
+      var v = { dhcp: fDhcp.value.trim(), ip: fIp.value.trim(), mask: fMask.value.trim(), gw: fGw.value.trim(), dns: fDns.value.trim() };
+      var ip = ip2n(v.ip), m = ip2n(v.mask), p = m === null ? -1 : prefixOf(m);
+      var gw = v.gw === '' ? null : ip2n(v.gw), dns = v.dns === '' ? null : ip2n(v.dns);
+      var okIp = ip !== null, okMask = p >= 0, okGw = v.gw === '' || gw !== null, okDns = v.dns === '' || dns !== null;
+      var dh = v.dhcp.toLowerCase(), okDh = dh === 'yes' || dh === 'no';
+      fIp.classList.toggle('bad', !okIp); fMask.classList.toggle('bad', !okMask); fGw.classList.toggle('bad', !okGw);
+      fDns.classList.toggle('bad', !okDns); fDhcp.classList.toggle('bad', !okDh);
+      /* per-field marks */
+      ['dhcp', 'ip', 'mask', 'gw', 'dns'].forEach(function (k, j) {
+        var cell = $('n4ipMk' + j);
+        var match = k === 'dhcp' ? dh === 'no' : (ip2n(v[k]) !== null && ip2n(v[k]) === ip2n(PLAN[k]));
+        cell.textContent = match ? '✓' : '✗';
+        cell.className = 'mk ' + (match ? 'n4-ok' : 'n4-bad');
+      });
+      /* local network */
+      var apipa = okIp && ((ip & 0xFFFF0000) >>> 0) === APIPA;
+      if (okIp && okMask) {
+        var net = netOf(ip, p), bc = (net | (~maskOf(p) >>> 0)) >>> 0;
+        var t = 'הרשת המקומית לפי הכתובת והמסכה: {' + n2ip(net) + '/' + p + '}';
+        if (p <= 30) t += ', כתובות {' + n2ip(net + 1) + '} עד {' + n2ip(bc - 1) + '}';
+        t += '. בתכנון: {10.20.30.0/24}.';
+        rich(netBox, t);
+        netBox.className = 'n4-box' + (net === netOf(planC.ip, 24) && p === 24 ? ' green' : ' amber');
+      } else {
+        netBox.textContent = 'אי אפשר לחשב את הרשת המקומית: ' + (!okIp ? 'הכתובת' : 'המסכה') + ' לא תקינה.';
+        netBox.className = 'n4-box red';
+      }
+      /* destinations */
+      dest.textContent = '';
+      if (okIp && okMask) {
+        var c = { ip: ip, p: p, gw: gw };
+        var net2 = netOf(ip, p);
+        if (gw === null) row('Gateway', okGw ? 'לא הוגדר' : 'ערך לא תקין', 'n4-bad');
+        else if (gw === ip) row('Gateway {' + n2ip(gw) + '}', 'הכתובת של התחנה עצמה', 'n4-bad');
+        else if (inNet(gw, net2, p)) row('Gateway {' + n2ip(gw) + '}', 'ברשת המקומית', gw === planC.gw ? 'n4-ok' : 'n4-warn');
+        else row('Gateway {' + n2ip(gw) + '}', 'מחוץ לרשת המקומית', 'n4-bad');
+        [['שרת DNS', dns, v.dns === '' ? 'לא הוגדר' : 'ערך לא תקין'], ['server.unit', ip2n(SERVER)], ['תחנה שכנה', ip2n(NEIGH)]].forEach(function (d) {
+          if (d[1] === null) { row(d[0], d[2], 'n4-bad'); return; }
+          var r = route(c, d[1]), pr = route(planC, d[1]), ok = same(r, pr);
+          row(d[0] + ' {' + n2ip(d[1]) + '}', say(r) + (ok ? '' : ' (בתכנון: ' + say(pr) + ')'), ok ? 'n4-ok' : 'n4-bad');
+        });
+      } else {
+        row('', 'צריך כתובת ומסכה תקינות כדי לדעת לאן התחנה תשלח.', 'n4-bad');
+      }
+      /* findings */
+      find.textContent = '';
+      var out = [];
+      if (!okIp) out.push(['red', '{IPv4 Address}: ערך לא תקין.']);
+      else if (apipa) out.push(['red', '{169.254.x.x} היא כתובת ש-Windows נותן לעצמו כשאין תשובה מ-DHCP. בפלט האמיתי השורה נקראת {Autoconfiguration IPv4 Address}. בודקים VLAN, את היציאה במתג ואת שרת ה-DHCP.']);
+      else if (okMask && p <= 30 && (ip === netOf(ip, p) || ip === ((netOf(ip, p) | (~maskOf(p) >>> 0)) >>> 0))) out.push(['red', 'הכתובת היא כתובת הרשת או כתובת השידור, ולא כתובת של תחנה.']);
+      else if (ip !== planC.ip) {
+        if (inNet(ip, netOf(planC.ip, 24), 24)) out.push(['amber', 'הכתובת שונה מהתכנון אבל באותה רשת. ייתכן שהיא שייכת לתחנה אחרת, ואז תהיה כפילות.']);
+        else out.push(['red', 'הכתובת לא שייכת לרשת המתוכננת {10.20.30.0/24}. התחנה לא תדבר עם השער ועם השכנים שלה.']);
+      }
+      if (!okDh) out.push(['red', '{DHCP Enabled}: בפלט מופיע Yes או No.']);
+      else if (dh === 'yes') out.push(['amber', '{DHCP Enabled: Yes}, ובתכנון No. התחנה הוגדרה לקבל כתובת אוטומטית, והכתובת עלולה להשתנות.']);
+      if (m === null) out.push(['red', '{Subnet Mask}: ערך לא תקין.']);
+      else if (p < 0) out.push(['red', 'המסכה לא רציפה, ואין מסכה כזו ברשת.']);
+      else if (!apipa && p < 24) out.push(['red', 'המסכה רחבה מהתכנון ({/' + p + '} במקום {/24}). התחנה מחשיבה כתובות מרשתות אחרות כמקומיות, מחפשת אותן ב-ARP ולא מקבלת תשובה. בתוך הרשת המקומית הכול נראה תקין.']);
+      else if (!apipa && p > 24) out.push(['amber', 'המסכה צרה מהתכנון ({/' + p + '} במקום {/24}). חלק מהתחנות ברשת ייראו לתחנה כרשת אחרת, והתעבורה אליהן תישלח ל-Gateway.']);
+      if (v.gw === '') out.push(['red', 'אין {Default Gateway}. התחנה תגיע רק לרשת המקומית.']);
+      else if (gw === null) out.push(['red', '{Default Gateway}: ערך לא תקין.']);
+      else if (okIp && okMask && gw === ip) out.push(['red', 'ה-Gateway הוא הכתובת של התחנה עצמה.']);
+      else if (okIp && okMask && !inNet(gw, netOf(ip, p), p)) out.push(['red', 'ה-Gateway מחוץ לרשת שהכתובת והמסכה מגדירות. בדרך כלל אף נתב לא עונה בכתובת כזו, ותעבורה לרשתות אחרות לא יוצאת.']);
+      else if (gw !== planC.gw) out.push(['amber', 'Gateway שונה מהתכנון. תעבורה לרשתות אחרות תישלח לכתובת אחרת, שאולי אין בה נתב.']);
+      if (v.dns === '') out.push(['red', 'אין שרת DNS. שמות לא יתורגמו.']);
+      else if (dns === null) out.push(['red', '{DNS Servers}: ערך לא תקין.']);
+      else if (dns !== ip2n(PLAN.dns)) out.push(['amber', 'שרת DNS שונה מהתכנון. התחנה תשאל שרת אחר, ואם הוא לא מכיר את שמות הדומיין, שמות פנימיים לא יתורגמו.']);
+      if (!out.length) out.push(['green', 'כל השדות לפי התכנון. הבדיקה הבאה: שהשער ושרת ה-DNS עונים (שקופית 5).']);
+      out.slice(0, 4).forEach(function (o) { add(o[0], o[1]); });
+    }
+    function preset(name) {
+      Object.keys(fields).forEach(function (k) { fields[k].value = (k in PRE[name]) ? PRE[name][k] : PLAN[k]; });
+      preBtns.forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-p') === name); });
+      update();
+    }
+    preBtns.forEach(function (b) { b.addEventListener('click', function () { preset(b.getAttribute('data-p')); }); });
+    Object.keys(fields).forEach(function (k) {
+      onInput(fields[k], function () { preBtns.forEach(function (b) { b.classList.remove('on'); }); update(); });
+    });
+    preset('mask');
+  });
+
+  /* ================= route print + tracert ================= */
+  safe('route', function () {
+    var inp = $('n4rtDst'); if (!inp) return;
+    var tbl = $('n4rtTbl'), why = $('n4rtWhy'), tr = $('n4rtTr'), quiet = $('n4rtQuiet'), note = $('n4rtNote');
+    var ROUTES = [
+      ['0.0.0.0', '0.0.0.0', '10.20.30.1', '10.20.30.15', 25],
+      ['10.20.30.0', '255.255.255.0', 'On-link', '10.20.30.15', 281],
+      ['10.20.30.15', '255.255.255.255', 'On-link', '10.20.30.15', 281],
+      ['10.20.40.0', '255.255.255.0', '10.20.30.2', '10.20.30.15', 26],
+      ['127.0.0.0', '255.0.0.0', 'On-link', '127.0.0.1', 331]
+    ];
+    var rows = ROUTES.map(function (r) {
+      var tr0 = document.createElement('tr');
+      r.forEach(function (c) { tr0.appendChild(mk('td', null, String(c))); });
+      var pf = mk('td', 'pf', ''); tr0.appendChild(pf);
+      tbl.appendChild(tr0);
+      return { r: r, el: tr0, pf: pf, dst: ip2n(r[0]), p: prefixOf(ip2n(r[1])) };
+    });
+    var preBtns = [].slice.call(document.querySelectorAll('#n4rtPre [data-d]'));
+    var T = ['<1 ms', '<1 ms', '<1 ms'], T2 = ['1 ms', '1 ms', '1 ms'], T3 = ['1 ms', '<1 ms', '1 ms'];
+    function pad(s, n) { s = String(s); while (s.length < n) s = ' ' + s; return s; }
+    function hop(n, t, addr) { return pad(n, 3) + pad(t[0], 9) + pad(t[1], 9) + pad(t[2], 9) + '  ' + addr; }
+    function star(n) { return pad(n, 3) + '     *        *        *     Request timed out.'; }
+
+    function update() {
+      var v = inp.value.trim(), d = ip2n(v);
+      preBtns.forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-d') === v); });
+      inp.classList.toggle('bad', d === null);
+      rows.forEach(function (x) { x.el.className = ''; x.pf.textContent = ''; });
+      if (d === null) {
+        why.textContent = 'כתובת IPv4 לא תקינה. כתבו ארבעה מספרים בין 0 ל-255, מופרדים בנקודות.';
+        why.className = 'n4-box red';
+        term(tr, 'tracert -d ' + v, [['', ''], ['e', 'Unable to resolve target system name ' + v + '.']]);
+        note.textContent = 'tracert מנסה לתרגם ערך שאינו כתובת כשם, ונכשל.';
+        return;
+      }
+      var match = rows.filter(function (x) { return netOf(d, x.p) === x.dst; });
+      match.sort(function (a, b) { return b.p - a.p || a.r[4] - b.r[4]; });
+      var win = match[0];
+      match.forEach(function (x) { x.el.className = 'm'; x.pf.textContent = '/' + x.p + ' ✓'; });
+      win.el.className = 'win';
+      var gw = win.r[2];
+      var plist = match.map(function (x) { return '{/' + x.p + '}'; }).reverse().join(', ');
+      var t = 'ליעד {' + v + '} מתאימות ' + (match.length === 1 ? 'שורה אחת' : match.length + ' שורות (' + plist + ')') + '. ';
+      t += 'נבחרת {' + win.r[0] + '/' + win.p + '}' + (match.length > 1 ? ', זו עם המסכה הארוכה ביותר' : '') + '. ';
+      t += gw === 'On-link' ? '{On-link}: היעד מקומי ונשלח ישירות, בלי שער.' : 'השער: {' + gw + '}.';
+      rich(why, t); why.className = 'n4-box';
+      /* the path the demo network uses */
+      var hops, done = true;
+      if (gw === 'On-link') hops = [[T, v]];
+      else if (gw === '10.20.30.2') hops = [[T, '10.20.30.2'], [T2, '10.20.35.1'], [T3, v]];
+      else if (netOf(d, 16) === ip2n('10.20.0.0')) hops = [[T, gw], [T2, v]];
+      else { hops = [[T, gw]]; done = false; }
+      var q = quiet.checked, lines = [['', ''], ['', 'Tracing route to ' + v + ' over a maximum of 30 hops'], ['', '']];
+      hops.forEach(function (h, j) {
+        var last = done && j === hops.length - 1;
+        if (q && j > 0 && !last) lines.push(['e', star(j + 1)]);
+        else lines.push([j === 0 ? 'hl' : '', hop(j + 1, h[0], h[1])]);
+      });
+      if (done) { lines.push(['', '']); lines.push(['', 'Trace complete.']); }
+      term(tr, 'tracert -d ' + v, lines);
+      var mid = done ? hops.length - 2 : 0;
+      if (q && mid > 0) note.textContent = 'בקפיצה 2 מופיעות כוכביות, והיעד עונה בקפיצה ' + hops.length + '. הנתב שבאמצע מעביר תעבורה ורק לא שולח Time Exceeded.';
+      else if (q) note.textContent = 'בדרך ליעד הזה אין בהדגמה נתב ביניים אחרי השער, ולכן אין מה להסתיר.';
+      else if (gw === 'On-link') note.textContent = 'היעד ברשת המקומית, ולכן ב-tracert יש קפיצה אחת: היעד עצמו.';
+      else rich(note, 'הקפיצה הראשונה ב-tracert היא השער שנבחר בטבלה: {' + gw + '}.' + (done ? '' : ' מעבר לו הדרך תלויה ברשת, ובהדגמה מוצגת רק הקפיצה הראשונה.'));
+    }
+    onInput(inp, update);
+    quiet.addEventListener('change', update);
+    preBtns.forEach(function (b) { b.addEventListener('click', function () { inp.value = b.getAttribute('data-d'); update(); }); });
+    update();
+  });
+
+  /* ================= exercise: reading output ================= */
+  safe('exercise', function () {
+    var list = $('n4exList'); if (!list) return;
+    var box = $('n4exTerm'), ans = $('n4exAns'), btn = $('n4exShow');
+    var X = [
+      { cmd: 'ping 10.20.30.80',
+        out: [['', ''], ['', 'Pinging 10.20.30.80 with 32 bytes of data:'], ['', 'Reply from 10.20.30.15: Destination host unreachable.'], ['', 'Reply from 10.20.30.15: Destination host unreachable.'], ['', 'Reply from 10.20.30.15: Destination host unreachable.'], ['', 'Reply from 10.20.30.15: Destination host unreachable.'], ['', ''], ['', 'Ping statistics for 10.20.30.80:'], ['', '    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),']],
+        ans: 'לא. כל התשובות הגיעו מהכתובת של התחנה עצמה, {10.20.30.15}: היא לא מצאה את {10.20.30.80} ב-ARP. Windows סופר את זה כתשובה, ולכן {Lost = 0}. בודקים {arp -a} או Get-NetNeighbor, ואם התחנה השכנה באמת מחוברת, את היציאה שלה במתג ואת ה-VLAN.' },
+      { cmd: 'Test-NetConnection server.unit -Port 443',
+        out: [['e', 'WARNING: TCP connect to (10.20.40.25 : 443) failed'], ['', ''], ['', 'ComputerName           : server.unit'], ['', 'RemoteAddress          : 10.20.40.25'], ['', 'RemotePort             : 443'], ['', 'InterfaceAlias         : Ethernet0'], ['', 'SourceAddress          : 10.20.30.15'], ['', 'PingSucceeded          : True'], ['', 'PingReplyDetails (RTT) : 1 ms'], ['', 'TcpTestSucceeded       : False']],
+        ans: 'השם תורגם (RemoteAddress) ויש דרך לשרת ({PingSucceeded : True}). פורט 443 לא נפתח: השירות לא מאזין, או שחומת אש חוסמת את הפורט. הבדיקה הבאה נעשית בשרת: {netstat -ano | findstr :443} או {Get-NetTCPConnection -LocalPort 443}.' },
+      { cmd: 'netstat -ano | findstr :443',
+        out: [['', ''], ['', '  TCP    127.0.0.1:443          0.0.0.0:0              LISTENING       3120']],
+        ans: 'השירות מאזין רק ב-{127.0.0.1}, כלומר רק למחשב עצמו. בדיקה מקומית בשרת תצליח, ומכל תחנה אחרת תיכשל. זו הגדרה של היישום, ומעבירים אותה לגורם האחראי לפי נוהל היחידה.' }
+    ];
+    var btns = [].slice.call(list.querySelectorAll('[data-x]')), cur = 0;
+    function setBtn() { btn.textContent = ans.hidden ? 'הצג תשובה' : 'הסתר תשובה'; }
+    function show(i) {
+      cur = i;
+      btns.forEach(function (b) { b.classList.toggle('on', +b.getAttribute('data-x') === i); });
+      term(box, X[i].cmd, X[i].out);
+      rich(ans, X[i].ans); ans.hidden = true; setBtn();
+      fade(box);
+    }
+    btns.forEach(function (b) { b.addEventListener('click', function () { show(+b.getAttribute('data-x')); }); });
+    btn.addEventListener('click', function () { ans.hidden = !ans.hidden; setBtn(); if (!ans.hidden) fade(ans); });
+    show(0);
+  });
+})();
+</script></body></html>

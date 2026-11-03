@@ -1,0 +1,461 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>תהליך איתור תקלות רשת</title><style>
+@page{size:A4;margin:52pt 54pt 46pt 54pt;
+  @bottom-right{content:"מחלקת תקשוב · איתור תקלות · שיעור 5";
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:right;vertical-align:top;padding-top:10pt;direction:rtl}
+  @bottom-left{content:counter(page) " / " counter(pages);
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:left;vertical-align:top;padding-top:10pt;direction:ltr}}
+@page:first{@bottom-right{content:""}@bottom-left{content:""}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Liberation Sans",Arial,sans-serif;color:#1b2a38;font-size:10pt;line-height:1.55;direction:rtl}
+.pg{page-break-after:always}
+.pg:last-child{page-break-after:auto}
+.eyebrow{font-size:9pt;font-weight:bold;color:#0f2740;margin-bottom:9pt}
+h1{font-size:20pt;font-weight:bold;margin:0 0 14pt;color:#0f2740;line-height:1.24;text-align:center}
+h2{font-size:13pt;margin:16pt 0 8pt;color:#0f2740;font-weight:bold}
+.rule{border:0;border-top:1px solid #dbe3ea;margin:0 0 16pt}
+p{margin:0 0 7pt}
+ul{margin:0 0 7pt;padding-right:15pt}
+li{margin-bottom:4pt}
+
+/* stat chips */
+.chips{display:flex;gap:11pt;margin:0 0 16pt}
+.chip{flex:1;background:#0f2740;border-radius:6pt;padding:11pt 8pt;text-align:center}
+.chip b{display:block;font-size:14pt;color:#3fd0e0;line-height:1.15}
+.chip span{display:block;font-size:8.5pt;color:#b6c6d4;margin-top:3pt}
+
+/* two rounded cards with a coloured inner edge */
+.cards{display:flex;gap:11pt;margin:0 0 14pt}
+.cards.three>*{flex:1}
+.cards>*{flex:1;min-width:0}
+.pc{border-radius:7pt;padding:10pt 13pt;position:relative;overflow:hidden}
+.pc::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.pc h3{margin:0 0 5pt;font-size:10pt;font-weight:bold}
+.pc p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.pc p:last-child{margin-bottom:0}
+.pc.teal{background:#e9f4f7}.pc.teal::after{background:#0f8793}.pc.teal h3{color:#0f6f7a}
+.pc.amber{background:#fdf4e6}.pc.amber::after{background:#e0a038}.pc.amber h3{color:#a8701a}
+.pc.red{background:#fdeef0}.pc.red::after{background:#d9556a}.pc.red h3{color:#a83a4c}
+.pc.green{background:#eef7f0}.pc.green::after{background:#4a9c62}.pc.green h3{color:#2f7546}
+
+/* full-width note block, same visual family */
+.note{border-radius:7pt;padding:9pt 13pt;margin:0 0 10pt;position:relative;overflow:hidden}
+.note::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.note h3{margin:0 0 4pt;font-size:9pt;font-weight:bold;letter-spacing:.02em}
+.note p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.note p:last-child{margin-bottom:0}
+.note.teal{background:#e9f4f7}.note.teal::after{background:#0f8793}.note.teal h3{color:#0f6f7a}
+.note.amber{background:#fdf4e6}.note.amber::after{background:#e0a038}.note.amber h3{color:#a8701a}
+.note.red{background:#fdeef0}.note.red::after{background:#d9556a}.note.red h3{color:#a83a4c}
+.note.green{background:#eef7f0}.note.green::after{background:#4a9c62}.note.green h3{color:#2f7546}
+
+/* dark headline band (used for the formula / the one-line rule of a page) */
+.band{background:#0f2740;border-radius:8pt;padding:14pt 18pt;margin:0 0 14pt;text-align:center;
+  color:#3fd0e0;font-size:16pt;font-weight:bold}
+.band.sm{font-size:12.5pt;padding:11pt 16pt}
+.band .w{color:#fff}
+
+table{width:100%;border-collapse:collapse;font-size:9pt;margin:0 0 11pt}
+th,td{border:1px solid #dbe3ea;padding:5pt 8pt;text-align:right;vertical-align:top}
+th{background:#eef4f8;color:#0f6f7a;font-weight:bold}
+td.k{font-weight:bold;color:#0f2740}
+td.n,th.n{text-align:center;width:52pt;white-space:nowrap;direction:ltr;unicode-bidi:embed}
+.ltr{direction:ltr;unicode-bidi:embed;display:inline-block}
+
+.title-pg{height:660pt;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.title-pg .kick{font-size:10pt;color:#0f8793;font-weight:bold;margin-bottom:20pt}
+.title-pg h1{font-size:27pt;margin-bottom:12pt}
+.title-pg .sub{font-size:12pt;color:#5b7186;margin:0 auto 26pt;max-width:400pt;line-height:1.55}
+.title-pg .meta{font-size:9.5pt;color:#5b7186}
+</style></head><body>
+<!-- שער -->
+<div class="pg title-pg">
+  <div class="kick">מחלקת תקשוב · רשתות · מדריך למעביר השיעור</div>
+  <div style="color:#e0a038;font-weight:bold;font-size:12pt;margin-bottom:10pt">שיעור 5</div>
+  <h1>תהליך איתור תקלות רשת</h1>
+  <div class="sub">הסבר לכל שקופית: מה מוצג, איך זה עובד ברשת, מה רואים בתחנת Windows, אילו שאלות יעלו ואיפה חניכים נוטים לטעות.</div>
+  <div class="chips" style="width:400pt;margin:0 auto">
+    <div class="chip"><b>17</b><span>שקופיות</span></div>
+    <div class="chip"><b>75&nbsp;דקות</b><span>משך מומלץ</span></div>
+    <div class="chip"><b>5</b><span>שלבים במפת הבדיקה</span></div>
+  </div>
+  <div class="meta" style="margin-top:20pt">מותאם לטכנאי שטח · סביבת Windows מנוהלת</div>
+</div>
+
+<!-- הכנה -->
+<div class="pg">
+  <div class="eyebrow">00 · לפני השיעור</div>
+  <h1>מטרה, הכנה וחלוקת זמן</h1><hr class="rule">
+  <h2>למי המדריך הזה</h2>
+  <p>למי שמעביר את השיעור, גם אם אינו איש רשתות ותיק. לכל שקופית יש רקע רחב ממה שעל המסך, כדי שתוכלו להסביר למה הבדיקות נעשות בסדר הזה ולענות על ״למה״. את הרקע לא מקריאים. התרגול בשקופית 15 הוא קריאת ראיות מהמסך, בלי ציוד.</p>
+
+  <h2>מטרת השיעור</h2>
+  <p>לעבוד לפי סדר בדיקות קבוע, עד השלב הראשון שבו התוצאה שונה מהצפוי. בסוף השיעור החניך יודע להפוך תלונה כמו ״הרשת לא עובדת״ לתיאור של מה נכשל ואצל מי, להשוות לייחוס, לבדוק שכבה אחרי שכבה ולהגיד באיזה שלב התקלה. בתיקון הוא משנה דבר אחד בכל פעם ובודק שוב לפני שהוא מתעד.</p>
+
+  <h2>הכנה</h2>
+  <ul>
+    <li>פתחו את המצגת ב-Chrome או ב-Edge במחשב שמחובר למקרן ועברו על כל השקופיות. היא לא צריכה רשת. בשקופיות 2, 3, 7 ו-13 יש הדגמות חיות, ובשקופית 15 תרגול עם קריאות שירות. מפעילים אותן בעכבר, בלחיצה על כפתורים ובגרירת סליידרים. אין בהן תיבות טקסט, וטעינה מחדש של הדף מחזירה כל הדגמה למצב ההתחלתי.</li>
+    <li>ניווט: חץ ימינה או רווח קדימה, חץ שמאלה אחורה, <span class="ltr">Home</span> ו-<span class="ltr">End</span> להתחלה ולסוף. <span class="ltr">N</span> פותח את הערות המדריך, <span class="ltr">F</span> מסך מלא, <span class="ltr">A</span> מכבה ומדליק את האנימציות (הן פועלות כברירת מחדל). כשהאנימציות כבויות, הפלט בחלונות הפקודה מופיע מיד במקום להיות מוקלד שורה אחרי שורה. גם אחרי גרירת סליידר החצים ממשיכים להעביר שקופיות ולא מזיזים אותו.</li>
+    <li>מספרי השקופיות במדריך הם המספרים שבמונה בתחתית המסך (״2 / 17״). המספר הקטן שליד הכותרת בכל שקופית נמוך באחד, כי שקופית השער לא ממוספרת.</li>
+    <li>בחרו תרחיש תקלה מוכר אחד שילווה את כל ההסבר, למשל ״משתמש לא נכנס לאתר הפנימי״, והכינו ייחוס תקין סכמטי להשוואה: כתובת, <span class="ltr">Prefix</span>, <span class="ltr">Gateway</span> ו-DNS של מקטע אחד. הזכירו לאורך השיעור שהעברת תקלה כוללת ראיות, שעה והיקף.</li>
+      </ul>
+  <div class="note amber"><h3>מה לא מלמדים בשיעור הזה</h3>
+    <p>השיעור עוסק בבידוד התקלה ובהעברתה עם ראיות לגורם שמוסמך לשנות VLAN, נתבים, שרתים או מדיניות. כל תקלה בשקופיות היא דוגמה לשלב אחד. מי מוסמך לאיזה שינוי, ולמי מעבירים כל סוג תקלה, נקבע לפי נוהל היחידה.</p>
+  </div>
+
+  <h2 style="break-before:page">חלוקת זמן מוצעת</h2>
+  <table style="break-inside:avoid">
+    <thead><tr><th>חלק</th><th>שקופיות</th><th>מה מעבירים</th><th class="n">דקות</th></tr></thead>
+    <tr><td class="k">פתיחה</td><td class="n"><span class="ltr">1-3</span></td><td>מהתלונה לשלב התקול (הדגמה), היקף (הדגמה)</td><td class="n">11</td></tr>
+    <tr><td class="k">ייחוס</td><td class="n">4</td><td>השוואה למערכת תקינה או לתכנון</td><td class="n">7</td></tr>
+    <tr><td class="k">Link ו-VLAN</td><td class="n"><span class="ltr">5-6</span></td><td>החוליה הפיזית והתחום המקומי</td><td class="n">9</td></tr>
+    <tr><td class="k"><span class="ltr">IP</span>, <span class="ltr">ARP</span> וניתוב</td><td class="n"><span class="ltr">7-9</span></td><td>כתובת ו-Prefix (הדגמה), שכן ודרך</td><td class="n">13</td></tr>
+    <tr><td class="k">DNS ושירות</td><td class="n"><span class="ltr">10-11</span></td><td>שם, פורט ויישום</td><td class="n">8</td></tr>
+    <tr><td class="k">Domain ואמון</td><td class="n">12</td><td>DNS, זמן, כרטיס ותעודה</td><td class="n">7</td></tr>
+    <tr><td class="k">תקלה לסירוגין וסגירה</td><td class="n"><span class="ltr">13-14</span></td><td>ממוצע מול קפיצות (הדגמה), שינוי אחד, אימות ותיעוד</td><td class="n">6</td></tr>
+    <tr><td class="k">תרגול</td><td class="n">15</td><td>קריאות שירות: באיזה שלב התקלה</td><td class="n">10</td></tr>
+    <tr><td class="k">מגבלות וסיכום</td><td class="n"><span class="ltr">16-17</span></td><td>מה ההדגמות מפשטות, התהליך השלם</td><td class="n">4</td></tr>
+  </table>
+  <p>בסך הכול כ-75 דקות, מתוכן כ-20 להדגמות, לתרגול ולמגבלות: כ-4 להדגמות בפתיחה ובהיקף, כ-2 להדגמת ה-Prefix וכ-2 להדגמת הממוצע, כ-10 לתרגול וכ-2 לשקופית המגבלות. כשהזמן קצר, בשקופית 2 מספיקות תקלה 1 ותקלה 2, ובתרגול אפשר לעבור על קריאה אחת בכיתה ולתת את השאר כשאלות להמשך. את המגבלות לא מדלגים.</p>
+</div>
+
+<!-- 1-3 -->
+<div class="pg">
+  <div class="eyebrow">01 · שקופיות <span class="ltr">1-3</span></div>
+  <h1>פתיחה: מגדירים את התקלה ואת היקפה</h1><hr class="rule">
+
+  <h2>שקופית 1 · איתור תקלות רשת לפי סדר בדיקות</h2>
+  <p>בשער מופיעים שלבי השיעור: סימפטום והיקף, Link ו-VLAN, <span class="ltr">IP</span>, <span class="ltr">ARP</span> וניתוב, DNS, שירות, Domain ואמון. ספרו שכל תקלה שתוצג בהמשך ממחישה שלב אחד, ושבכל שלב עושים אותו דבר: משווים את מה שאמור לקרות למה שקורה בפועל. כאן אפשר לשאול את שאלת הפתיחה.</p>
+  <p>מבנה השיעור: שקופית 2 עוברת על כל סדר הבדיקות בתקלה אחת, ושם מגדירים סימפטום, היקף, ציפייה וראיה. שקופיות 3 ו-4 עוסקות בהיקף ובייחוס, 5 עד 12 בשלב אחד כל אחת מהחיבור הפיזי ועד Domain ואמון, ו-13 ו-14 בתקלה לסירוגין ובסגירת תקלה. אחריהן תרגול (15), מגבלות ההדגמות (16) והסיכום (17).</p>
+  <div class="note green"><h3>פתיחה מומלצת</h3>
+    <p>מה חסר במשפט ״הרשת לא עובדת״ כדי שאפשר יהיה לבחור בדיקה ראשונה?</p>
+  </div>
+
+  <h2>שקופית 2 · מהתלונה לשלב התקול</h2>
+  <p><strong>על המסך:</strong> כפתורים לתקלות 1 עד 5 וכפתור ״ניקוי הבדיקות״. מתחתם תיבות של סימפטום, היקף, ציפייה וראיה. מימין סולם בדיקות, <span class="ltr">Link</span> בתחתית ופורט השירות למעלה, ולכל בדיקה הפקודה שלה. משמאל חלון פקודה עם הפלט של הבדיקה האחרונה, ומתחתיו שורת מסקנה.</p>
+  <p><strong>רקע.</strong> ״לא עובד״ יכול להיות כבל מנותק, סיסמה שפגה או שרת שנפל, ולכל אחד מהם בדיקה ראשונה אחרת. מבררים עם המשתמש מה הייתה הפעולה, מה בדיוק הופיע (נוסח ההודעה, ועדיף צילום מסך), ממתי, והאם זה עבד אי פעם מהתחנה הזו. שווה לשאול תמיד מה השתנה לאחרונה: מעבר חדר, עדכון, סיסמה חדשה וכבל שהוחלף מסבירים הרבה תקלות. תיאור טוב כולל מי, מה, מתי, באיזו תצורה, והאם התקלה קבועה או לסירוגין.</p>
+  <p>לפעמים המערכת עושה בדיוק מה שהוגדר לה, כמו אתר שחסום במדיניות, ולכן צריך לדעת מה אמור לקרות. ראיה היא תוצאה של מדידה: פלט של פקודה, הודעת שגיאה, זמן תגובה. תחושה כמו ״נראה לי איטי״ צריך להפוך למדידה.</p>
+  <p>נסחו עם החניכים כל תלונה כמשפט שאפשר לבדוק: <em>״תחנה A אינה פותחת <span class="ltr">server.unit</span> בפורט 443 מאז 10:15; תחנה B כן״</em>. יש בו סימפטום, שעה, היקף ומערכת ייחוס.</p>
+  <p>מכאן עוברים לבדיקות. כל שלב נשען על אלה שמתחתיו: כשאין Link לא מגיעים לשכן ולא לשום יעד מעבר לו, ושם נכון לא עוזר. לכן בדיקה שנכשלה בשלב גבוה לא אומרת שהתקלה שם. Test-NetConnection נכשל באותה מידה כשהשירות עצור וכשהכבל מנותק. רק כשכל מה שמתחת לבדיקה שנכשלה תקין, יודעים איפה התקלה.</p>
+  <p><strong>ההדגמה.</strong> בכל התקלות התחנה היא <span class="ltr">10.20.30.27</span>, השער <span class="ltr">10.20.30.1</span>, שרת ה-DNS <span class="ltr">10.20.10.10</span> והשרת <span class="ltr">10.20.40.25</span>, כמו בשקופיות 4, 7 ו-10. הסימפטום והציפייה זהים בכולן, וההיקף משתנה. בפתיחה מוצגת תקלה 1, ובדיקת Link כבר רצה: בחלון <span class="ltr">Status Up</span> ו-<span class="ltr">1 Gbps</span>, ובשורת המסקנה ״כל מה שנבדק עד עכשיו תקין״.</p>
+  <p>לחיצה על בדיקה מריצה אותה. הפלט מוקלד בחלון, השורה שמכילה את הראיה מסומנת באדום, והתווית ליד הבדיקה מתחלפת ל״תקין״ או ל״נכשל״. תיבת הראיה מציגה את הממצא של הבדיקה הנמוכה ביותר שנכשלה. שורת המסקנה עובדת לפי סדר השכבות: כל עוד מתחת לבדיקה שנכשלה יש בדיקה שלא הורצה, היא אומרת בצהוב שעוד אי אפשר לדעת אם התקלה שם. כשכל מה שמתחת תקין, היא מציגה באדום את השלב התקול ומפנה לשקופית שמסבירה אותו.</p>
+  <p>הריצו את תקלה 1 מלמטה למעלה עם הכיתה. התצורה נכשלת (<span class="ltr">Subnet Mask 255.255.0.0</span>), ובדיקת השער דווקא עוברת, כי <span class="ltr">10.20.30.1</span> נמצא גם בתוך ה-<span class="ltr">/16</span> וגם בתוך ה-<span class="ltr">/24</span>. אחר כך בחרו תקלה אחרת והתחילו דווקא מהפורט, כמו טכנאי שקופץ ישר לבדיקה ״החשודה״. הבדיקה נכשלת, ושורת המסקנה מונה את הבדיקות שעוד לא נבדקו מתחתיה. לפני כל תקלה אפשר לבקש מהכיתה ניחוש לפי ההיקף.</p>
+  <table style="break-inside:avoid">
+    <tr><th class="n">תקלה</th><th style="width:27%">ההיקף על המסך</th><th>הבדיקה הראשונה שנכשלת</th><th>הראיה</th><th class="n">שקופית</th></tr>
+    <tr><td class="n">1</td><td>תחנה אחת, אחרי הגדרה ידנית</td><td>תצורה מול התכנון</td><td><span class="ltr">Subnet Mask 255.255.0.0</span> במקום <span class="ltr">255.255.255.0</span></td><td class="n">4, 7</td></tr>
+    <tr><td class="n">2</td><td>כל התחנות, רק האתר הזה</td><td>פורט השירות</td><td>Ping לשרת עובר, <span class="ltr">TcpTestSucceeded : False</span></td><td class="n">11</td></tr>
+    <tr><td class="n">3</td><td>תחנה אחת, אחרי ניקיון בחדר</td><td>Link</td><td><span class="ltr">Status: Disconnected</span></td><td class="n">5</td></tr>
+    <tr><td class="n">4</td><td>תחנה אחת, אחרי מעבר לשקע אחר</td><td>שכן מקומי: השער</td><td>אין MAC לשער (<span class="ltr">Unreachable</span>)</td><td class="n">6, 8</td></tr>
+    <tr><td class="n">5</td><td>כל התחנות, מאז שהשרת הועבר</td><td>שם השרת</td><td>השם מחזיר <span class="ltr">10.20.40.12</span></td><td class="n">10</td></tr>
+  </table>
+  <p>הבדיקות שמעל השלב התקול נכשלות בעקבותיו, וכדאי להראות איך זה נראה. בתקלה 3 כל מה שמעל Link נכשל, כי אין ממשק פעיל: <span class="ltr">Media disconnected</span>, <span class="ltr">General failure</span>, ו-nslookup מחזיר <span class="ltr">*** Default servers are not available</span> כי לתחנה אין אף שרת DNS זמין. בתקלות 1 ו-4 ה-Ping לשרת חוזר עם <span class="ltr">Destination host unreachable</span> מהכתובת של התחנה עצמה: בתקלה 1 התחנה חושבת שהשרת מקומי ושולחת לו ARP, ובתקלה 4 השער לא עונה ל-ARP. בשני המקרים החבילה לא יצאה מהתחנה. בתקלה 5 <span class="ltr">Test-NetConnection</span> פונה ל-<span class="ltr">10.20.40.12</span>, ושם רואים שהבעיה התחילה כבר בשם.</p>
+  <table>
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">למה בתקלה 1 בדיקת השער עוברת אם התצורה שגויה?</td><td>ה-Prefix השגוי משנה רק את ההחלטה לגבי יעדים שנמצאים בין <span class="ltr">/24</span> ל-<span class="ltr">/16</span>. השער נמצא בשניהם, ולכן הוא נראה מקומי בשתי ההגדרות. שקופית 7 מראה את זה לכל יעד.</td></tr>
+    <tr><td class="k">אם הפורט לא עונה, למה לא להתחיל מהשרת?</td><td>כי כל שלב מתחתיו מכשיל אותה בדיקה. בתקלות 1, 3 ו-4 הפורט ״לא עונה״ כשהשרת תקין לגמרי.</td></tr>
+    <tr><td class="k">חייבים תמיד להתחיל מ-Link?</td><td>לא. בדיקה גבוהה שמצליחה מוכיחה את מה שמתחתיה בדרך ליעד הזה (שקופית 17). כשהיא נכשלת, יורדים ובודקים מלמטה.</td></tr>
+  </table>
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>לעצור בבדיקה הראשונה שנכשלה, גם כשהיא גבוהה, ולתקן שם. למשל לבקש אתחול של השרת כי הפורט לא עונה, כשהתחנה בכלל לא מגיעה אליו.</p>
+  </div>
+  <div class="note amber"><h3>מתי משנים</h3>
+    <p>רק אחרי שיש שאלה וראיה, ורק דבר אחד בכל פעם. אחר כך חוזרים על הבדיקה מול אותו קריטריון, מתעדים ומעבירים (שקופית 14).</p>
+  </div>
+
+  <h2>שקופית 3 · היקף התקלה מצמצם את רשימת החשודים</h2>
+  <p><strong>על המסך:</strong> מימין שאלות השוואה, ולכל אחת ״עובד״ או ״לא עובד״: אותה פעולה מתחנה סמוכה באותו מקטע, משתמש אחר באותה תחנה, אותה פעולה ממקטע אחר ושירות אחר מאותה תחנה. משמאל ״התקלה״ במרכז, וסביבה ההיקפים: משתמש אחד, תחנה אחת, <span class="ltr">VLAN</span> או מקטע, שירות אחד, כל האתר. ההיקף שנובע מהתשובות מודגש בצהוב, ומתחת לשאלות מופיעים החשודים שלו.</p>
+  <p><strong>רקע.</strong> ההיקף זמין עוד לפני שמריצים פקודה, וכל היקף מצביע על מה שמשותף לכל מי שנפגע. תחנה אחת, כשהשכנים עובדים, מכוונת לתחנה עצמה: כבל, מתאם, כתובת, DNS, חומת אש מקומית. כשכל המקטע נפגע, החשודים הם המתג, הגדרת ה-VLAN, השער של המקטע, או מאגר כתובות DHCP שהתמלא. כשכולם נכשלים מול שירות אחד ושאר השירותים עובדים, בודקים את השרת, השירות, רשומת ה-DNS או התעודה. וכשכל האתר נפגע, מחפשים רכיב מרכזי: הקו שיוצא מהאתר, הנתב, DNS ובקר הדומיין, או הזנת החשמל לארון התקשורת.</p>
+  <p>את ההיקף בודקים מהר: אותה פעולה מתחנה סמוכה, שירות אחר מאותה תחנה, ומשתמש אחר באותה תחנה. הבדיקה האחרונה מפרידה בין בעיה בחשבון או בפרופיל של המשתמש לבין בעיה בתחנה. שאלו את הכיתה איך ״אין גישה לאתר הפנימי״ מתפרש בתחנה אחת ואיך בכל האתר.</p>
+  <p><strong>ההדגמה.</strong> ההחלטה בנויה כמו שבודקים בשטח. קודם תחנה סמוכה באותו מקטע: אם שם עובד, התקלה אצל התחנה או המשתמש, והשאלה על משתמש אחר מכריעה ביניהם. אם גם בתחנה הסמוכה לא עובד, שואלים על מקטע אחר, ואם שם עובד, ההיקף הוא המקטע. אם גם שם לא, שירות אחר מאותה תחנה מכריע בין שירות אחד לבין כל האתר. שאלה שלא משנה את התוצאה בתשובות הנוכחיות מאפירה, עם הכיתוב ״לא משנה בתשובות האלה״.</p>
+  <p>בפתיחה: תחנה סמוכה לא עובדת וממקטע אחר עובד, ולכן ההיקף הוא <span class="ltr">VLAN</span> או מקטע, והחשודים הם המתג, הגדרת ה-VLAN, השער של המקטע ומאגר ה-DHCP. הפכו את התשובה הראשונה ל״עובד״: ההיקף עובר לתחנה אחת, והשאלה על המקטע האחר מאפירה. אחר כך ״משתמש אחר באותה תחנה: עובד״ מעביר את ההיקף למשתמש אחד. לכל השילובים ראו את הטבלה בנספחים.</p>
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>לקבוע את ההיקף לפי מי שהתקשר. ייתכן שכל החדר תקוע ורק אחד דיווח. בודקים בעצמכם לפחות תחנה אחת נוספת.</p>
+  </div>
+</div>
+
+<!-- 4-6 -->
+<div class="pg">
+  <div class="eyebrow">02 · שקופיות <span class="ltr">4-6</span></div>
+  <h1>ייחוס, חיבור פיזי ו-VLAN</h1><hr class="rule">
+
+  <h2>שקופית 4 · השוואה למערכת תקינה דומה</h2>
+  <p><strong>על המסך:</strong> ״ייחוס תקין״ מול ״מערכת תקולה״, עם <span class="ltr">Link</span>, <span class="ltr">IP</span>, <span class="ltr">Gateway</span> ו-DNS. הכתובות שונות, <span class="ltr">10.20.30.15/24</span> בייחוס ו-<span class="ltr">10.20.30.27/16</span> בתקולה, ושאר הערכים זהים.</p>
+  <p><strong>רקע.</strong> ערך אחד לבד קשה לשפוט: <span class="ltr">10.20.10.10</span> כשרת DNS יכול להיות נכון או שגוי. מול תצורה שאמורה להיות זהה, ההבדל קופץ. הייחוס צריך להיות דומה ככל האפשר: דגם, פורט, VLAN ותפקיד. הייחוס הטוב ביותר הוא התכנון הכתוב, כי גם תחנה שכנה יכולה להיות מוגדרת לא נכון. משווים מתאם, כתובת, <span class="ltr">Prefix</span>, <span class="ltr">Gateway</span>, <span class="ltr">DNS</span>, <span class="ltr">Route</span> ואת תוצאת הבדיקה עצמה, ומתעדים את ההבדל לפני שמתקנים.</p>
+  <p>ב-<span class="ltr">ipconfig /all</span> אין Prefix; מופיעה <span class="ltr">Subnet Mask</span>. <span class="ltr">/24</span> מופיע כ-<span class="ltr">255.255.255.0</span> ו-<span class="ltr">/16</span> כ-<span class="ltr">255.255.0.0</span>. <span class="ltr">Get-NetIPAddress</span> ב-PowerShell מציג את אותו ערך כ-<span class="ltr">PrefixLength</span>. כך נראית תחנת הייחוס:</p>
+  <table style="width:60%;margin-right:20%;break-inside:avoid">
+    <tr><th colspan="2">ipconfig /all (תחנת הייחוס)</th></tr>
+    <tr><td style="direction:ltr;text-align:left">IPv4 Address</td><td class="n" style="width:auto">10.20.30.15</td></tr>
+    <tr><td style="direction:ltr;text-align:left">Subnet Mask</td><td class="n" style="width:auto">255.255.255.0</td></tr>
+    <tr><td style="direction:ltr;text-align:left">Default Gateway</td><td class="n" style="width:auto">10.20.30.1</td></tr>
+    <tr><td style="direction:ltr;text-align:left">DNS Servers</td><td class="n" style="width:auto">10.20.10.10</td></tr>
+  </table>
+  <p><strong>מה ה-<span class="ltr">/16</span> עושה כאן.</strong> עם <span class="ltr">/24</span> התחנה רואה כמקומיות רק את <span class="ltr">10.20.30.x</span>. עם <span class="ltr">/16</span> כל <span class="ltr">10.20.x.x</span> נראה לה מקומי. השער עדיין בטווח, ולכן יעדים מחוץ ל-<span class="ltr">10.20</span> עובדים כרגיל. אבל שרת ה-DNS <span class="ltr">10.20.10.10</span> ושרת ב-<span class="ltr">10.20.40.25</span> נראים ״מקומיים״, והתחנה מחפשת אותם ישירות במקטע במקום לשלוח לשער. אף אחד לא עונה, והתמונה מבלבלת: חלק מהיעדים עובדים וחלק לא. ברשתות שבהן הנתב עונה במקום היעדים (Proxy ARP), התקלה מוסתרת עד שמשהו משתנה בנתב.</p>
+  <div class="note amber"><h3>על הערכים בשקופית</h3>
+    <p>לשתי תחנות פעילות באותה רשת יש כתובות שונות, ולכן ההבדל בין <span class="ltr">.15</span> ל-<span class="ltr">.27</span> צפוי ולא מעיד על תקלה. ההבדל שצריך לתפוס הוא ה-Prefix. אם לשתי תחנות יש אותה כתובת, זו כפילות כתובת (שקופית 8). התחנה התקולה היא אותה <span class="ltr">10.20.30.27</span> שבתקלה 1 בשקופית 2 ובשקופית 7, ושם רואים מה ה-<span class="ltr">/16</span> עושה לכל יעד.</p>
+  </div>
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>להעתיק הגדרה מתחנה אחרת בלי לוודא שהיא אמורה להיות זהה. תחנה במקטע או בתפקיד אחר צריכה ערכים אחרים, ו״תיקון״ לפיה יוצר תקלה חדשה.</p>
+  </div>
+
+  <h2>שקופית 5 · כשאין Link, מתחילים מהחיבור הפיזי</h2>
+  <p><strong>על המסך:</strong> תחנה עם מתאם פעיל, מתג עם הפורט הצפוי, והחיבור ביניהם מנותק. ״כבל, מחבר, הזנה ופורט נבדקים לפני כל בדיקת IP״.</p>
+  <p><strong>רקע.</strong> Link אומר שהמתאם והפורט שבצד השני מזהים זה את זה. בלעדיו לא יוצאת מהתחנה אף מסגרת, וכל בדיקה מעליו תיכשל בלי ללמד כלום. ב-Windows, <span class="ltr">ipconfig</span> מציג <span class="ltr">Media disconnected</span>, ו-<span class="ltr">Get-NetAdapter</span> מציג בעמודה Status את <span class="ltr">Disconnected</span> במקום <span class="ltr">Up</span>. אם כתוב <span class="ltr">Disabled</span>, המתאם כבוי בתוכנה ואין מה לחפש בכבל.</p>
+  <p>בודקים מהקרוב לרחוק: מתאם פעיל, כבל שיושב עד הנקישה, נוריות במתאם ובפורט, החלפה בכבל תקין, שקע הקיר ולוח הניתוב שמובילים לפורט הצפוי לפי הסימון, והזנת חשמל למתג. פורט שהושבת בצד המתג, למשל אחרי חסימה של אבטחת פורטים, נראה מהתחנה בדיוק כמו כבל מנותק, ורק מי שמנהל את המתג רואה את זה.</p>
+  <p>נורה ירוקה לא מספיקה. כבל פגום, מחבר רופף או אי-התאמה בהגדרת הדופלקס בין התחנה למתג גורמים לשגיאות ולניתוקים קצרים כשה-Link למעלה. סימנים: מהירות נמוכה מהצפוי בעמודה <span class="ltr">LinkSpeed</span> (חיבור של <span class="ltr">100 Mbps</span> במקום <span class="ltr">1 Gbps</span> מעיד בדרך כלל על זוג פגום בכבל, כי גיגביט צריך את כל ארבעת הזוגות), מונים של <span class="ltr">Errors</span> ו-<span class="ltr">Discards</span> שעולים ב-<span class="ltr">netstat -e</span>, ואירועי ניתוק של המתאם ביומן System. עם זאת, בלי Link אין טעם להתקדם מעלה.</p>
+  <p><strong>בשטח.</strong> מחליפים רכיב אחד בכל פעם, כבל ואחר כך שקע, ובודקים אחרי כל החלפה. מעבר לפורט אחר במתג נעשה רק לפי נוהל היחידה.</p>
+  <table>
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">הנורה דולקת ועדיין אין רשת.</td><td>יש Link, ולכן עוברים לשכנות המקומית ול-VLAN. אם יש סימנים לשגיאות או לניתוקים, חוזרים לכבל.</td></tr>
+  </table>
+
+  <h2>שקופית 6 · Link תקין בלי שכנות מקומית</h2>
+  <p><strong>על המסך:</strong> התחנה ב-<span class="ltr">Link Up</span>, המתג עם פורט ב-<span class="ltr">VLAN 20</span>, וה-Gateway ב-<span class="ltr">VLAN 10</span>, והחיבור למתג חסום. ״ראיות להעברה: Link תקין, הפורט הצפוי וחוסר השכנות״.</p>
+  <p><strong>רקע.</strong> VLAN מחלק מתג אחד לכמה רשתות נפרדות. כל פורט משויך ל-VLAN, ומסגרות, כולל שידורי ARP, נשארות בתוכו. אם A ו-B בפורטים של <span class="ltr">VLAN 10</span> ו-C ו-D בפורטים של <span class="ltr">VLAN 20</span>, כולן באותו מתג, ה-Link תקין אצל כולן, אבל A מגיעה ל-C רק דרך נתב. בלי ניתוב התקשורת נעצרת בגבול ה-VLAN.</p>
+  <p>בתרשים הפורט של התחנה ב-<span class="ltr">VLAN 20</span>, והשער שלה ב-<span class="ltr">VLAN 10</span>. בקשת ה-ARP לשער לא מגיעה אליו. בכתובת קבועה הכתובת נראית תקינה, אבל אין MAC לשער ואין תקשורת. ב-DHCP התחנה מקבלת כתובת ממקטע אחר, או <span class="ltr">169.254.x.x</span> אם אין שם שרת DHCP. זו הכתובת ש-Windows נותן לעצמו כשלא קיבל תשובה (APIPA), ויחד עם Link תקין היא מכוונת ל-VLAN או ל-DHCP.</p>
+  <p>הטכנאי לא משנה VLAN בשטח. הוא אוסף ראיות ומעביר לצוות המנהל: מזהה הפורט (מהסימון בשקע ובלוח הניתוב), MAC של התחנה (<span class="ltr">Physical Address</span> ב-<span class="ltr">ipconfig /all</span>), כתובת, שעה, והיעד המקומי שלא הופיע ב-ARP.</p>
+  <div class="note amber"><h3>ראיה טובה להסלמה</h3>
+    <p>Link Up, פורט פיזי מזוהה, כתובת ומסכה שתואמות לתכנון, אין ARP ל-Gateway, ומערכת ייחוס באותו מקטע עובדת.</p>
+  </div>
+</div>
+
+<!-- 7-9 -->
+<div class="pg">
+  <div class="eyebrow">03 · שקופיות <span class="ltr">7-9</span></div>
+  <h1>כתובת, שכן ודרך</h1><hr class="rule">
+  <p>שלוש השקופיות הן סדר אחד: התחנה מחליטה אם היעד מקומי או מרוחק (כתובת ו-Prefix), מוצאת את ה-MAC של מי שיקבל את המסגרת (ARP), ורק אז מתחיל הניתוב. כדאי להעביר אותן ברצף.</p>
+
+  <h2>שקופית 7 · Prefix שגוי משנה את ההחלטה מקומי/מרוחק</h2>
+  <p><strong>על המסך:</strong> מימין נתוני התחנה (<span class="ltr">10.20.30.27</span>, שער <span class="ltr">10.20.30.1</span>, תכנון <span class="ltr">10.20.30.0/24</span>), סליידר ל-Prefix של התחנה מ-<span class="ltr">/16</span> עד <span class="ltr">/27</span>, המסכה, 32 הביטים של הכתובת והרשת שהתחנה מחשבת. משמאל טבלת יעדים: לכל יעד ההחלטה לפי התכנון, ההחלטה של התחנה ומה קורה.</p>
+  <p><strong>רקע.</strong> לפני כל שליחה התחנה לוקחת את הכתובת שלה ואת ה-Prefix ומחשבת את הרשת שלה. יעד באותה רשת הוא ״מקומי״, והתחנה פונה אליו ישירות ב-ARP. כל יעד אחר נשלח לשער. ה-Prefix הוא מספר הביטים מתחילת הכתובת שמגדירים את הרשת. ב-<span class="ltr">/24</span> אלה שלושת המספרים הראשונים, ולכן <span class="ltr">10.20.30.15/24</span> שייכת לרשת <span class="ltr">10.20.30.0</span>, עם כתובות לתחנות מ-<span class="ltr">.1</span> עד <span class="ltr">.254</span>.</p>
+  <p>גם כתובת שגויה משנה את אותה החלטה. <span class="ltr">10.20.31.20/24</span>, למשל, שייכת לרשת <span class="ltr">10.20.31.0</span>. היא ו-<span class="ltr">10.20.30.15</span> רואות זו את זו כמרוחקות, למרות ששתיהן באותו מתג ובאותו VLAN, ואף אחת לא פונה לשנייה ישירות. אם השער שהוגדר לה הוא <span class="ltr">10.20.30.1</span>, הוא בכלל לא ברשת שלה; Windows מתריע על זה כששומרים את ההגדרה, אבל מאפשר לשמור.</p>
+  <p>Prefix שגוי מספיק לתקלה גם כשהכתובת עצמה נכונה. Prefix קצר מדי, כמו <span class="ltr">/16</span>, הופך יעדים מרוחקים למקומיים. Prefix ארוך מדי עושה את ההפך, וחלק מהשכנים נראים מרוחקים. כל צד מחליט בנפרד, ולכן התקלה יכולה להיות חד-כיוונית (דוגמה עם <span class="ltr">/23</span> בנספחים). לכן משווים לתכנון את <span class="ltr">IP</span>, <span class="ltr">Prefix</span>, <span class="ltr">Gateway</span> ו-DNS יחד. כשהערכים מגיעים ב-DHCP, ערך Prefix שגוי בכמה תחנות מצביע על הגדרת ה-DHCP, ואת זה מעבירים הלאה.</p>
+  <p><strong>ההדגמה.</strong> בפתיחה ה-Prefix הוא <span class="ltr">/16</span>, כמו בתחנה התקולה של שקופית 4: מסכה <span class="ltr">255.255.0.0</span>, ולפי התחנה הרשת היא <span class="ltr">10.20.0.0 - 10.20.255.255</span>. שרת ה-DNS והשרת <span class="ltr">server.unit</span> מסומנים באדום: לפי התכנון הם מרוחקים, התחנה מחליטה שהם מקומיים, שולחת להם ARP ואף אחד לא עונה. השער והשכנים עובדים, וגם השרת באתר האחר, כי <span class="ltr">172.16.5.10</span> מחוץ ל-<span class="ltr">10.20</span>. זו התמונה המבלבלת מהשטח: חלק מהיעדים עובדים וחלק לא. התיבה מתחת לביטים אומרת כמה כתובות התחנה מסווגת לא נכון, ב-<span class="ltr">/16</span> 65,280.</p>
+  <p>גררו לאט. ב-<span class="ltr">/19</span> רק ה-DNS עוד נכשל. מ-<span class="ltr">/20</span> עד <span class="ltr">/23</span> ה-Prefix עדיין שגוי ואף יעד ברשימה לא נפגע; ב-<span class="ltr">/23</span> הכתובות שמסווגות לא נכון הן 256 הכתובות של <span class="ltr">10.20.31.x</span>. ב-<span class="ltr">/24</span> הכול תואם. מעל <span class="ltr">/24</span> שכנים מתחילים להיראות מרוחקים: מ-<span class="ltr">/25</span> השכן <span class="ltr">10.20.30.200</span>, וב-<span class="ltr">/27</span> גם <span class="ltr">10.20.30.40</span>. התחנה שולחת אליהם דרך השער, הנתב מחזיר את החבילה לאותו מקטע ובדרך כלל גם שולח לתחנה הודעת <span class="ltr">ICMP Redirect</span>, והחיבור עובד. לכן Prefix ארוך מדי יכול להישאר זמן רב בלי שמישהו ישים לב.</p>
+  <p>בשורת הביטים, הביטים הצבועים בתכלת הם חלק הרשת לפי התחנה, והקו הצהוב מתחת ל-24 הביטים הראשונים מסמן את הרשת לפי התכנון. כשהצבע עובר את הקו או לא מגיע אליו, ה-Prefix שגוי.</p>
+  <table>
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">איך מתרגמים <span class="ltr">255.255.255.0</span> ל-<span class="ltr">/24</span>?</td><td>סופרים ביטים דולקים: 255 הוא שמונה, ושלושה כאלה הם 24. <span class="ltr">255.255.0.0</span> הוא <span class="ltr">/16</span>, ו-<span class="ltr">255.255.254.0</span> הוא <span class="ltr">/23</span>. בהדגמה רואים את זה בשורת הביטים.</td></tr>
+    <tr><td class="k">למה השער לא נפגע באף Prefix בהדגמה?</td><td><span class="ltr">10.20.30.1</span> ו-<span class="ltr">10.20.30.27</span> נמצאות יחד בכל רשת מ-<span class="ltr">/16</span> עד <span class="ltr">/27</span>. רק מ-<span class="ltr">/28</span> השער יוצא מהרשת של התחנה, וההדגמה לא מגיעה לשם.</td></tr>
+  </table>
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>לתקן לפי תחנה אחרת בלי לוודא שהיא באותו תפקיד ובאותו מקטע. בודקים מול התכנון הכתוב.</p>
+  </div>
+
+  <h2>שקופית 8 · ARP חסר מצביע על תקלה לפני הניתוב</h2>
+  <p><strong>על המסך:</strong> התחנה שולחת ARP ל-<span class="ltr">10.20.30.1</span>. בחלון הפקודה <span class="ltr">Get-NetNeighbor -IPAddress 10.20.30.1</span>, והשורה של השער: <span class="ltr">00-00-00-00-00-00</span> במצב <span class="ltr">Unreachable</span>. מתחת ״אין MAC לשער המקומי״ ו״ב-<span class="ltr">arp -a</span> רשומה כזו פשוט לא מופיעה״. בתחתית: ״בשלב הזה טבלת הניתוב עוד לא רלוונטית״.</p>
+  <p><strong>רקע.</strong> ב-Ethernet מסגרת נשלחת לכתובת MAC: של היעד כשהוא מקומי, ושל השער כשהוא מרוחק. ARP מוצא אותה: התחנה משדרת לכל ה-VLAN ״מי מחזיק את <span class="ltr">10.20.30.1</span>?״, ובעל הכתובת עונה עם ה-MAC שלו, שנשמר בזיכרון לזמן מה. בלי MAC המסגרת לא יוצאת, והחבילה לא מגיעה אפילו לשער. לכן אין טעם לבדוק נתבים בשלב הזה.</p>
+  <p>כשאין MAC ליעד המקומי או לשער, החיפוש מצטמצם ל-Link או פורט (שקופית 5), VLAN (שקופית 6), כפילות כתובת, או השכן עצמו, למשל שער כבוי. בכפילות כתובת ARP יכול לקבל תשובה מה-MAC הלא נכון, או מ-MAC שמתחלף, ולכן משווים את ה-MAC שהתקבל ל-MAC של השער בתחנת הייחוס. Windows מזהה כפילות של הכתובת שלו כשהיא מוגדרת, מציג הודעה על התנגשות, וב-<span class="ltr">ipconfig /all</span> מופיע ליד הכתובת <span class="ltr">(Duplicate)</span>.</p>
+  <p><strong>ב-Windows.</strong> הפקודה <span class="ltr">arp -a</span> מציגה כתובת, MAC וסוג (<span class="ltr">dynamic</span> או <span class="ltr">static</span>), ורשומה שלא נפתרה בדרך כלל פשוט חסרה בה. לכן השקופית מציגה את <span class="ltr">Get-NetNeighbor -IPAddress 10.20.30.1</span>: <span class="ltr">Reachable</span> או <span class="ltr">Stale</span> אומרים שיש MAC, ו-<span class="ltr">Unreachable</span>, בדרך כלל עם MAC של אפסים, אומר שאין תשובה. הצורה <span class="ltr">incomplete</span> שמופיעה בהרבה מדריכים ברשת היא של Linux ו-macOS. Ping ליעד מקומי שאין לו ARP מציג בדרך כלל <span class="ltr">Destination host unreachable</span> בתשובה שמגיעה מהכתובת של התחנה עצמה.</p>
+  <p>ב-Windows רשומה יכולה להיות חסרה רק כי לא הייתה תעבורה, כי ARP נשלח רק כשצריך. קודם יוצרים תעבורה, למשל <span class="ltr">ping 10.20.30.1</span>, ואז משווים שוב.</p>
+  <table>
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">Ping לשער נכשל, אבל ב-ARP יש לו MAC.</td><td>השכנות תקינה, והשער לא עונה ל-Ping או מסנן אותו. ARP קודם ל-Ping, ולכן הוא בדיקת שכנות טובה יותר. ממשיכים לשלב הבא.</td></tr>
+  </table>
+
+  <h2>שקופית 9 · ARP תקין ל-Gateway אינו מוכיח שהמשך המסלול נכון</h2>
+  <p><strong>על המסך:</strong> התחנה עם יעד <span class="ltr">10.20.40.25</span>, טבלת ניתוב עם ״אין Route מתאים״, ושרת ברשת מרוחקת.</p>
+  <p><strong>רקע.</strong> בדרך לשרת מרוחק התחנה יודעת את כתובת היעד, בוחרת דרך לפי טבלת הניתוב שלה ושולחת ARP כדי לקבל את ה-MAC של השער. הנתב בוחר דרך לפי טבלת הניתוב שלו ובונה מסגרת Ethernet חדשה להמשך הדרך, וכך הלאה עד השרת, הכתובת הסופית של המסלול. כתובת ה-IP לא משתנה לאורך כל הדרך; ה-MAC מוחלף בכל קישור, כי כל נתב בונה מסגרת חדשה. לכן ARP תקין לשער מוכיח רק את הקישור הראשון.</p>
+  <p><strong>טבלת הניתוב בתחנה</strong> מוצגת ב-<span class="ltr">route print</span>: יעד, מסכה, שער, ממשק ו-Metric. השורה <span class="ltr">0.0.0.0</span> עם מסכה <span class="ltr">0.0.0.0</span> היא ברירת המחדל. כשכמה שורות מתאימות, נבחרת הספציפית ביותר. מכאן שתי התקלות שבשקופית: שורה ספציפית, למשל שהוסיף לקוח VPN, שולחת את <span class="ltr">10.20.40.0/24</span> לכיוון אחר גם כשה-Default Gateway תקין; או שאין ברירת מחדל ואין שורה מתאימה, ו-Ping נכשל מיד, בדרך כלל עם <span class="ltr">General failure</span>. <span class="ltr">Find-NetRoute -RemoteIPAddress 10.20.40.25</span> מראה איזו שורה Windows בוחר בפועל.</p>
+  <p><strong>אחרי השער.</strong> <span class="ltr">tracert -d 10.20.40.25</span> מציג את הנתבים בדרך, ו״נקודת התגובה האחרונה״ היא הנתב האחרון שענה. נתב שלא עונה ל-tracert מופיע ככוכביות גם במסלול תקין, ולכן משווים ל-tracert מתחנת הייחוס. הטכנאי בודק את טבלת התחנה ואת נקודת התגובה האחרונה; שינוי בנתבים נשאר אצל הגורם המנהל.</p>
+  <table style="break-inside:avoid">
+    <tr><th class="n">שלב</th><th>סיכום שקופיות <span class="ltr">7-9</span>: מפרידים בין ״אין שכן״ לבין ״יש שכן אבל אין דרך״</th></tr>
+    <tr><td class="n">1</td><td>משווים כתובת, <span class="ltr">Prefix</span>, <span class="ltr">Gateway</span> ו-DNS לתכנון.</td></tr>
+    <tr><td class="n">2</td><td>יוצרים תעבורה, בודקים ARP ומשווים את ה-MAC לצפוי.</td></tr>
+    <tr><td class="n">3</td><td>בודקים את הנתיב הספציפי שנבחר, ולא רק את ה-Default Gateway.</td></tr>
+  </table>
+</div>
+
+<!-- 10-12 -->
+<div class="pg">
+  <div class="eyebrow">04 · שקופיות <span class="ltr">10-12</span></div>
+  <h1>שם, שירות וזהות</h1><hr class="rule">
+
+  <h2>שקופית 10 · כשלפי IP עובד ולפי שם לא, החשוד הוא DNS</h2>
+  <p><strong>על המסך:</strong> לקוח (״IP לשרת עובד״), DNS (״שם מחזיר כתובת ישנה״), והשרת החדש <span class="ltr">10.20.40.25</span>. מעל ה-DNS: <span class="ltr">server.unit → 10.20.40.12</span>.</p>
+  <p><strong>רקע.</strong> גישה לפי IP ולפי שם עוברות באותה רשת ונבדלות רק בתרגום השם לכתובת. אם לפי IP עובד ולפי שם לא, החשוד הוא התרגום. בתרשים השרת עבר ל-<span class="ltr">10.20.40.25</span>, והשם עדיין מחזיר את הכתובת הקודמת, <span class="ltr">10.20.40.12</span>.</p>
+  <p>שלוש סיבות אפשריות: רשומה ישנה בשרת ה-DNS; DNS שגוי בתחנה, שמפנה לשרת אחר מזה שבתכנון; ו-Cache מקומי, כי Windows שומר תשובות לזמן שנקבע ברשומה (TTL) ולא שואל שוב עד שהזמן עובר. Windows בודק גם את קובץ <span class="ltr">hosts</span> (<span class="ltr">C:\Windows\System32\drivers\etc\hosts</span>), ורשומה שנשכחה שם גוברת על ה-DNS.</p>
+  <p><strong>איך מפרידים.</strong> <span class="ltr">ipconfig /displaydns</span> מציג את המטמון ו-<span class="ltr">ipconfig /flushdns</span> מנקה אותו. <span class="ltr">nslookup server.unit</span> שואל את שרת ה-DNS ישירות, בלי המטמון ובלי קובץ <span class="ltr">hosts</span>, ואילו Ping והדפדפן עוברים דרכם. אם nslookup מחזיר כתובת נכונה ו-Ping הולך לכתובת אחרת, המקור בתחנה. אם שניהם מחזירים את הכתובת הישנה, המקור ברשומה או בשרת שהתחנה שואלת. <span class="ltr">nslookup server.unit 10.20.10.10</span> שואל את השרת שבתכנון במפורש, ומשווים לתחנת הייחוס.</p>
+  <p>כשהתעודה תלויה בשם, חיבור לפי IP אינו בדיקה מלאה של היישום: אתר HTTPS שנפתח לפי כתובת יציג שגיאת שם בתעודה, ובדומיין גישה לפי IP בדרך כלל לא עוברת ב-Kerberos. ובכל זאת הבדיקה מבודדת את שלב ה-DNS.</p>
+  <p><strong>בשטח.</strong> ניקוי המטמון נעשה בתחנה. תיקון הרשומה שייך לצוות שמנהל את ה-DNS, ולו מעבירים את השם, הכתובת שחזרה, הכתובת הצפויה והשרת שנשאל.</p>
+  <table>
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">ניקיתי את המטמון וזה עדיין מחזיר את הכתובת הישנה.</td><td>המקור לא במטמון. בודקים את קובץ <span class="ltr">hosts</span>, את שרת ה-DNS שמוגדר בתחנה, ואת הרשומה עצמה ב-nslookup לשרת שבתכנון.</td></tr>
+  </table>
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>להריץ <span class="ltr">ipconfig /flushdns</span> כצעד ראשון. אם זה עוזר, הראיה נמחקה ולא יודעים איזו כתובת הייתה במטמון. קודם מתעדים את <span class="ltr">/displaydns</span> ואת תשובת nslookup, ואז מנקים.</p>
+  </div>
+
+  <h2>שקופית 11 · כאשר שם ו-Ping עובדים, בודקים Listener, פורט וחומת אש</h2>
+  <p><strong>על המסך:</strong> לקוח (״Ping + DNS תקינים״), שרת בפורט 443, ויישום שהשירות שלו עצור.</p>
+  <p><strong>רקע.</strong> Ping משתמש ב-ICMP ומוכיח רק שמערכת ההפעלה של השרת עונה. היישום מאזין בפורט: 443 ל-HTTPS, פורט 445 לשיתוף קבצים, 3389 לשולחן עבודה מרוחק. Listener הוא התהליך שמאזין בפורט ומחכה לחיבורים. השרת עונה ל-Ping גם כשהשירות עצור, כשהוא מאזין בפורט אחר, או כשחומת אש בשרת או בדרך חוסמת את הפורט. ויש מקרה נוסף: הפורט פתוח, והיישום נכשל בפנים.</p>
+  <p><strong>הבדיקה:</strong> <span class="ltr">Test-NetConnection server.unit -Port 443</span>. הפקודה מנסה חיבור TCP לפורט ומציגה <span class="ltr">TcpTestSucceeded</span> עם <span class="ltr">True</span> או <span class="ltr">False</span>, יחד עם הכתובת שאליה פנתה. כשהכישלון מגיע מהר, בדרך כלל השרת דחה את החיבור כי אף אחד לא מאזין. כשהוא מגיע אחרי המתנה ארוכה, סביר יותר שחומת אש בלעה את הבקשה. אחר כך עוברים ליומן ולשירות עצמו: בשרת <span class="ltr">netstat -ano | findstr :443</span> מראה אם יש <span class="ltr">LISTENING</span> ובאיזה תהליך, ומציג האירועים מראה למה השירות עצר. את זה עושה מי שמוסמך לשרת.</p>
+  <p><strong>בשטח.</strong> מעבירים שם שרת, כתובת, פורט, תוצאה מהתחנה התקולה ומתחנת ייחוס, ושעה.</p>
+  <table>
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">Ping לשרת נכשל, אבל האתר עולה.</td><td>חומת האש של השרת חוסמת ICMP, ובהרבה תצורות של Windows זו ברירת המחדל. Ping שנכשל לא מוכיח ששרת למטה.</td></tr>
+    <tr><td class="k">הפורט פתוח, והאתר מחזיר שגיאה.</td><td>הרשת וה-Listener תקינים. מעבירים למי שמנהל את היישום, עם נוסח השגיאה.</td></tr>
+  </table>
+
+  <h2>שקופית 12 · סדר הבדיקה בתקלת אימות: DNS, זמן, כרטיס ותעודה</h2>
+  <p><strong>על המסך:</strong> שרשרת: רשת תקינה, DNS (״DC נמצא״), זמן (״פער גדול״), Kerberos (״Ticket נדחה״), שירות (״אין כניסה״). מתחת: ״הודעת ׳אימות נכשל׳ יכולה לנבוע מפער שעון ולא מהסיסמה״.</p>
+  <p><strong>רקע.</strong> בדומיין של Windows הכניסה והגישה לשירותים עוברות ב-Kerberos. בכניסה התחנה מקבלת מבקר הדומיין (DC) כרטיס, ובעזרתו מבקשת כרטיס לכל שירות. השירות בודק את הכרטיס ולא רואה סיסמה. לכן כל חוליה בשרשרת יכולה להפיל את האימות:</p>
+  <ul>
+    <li><strong>DNS.</strong> התחנה מוצאת את בקר הדומיין דרך רשומות מיוחדות (SRV) ב-DNS של הדומיין. תחנה שמוגדר בה DNS אחר לא מוצאת DC. <span class="ltr">nltest /dsgetdc:</span> ואחריו שם הדומיין מראה איזה DC נמצא.</li>
+    <li><strong>זמן.</strong> בכרטיסים יש חותמות זמן, ובברירת המחדל מותר פער של עד חמש דקות בין התחנה לבקר הדומיין. מעבר לזה הבקשה נדחית, ולמשתמש זה נראה כמו סיסמה שגויה. <span class="ltr">w32tm /query /status</span> מראה ממי התחנה מסתנכרנת ומתי הצליחה לאחרונה. מקרה מוכר: אזור הזמן שגוי ומישהו תיקן את השעה ידנית. השעה נראית נכונה, אבל Kerberos משווה זמן אוניברסלי (UTC), והפער בפועל הוא של שעות.</li>
+    <li><strong>כרטיס.</strong> <span class="ltr">klist</span> מציג את הכרטיסים של המשתמש בתחנה, ו-<span class="ltr">klist purge</span> מוחק אותם כדי שיתבקשו מחדש. כרטיס תקף בברירת המחדל כעשר שעות, כך שכרטיס ישן יכול להמשיך להפריע גם אחרי תיקון.</li>
+    <li><strong>תעודה.</strong> בכניסה בכרטיס חכם, או כשהשירות משתמש בתעודה, נבדקות גם שרשרת התעודה ותוקפה, שוב לפי שעון התחנה.</li>
+  </ul>
+  <p><strong>אמון.</strong> גם לתחנה יש חשבון בדומיין, עם סיסמה שהיא מחליפה בעצמה (בברירת המחדל כל 30 יום). אם הסיסמה בתחנה ובחשבון כבר לא תואמות, למשל אחרי שחזור מגיבוי ישן, מופיעה הודעה שיחסי האמון בין התחנה לדומיין נכשלו. <span class="ltr">Test-ComputerSecureChannel</span> ב-Windows PowerShell בודק את זה. התיקון דורש הרשאות בדומיין ונעשה לפי נוהל היחידה.</p>
+  <p>לא מתחילים באיפוס סיסמה; קודם מוודאים איתור DC, זמן וכרטיסים. איפוס כשהבעיה בשעון לא פותר אותה, ומכשירים שעדיין שומרים את הסיסמה הישנה עלולים לנעול את החשבון.</p>
+  <table>
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">איך יודעים אם הבעיה במשתמש או בתחנה?</td><td>לפי ההיקף. משתמש אחד שנכשל בכל התחנות מצביע על החשבון (נעול, סיסמה שפגה). כל המשתמשים שנכשלים בתחנה אחת מצביעים על התחנה: זמן, DNS או אמון.</td></tr>
+  </table>
+</div>
+
+<!-- 13-14 -->
+<div class="pg">
+  <div class="eyebrow">05 · שקופיות <span class="ltr">13-14</span></div>
+  <h1>תקלה לסירוגין וסגירת תקלה</h1><hr class="rule">
+
+  <h2>שקופית 13 · ממוצע תקין יכול להסתיר קפיצות השהיה ואובדן</h2>
+  <p><strong>על המסך:</strong> גרף של Ping לשער בכל שנייה במשך רבע שעה. הקו התכלת הוא ההשהיה הממוצעת בכל חלון, העמודות האדומות בפס התחתון הן אחוז האובדן באותו חלון, וקו ירוק מקווקו מסמן את הממוצע הכולל. מעל הגרף בוחרים את חלון הממוצע (שנייה, 10 שניות, דקה, 5 דקות) ואת משך כל קפיצה, ומתחתיו מוצגים ההשהיה הממוצעת, האובדן הכולל, השיא בגרף, השיא בפועל, האובדן בחלון הגרוע ורצף האובדן הארוך.</p>
+  <p><strong>רקע.</strong> ממוצע מחליק את הקפיצות. אובדן של אחוז אחד בממוצע על פני רבע שעה הוא תשע שניות, ואם הן רצופות, זה מספיק כדי לנתק שיחה או חיבור לשולחן עבודה מרוחק. גם בדיקה יחידה, Ping אחד או מדידת מהירות אחת, יוצאת תקינה כשהיא נופלת בין הקפיצות. התנודות בהשהיה נקראות ריצוד (Jitter), ושיחות קול ווידאו רגישות להן במיוחד.</p>
+  <p>לכן מודדים לאורך זמן ומחברים את המדידה לשעה, לאירועים ולעומס: האם זה קורה בשעה קבועה, כשמתחיל גיבוי או עדכון, כשהמשתמש זז עם מחשב נייד? סיבות נפוצות הן הפרעות ברשת אלחוטית, כבל או פורט עם שגיאות (שקופית 5), ועומס בשעות מסוימות.</p>
+  <p><strong>בשטח.</strong> <span class="ltr">ping -t</span> רץ עד שעוצרים אותו, אבל בלי שעה. ב-PowerShell אפשר להוסיף שעה לכל שורה:</p>
+  <p class="ltr" style="display:block;font-size:9pt;background:#eef4f8;padding:5pt 8pt;border-radius:4pt">ping.exe -t 10.20.30.1 | ForEach-Object { "{0} {1}" -f (Get-Date -Format HH:mm:ss), $_ }</p>
+  <p><strong>ההדגמה.</strong> הנתונים מלאכותיים וקבועים: השהיה רגילה של 1 עד 4 ms, ושתי קפיצות שמתחילות ב-4:10 וב-10:40. בקפיצה ההשהיה בין 120 ל-400 ms, חלק מהבקשות אובדות, ובאמצע יש כמה שניות רצופות בלי תשובה. בפתיחה החלון הוא דקה וכל קפיצה 20 שניות: שתי מדרגות נמוכות של <span class="ltr">56.8 ms</span>, ובדקה הגרועה אובדן של <span class="ltr">16.7%</span>. עברו ל-5 דקות: הקו כמעט שטוח, השיא בגרף <span class="ltr">12.0 ms</span> והאובדן בחלון הגרוע <span class="ltr">3.3%</span>. כך נראה דוח שמסכם לפי חמש דקות. עברו לשנייה: קפיצות עד <span class="ltr">394 ms</span>, שניות של אובדן מלא ורצף של 7 שניות בלי תשובה, מספיק כדי לנתק שיחה. הממוצע הכולל, <span class="ltr">8.7 ms</span> ואובדן של <span class="ltr">2.1%</span>, זהה בכל החלונות ונראה סביר בכולם. אם מאריכים כל קפיצה ל-60 שניות, חלון של 5 דקות עדיין מראה רק <span class="ltr">31.2 ms</span>.</p>
+  <p>מריצים במקביל מול השער ומול שרת במקטע אחר. אם רק השרת מאבד, הבעיה מעבר לשער. <span class="ltr">pathping</span> שולח בברירת המחדל 100 בקשות לכל נתב בדרך ומציג אחוז אובדן לכל אחד, וזה לוקח בערך 25 שניות לכל נתב. שומרים חותמות זמן כדי להשוות ליומני מערכת ולשינויי סביבה.</p>
+  <table>
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">״זה קורה לפעמים״. מאיפה מתחילים?</td><td>מבקשים מהמשתמש לרשום את השעה המדויקת בפעם הבאה, ומשאירים מדידה רצה עם שעות.</td></tr>
+    <tr><td class="k">איזה חלון נכון?</td><td>תלוי במה שהמשתמש מרגיש. לשיחות ולשולחן עבודה מרוחק מסתכלים על שניות. מערכות ניטור מסכמות לרוב לפי דקות, ולכן קפיצה קצרה יכולה לא להופיע בדוח שלהן.</td></tr>
+  </table>
+
+  <h2>שקופית 14 · שינוי אחד בכל פעם ובדיקה חוזרת</h2>
+  <p><strong>על המסך:</strong> שינוי אחד (מה שונה ומתי), בדיקה חוזרת (אותו קריטריון), השוואה (מול ייחוס), תיעוד (תוצאה וקבצים). מתחת: ״אחרי כמה שינויים יחד כבר אי אפשר לדעת מה פתר את התקלה״.</p>
+  <p><strong>רקע.</strong> כל שינוי הוא ניסוי, והתוצאה שלו אומרת משהו רק אם שינו דבר אחד. שינוי שלא עזר מחזירים לפני שמנסים את הבא, אחרת אף אחד לא יודע באיזה מצב המערכת. את התיקון מאמתים באותה בדיקה שבה התקלה הופיעה: אם התקלה הייתה <span class="ltr">TcpTestSucceeded : False</span> לפורט 443, מריצים שוב את אותה פקודה לאותו יעד. אחר כך משווים לייחוס. בתקלה לסירוגין מודדים שוב לאורך זמן דומה לזה שבו היא הופיעה.</p>
+  <p>תיעוד מינימלי: סימפטום, היקף, תצורה, בדיקות, שינוי, תוצאה וקבצים רלוונטיים, ושעה. הקבצים הם צילומי מסך ופלט פקודות, ואפשר לשמור פלט ישירות לקובץ, למשל <span class="ltr">ipconfig /all &gt; before.txt</span>.</p>
+  <div class="note red" style="break-inside:avoid"><h3>טעות נפוצה</h3>
+    <p>טכנאי מחליף כבל, משנה DNS ומאתחל את התחנה בבת אחת. הקשר חוזר, אבל אי אפשר לדעת מה פתר את התקלה, והיא נסגרת בלי בדיקה חוזרת מול אותו קריטריון.</p>
+  </div>
+
+</div>
+
+<!-- 15-17 -->
+<div class="pg">
+  <div class="eyebrow">06 · שקופיות <span class="ltr">15-17</span></div>
+  <h1>תרגול, מגבלות ההדגמות והתהליך השלם</h1><hr class="rule">
+
+  <h2>שקופית 15 · באיזה שלב התקלה?</h2>
+  <p><strong>על המסך:</strong> כפתורים לקריאות 1 עד 3. לכל קריאה תיאור קצר עם ההיקף וחלון פקודה עם הראיות שנאספו בתחנה. משמאל השאלות.</p>
+  <p><strong>איך להעביר.</strong> כאן החניכים עובדים בעצמם, בזוגות אם אפשר. תנו להם לעבור על הקריאות ולענות לפני שאתם מגלים תשובות. השאלות נשענות על שקופיות 6, 10, 12 ו-14, ואפשר לחזור לשקופית 2 ולהראות באיזה שלב בסולם נמצאת כל קריאה.</p>
+  <h3 style="font-size:10.5pt;color:#0f2740;margin:10pt 0 4pt">תשובות</h3>
+  <p><strong>1. באיזה שלב התקלה בקריאה 1, ומה מתעדים?</strong> ה-Link תקין (<span class="ltr">Status Up</span>, <span class="ltr">1 Gbps</span>), אבל <span class="ltr">169.254.83.12</span> היא כתובת APIPA: המחשב ביקש כתובת מ-DHCP ולא קיבל תשובה, ולכן אין לו גם שער. השלב הוא השכנות המקומית, Ethernet ו-VLAN (שקופית 6). התחנה הקבועה באותו חדר מקבלת כתובת, ולכן שרת ה-DHCP עצמו לא החשוד. החשודים הם השקע בקיר והפורט שלו במתג, למשל פורט ב-VLAN אחר או פורט מושבת. הבדיקה הבאה: <span class="ltr">ipconfig /renew</span>, ואז אותו מחשב בשקע של התחנה הקבועה. אם שם הוא מקבל כתובת, התקלה בשקע או בפורט. מתעדים מזהה שקע, MAC (<span class="ltr">Physical Address</span>), שעה, Link Up והכתובת שהתקבלה, ומעבירים לפי נוהל היחידה. את ה-VLAN לא משנים בשטח.</p>
+  <p><strong>2. מאיפה מגיעה כל כתובת, ומה עושים לפני <span class="ltr">ipconfig /flushdns</span>?</strong> <span class="ltr">nslookup</span> שואל את שרת ה-DNS ישירות ומקבל את הכתובת הנכונה, <span class="ltr">10.20.40.25</span>. Ping עובר דרך קובץ <span class="ltr">hosts</span> והמטמון של התחנה, ומגיע ל-<span class="ltr">10.20.40.12</span>, הכתובת הקודמת. לכן המקור בתחנה עצמה: שורה שנשכחה בקובץ <span class="ltr">hosts</span>, או רשומה ישנה במטמון (שקופית 10). לפני הניקוי שומרים את הפלט של <span class="ltr">ipconfig /displaydns</span> ופותחים את קובץ <span class="ltr">hosts</span>. ניקוי קודם מוחק את הראיה, ואם המקור בקובץ, הניקוי לא יעזור בכלל.</p>
+  <p><strong>3. למה איפוס סיסמה לא יפתור, ומה הבדיקה הבאה?</strong> השעון בתחנה מפגר ב-13 דקות, ו-Kerberos מקבל בברירת המחדל פער של עד חמש. <span class="ltr">w32tm /query /status</span> מראה שהתחנה לא מסתנכרנת (<span class="ltr">Source: Local CMOS Clock</span>, ואין זמן סנכרון מוצלח), ו-<span class="ltr">klist</span> מראה שאין כרטיסים. כל המשתמשים בתחנה נכשלים ומתחנות אחרות הם נכנסים, וזה מצביע על התחנה ולא על החשבונות (שקופית 12). איפוס סיסמה לא משנה את השעון, ומכשירים ששומרים את הסיסמה הישנה עלולים לנעול את החשבון. בודקים אזור זמן ומקור סנכרון, מתקנים לפי נוהל היחידה, מוחקים כרטיסים (<span class="ltr">klist purge</span>) ובודקים שוב את הכניסה לתיקייה.</p>
+  <p><strong>4. מה חסר בסגירה של קריאה 2?</strong> שינו כמה דברים יחד, ולכן אי אפשר לדעת מה פתר את התקלה, ומה שהיה במטמון ובקובץ לא תועד. חסרים תיעוד לפני השינוי, שינוי אחד בכל פעם, הרצה חוזרת של <span class="ltr">ping server.unit</span> כדי לראות שהוא מגיע עכשיו ל-<span class="ltr">10.20.40.25</span>, ותיעוד התוצאה (שקופית 14).</p>
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>בקריאה 1 לענות ״בעיית רשת, להחליף כבל״. ה-Link תקין במהירות מלאה, והכבל לא החשוד. בקריאה 3 לענות ״המשתמשים טועים בסיסמה״, כשכולם נכשלים רק בתחנה הזו.</p>
+  </div>
+
+  <h2>שקופית 16 · מגבלות ההדגמות</h2>
+  <p><strong>על המסך:</strong> טבלה: לכל הדגמה מה הופשט ומה יש בפועל, ומתחתיה ״הפלטים בהדגמות מקוצרים״.</p>
+  <p>לא לדלג. חניכים יוצאים לפעמים עם הרושם שכל בדיקה נותנת תשובה חד-משמעית, כמו בשקופית 2. בשטח Ping לפעמים חסום, משתמשים מדווחים חלקית, ולפעמים יש שתי תקלות בבת אחת.</p>
+  <ul>
+    <li><strong>סדר הבדיקות (שקופית 2):</strong> בכל תקלה יש סיבה אחת, וכל בדיקה מצליחה או נכשלת בבירור. בפועל חומת אש שחוסמת ICMP מכשילה Ping לשרת שעובד, ותקלה לסירוגין יכולה לעבור בדיקה אחת ולהיכשל בבאה. לכן משווים לתחנת ייחוס שמריצה את אותה בדיקה.</li>
+    <li><strong>היקף (שקופית 3):</strong> התשובות בהדגמה חד-משמעיות. משתמשים מדווחים לפי מה שראו, וההיקף יכול להיות חלקי, למשל חלק מהתחנות במקטע. בודקים בעצמכם לפחות תחנה אחת נוספת.</li>
+    <li><strong>Prefix (שקופית 7):</strong> מקטע אחד, שער אחד, בלי נתיבים נוספים, והנתב מעביר תעבורה חזרה לאותו מקטע. Proxy ARP בנתב יכול להסתיר Prefix קצר מדי, ונתיבי VPN או חומת אש משנים את התמונה. כל צד מחליט לפי ההגדרות שלו, ולכן תקלה יכולה להיות חד-כיוונית.</li>
+    <li><strong>ממוצע וקפיצות (שקופית 13):</strong> הנתונים מלאכותיים. נתבים רבים עונים ל-Ping אליהם עצמם בעדיפות נמוכה, ולכן אובדן Ping מול נתב לא תמיד אומר שתעבורה שעוברת דרכו נפגעת. משווים למדידה מול תחנת קצה מעבר לנתב.</li>
+  </ul>
+  <p>הפלטים בחלונות הפקודה מקוצרים לשורות שמעניינות בבדיקה. בתחנה אמיתית יש בהם עוד שורות, ומחפשים בהן את אותם שדות.</p>
+
+  <h2>שקופית 17 · בודקים לפי שכבות, עד לתוצאה הראשונה שאינה תקינה</h2>
+  <p><strong>על המסך:</strong> חמישה כרטיסים: Link, <span class="ltr">Ethernet/VLAN</span>, <span class="ltr">IP/Route</span>, <span class="ltr">DNS/Service</span>, <span class="ltr">Domain/Trust</span>. בתחתית: ״מחפשים את הבדיקה המהירה ביותר שמראה איזה שלב תקול. אין צורך להריץ כל כלי שקיים״.</p>
+  <p><strong>רקע.</strong> כל שלב תלוי בשלבים שמתחתיו, ולכן מתחילים מלמטה ועוצרים במקום הראשון שבו התוצאה לא כמו שציפינו. השלב שנכשל גם מראה למי להעביר. הבדיקה המהירה היא לפעמים מאמצע הסדר: בדיקה שמצליחה בשלב גבוה מוכיחה את כל מה שמתחתיה בדרך ליעד הזה. אם <span class="ltr">Test-NetConnection</span> לשרת לפי שם ובפורט הנכון מצליח, נשארו רק הזהות והיישום. אם Ping לשרת לפי IP עובד, אפשר לעבור ישר ל-DNS. כשבדיקה כזו נכשלת, יורדים בסדר הרגיל.</p>
+  <table style="break-inside:avoid">
+    <tr><th style="width:22%">שלב</th><th>בדיקה מהירה בתחנה</th><th style="width:34%">כשהשלב תקול</th></tr>
+    <tr><td class="k">Link</td><td><span class="ltr">Get-NetAdapter</span>, נוריות</td><td><span class="ltr">Disconnected</span>, <span class="ltr">Media disconnected</span></td></tr>
+    <tr><td class="k">Ethernet / VLAN</td><td>Ping לשער, ואז <span class="ltr">Get-NetNeighbor</span> או <span class="ltr">arp -a</span></td><td>אין MAC לשער, כתובת <span class="ltr">169.254.x.x</span></td></tr>
+    <tr><td class="k">IP / Route</td><td><span class="ltr">ipconfig /all</span>, <span class="ltr">route print</span>, <span class="ltr">tracert -d</span></td><td>ערכים שונים מהתכנון, אין דרך ליעד</td></tr>
+    <tr><td class="k">DNS / Service</td><td><span class="ltr">nslookup</span>, <span class="ltr">Test-NetConnection -Port</span></td><td>כתובת שגויה, <span class="ltr">TcpTestSucceeded : False</span></td></tr>
+    <tr><td class="k">Domain / Trust</td><td><span class="ltr">nltest /dsgetdc:</span>, <span class="ltr">w32tm /query /status</span>, <span class="ltr">klist</span></td><td>אין DC, פער שעון, אין כרטיסים</td></tr>
+  </table>
+  <p>אפשר לחזור לכל שקופית קודמת כדוגמה לשלב המתאים. אם נשאר זמן, בקשו מחניך למקם על המפה את התרחיש שבחרתם בתחילת השיעור.</p>
+  <div class="note green"><h3>שאלת סיום</h3>
+    <p>איזו ראיה קצרה ביותר תבודד את השלב התקול בתרחיש שהצגת, ומה תתעד להעברה?</p>
+  </div>
+</div>
+
+<!-- נספחים -->
+<div class="pg">
+  <div class="eyebrow">נספחים</div>
+  <h1>מפת המצגת, ערכי בדיקה ומילון</h1><hr class="rule">
+  <h2>מפת המצגת</h2>
+  <table style="font-size:8.5pt">
+    <tr><th class="n">מס׳</th><th>כותרת השקופית</th><th class="n">מס׳</th><th>כותרת השקופית</th></tr>
+    <tr><td class="n">1</td><td>איתור תקלות רשת לפי סדר בדיקות (שער)</td><td class="n">10</td><td>כשלפי IP עובד ולפי שם לא, החשוד הוא DNS</td></tr>
+    <tr><td class="n">2</td><td>מהתלונה לשלב התקול</td><td class="n">11</td><td>כאשר שם ו-Ping עובדים, בודקים Listener, פורט וחומת אש</td></tr>
+    <tr><td class="n">3</td><td>היקף התקלה מצמצם את רשימת החשודים</td><td class="n">12</td><td>סדר הבדיקה בתקלת אימות: DNS, זמן, כרטיס ותעודה</td></tr>
+    <tr><td class="n">4</td><td>השוואה למערכת תקינה דומה</td><td class="n">13</td><td>ממוצע תקין יכול להסתיר קפיצות השהיה ואובדן</td></tr>
+    <tr><td class="n">5</td><td>כשאין Link, מתחילים מהחיבור הפיזי</td><td class="n">14</td><td>שינוי אחד בכל פעם ובדיקה חוזרת</td></tr>
+    <tr><td class="n">6</td><td>Link תקין בלי שכנות מקומית</td><td class="n">15</td><td>באיזה שלב התקלה?</td></tr>
+    <tr><td class="n">7</td><td>Prefix שגוי משנה את ההחלטה מקומי/מרוחק</td><td class="n">16</td><td>מגבלות ההדגמות</td></tr>
+    <tr><td class="n">8</td><td>ARP חסר מצביע על תקלה לפני הניתוב</td><td class="n">17</td><td>בודקים לפי שכבות, עד לתוצאה הראשונה שאינה תקינה</td></tr>
+    <tr><td class="n">9</td><td>ARP תקין ל-Gateway אינו מוכיח שהמשך המסלול נכון</td><td class="n"></td><td></td></tr>
+  </table>
+
+  <h2>ערכי הכתובות שבשקופיות</h2>
+  <p>החישובים שמאחורי הכתובות בשקופיות 2, 4, 7, 9 ו-10.</p>
+  <table style="font-size:8.5pt">
+    <tr><th>כתובת ו-Prefix</th><th>מסכה</th><th>טווח הרשת</th><th>מה נראה לה מקומי</th></tr>
+    <tr><td class="n" style="width:auto">10.20.30.15/24</td><td class="n" style="width:auto">255.255.255.0</td><td class="n" style="width:auto">10.20.30.0-10.20.30.255</td><td>רק השער <span class="ltr">10.20.30.1</span>. ה-DNS, השרת ו-<span class="ltr">10.20.31.20</span> מרוחקים.</td></tr>
+    <tr><td class="n" style="width:auto">10.20.30.27/16</td><td class="n" style="width:auto">255.255.0.0</td><td class="n" style="width:auto">10.20.0.0-10.20.255.255</td><td>כל <span class="ltr">10.20.x.x</span>, כולל ה-DNS והשרת. <span class="ltr">172.16.5.10</span> נשאר מרוחק.</td></tr>
+    <tr><td class="n" style="width:auto">10.20.31.20/24</td><td class="n" style="width:auto">255.255.255.0</td><td class="n" style="width:auto">10.20.31.0-10.20.31.255</td><td>אף אחת. גם השער מחוץ לרשת שלה.</td></tr>
+    <tr><td class="n" style="width:auto">10.20.31.20/23</td><td class="n" style="width:auto">255.255.254.0</td><td class="n" style="width:auto">10.20.30.0-10.20.31.255</td><td>השער ו-<span class="ltr">10.20.30.15</span>, שרואה אותה כמרוחקת.</td></tr>
+  </table>
+
+  <h2>ערכי בדיקה להדגמות</h2>
+  <p>אם רוצים לוודא לפני השיעור שההדגמות עובדות, אלה התוצאות שצריכות לצאת.</p>
+  <table style="font-size:8.5pt;break-inside:avoid">
+    <tr><th style="width:24%">הדגמה</th><th style="width:30%">קלט</th><th>תוצאה</th></tr>
+    <tr><td class="k">סדר הבדיקות (שקופית 2)</td><td>כל תקלה, בדיקות 1 עד 6 לפי הסדר</td><td>הבדיקה הראשונה שנכשלת: בתקלה 1 התצורה, בתקלה 2 הפורט, בתקלה 3 ה-Link, בתקלה 4 השכן המקומי ובתקלה 5 השם. בתקלה 1 בדיקת השער ״תקין״.</td></tr>
+    <tr><td class="k">סדר הבדיקות (שקופית 2)</td><td>תקלה כלשהי, רק פורט השירות</td><td>״נכשל״ ושורת מסקנה צהובה: עוד לא נבדקו השלבים מתחתיו</td></tr>
+    <tr><td class="k">היקף (שקופית 3)</td><td>תחנה סמוכה עובדת</td><td>משתמש אחר עובד: משתמש אחד. לא עובד: תחנה אחת</td></tr>
+    <tr><td class="k">היקף (שקופית 3)</td><td>תחנה סמוכה לא עובדת</td><td>מקטע אחר עובד: VLAN או מקטע. לא עובד, ושירות אחר עובד: שירות אחד. גם הוא לא: כל האתר</td></tr>
+    <tr><td class="k">Prefix (שקופית 7)</td><td><span class="ltr">/16</span>, <span class="ltr">/17</span>, <span class="ltr">/18</span></td><td>DNS ו-<span class="ltr">server.unit</span> נכשלים. ב-<span class="ltr">/16</span> 65,280 כתובות מסווגות לא נכון</td></tr>
+    <tr><td class="k">Prefix (שקופית 7)</td><td><span class="ltr">/19</span></td><td>רק DNS נכשל, 7,936 כתובות</td></tr>
+    <tr><td class="k">Prefix (שקופית 7)</td><td><span class="ltr">/20</span> עד <span class="ltr">/23</span></td><td>אין כשלים ברשימה; ב-<span class="ltr">/23</span> 256 כתובות</td></tr>
+    <tr><td class="k">Prefix (שקופית 7)</td><td><span class="ltr">/24</span></td><td>הכול תואם, 0 כתובות</td></tr>
+    <tr><td class="k">Prefix (שקופית 7)</td><td><span class="ltr">/25</span> או <span class="ltr">/26</span></td><td><span class="ltr">10.20.30.200</span> עובר דרך השער (128 או 192 כתובות)</td></tr>
+    <tr><td class="k">Prefix (שקופית 7)</td><td><span class="ltr">/27</span></td><td>גם <span class="ltr">10.20.30.40</span> עובר דרך השער (224 כתובות)</td></tr>
+    <tr><td class="k">ממוצע (שקופית 13)</td><td>קפיצה 20 שניות, חלון דקה (פתיחה)</td><td>ממוצע 8.7 ms, אובדן 2.1%, שיא בגרף 56.8 ms, שיא בפועל 394 ms, חלון גרוע 16.7%, רצף 7 s</td></tr>
+    <tr><td class="k">ממוצע (שקופית 13)</td><td>קפיצה 20 שניות, חלון 5 דקות</td><td>שיא בגרף 12.0 ms, חלון גרוע 3.3%</td></tr>
+    <tr><td class="k">ממוצע (שקופית 13)</td><td>קפיצה 20 שניות, חלון שנייה</td><td>שיא בגרף 394.0 ms, חלון גרוע 100%</td></tr>
+    <tr><td class="k">ממוצע (שקופית 13)</td><td>קפיצה 60 שניות, חלון 5 דקות</td><td>ממוצע 21.7 ms, אובדן 6.4%, שיא בגרף 31.2 ms, רצף 15 s</td></tr>
+    <tr><td class="k">ממוצע (שקופית 13)</td><td>קפיצה 0</td><td>ממוצע 2.5 ms, אובדן 0%, שיא בפועל 4 ms</td></tr>
+  </table>
+
+
+  </div>
+
+<div class="pg">
+  <div class="eyebrow">נספחים</div>
+  <h2 style="margin-top:0">מילון קצר</h2>
+  <table>
+    <tr><th>מונח</th><th>הסבר</th><th>מונח</th><th>הסבר</th></tr>
+    <tr><td class="k">סימפטום</td><td>מה בדיוק נכשל.</td><td class="k">היקף</td><td>מי עוד מושפע.</td></tr>
+    <tr><td class="k">ציפייה</td><td>המצב שאמור להתקיים.</td><td class="k">ראיה</td><td>תוצאה מדידה.</td></tr>
+    <tr><td class="k">ייחוס</td><td>מערכת תקינה או תכנון להשוואה.</td><td class="k">בידוד</td><td>צמצום התקלה לחוליה.</td></tr>
+    <tr><td class="k">הסלמה</td><td>העברה עם ראיות לצוות מוסמך.</td><td class="k">אימות תיקון</td><td>בדיקה חוזרת לאותו קריטריון.</td></tr>
+    <tr><td class="k">VLAN</td><td>רשת לוגית נפרדת בתוך מתג.</td><td class="k">Prefix</td><td>מספר הביטים שמגדירים את הרשת, למשל <span class="ltr">/24</span>.</td></tr>
+    <tr><td class="k">ARP</td><td>מציאת MAC לפי כתובת IP במקטע המקומי.</td><td class="k">APIPA</td><td>כתובת <span class="ltr">169.254.x.x</span> שהתחנה נותנת לעצמה כשאין תשובה מ-DHCP.</td></tr>
+    <tr><td class="k">TTL ב-DNS</td><td>כמה זמן מותר לשמור תשובה במטמון.</td><td class="k">Listener</td><td>תהליך שמאזין בפורט ומקבל חיבורים.</td></tr>
+    <tr><td class="k">Kerberos</td><td>פרוטוקול האימות בדומיין, מבוסס כרטיסים.</td><td class="k">Jitter</td><td>ריצוד: תנודות בהשהיה.</td></tr>
+    <tr><td class="k">Gateway</td><td>השער: הנתב שאליו שולחים תעבורה ליעד מרוחק.</td><td class="k">Route</td><td>שורה בטבלת הניתוב: לאיזה יעד, דרך איזה שער.</td></tr>
+    <tr><td class="k">DC</td><td>בקר דומיין. מנפיק כרטיסים ומספק זמן לתחנות.</td><td class="k">Link</td><td>חיבור פיזי פעיל בין מתאם לפורט.</td></tr>
+    <tr><td class="k">Proxy ARP</td><td>נתב שעונה ל-ARP במקום יעדים שנמצאים מאחוריו.</td><td class="k">חלון ממוצע</td><td>פרק הזמן שמדידות מסוכמות בו לנקודה אחת בגרף.</td></tr>
+  </table>
+</div>
+</body></html>
