@@ -52,6 +52,8 @@ carry the lesson number (`04-antennas-swr`). Every link in `index.html` is
 
 ## Remarks index
 
+- 2026-11-03: [`.agents/skills/unit-training-decks/SKILL.md`](.agents/skills/unit-training-decks/SKILL.md) - **read this before building or editing any deck or guide.** The consolidated rules for the whole set: visual template (colors, type scale, slide skeleton, layout, components, guide template), content, wording, bidi, animation and live demos, guide structure, process, verification, delivery, and the device-lesson rules.
+
 Written remarks from prior work live in `.agents/`. Current entries:
 
 - 2026-10-29: [`.agents/remarks-2026-10-29-wording-and-structure-pass.md`](.agents/remarks-2026-10-29-wording-and-structure-pass.md) - wording **and structure** pass over all 14 decks, 14 guides, index and A6 card so the set does not read as AI-written (count-announcing headings, mirrored cards, "X - ולא Y" hinges, slogans, room-scripting notes removed; one statement per key message; plural imperative for instructor notes, impersonal present for procedures). Facts, slide counts, scripts logic and page counts unchanged. **Decision: lessons n03 and n08 overlap on TLS and both stay.** Lists ~15 technical doubts found but not changed. Backups in `tmp/rewrite-review/before-2026-10-29/`. Addendum: clean-judge loop (every element re-judged by a context-free agent until none flagged as AI; 94 -> 14 -> 5 -> 0), backups in `tmp/rewrite-review/before-judge-loop/`.
