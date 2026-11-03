@@ -23,6 +23,10 @@ function IBPreviewAgent(KIND) {
     // an emptied heading or subtitle has no height; keep it clickable (preview only, never saved)
     'html.ib-edit [data-ib]:empty{min-height:1.1em;min-width:4em}' +
     'html.ib-edit [data-ib]:empty:not([contenteditable="true"])::before{content:"(ריק)";opacity:.45;font-weight:400}';
+  if (KIND === 'deck') {
+    // the decks' flex shell shrinks the 1280px stage in frames narrower than 1280px; keep it landscape here
+    css.textContent += '.stage-shell>.stage{flex:0 0 auto!important}';
+  }
   if (KIND === 'guide') {
     // screen-only page look for A4 guide sources; never saved to the file
     css.textContent += '@media screen{html{background:#e9eef3}body{max-width:794px;margin:18px auto!important;background:#fff;padding:56px 60px!important;box-shadow:0 2px 18px rgba(15,39,64,.18)}.pg{border-bottom:2px dashed #cbd5e1;padding-bottom:28px;margin-bottom:28px}.pg:last-child{border-bottom:0}.title-pg{height:auto!important;min-height:520px}}';

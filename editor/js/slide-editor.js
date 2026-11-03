@@ -256,7 +256,7 @@
   var DECK_CANVAS_CSS =
     'html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#04070d}' +
     '.deck-root{position:fixed;inset:0}' +
-    '.stage{transform-origin:center center}' +
+    '.stage-shell>.stage{flex:0 0 auto!important;width:1280px!important;height:720px!important;transform-origin:center center}' +
     '.stage>section.slide{opacity:1!important;transform:none!important;pointer-events:auto!important;transition:none!important}' +
     '.ib-navzone{position:absolute;left:0;right:0;bottom:0;height:70px;pointer-events:none;z-index:40;background:repeating-linear-gradient(135deg,rgba(251,191,36,.06) 0 10px,transparent 10px 20px);border-top:1px dashed rgba(251,191,36,.35)}' +
     '[contenteditable="true"]{outline:none;caret-color:#fbbf24;cursor:text}' +
@@ -281,7 +281,7 @@
     var colorStyles = COLORS.map(function (c) { return c.style; });
 
     /* ---------- chrome ---------- */
-    var titleEl = h('b', { class: 'se-title' }, o.title || '', o.file ? h('bdi', { dir: 'ltr', class: 'muted' }, ' ' + o.file) : null);
+    var titleEl = h('b', { class: 'se-title', title: o.file || null }, o.title || '');
     var warnEl = h('span', { class: 'se-warn', hidden: true });
     var undoB = btn('↶', function () { doUndo(); }, 'icon', 'ביטול (Ctrl+Z)');
     var redoB = btn('↷', function () { doRedo(); }, 'icon', 'חזרה (Ctrl+Y)');
@@ -317,22 +317,19 @@
     var code = h('textarea', { class: 'code se-code', dir: 'ltr', spellcheck: 'false', hidden: true });
     var canvasWrap = h('section', { class: 'se-canvas' + (isDeck ? '' : ' guide') }, frame, overlay, code);
     var palette = h('div', { class: 'se-palette' }, (isDeck ? DECK_BLOCKS : GUIDE_BLOCKS).map(function (b) {
-      return btn(b.label, function () { insertBlock(b); }, 'tile', b.scope === 'body' ? 'נוסף אחרי הבלוק הנבחר ברמת ' + (isDeck ? 'גוף השקופית' : 'העמוד') : 'נוסף אחרי הבלוק הנבחר');
+      return btn(b.label, function () { insertBlock(b); }, 'tile', b.image ? 'מקובץ. אפשר גם לגרור תמונה לשקופית או להדביק (Ctrl+V)' : b.scope === 'body' ? 'נוסף אחרי הבלוק הנבחר, ברמת ' + (isDeck ? 'גוף השקופית' : 'העמוד') : 'נוסף אחרי הבלוק הנבחר');
     }));
     var selPanel = h('div', { class: 'se-selpanel' });
     var notesBox = null;
     var side = h('aside', { class: 'se-side' },
       h('h4', null, 'הוספה'), palette,
-      h('p', { class: 'muted small' }, 'נוסף אחרי הבלוק הנבחר. תמונה אפשר גם לגרור לשקופית או להדביק (Ctrl+V).'),
       h('h4', null, 'בלוק נבחר'), selPanel);
     if (isDeck) {
       notesBox = h('div', { class: 'rich tall', contenteditable: 'true', dir: 'rtl', 'data-placeholder': 'מה עושים, מה מדגישים, טעות נפוצה, תשובות.' });
       side.append(h('h4', null, 'הערות מדריך'), notesBox);
     }
     side.append(h('h4', null, 'בדיקות'), h('ul', { class: 'lint se-checks' }));
-    var hint = h('p', { class: 'se-hint' }, 'לחיצה על טקסט: עריכה. לחיצה על מסגרת או רווח: בחירת בלוק. Enter בתבליט: תבליט חדש. Tab בטבלה: התא הבא. Esc: יציאה מעריכה ובחירת הבלוק שמעל. ' +
-      (isDeck ? 'הדגמות חיות מוצגות כאן במצב ההתחלתי שלהן, בלי הסקריפט. הפס המקווקו בתחתית הוא אזור סרגל הניווט.' : ''));
-    var dlg = h('dialog', { class: 'se-dlg' }, top, h('div', { class: 'se-main' }, h('div', { class: 'se-left' }, canvasWrap, hint), side));
+    var dlg = h('dialog', { class: 'se-dlg' }, top, h('div', { class: 'se-main' }, h('div', { class: 'se-left' }, canvasWrap), side));
     document.body.appendChild(dlg);
     dlg.addEventListener('cancel', function (e) { e.preventDefault(); cancel(); });
     dlg.showModal();

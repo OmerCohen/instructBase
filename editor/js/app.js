@@ -500,8 +500,7 @@
       isDeck ? btn('הצגה בחלון חדש', function () { presentDoc(d); }, 'small') : btn('הדפסה ל-PDF', function () { printGuide(d); }, 'small'),
       btn('קוד מלא', function () { d.view = 'source'; renderActive(); }, 'small', 'עריכת קוד המקור של כל הקובץ (מתקדם)'));
     d.frameWrap = h('div', { class: 'frame-wrap' + (isDeck ? ' deck' : ' guide') });
-    var center = h('section', { class: 'center' }, tools, d.frameWrap,
-      h('p', { class: 'hint' }, 'לחצו על טקסט בתצוגה כדי לערוך אותו. Enter שובר שורה, Esc מסיים. את הטקסט שההדגמה כותבת בזמן ריצה, ואת התוויות בתוך איורי SVG, עורכים ב"HTML של ' + T(d).the + '".'));
+    var center = h('section', { class: 'center' }, tools, d.frameWrap);
     var props = h('aside', { class: 'props' }, d.propsEl,
       h('details', { class: 'panel', open: true }, h('summary', null, 'בדיקות לפי כללי הבית'), d.lintEl));
     main.appendChild(h('div', { class: 'ed-grid' }, rail, center, props));
@@ -548,7 +547,7 @@
     var n = d.model.units.length;
     return window.IBSlideEditor.open({
       kind: d.kind, html: d.model.units[i].html, styles: styles,
-      title: (d.kind === 'deck' ? 'שקופית ' : 'עמוד ') + (i + 1) + ' מתוך ' + n + ' ·', file: d.path.split('/').pop(),
+      title: (d.kind === 'deck' ? 'שקופית ' : 'עמוד ') + (i + 1) + ' מתוך ' + n, file: d.path,
       hasPrev: i > 0, hasNext: i < n - 1,
       onApply: function (html) {
         change(d, function () { d.model.units[i].html = html; if (d.kind === 'deck') M.renumberDeck(d.model); }, { reload: true });

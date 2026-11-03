@@ -168,6 +168,22 @@ Critical remarks / limits:
 - **Found in the set, not changed:** r06 slide 26 uses `.key.violet`, a hue outside the four tokens
   (the skill bans new hues). Omer's call.
 
+## Follow-up 2: Omer's review of the modal
+
+- **Portrait slide in the modal** (his screenshot) came from a real bug in the house shell, not only in
+  the editor: `.stage-shell` is a flex container and `.stage` (1280x720) has the default `flex-shrink:1`.
+  In any frame or window narrower than 1280 CSS px, the stage is laid out narrower, *then* scaled. Measured
+  on the shipped n01 deck: window 1093 px wide → stage 1093x720 (wrong layout); 1280/1366/1920 →
+  1280x720. 1093 px is a 1366x768 laptop at 125% Windows scaling, so projecting from such a laptop
+  re-wraps every slide. My own screenshots (1600 wide) had a 1220 px stage; I had not noticed.
+  The editor now forces `flex:0 0 auto` on the stage in the modal canvas and in the preview (display
+  only, never saved). **Open for Omer: fix the decks themselves** by adding `flex-shrink:0` to `.stage` in
+  the core CSS of all 16 decks and in `editor/templates/deck-template.html` (set-wide, one rule).
+  Not done without his approval because it touches every published deck.
+- Toolbox is one compact column (side panel 220 px); the hint lines under the modal canvas and under the
+  main preview were removed; the modal title no longer carries the file name (tooltip instead), so
+  the header fits in one row at ~1200 px.
+
 ## Tests
 
 - `node editor/tests/model.test.cjs`: 92 tests over the real files (round trips, renumber no-op,
