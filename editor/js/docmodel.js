@@ -356,8 +356,31 @@
     }
     return n;
   }
+  /* The house shell centres the 1280x720 .stage in a flex container. Without
+     flex-shrink:0 the stage is laid out narrower in any window under 1280 CSS px
+     (e.g. 1366x768 at 125% = 1093 px) and every slide re-wraps. Fixed set-wide
+     2026-11-03; checked by lint and added to any deck made from an older source. */
+  var STAGE_OLD = '.stage{width:1280px;height:720px;position:relative;';
+  var STAGE_NEW = '.stage{width:1280px;height:720px;flex-shrink:0;position:relative;';
+  function stageRule(src) {
+    var t = S.scan(src), rule = null;
+    S.qsa(t, 'style').forEach(function (st) {
+      var css = S.inner(src, st), re = /\.stage\{[^}]*\}/g, m;
+      while ((m = re.exec(css))) if (/height:\s*720px/.test(m[0]) && rule == null) rule = m[0];
+    });
+    return rule;
+  }
+  function stageKeepsSize(src) {
+    var r = stageRule(src);
+    return r == null ? null : /flex-shrink:\s*0|flex:\s*0\s+0/.test(r);
+  }
+  function ensureStageNoShrink(src) {
+    if (stageKeepsSize(src) !== false || src.split(STAGE_OLD).length !== 2) return src;
+    return src.replace(STAGE_OLD, STAGE_NEW);
+  }
   /* turn a deck (template or an existing lesson) into a new lesson */
   function instantiateDeck(src, o) {
+    src = ensureStageNoShrink(src);
     var doc = parseUnits(src, 'deck');
     if (!doc) throw new Error('המקור אינו מצגת בתבנית הבית');
     var meta = deckMeta(src);
@@ -557,6 +580,9 @@
       if (dashes) out.push({ level: 'warn', unit: i, msg: (dashes === 1 ? 'קו ארוך אחד (—)' : dashes + ' קווים ארוכים (—)') + ' בטקסט. בסט לא משתמשים בקו ארוך.' });
       if (ranges.length) out.push({ level: 'warn', unit: i, msg: 'טווח מספרים בלי <span class="ltr"> עלול להתהפך: ' + ranges.slice(0, 3).join(' · ') });
     });
+    if (isDeck && stageKeepsSize(doc.head) === false) {
+      out.push({ level: 'warn', unit: null, msg: 'ב-CSS של המצגת חסר flex-shrink:0 על ‎.stage. בחלון צר מ-1280 פיקסלים (למשל מחשב נייד בהגדלה של 125%) השקופיות נפרסות צרות יותר והטקסט נשבר אחרת. מוסיפים את הכלל לבסיס ה-CSS.' });
+    }
     if (isDeck) {
       var r = renumberDeck({ units: doc.units.map(function (u) { return { html: u.html }; }) }, true);
       if (r.length) out.push({ level: 'info', unit: null, msg: 'מספור השקופיות לא עדכני ' + (r.length === 1 ? 'בשקופית אחת' : 'ב-' + r.length + ' שקופיות') + '. הוספה, הזזה או מחיקה של שקופית מעדכנת אותו.' });
@@ -602,7 +628,7 @@
     editables: editables, editableSignature: editableSignature, hasIds: hasIds, stripIds: stripIds, setEditableInner: setEditableInner, getEditableInner: getEditableInner,
     fieldNode: fieldNode, getField: getField, setField: setField, fieldEditableIndex: fieldEditableIndex,
     slideInfo: slideInfo, pageInfo: pageInfo, renumberDeck: renumberDeck, slideContext: slideContext, newSlide: newSlide,
-    deckMeta: deckMeta, setDeckMeta: setDeckMeta, instantiateDeck: instantiateDeck, instantiateGuide: instantiateGuide,
+    deckMeta: deckMeta, setDeckMeta: setDeckMeta, instantiateDeck: instantiateDeck, stageKeepsSize: stageKeepsSize, ensureStageNoShrink: ensureStageNoShrink, instantiateGuide: instantiateGuide,
     parseIndex: parseIndex, serializeIndex: serializeIndex, trackLessons: trackLessons, newTrack: newTrack, newLessonItem: newLessonItem,
     lessonHtml: lessonHtml, linkHtml: linkHtml, cntText: cntText, getIndexField: getIndexField, setIndexField: setIndexField,
     indexLinks: indexLinks, isLocalHref: isLocalHref,

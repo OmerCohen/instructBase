@@ -28,6 +28,11 @@ lesson.
 - **Eyebrow `.num` is the slide position with the title slide as 0**, not a running counter (n08/r06 part-2
   slides prove it). Footer is `NN / total`. (2026-11-03)
 - **`archive/` is frozen.** Never edit it; add a new dated snapshot instead. (2026-11-03)
+- **`.stage` must not shrink: `flex-shrink:0`.** `.stage-shell` is a flex container. Without it, any window
+  narrower than 1280 CSS px (a 1366x768 laptop at 125% is 1093 px) lays the slide out narrower and then
+  scales it, so every slide re-wraps. Fixed in all 16 decks and in `editor/templates/deck-template.html`;
+  the editor's lint flags a deck without it, and `instantiateDeck` adds it. Verify layout changes at
+  1093, 1366 and 1920 wide, not at one size. (2026-11-03)
 
 - **Unit doctrine outranks my derivation.** If a leaflet and the model disagree,
   test it — and if the leaflet wins, say so on a slide rather than quietly
