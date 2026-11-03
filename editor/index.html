@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>עורך חומרי הדרכה</title>
+<link rel="stylesheet" href="css/editor.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><b>עורך חומרי הדרכה</b><span id="folder" class="folder">לא נפתחה תיקייה</span></div>
+  <nav id="tabs" class="tabs" aria-label="מסמכים פתוחים"></nav>
+  <div class="top-actions">
+    <button type="button" id="btn-undo" title="ביטול (Ctrl+Z)" disabled>↶</button>
+    <button type="button" id="btn-redo" title="חזרה (Ctrl+Y)" disabled>↷</button>
+    <button type="button" id="btn-save" class="primary" title="שמירה (Ctrl+S). Ctrl+Shift+S שומר את כל המסמכים הפתוחים" disabled>שמירה</button>
+    <button type="button" id="btn-zip" title="הורדת התיקייה כ-ZIP">ZIP</button>
+    <button type="button" id="btn-open" title="פתיחת תיקייה אחרת">תיקייה…</button>
+    <label class="opt" title="לפני כל שמירה נשמר עותק של הקובץ הקודם ב-.editor-backups"><input type="checkbox" id="opt-backup"> גיבוי בשמירה</label>
+  </div>
+</header>
+<div id="mem-banner" class="banner" hidden>מצב קריאה בלבד: <b id="mem-count">0</b> קבצים שונו ונשמרו רק בזיכרון הדפדפן. <button type="button" id="btn-mem-zip">הורדת השינויים כ-ZIP</button></div>
+<main id="main" class="home"></main>
+<input type="file" id="fallback-input" webkitdirectory multiple hidden>
+<script src="js/htmlscan.js"></script>
+<script src="js/docmodel.js"></script>
+<script src="js/zip.js"></script>
+<script src="js/fs.js"></script>
+<script src="js/preview-agent.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
