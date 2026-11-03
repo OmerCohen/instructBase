@@ -219,6 +219,20 @@ Critical remarks:
 - The installed app's origin is the exact URL (`http://localhost:8765`): folder permission, the stored
   folder handle and the cache all belong to it. Changing port or host means a separate app.
 
+## Follow-up 4: single-file editor
+
+`editor/dist/instructbase-editor.html` (about 271 KB) is built by `editor/build-single.cjs` from `editor/index.html`:
+CSS and the eight scripts are inlined, and both new-lesson templates are embedded as a JSON block (every `<`
+written as `\u003c`). `readTemplate` falls back to the embedded copy when the opened folder has no
+`editor/templates/`. Inline script text has `</script` and `<!--` rewritten to `<\/script` and `<\!--`
+(the same characters in JS; `<!--` followed later by a `<script` string would otherwise put the HTML parser
+in the escaped state, so the element might not close). The build fails if any external reference
+remains. Not installable: a single file cannot register a service worker. It runs from `file://` with
+no network, which is the point. Tests: the whole e2e suite runs against it (`SINGLE=1`, 38 passed:
+35 shared, plus inline-only check, new lesson from embedded templates in a folder without `editor/`,
+`file://` start). A model test fails when the committed file differs from a fresh build, so it cannot
+silently go stale. Rule: never edit `dist/` by hand.
+
 ## Tests
 
 - `node editor/tests/model.test.cjs`: 92 tests over the real files (round trips, renumber no-op,

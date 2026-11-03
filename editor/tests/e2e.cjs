@@ -15,6 +15,9 @@ const M = require('../js/docmodel.js');
 
 const ROOT = path.resolve(__dirname, '..', '..');
 const SHOTS = process.env.SHOTS || '';
+// SINGLE=1 runs the whole suite against the single-file build (editor/dist/instructbase-editor.html)
+const SINGLE = !!process.env.SINGLE;
+const EDITOR_PAGE = SINGLE ? '/editor/dist/instructbase-editor.html' : '/editor/index.html';
 const FILES = [
   'index.html',
   'editor/templates/deck-template.html', 'editor/templates/guide-template.html',
@@ -69,7 +72,7 @@ async function step(name, fn) {
   page.on('pageerror', (e) => errors.push('page: ' + e.message));
   page.on('console', (m) => { if (m.type() === 'error') errors.push('console: ' + m.text()); });
   page.on('dialog', (d) => d.accept());
-  await page.goto(base + '/editor/index.html');
+  await page.goto(base + EDITOR_PAGE);
   const shot = async (name) => { if (SHOTS) { fs.mkdirSync(SHOTS, { recursive: true }); await page.screenshot({ path: path.join(SHOTS, name + '.png') }); } };
 
   await step('welcome screen renders', async () => {
@@ -621,7 +624,35 @@ async function step(name, fn) {
   });
 
   /* ---- PWA: installable, and the editor starts with no network after one visit ---- */
-  await step('PWA: manifest parses, no installability errors, editor loads offline from its cache', async () => {
+  if (SINGLE) {
+    await step('single file: scripts all inline and running, no external references', async () => {
+      const r = await page.evaluate(() => ({ ext: [...document.querySelectorAll('script[src],link[href]')].filter((e) => !/^data:/.test(e.getAttribute('src') || e.getAttribute('href'))).length, scripts: document.scripts.length, single: window.IB_SINGLE, all: [typeof IBScan, typeof IBModel, typeof IBZip, typeof IBRich, typeof IBSlideEditor, typeof IBFS, typeof IBPreviewAgent, typeof IBApp].join() }));
+      assert.deepStrictEqual(r, { ext: 0, scripts: 10, single: true, all: 'object,object,object,object,object,object,function,object' });
+    });
+    await step('single file: a new lesson uses the embedded template when the folder has no editor/', async () => {
+      await page.evaluate(async () => { await window.__repo.removeEntry('editor', { recursive: true }); });
+      const ok = await page.evaluate(async () => {
+        const app = window.IBApp, m = app.state.docs.find((d) => d.path === 'index.html');
+        return app.createLesson({ track: { dir: 'networks', name: 'רשתות', ti: 1 }, num: '09', slug: 'single-file-test', title: 'בדיקת קובץ יחיד', desc: 'תיאור.', badge: '', footer: 'שיעור 9 · בדיקה', src: 'template', withGuide: true, withIndex: false });
+      });
+      assert.strictEqual(ok, true);
+      const deck = await readOPFS('networks/09-single-file-test/09-single-file-test-deck.html');
+      assert.strictEqual(M.deckMeta(deck).title, 'בדיקת קובץ יחיד');
+      assert.strictEqual(M.stageKeepsSize(deck), true);
+      assert.ok(await existsOPFS('.agents/guide-sources/09_net_guide_source.html'));
+    });
+    await step('single file: opens from file:// with the folder API available and no errors', async () => {
+      const p = await browser.newPage();
+      const pe = [];
+      p.on('pageerror', (e) => pe.push(e.message));
+      await p.goto('file://' + path.join(ROOT, 'editor', 'dist', 'instructbase-editor.html'));
+      await p.waitForSelector('.welcome');
+      assert.deepStrictEqual(await p.evaluate(() => [typeof window.showDirectoryPicker, !!document.querySelector('.welcome .note'), document.getElementById('btn-install').hidden]), ['function', true, true]);
+      assert.deepStrictEqual(pe, []);
+      await p.close();
+    });
+  }
+  if (!SINGLE) await step('PWA: manifest parses, no installability errors, editor loads offline from its cache', async () => {
     const ctx = await browser.newContext();
     const p = await ctx.newPage();
     const pe = [];

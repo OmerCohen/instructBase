@@ -89,6 +89,12 @@ test('the service worker precaches every file the editor needs offline', () => {
   man.icons.forEach((ic) => assert.ok(fs.existsSync(path.join(ROOT, 'editor', ic.src)), ic.src));
 });
 
+test('the committed single-file build is up to date (node editor/build-single.cjs)', () => {
+  const { build, OUT } = require('../build-single.cjs');
+  assert.ok(fs.existsSync(OUT), 'missing ' + rel(OUT));
+  assert.ok(fs.readFileSync(OUT, 'utf8') === build(), rel(OUT) + ' is stale: run node editor/build-single.cjs');
+});
+
 test('slide operations: move, duplicate, delete, insert, then renumber', () => {
   const f = decks.find((p) => /01-layers-and-metrics-deck/.test(p));
   const src = fs.readFileSync(f, 'utf8');

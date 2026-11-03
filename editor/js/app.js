@@ -453,6 +453,7 @@
       h('div', { class: 'note ' + (supported ? '' : 'warn') }, supported
         ? 'בחרו את תיקיית השורש של המאגר (זו שיש בה index.html). הדפדפן יבקש אישור לקריאה ולכתיבה; השמירה נעשית ישירות בקבצים.'
         : 'הדפדפן הזה לא תומך בכתיבה לתיקייה מקומית (File System Access). אפשר לפתוח תיקייה לקריאה, לערוך, ולהוריד את הקבצים ששונו כ-ZIP. לשמירה ישירה פתחו את העורך ב-Chrome או ב-Edge.'),
+      window.IB_SINGLE ? h('div', { class: 'note' }, h('b', null, 'גרסת קובץ יחיד. '), 'כל העורך, כולל תבניות השיעור החדש, נמצא בקובץ הזה. מעתיקים אותו לכל מחשב ופותחים בלחיצה כפולה ב-Edge או ב-Chrome; הוא לא צריך רשת. אי אפשר להתקין אותו כאפליקציה; לזה משמשת תיקיית editor המלאה.') :
       location.protocol === 'file:' ? h('div', { class: 'note' }, h('b', null, 'נפתח מקובץ. '), 'העורך עובד כך במלואו, אבל אי אפשר להתקין אותו כאפליקציה. להתקנה (עבודה בלי שרת ובלי רשת, בחלון משלו) מפעילים את ', h('code', null, 'editor/serve.cmd'), ' ופותחים את הכתובת שהוא מציג; ההסבר ב-', h('code', null, 'editor/README.md'), '.') : null,
       h('div', { class: 'note' }, h('b', null, 'כדאי לדעת: '), 'העורך משנה רק את הקטע שערכתם. סקריפטים, סגנונות והדגמות חיות נשארים כמו שהם, ושמירה של קובץ שבו סקריפט לא עובר בדיקת תחביר נחסמת. ',
         'לפני כל שמירה נשמר עותק של הקובץ הקודם ב-', h('code', null, '.editor-backups/'), ' (עד 20 עותקים לקובץ).'));
@@ -1155,8 +1156,15 @@
     var dlg = dialog('שיעור חדש', body, createBtn);
   }
 
+  /* the single-file build carries the templates inside itself (build-single.cjs) */
+  function embeddedTemplate(path) {
+    var el = document.getElementById('ib-templates');
+    if (!el) return null;
+    try { return JSON.parse(el.textContent)[path] || null; } catch (e) { return null; }
+  }
+  /* the opened folder's template wins; the embedded copy covers a folder without editor/ */
   async function readTemplate(path) {
-    try { return await state.fs.readText(path); } catch (e) { return null; }
+    try { return await state.fs.readText(path); } catch (e) { return embeddedTemplate(path); }
   }
   async function createLesson(o) {
     var fs = state.fs, t = o.track;
@@ -1282,7 +1290,7 @@
   var deferredInstall = null;
   function isSecureOrigin() { return location.protocol === 'https:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname); }
   function setupPwa() {
-    if (!('serviceWorker' in navigator) || !isSecureOrigin()) return;
+    if (window.IB_SINGLE || !('serviceWorker' in navigator) || !isSecureOrigin()) return;   // a single file cannot carry a service worker
     navigator.serviceWorker.register('sw.js').catch(function (e) { if (window.console) console.warn('service worker:', e); });
     var b = $('#btn-install');
     window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); deferredInstall = e; b.hidden = false; });
