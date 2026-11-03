@@ -13,8 +13,18 @@ radio/NN-<slug>/NN-<slug>-guide.pdf
 networks/NN-<slug>/NN-<slug>-deck.html
 networks/NN-<slug>/NN-<slug>-guide.pdf
 reference/technician-card-a6.pdf + -source.html
+archive/                         ← frozen snapshots + ZIP downloads; never edit (archive/README.md)
+editor/                          ← HTML editor for decks, guide sources, index (editor/README.md)
 agents.md · .agents/           ← internal, NOT part of the published set
 ```
+
+**Editing tool (2026-11-03).** `editor/index.html` (Chrome/Edge) edits decks, guide sources and the
+index in place, changing only the edited bytes, and creates new lessons from
+`editor/templates/`. Agents editing the same files by hand: the editor keeps the house numbering
+(footer `NN / total`; eyebrow `.num` = slide position with the title slide as 0) and blocks saves that
+break a `<script>`. If you change the house CSS baseline set-wide, also update
+`editor/templates/deck-template.html`. Tests: `node editor/tests/model.test.cjs`, `node editor/tests/e2e.cjs`.
+`archive/` is publishable (no internal notes); `editor/` is not needed on the web server.
 
 Each lesson ships as exactly **two** artefacts, `-deck.html` and `-guide.pdf`,
 in a folder named for the lesson. Slugs are English, lowercase, hyphenated, and
@@ -53,6 +63,8 @@ carry the lesson number (`04-antennas-swr`). Every link in `index.html` is
 ## Remarks index
 
 Written remarks from prior work live in `.agents/`. Current entries:
+
+- 2026-11-03: [`.agents/remarks-2026-11-03-editor-and-archive.md`](.agents/remarks-2026-11-03-editor-and-archive.md) - **HTML editor** (`editor/`) for decks, guide sources and the index, plus a new-lesson wizard; **archive** of the whole set as of 2026-11-03 (`archive/2026-11-03/` + one ZIP), old root ZIP moved there. Records the source-preserving edit design (no re-serialisation), the eyebrow numbering rule, the sandbox fix for present/print windows, and the limits: demos are not authorable, **slide-number references in prose go stale after structural edits**, PDFs are printed by hand, the CSS baseline already exists in 5 variants. Repo hygiene notes (90 MB `tmp/` committed) left for Omer.
 
 - 2026-10-29: [`.agents/remarks-2026-10-29-wording-and-structure-pass.md`](.agents/remarks-2026-10-29-wording-and-structure-pass.md) - wording **and structure** pass over all 14 decks, 14 guides, index and A6 card so the set does not read as AI-written (count-announcing headings, mirrored cards, "X - ולא Y" hinges, slogans, room-scripting notes removed; one statement per key message; plural imperative for instructor notes, impersonal present for procedures). Facts, slide counts, scripts logic and page counts unchanged. **Decision: lessons n03 and n08 overlap on TLS and both stay.** Lists ~15 technical doubts found but not changed. Backups in `tmp/rewrite-review/before-2026-10-29/`. Addendum: clean-judge loop (every element re-judged by a context-free agent until none flagged as AI; 94 -> 14 -> 5 -> 0), backups in `tmp/rewrite-review/before-judge-loop/`.
 - 2026-10-29 (second feedback): [`.agents/remarks-2026-10-29-feedback2-n08-and-guides.md`](.agents/remarks-2026-10-29-feedback2-n08-and-guides.md) - on-screen footer hidden in all decks (nav bar covered it on projectors); irrelevant remarks and example-named titles swept; n08 now 30 slides (mapping slide: one text as Hex / Base64 / password-encrypted / hidden in an image, replacing the map and encoding slides; keystream slide with AES-CTR demo; Atbash/Caesar exercise); n08 guide rebuilt as a detailed 25-page pilot. **Detailed guides for the other 13 lessons wait for Omer's approval of the pilot.** Backups in `tmp/rewrite-review/before-2026-10-29-feedback2/`.
