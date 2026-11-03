@@ -1,0 +1,339 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>רדיו מתקדם: אנטנות ו-SWR</title><style>
+@page{size:A4;margin:52pt 54pt 46pt 54pt;
+  @bottom-right{content:"מחלקת תקשוב · אנטנות ו-SWR · שיעור 4";
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:right;vertical-align:top;padding-top:10pt;direction:rtl}
+  @bottom-left{content:counter(page) " / " counter(pages);
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:left;vertical-align:top;padding-top:10pt;direction:ltr}}
+@page:first{@bottom-right{content:""}@bottom-left{content:""}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Liberation Sans",Arial,sans-serif;color:#1b2a38;font-size:10pt;line-height:1.55;direction:rtl}
+.pg{page-break-after:always}
+.pg:last-child{page-break-after:auto}
+.eyebrow{font-size:9pt;font-weight:bold;color:#0f2740;margin-bottom:9pt}
+h1{font-size:20pt;font-weight:bold;margin:0 0 14pt;color:#0f2740;line-height:1.24;text-align:center}
+h2{font-size:13pt;margin:16pt 0 8pt;color:#0f2740;font-weight:bold}
+.rule{border:0;border-top:1px solid #dbe3ea;margin:0 0 16pt}
+p{margin:0 0 7pt}
+ul{margin:0 0 7pt;padding-right:15pt}
+li{margin-bottom:4pt}
+
+/* stat chips */
+.chips{display:flex;gap:11pt;margin:0 0 16pt}
+.chip{flex:1;background:#0f2740;border-radius:6pt;padding:11pt 8pt;text-align:center}
+.chip b{display:block;font-size:14pt;color:#3fd0e0;line-height:1.15}
+.chip span{display:block;font-size:8.5pt;color:#b6c6d4;margin-top:3pt}
+
+/* two rounded cards with a coloured inner edge */
+.cards{display:flex;gap:11pt;margin:0 0 14pt}
+.cards.three>*{flex:1}
+.cards>*{flex:1;min-width:0}
+.pc{border-radius:7pt;padding:10pt 13pt;position:relative;overflow:hidden}
+.pc::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.pc h3{margin:0 0 5pt;font-size:10pt;font-weight:bold}
+.pc p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.pc p:last-child{margin-bottom:0}
+.pc.teal{background:#e9f4f7}.pc.teal::after{background:#0f8793}.pc.teal h3{color:#0f6f7a}
+.pc.amber{background:#fdf4e6}.pc.amber::after{background:#e0a038}.pc.amber h3{color:#a8701a}
+.pc.red{background:#fdeef0}.pc.red::after{background:#d9556a}.pc.red h3{color:#a83a4c}
+.pc.green{background:#eef7f0}.pc.green::after{background:#4a9c62}.pc.green h3{color:#2f7546}
+
+/* full-width note block, same visual family */
+.note{border-radius:7pt;padding:9pt 13pt;margin:0 0 10pt;position:relative;overflow:hidden}
+.note::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.note h3{margin:0 0 4pt;font-size:9pt;font-weight:bold;letter-spacing:.02em}
+.note p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.note p:last-child{margin-bottom:0}
+.note.teal{background:#e9f4f7}.note.teal::after{background:#0f8793}.note.teal h3{color:#0f6f7a}
+.note.amber{background:#fdf4e6}.note.amber::after{background:#e0a038}.note.amber h3{color:#a8701a}
+.note.red{background:#fdeef0}.note.red::after{background:#d9556a}.note.red h3{color:#a83a4c}
+.note.green{background:#eef7f0}.note.green::after{background:#4a9c62}.note.green h3{color:#2f7546}
+
+/* dark headline band (used for the formula / the one-line rule of a page) */
+.band{background:#0f2740;border-radius:8pt;padding:14pt 18pt;margin:0 0 14pt;text-align:center;
+  color:#3fd0e0;font-size:16pt;font-weight:bold}
+.band.sm{font-size:12.5pt;padding:11pt 16pt}
+.band .w{color:#fff}
+
+table{width:100%;border-collapse:collapse;font-size:9pt;margin:0 0 11pt}
+th,td{border:1px solid #dbe3ea;padding:5pt 8pt;text-align:right;vertical-align:top}
+th{background:#eef4f8;color:#0f6f7a;font-weight:bold}
+td.k{font-weight:bold;color:#0f2740}
+td.n,th.n{text-align:center;width:52pt;white-space:nowrap;direction:ltr;unicode-bidi:embed}
+.ltr{direction:ltr;unicode-bidi:embed;display:inline-block}
+
+.title-pg{height:660pt;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.title-pg .kick{font-size:10pt;color:#0f8793;font-weight:bold;margin-bottom:20pt}
+.title-pg h1{font-size:27pt;margin-bottom:12pt}
+.title-pg .sub{font-size:12pt;color:#5b7186;margin:0 auto 26pt;max-width:400pt;line-height:1.55}
+.title-pg .meta{font-size:9.5pt;color:#5b7186}
+</style></head><body>
+
+<!-- 1 ─────────────────────────── -->
+<div class="pg title-pg">
+  <div class="kick">מחלקת תקשוב · שבוע רדיו · דף הנחיה למדריך</div>
+  <h1>רדיו מתקדם: אנטנות ו-SWR</h1>
+  <div class="sub">גלים עומדים, Return Loss, סוגי אנטנות והבעיות שההתקנה מוסיפה.</div>
+  <div class="chips" style="max-width:400pt;margin:0 auto">
+    <div class="chip"><b><span class="ltr">50–55</span> דקות</b><span>משך מומלץ</span></div>
+    <div class="chip"><b>11</b><span>שקופיות כולל שער</span></div>
+    <div class="chip"><b>VHF</b><span>תחום המיקוד</span></div>
+  </div>
+  <div class="meta" style="margin-top:20pt">מותאם לטכנאי שטח · מוקד VHF</div>
+</div>
+
+<!-- 2 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">00 · בריף למדריך</div>
+  <h1>לפני שמתחילים</h1><hr class="rule">
+
+  <div class="cards">
+    <div style="flex:1">
+      <h2 style="margin-top:0">מטרת השיעור</h2>
+      <p>להפוך מדדי החזרה וכללי התקנה לכלי חשיבה: מה SWR אומר, מה הוא לא אומר, ואיך מבנה וסביבה משנים אנטנת VHF.</p>
+      <div class="note teal"><h3>תוצר נדרש</h3>
+        <p>בסיום, החניך יפרש SWR ו-Return Loss, יזהה כיוון יאגי וקיטוב, וימנה גורמי התקנה שמשנים התאמה ותבנית קרינה.</p>
+      </div>
+    </div>
+    <div style="flex:1">
+      <h2 style="margin-top:0">הכנה מראש</h2>
+      <ul>
+        <li>להכין צילום או דוגמה מקומית להתקנת אנטנה בעייתית, אם קיימת.</li>
+        <li>לוודא שמונחי רזוננטיות ואימפדנס מהשיעור הקודם ברורים.</li>
+        <li>לא נדרשת מדידה חיה; היא תבוצע בשיעור האבחון.</li>
+      </ul>
+      <div class="note amber"><h3>גבול ההעמקה</h3>
+        <p>לא נכנסים לתכנון אלמנטים, מערכי מופע או סימולציה. מתמקדים בהתקנה, במדידה ובפענוח.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="note green"><h3>עמוד השדרה של השיעור</h3>
+    <p>הרעיון שחוזר שוב ושוב לאורך השיעור: מד התאמה מראה כמה הספק חזר לנקודת המדידה, לא לאן האנרגיה הלכה. עומס תקני יכול להציג SWR מצוין כמעט בלי קרינה בפועל. זו נקודת המבחן שהופכת קריאת מכשיר להבנה.</p>
+    <p style="margin-top:6px;font-size:9pt;color:#5b7186"><b>למדריך בלבד:</b> אותה נקודה חוזרת בשקופית ההבדל הקריטי וגם בטעות שמסכמת את השיעור בסוף. אם החניכים זוכרים דבר אחד בלבד, שיזכרו את זה.</p>
+  </div>
+
+  <div class="note red"><h3>חפיפה עם שיעור 6</h3>
+    <p>שיעור 6 (אנטנות והתקנה) מכסה חלק מאותם מושגים מזווית ההתקנה בשטח: מונופול, מישור הארקה בפועל ואזור פרנל. זהו <b>מסלול מקביל</b>, לא תנאי מוקדם. אם בקהל יש מי שעבר את שיעור 6, ציינו שההבדל הוא בכיוון: כאן מדידה והתאמה, שם מונופול והתקנה.</p>
+  </div>
+
+  <h2>חלוקת זמן מוצעת</h2>
+  <table>
+    <tr><th>חלק</th><th class="n">שק׳</th><th>מה עושים</th><th class="n">דקות</th></tr>
+    <tr><td class="k">פתיחה</td><td class="n">1</td><td>מה SWR מודד ומה לא</td><td class="n">5</td></tr>
+    <tr><td class="k">קדמי וחוזר</td><td class="n">2</td><td>יצירת גל עומד</td><td class="n">9</td></tr>
+    <tr><td class="k">SWR ו-Return Loss</td><td class="n">3</td><td>שתי דרכי הצגה לאותה החזרה</td><td class="n">8</td></tr>
+    <tr><td class="k">מלכודת ההתאמה</td><td class="n">4</td><td>SWR טוב ללא קרינה שימושית</td><td class="n">8</td></tr>
+    <tr><td class="k">סוגי אנטנות</td><td class="n">5–6</td><td>מונופול, דיפול ויאגי</td><td class="n">10</td></tr>
+    <tr><td class="k">תבנית וקיטוב</td><td class="n">7–11</td><td>כיוון, מישור הארקה והתקנה</td><td class="n">10</td></tr>
+    <tr><td class="k">סגירה</td><td class="n">11</td><td>בדיקת התקנה לפני ציוד</td><td class="n">5</td></tr>
+  </table>
+</div>
+
+<!-- 3 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">01 · שקופית 2</div>
+  <h1>גל קדמי וגל חוזר יוצרים מעטפת עומדת</h1><hr class="rule">
+  <div class="note teal" style="margin-bottom:14pt"><h3>פתיחה מומלצת</h3>
+    <p>האם SWR של 1:1 מוכיח שהאנטנה מקרינה היטב? הצבעה מהירה לפני ההסבר.</p>
+  </div>
+  <p>כאשר עומס הקצה שונה מהאימפדנס של הקו, חלק מהגל מוחזר. החיבור בין הגל הקדמי לגל החוזר יוצר נקודות מקסימום ומינימום קבועות במרחב לאורך הכבל.</p>
+
+  <div class="band sm">SWR נגזר מהיחס <span class="w">מקסימום / מינימום</span> של המעטפת.</div>
+
+  <div class="pc teal" style="margin:0 0 14pt"><h3>מקור ההחזרה</h3>
+    <p>מקור ההחזרה יכול להיות אנטנה לא מותאמת, מחבר פגום, מים בכבל, או שינוי סביבתי ליד האנטנה. ככל שההחזרה גדולה יותר, פחות הספק מגיע בפועל לאנטנה.</p>
+  </div>
+
+  <div class="note amber"><h3>אזהרת הוראה</h3>
+    <p>בתרשים, הגל הקדמי והגל החוזר מצוירים כשני גלים נפרדים כדי להקל על ההסבר. בפועל שניהם נמצאים על אותו קו ובאותו זמן; מה שנמדד בפועל הוא הסכום שלהם.</p>
+  </div>
+
+  <div class="note teal"><h3>חיבור למדידה</h3>
+    <p>מד ההספק בשטח מציג הספק קדמי והספק חוזר; NanoVNA מציג את אותה החזרה דרך S11, SWR או Return Loss.</p>
+  </div>
+</div>
+
+<!-- 4 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">02 · שקופית 3</div>
+  <h1>SWR ו-Return Loss מתארים אותה תופעה</h1><hr class="rule">
+  <p>שתי הסקאלות מתארות את אותה אי-התאמה משתי זוויות: SWR קרוב ל-1:1 פירושו מעט החזרה, Return Loss גבוה פירושו מעט החזרה. לאורך הקו, נקודות המקסימום והמינימום נשארות קבועות במרחב; רק המשרעת נושמת.</p>
+
+  <div class="cards">
+    <div class="pc amber"><h3>Return Loss</h3>
+      <p>נמדד ב-dB. מספר גדול יותר פירושו פחות הספק חוזר. מודד את היחס בין ההספק הקדמי להספק המוחזר.</p>
+    </div>
+    <div class="pc green"><h3>SWR</h3>
+      <p>1:1 הוא אידיאל של ללא החזרה. ככל שהיחס עולה, ההחזרה גדולה יותר.</p>
+    </div>
+  </div>
+
+  <div class="band"><span class="ltr">Γ = Vref / Vfwd</span></div>
+
+  <div class="note teal"><h3>הנחיית מדריך</h3>
+    <p>אל תעמיסו המרות מספריות. חשוב שהחניך יידע לזהות כיוון טוב/רע, ולקרוא סף לפי נוהל המערכת. הימנעו מקביעת סף "מותר/אסור" אוניברסלי: הסף תלוי בציוד ובמשימה, ושיעור האבחון ילמד השוואה לעקומת ייחוס.</p>
+  </div>
+
+  <div class="note teal"><h3>מישור מדידה</h3>
+    <p>התוצאה כוללת את כל מה שנמצא אחרי נקודת החיבור: מתאמים, כבל, מחברים ואנטנה.</p>
+  </div>
+</div>
+
+<!-- 5 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">03 · שקופית 4</div>
+  <h1>התאמה טובה אינה הוכחה לקרינה טובה</h1><hr class="rule">
+  <p>עומס תקני, נגד אובדני, או כבל שסופג את ההחזרה, יכולים להציג SWR מצוין. המדד אומר שההספק לא חזר לנקודת המדידה, לא לאן הוא הלך בפועל. זו אחת הנקודות החשובות ביותר בשיעור: NanoVNA אינו מודד יעילות קרינה או דפוס קרינה, רק החזרה בנקודת המדידה.</p>
+
+  <div class="cards">
+    <div class="pc green"><h3>אנטנה תקינה</h3>
+      <p>התאמה טובה וקרינה שימושית גם יחד: מעט החזרה, ורוב ההספק יוצא בפועל כקרינה.</p>
+    </div>
+    <div class="pc red"><h3>עומס דמה (Dummy Load)</h3>
+      <p>אותה התאמה טובה בדיוק, אבל כמעט בלי קרינה: מעט החזרה, ורוב ההספק הופך לחום. ה-SWR לבדו לא מבדיל בין שני המצבים.</p>
+    </div>
+  </div>
+
+  <div class="note amber"><h3>עדיין ייתכן</h3>
+    <p>נגד עומס, כבל אובדני, או גוף מתכתי קרוב יכולים להציג SWR נמוך בדיוק כמו אנטנה תקינה, כשהקרינה בפועל הולכת לכיוון הלא נכון או נבלעת כחום. כדי להעריך מערכת שלמה משלבים בדיקת החזרה, הספק קדמי, בדיקת כבל ובדיקת קשר בפועל.</p>
+  </div>
+
+  <div class="note teal"><h3>שאל את הקבוצה</h3>
+    <p>איזה ניסוי פשוט יבדיל בין אנטנה מקרינה לבין עומס תקני עם SWR מושלם?</p>
+  </div>
+</div>
+
+<!-- 6 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">04 · שקופיות <span class="ltr">5–6</span></div>
+  <h1>מבנה האנטנה קובע כיוון, קיטוב ורוחב פס</h1><hr class="rule">
+  <p>מונופול דורש מישור הארקה או קונטרה-פויז. דיפול משתמש בשתי זרועות מוזנות. ביאגי המחזיר נמצא מאחורי האלמנט המוזן, והדירקטורים הקצרים יותר מכוונים לעבר האונה הראשית. בוחרים סוג אנטנה לפי המשימה, לא לפי השאלה איזו אנטנה "חזקה יותר".</p>
+
+  <div class="cards three">
+    <div class="pc teal"><h3>אנכית, כיסוי היקפי</h3>
+      <p>מונופול או דיפול. מתאימה לרשת ניידת סביב התחנה. מונופול תלוי במישור הארקה מתאים.</p>
+    </div>
+    <div class="pc teal"><h3>כיוונית, רווח לכיוון אחד</h3>
+      <p>יאגי מרכזת אנרגיה בכיוון נבחר. דורשת כיוון וקיטוב מדויקים יותר.</p>
+    </div>
+    <div class="pc amber"><h3>קטנה, פשרה מכוונת</h3>
+      <p>שוט מקוצר: נוח לנשיאה, אך לרוב צר פס ופחות יעיל מאנטנה מלאה בתנאים דומים.</p>
+    </div>
+  </div>
+
+  <h2>מה כל מבנה עושה עם דפוס הקרינה</h2>
+  <table>
+    <tr><th>מבנה</th><th>תבנית הקרינה</th><th>המשמעות המעשית</th></tr>
+    <tr><td class="k">שוט / מונופול</td><td>כיסוי סביבתי, בקירוב רב-כיווני במבט אופקי</td><td>מתאים לתקשורת סביב נקודה; תלוי במישור הארקה.</td></tr>
+    <tr><td class="k">דיפול</td><td>שתי אונות עיקריות</td><td>מקסימום קרינה ניצב למוליך, מינימום לאורך הציר.</td></tr>
+    <tr><td class="k">יאגי</td><td>ריכוז לכיוון אחד</td><td>רווח קדמי גבוה יותר, במחיר כיוון ויישור מדויקים.</td></tr>
+  </table>
+
+  <div class="note amber"><h3>היקף ההוראה</h3>
+    <p>מתמקדים בשלוש המשפחות שהטכנאי עשוי לפגוש בפועל. HF ו-UHF אינם נדרשים בשיעור זה; אם עולה השאלה, השתמשו בהם רק כהשוואת קנה מידה.</p>
+  </div>
+
+  <div class="note teal"><h3>בדיקת הבנה</h3>
+    <p>אם מסובבים יאגי ב-180° במישור האופקי, הקיטוב נשאר זהה אך כיוון האונה הראשית מתהפך.</p>
+  </div>
+</div>
+
+<!-- 7 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">05 · שקופיות <span class="ltr">7–8</span></div>
+  <h1>קיטוב ומישור הארקה: ההתקנה משלימה את האנטנה</h1><hr class="rule">
+  <p>האנטנה אינה רכיב מבודד: האדם, הרכב, התורן והכבל הופכים לחלק מהסביבה החשמלית שלה. שני הגורמים הראשונים שקובעים אם הקישור יעבוד בכלל הם כיוון הקיטוב, והשלמת מסלול הזרם דרך מישור הארקה.</p>
+
+  <div class="cards">
+    <div class="pc teal"><h3>קיטוב</h3>
+      <p>כיוון האנטנה קובע את הקיטוב, ולכן את ההתאמה בין שני צדי הקישור. קיטוב נקבע בעיקר לפי כיוון השדה החשמלי; באנטנה לינארית הוא קשור לכיוון האלמנט. במערכת אנכית שומרים ככל האפשר על שתי האנטנות אנכיות. הטיה, נשיאת מכשיר צמוד לגוף, או התקנה עקומה, משנים את הקיטוב ואת תבנית הקרינה יחד.</p>
+    </div>
+    <div class="pc teal"><h3>מישור הארקה</h3>
+      <p>מונופול רבע-גל זקוק לחצי השני של המערכת. מישור הארקה או Counterpoise מספקים מסלול זרם, ומשפיעים גם על האימפדנס וגם על תבנית הקרינה. בלי משטח מתאים, הכבל והסביבה "משלימים" את האנטנה במקום, וכך נוצר זרם לא רצוי על מעטה הכבל.</p>
+    </div>
+  </div>
+
+  <div class="note teal"><h3>המשך משיעור 2</h3>
+    <p>המושג נשען על שיעור 2 (גלים והתפשטות VHF). אין צורך ללמד קיטוב מעגלי או אליפטי לקהל הזה; מספיק קיטוב לינארי, אנכי מול אופקי.</p>
+  </div>
+
+  <div class="note amber"><h3>לא להעמיק ב-Common Mode</h3>
+    <p>המסר שצריך לעבור הוא פשוט: מונופול אינו רק המוט. המשטח והכבל משפיעים על התוצאה בפועל, בלי צורך בהסבר מלא של Common Mode.</p>
+  </div>
+</div>
+
+<!-- 8 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">06 · שקופיות <span class="ltr">9–11</span></div>
+  <h1>כבל, הפרעות והתקנה: איפה עוד הקישור נחלש</h1><hr class="rule">
+  <p>גם אנטנה טובה מאבדת קישור דרך כבל ומחברים גרועים, מאבדת ביצועים מהפרעה של מערכת קרובה, ומשנה את עצמה כשמשנים את סביבת ההתקנה.</p>
+
+  <div class="cards three">
+    <div class="pc amber"><h3>קו התמסורת</h3>
+      <p>הפסד כבל גדל עם אורך ותדר; מחבר פגום מוסיף הפסד והחזרות. כל ממשק, מחבר או מתאם, מוסיף סיכון של אי-התאמה וקורוזיה. מים וכיפוף משנים את התכונות החשמליות ויוצרים תקלה לסירוגין.</p>
+    </div>
+    <div class="pc red"><h3>הפרעות באתר</h3>
+      <p>שתי מערכות תקינות יכולות להפריע זו לזו כשהן קרובות מדי. משדר חזק סמוך יכול להעמיס את חזית המקלט גם אם אינו על אותו ערוץ בדיוק. הסימן האופייני: הקישור נפגע רק כשהמערכת הסמוכה משדרת, וחוזר מיד כשהיא מפסיקה.</p>
+    </div>
+    <div class="pc teal"><h3>השפעת ההתקנה</h3>
+      <p>אותה אנטנה משנה כיסוי כשמשנים את סביבת ההתקנה. מישור הארקה, מתכת סמוכה וגובה משנים את זרמי האנטנה ואת תבנית הקרינה עצמה, לא רק חוסמים את הגל.</p>
+    </div>
+  </div>
+
+  <div class="note amber"><h3>היקף החומר</h3>
+    <p>הימנעו מטבלאות הפסד מפורטות לפי סוג כבל אם אינן חלק מהערכה, וכן מהמושגים Intermodulation Order או IP3. המטרה כאן היא לזהות תלות בין זמן השידור של מערכת אחת לפגיעה במערכת אחרת; שיעור האבחון ילמד השוואה לקו ייחוס.</p>
+  </div>
+
+  <div class="note teal"><h3>מה הטכנאי בודק בפועל</h3>
+    <p>מרחק בין אנטנות קרובות, כיוון, מצב כבלים ומחברים, ותלות הזמן בין שידור מערכת אחת לפגיעה בשנייה. בתרשים ההתקנה אין להסיק צורה כמותית; מטרתו להמחיש שההתקנה משנה את האנטנה עצמה, לא רק חוסמת את הגל.</p>
+  </div>
+</div>
+
+<!-- 9 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">סיום · מפת העברה</div>
+  <h1>מהלך המצגת ונקודות אימות</h1><hr class="rule">
+
+  <table>
+    <tr><th class="n">שק׳</th><th>נושא</th><th>נקודת אימות</th></tr>
+    <tr><td class="n">1</td><td class="k">שער</td><td>הגדר את שאלת ה-1:1.</td></tr>
+    <tr><td class="n">2</td><td class="k">גל קדמי וחוזר</td><td>הצג חיבור שני גלים על הקו.</td></tr>
+    <tr><td class="n">3</td><td class="k">גל עומד</td><td>מקסימום ומינימום קבועים במרחב.</td></tr>
+    <tr><td class="n">4</td><td class="k">SWR</td><td>יחס בין קיצוני המעטפת.</td></tr>
+    <tr><td class="n">5</td><td class="k">Return Loss</td><td>אותה החזרה בסולם dB.</td></tr>
+    <tr><td class="n">6</td><td class="k">מה המדד לא אומר</td><td>התאמה אינה יעילות.</td></tr>
+    <tr><td class="n">7</td><td class="k">מונופול ודיפול</td><td>מהו המסלול החוזר בכל מבנה.</td></tr>
+    <tr><td class="n">8</td><td class="k">יאגי</td><td>מחזיר מאחור, מוזן, דירקטורים קדימה.</td></tr>
+    <tr><td class="n">9</td><td class="k">תבניות קרינה</td><td>אונה עיקרית ואזורים חלשים.</td></tr>
+    <tr><td class="n">10</td><td class="k">קיטוב</td><td>כיוון השדה חייב להתאים.</td></tr>
+    <tr><td class="n">11</td><td class="k">עולם אמיתי</td><td>מתכת, כבל, מים, גובה ומיקום.</td></tr>
+  </table>
+
+  <h2>מילון קצר למדריך</h2>
+  <div class="cards">
+    <div style="flex:1">
+      <p><b>SWR:</b> יחס גל עומד על הקו.</p>
+      <p><b>קדמי:</b> הגל מהמשדר אל העומס.</p>
+      <p><b>מונופול:</b> אלמנט עם מישור הארקה/קונטרה-פויז.</p>
+      <p><b>קיטוב:</b> כיוון השדה החשמלי.</p>
+    </div>
+    <div style="flex:1">
+      <p><b>Return Loss:</b> החזרה בסולם dB; גבוה יותר טוב.</p>
+      <p><b>חוזר:</b> הגל מהעומס אל המקור.</p>
+      <p><b>דיפול:</b> שתי זרועות מוזנות.</p>
+      <p><b>יאגי:</b> מערך כיווני עם מחזיר ודירקטורים.</p>
+    </div>
+  </div>
+
+  <div class="note green"><h3>שאלת סיום</h3>
+    <p>תן שלוש דוגמאות למערכת עם SWR טוב אך ביצועי קשר גרועים.</p>
+  </div>
+
+  <div class="note red"><h3>טעות שאסור להשאיר</h3>
+    <p>לא להפוך SWR למדד יחיד לאיכות אנטנה. הוא מתאר החזרה בנקודת המדידה, לא יעילות, לא כיוון קרינה ולא איכות הקישור.</p>
+  </div>
+</div>
+
+</body></html>

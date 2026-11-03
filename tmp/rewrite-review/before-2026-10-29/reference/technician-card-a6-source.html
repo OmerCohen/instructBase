@@ -1,0 +1,136 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>דפית טכנאי · A6 דו-צדדית</title>
+<!--
+  דפית טכנאי A6 - מקור ניתן לעריכה
+  ================================
+  עמוד 1 = צד א' (פקודות אבחון ב-Windows)
+  עמוד 2 = צד ב' (נוהל איתור תקלות רשת - סביבה סטטית, בלי DHCP)
+
+  הדפסה: A6, דו-צדדי, היפוך בצד הקצר (flip on short edge).
+  רינדור מחדש אחרי עריכה:
+      weasyprint technician-card-a6-source.html technician-card-a6.pdf
+
+  --- כללי עיצוב שחייבים להישמר ---
+  1. שחור-לבן: הצבע כאן הוא קישוט בלבד. שום מידע לא נשען על צבע - כל הבחנה
+     נושאת גם תווית טקסט, מספר או משקל גופן. כל צמד טקסט/רקע נבדק ליחס
+     ניגודיות >= 4.5:1, ולכן נשאר קריא גם בהמרה לגווני אפור.
+     אין להשתמש בטקסט צבעוני בהיר על רקע צבעוני בהיר.
+  2. אין SVG לטקסט עברי: WeasyPrint לא מריץ bidi בתוך SVG והעברית מתהפכת.
+  3. הפלטה זהה לדפי ההנחיה: כהה #0f2740, טורקיז #0f8793, ענבר #b07414,
+     אדום #c0374b.
+-->
+<style>
+@page{size:105mm 148mm;margin:12pt 13pt 11pt 13pt}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Liberation Sans",Arial,sans-serif;color:#1b2a38;font-size:6.1pt;line-height:1.3;direction:rtl;
+     -webkit-print-color-adjust:exact;print-color-adjust:exact}
+.pg{page-break-after:always}
+.pg:last-child{page-break-after:auto}
+
+.hdr{background:#0f2740;border-radius:5pt;padding:3pt 7pt;margin:0 0 4pt;display:flex;align-items:center;gap:6pt}
+.hdr .crest{background-image:url(data:image/png;base64,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);background-size:contain;background-position:center;background-repeat:no-repeat;width:14pt;height:20pt;flex:0 0 auto}
+.hdr b{color:#7fe3ef;font-size:8.6pt;flex:1;min-width:0;line-height:1.2}
+.hdr .unit{flex:0 0 auto;text-align:left;line-height:1.16}
+.hdr .unit strong{display:block;color:#fff;font-size:6pt;font-weight:bold}
+.hdr .unit i{display:block;color:#c8d6e2;font-size:5pt;font-style:normal}
+
+.flow{display:flex;align-items:center;justify-content:center;gap:2pt;margin:0 0 4pt;flex-wrap:nowrap}
+.flow i{font-style:normal;color:#5b7186;font-size:6pt}
+.flow span{border:0.8pt solid #0f6f7a;background:#e9f4f7;color:#0f2740;border-radius:3pt;padding:1.5pt 3.5pt;font-weight:bold;font-size:5.8pt;white-space:nowrap}
+
+table{width:100%;border-collapse:collapse;font-size:5.9pt;margin:0 0 3.5pt}
+th,td{border:0.6pt solid #c7d2db;padding:1.5pt 3pt;text-align:right;vertical-align:top}
+th{background:#e4edf3;color:#0f2740;font-weight:bold;font-size:6pt}
+td.k{font-weight:bold;color:#0f2740;white-space:nowrap}
+td.grp{background:#0f2740;color:#7fe3ef;font-weight:bold;text-align:center;font-size:5.8pt;padding:1pt 2pt}
+td.st{background:#0f2740;color:#fff;font-weight:bold;text-align:center;width:12pt;font-size:6.4pt;vertical-align:middle}
+.cmd{direction:ltr;unicode-bidi:embed;display:inline-block;font-family:"Liberation Mono","Consolas",monospace;font-size:5.7pt;color:#0f2740;background:#eef2f6;border:0.4pt solid #c7d2db;border-radius:2pt;padding:0 2pt;white-space:nowrap}
+.ltr{direction:ltr;unicode-bidi:embed;display:inline-block}
+
+/* קופסאות הדגשה: הרקע והפס הם קישוט; המילה המודגשת בפתיחה נושאת את המשמעות */
+.warn{border-radius:4pt;padding:2.8pt 6pt;margin:0 0 2.8pt;position:relative;overflow:hidden;font-size:5.8pt;line-height:1.33;color:#2c3f4f;border:0.5pt solid #c7d2db}
+.warn::after{content:"";position:absolute;top:0;bottom:0;right:0;width:3pt}
+.warn.teal{background:#e9f4f7}.warn.teal::after{background:#0f6f7a}
+.warn.amber{background:#fbf1e0}.warn.amber::after{background:#b07414}
+.warn.red{background:#fbe9ec}.warn.red::after{background:#c0374b}
+.warn b{color:#0f2740}
+
+.foot{color:#5b7186;font-size:5pt;text-align:center;margin-top:2pt}
+
+.lead{font-size:6pt;line-height:1.35;margin:0 0 3.5pt;color:#2c3f4f}
+.lead b{color:#0f2740}
+.keys{margin:0 0 3pt;padding:0;list-style:none}
+.keys li{position:relative;padding-right:8pt;margin-bottom:1.5pt;font-size:5.85pt;line-height:1.32;color:#2c3f4f}
+.keys li::before{content:"■";position:absolute;right:0;top:-0.3pt;font-size:4.6pt;color:#0f2740}
+.keys b{color:#0f2740}
+</style></head><body>
+
+<!-- ═══════════ צד א' · פקודות ═══════════ -->
+<div class="pg">
+  <div class="hdr"><span class="crest" role="img" aria-label="סמל היחידה"></span><b>פקודות אבחון ב-Windows</b><span class="unit"><strong>גדס״ם 5059</strong><i>מחלקת תקשוב</i></span></div>
+
+  <div class="flow"><span>Link</span><i>←</i><span>כתובת</span><i>←</i><span>שכן</span><i>←</i><span>נתיב</span><i>←</i><span>שם</span><i>←</i><span>שירות</span><i>←</i><span>זהות</span></div>
+
+  <table>
+    <tr><th style="width:37%">פקודה</th><th>מה זה מוכיח - ומה לא</th></tr>
+    <tr><td class="grp" colspan="2">Link ומתאם</td></tr>
+    <tr><td class="k"><span class="cmd">Get-NetAdapter</span></td><td>‏Status ו-LinkSpeed. קצב נמוך = כבל חשוד. ‏Up אינו מוכיח VLAN, ‏IP או מסלול.</td></tr>
+    <tr><td class="grp" colspan="2">כתובת</td></tr>
+    <tr><td class="k"><span class="cmd">ipconfig /all</span></td><td>‏IP, מסכה, שער, DNS. בסביבה סטטית - להשוות לתכנון ערך-ערך.</td></tr>
+    <tr><td class="k"><span class="cmd">DHCP Enabled</span> בפלט</td><td>אמור להיות <span class="cmd">No</span>. ‏<span class="cmd">Yes</span> או <span class="ltr">169.254</span> = הכרטיס הועבר לאוטומטי, ואין שרת שיענה.</td></tr>
+    <tr><td class="grp" colspan="2">שכנות מקומית</td></tr>
+    <tr><td class="k"><span class="cmd">arp -a</span></td><td>‏MAC לכל IP מקומי. כתובת אחת עם שני MAC = כפילות.</td></tr>
+    <tr><td class="grp" colspan="2">נתיב</td></tr>
+    <tr><td class="k"><span class="cmd">ping 127.0.0.1</span> ← שער ← יעד</td><td>‏ICMP בלבד: כישלון ≠ יעד כבוי, הצלחה ≠ שירות.</td></tr>
+    <tr><td class="k"><span class="cmd">tracert &lt;יעד&gt;</span></td><td>מי השיב לאורך הדרך. כוכבית אינה בהכרח תקלה.</td></tr>
+    <tr><td class="k"><span class="cmd">route print</span></td><td>איזה שער ייבחר; הנתיב הספציפי גובר על ברירת המחדל.</td></tr>
+    <tr><td class="grp" colspan="2">שם (DNS)</td></tr>
+    <tr><td class="k"><span class="cmd">Resolve-DnsName &lt;שם&gt;</span></td><td>מי ענה, איזו רשומה, איזו כתובת. ‏DNS ≠ השירות עצמו.</td></tr>
+    <tr><td class="k"><span class="cmd">ipconfig /displaydns</span> · <span class="cmd">/flushdns</span></td><td>מה שמור בזיכרון / ניקוי לפני בדיקה חוזרת.</td></tr>
+    <tr><td class="grp" colspan="2">שירות (פורט)</td></tr>
+    <tr><td class="k"><span class="cmd">Test-NetConnection &lt;יעד&gt; -Port n</span></td><td>‏<span class="ltr">TcpTestSucceeded</span> = פורט נפתח. לא בדיקת יישום.</td></tr>
+    <tr><td class="k"><span class="cmd">Get-NetTCPConnection</span></td><td>‏Listen = שירות מחכה; ‏Established = חיבור חי.</td></tr>
+    <tr><td class="grp" colspan="2">זהות ו-Domain</td></tr>
+    <tr><td class="k"><span class="cmd">w32tm /query /status</span></td><td>הפרש שעון מול המקור; מעל ~5 דקות Kerberos נופל.</td></tr>
+    <tr><td class="k"><span class="cmd">nltest /dsgetdc:&lt;domain&gt;</span></td><td>איתור DC דרך DNS ‏(SRV).</td></tr>
+    <tr><td class="k"><span class="cmd">nltest /sc_verify:&lt;domain&gt;</span></td><td>ערוץ האמון של חשבון המחשב. לקרוא את השורות - לא את ״הצליחה״.</td></tr>
+    <tr><td class="k"><span class="cmd">klist</span></td><td>כרטיסי Kerberos שהתקבלו בפועל.</td></tr>
+  </table>
+
+  <div class="warn amber"><b>שלושה כללים:</b> כל בדיקה מוכיחה רק את מה שהיא בודקת · בודקים גם את התוכן וגם את שורת הסיום · משנים דבר אחד בכל פעם ומתעדים.</div>
+  <div class="foot">דפית טכנאי · צד א' · הדפסה דו-צדדית A6</div>
+</div>
+
+<!-- ═══════════ צד ב' · נוהל ═══════════ -->
+<div class="pg">
+  <div class="hdr"><span class="crest" role="img" aria-label="סמל היחידה"></span><b>נוהל איתור תקלות רשת · כתובות סטטיות</b><span class="unit"><strong>גדס״ם 5059</strong><i>מחלקת תקשוב</i></span></div>
+
+  <p class="lead">הרשת שלנו <b>ללא DHCP</b>: כל כתובת, מסכה, שער ו-DNS הוקלדו ביד בכל תחנה. לכן משווים את ההגדרות לתכנון.</p>
+
+  <div class="warn amber">
+    <b>מה שונה בסביבה סטטית</b>
+    <ul class="keys" style="margin-top:1.5pt;margin-bottom:0">
+      <li><b>בדקו תחילה טעויות הקלדה.</b> ספרה אחת במסכה או בשער מספיקה.</li>
+      <li>אין שרת הקצאה: תחנה שהועברה ל״קבל כתובת אוטומטית״ תיפול ל-<span class="ltr">169.254</span> <b>ותישאר שם</b>.</li>
+      <li><b>כפילות כתובת שכיחה</b> - אין הקצאה מרכזית. שתי תחנות, אותה כתובת, תקלה לסירוגין.</li>
+      <li>שינוי תכנון (DNS או שער חדש) = עדכון ידני בכל תחנה. תחנה שפוספסה נשארת עם ערך ישן ו<b>נראית כמו תקלת שרת</b>.</li>
+      <li>החלפת כרטיס רשת או צריבת תמונה <b>מאפסת את ההגדרה</b>. לתעד את הכתובת לפני כל שינוי.</li>
+    </ul>
+  </div>
+
+  <table>
+    <tr><th class="n" style="width:12pt">#</th><th style="width:44%">מה עושים</th><th>הממצא שמפנה הלאה</th></tr>
+    <tr><td class="st">0</td><td class="k">תסמין מדויק · היקף (תחנה / כמה / כולם) · מה השתנה מאז שעבד</td><td>בלי תסמין מדויק אין אבחון. ההיקף עוזר להבחין בין תקלה מקומית למרכזית.</td></tr>
+    <tr><td class="st">1</td><td class="k">תחנה תקינה באותה רשת = הייחוס. להשוות אליה.</td><td>הפער מול הייחוס הוא רשימת החשודים.</td></tr>
+    <tr><td class="st">2</td><td class="k">פיזי: נורות, ‏Link וקצב, כבל, שקע ופורט</td><td>אין Link - לא ממשיכים למעלה. קצב נמוך = כבל.</td></tr>
+    <tr><td class="st">3</td><td class="k">הכתובת מול התכנון: ‏IP · מסכה · שער · DNS</td><td>ערך שלא תואם, כפילות, או <span class="ltr">169.254</span> = הכרטיס באוטומטי.</td></tr>
+    <tr><td class="st">4</td><td class="k">שכנות וניתוב: שער · <span class="cmd">arp -a</span> · יעד מחוץ לרשת</td><td>שער לא עונה = מקומי. שער כן, חוץ לא = ניתוב או מסכה.</td></tr>
+    <tr><td class="st">5</td><td class="k">שם ושירות: פתרון שם, ואז פורט</td><td>כתובת עובדת ושם נכשל = ‏DNS. שם עובד ופורט לא = השירות.</td></tr>
+    <tr><td class="st">6</td><td class="k">זהות: שעה · ערוץ אמון · כרטיסים</td><td>משתמש מקומי נכנס ורשתי לא = בדקו את תשתיות הזהות והאימות.</td></tr>
+  </table>
+
+  <div class="warn red"><b>אסור:</b> לשנות כתובת בלי לתעד את הקודמת · לשנות שני דברים יחד · ״לנסות אוטומטי״ כפתרון - אין שרת שיענה.</div>
+  <div class="warn teal"><b>להעברה לצוות המטפל:</b> תסמין, היקף, מה נבדק, מה הוחלף, מה יצא. צרפו את תוצאות הבדיקות.</div>
+  <div class="foot">דפית טכנאי · צד ב' · מבוסס שיעורי רשתות <span class="ltr">1-5</span> ו-7 · הדפסה דו-צדדית A6</div>
+</div>
+
+</body></html>

@@ -1,0 +1,302 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>שכבה פיזית וכבילה</title><style>
+@page{size:A4;margin:52pt 54pt 46pt 54pt;
+  @bottom-right{content:"מחלקת תקשוב · שכבה פיזית וכבילה · שיעור 7";
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:right;vertical-align:top;padding-top:10pt;direction:rtl}
+  @bottom-left{content:counter(page) " / " counter(pages);
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:left;vertical-align:top;padding-top:10pt;direction:ltr}}
+@page:first{@bottom-right{content:""}@bottom-left{content:""}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Liberation Sans",Arial,sans-serif;color:#1b2a38;font-size:10pt;line-height:1.55;direction:rtl}
+.pg{page-break-after:always}
+.pg:last-child{page-break-after:auto}
+.eyebrow{font-size:9pt;font-weight:bold;color:#0f2740;margin-bottom:9pt}
+h1{font-size:20pt;font-weight:bold;margin:0 0 14pt;color:#0f2740;line-height:1.24;text-align:center}
+h2{font-size:13pt;margin:16pt 0 8pt;color:#0f2740;font-weight:bold}
+.rule{border:0;border-top:1px solid #dbe3ea;margin:0 0 16pt}
+p{margin:0 0 7pt}
+ul{margin:0 0 7pt;padding-right:15pt}
+li{margin-bottom:4pt}
+.chips{display:flex;gap:11pt;margin:0 0 16pt}
+.chip{flex:1;background:#0f2740;border-radius:6pt;padding:11pt 8pt;text-align:center}
+.chip b{display:block;font-size:14pt;color:#3fd0e0;line-height:1.15}
+.chip span{display:block;font-size:8.5pt;color:#b6c6d4;margin-top:3pt}
+.cards{display:flex;gap:11pt;margin:0 0 14pt}
+.cards.three>*{flex:1}
+.cards>*{flex:1;min-width:0}
+.pc{border-radius:7pt;padding:10pt 13pt;position:relative;overflow:hidden}
+.pc::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.pc h3{margin:0 0 5pt;font-size:10pt;font-weight:bold}
+.pc p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.pc p:last-child{margin-bottom:0}
+.pc.teal{background:#e9f4f7}.pc.teal::after{background:#0f8793}.pc.teal h3{color:#0f6f7a}
+.pc.amber{background:#fdf4e6}.pc.amber::after{background:#e0a038}.pc.amber h3{color:#a8701a}
+.pc.red{background:#fdeef0}.pc.red::after{background:#d9556a}.pc.red h3{color:#a83a4c}
+.pc.green{background:#eef7f0}.pc.green::after{background:#4a9c62}.pc.green h3{color:#2f7546}
+.note{border-radius:7pt;padding:9pt 13pt;margin:0 0 10pt;position:relative;overflow:hidden}
+.note::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.note h3{margin:0 0 4pt;font-size:9pt;font-weight:bold;letter-spacing:.02em}
+.note p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.note p:last-child{margin-bottom:0}
+.note.teal{background:#e9f4f7}.note.teal::after{background:#0f8793}.note.teal h3{color:#0f6f7a}
+.note.amber{background:#fdf4e6}.note.amber::after{background:#e0a038}.note.amber h3{color:#a8701a}
+.note.red{background:#fdeef0}.note.red::after{background:#d9556a}.note.red h3{color:#a83a4c}
+.note.green{background:#eef7f0}.note.green::after{background:#4a9c62}.note.green h3{color:#2f7546}
+.band{background:#0f2740;border-radius:8pt;padding:14pt 18pt;margin:0 0 14pt;text-align:center;
+  color:#3fd0e0;font-size:16pt;font-weight:bold}
+.band.sm{font-size:12.5pt;padding:11pt 16pt}
+.band .w{color:#fff}
+table{width:100%;border-collapse:collapse;font-size:9pt;margin:0 0 11pt}
+th,td{border:1px solid #dbe3ea;padding:5pt 8pt;text-align:right;vertical-align:top}
+th{background:#eef4f8;color:#0f6f7a;font-weight:bold}
+td.k{font-weight:bold;color:#0f2740}
+td.n,th.n{text-align:center;width:52pt;white-space:nowrap;direction:ltr;unicode-bidi:embed}
+.ltr{direction:ltr;unicode-bidi:embed;display:inline-block}
+.title-pg{height:660pt;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.title-pg .kick{font-size:10pt;color:#0f8793;font-weight:bold;margin-bottom:20pt}
+.title-pg h1{font-size:27pt;margin-bottom:12pt}
+.title-pg .sub{font-size:12pt;color:#5b7186;margin:0 auto 26pt;max-width:400pt;line-height:1.55}
+.title-pg .meta{font-size:9.5pt;color:#5b7186}
+</style></head><body>
+
+<!-- 1 ─────────────────────────── -->
+<div class="pg title-pg">
+  <div class="kick">מחלקת תקשוב · רשתות · דף הנחיה למדריך</div>
+  <h1>שכבה פיזית וכבילה</h1>
+  <div class="sub">זוגות שזורים, מחברים, סיב, נורות ו-Auto-Negotiation: איך האות עובר בכבל, מה עלול להיפגע ואיך בודקים.</div>
+  <div class="chips" style="max-width:400pt;margin:0 auto">
+    <div class="chip"><b>שטח</b><span>רמת המיקוד</span></div>
+    <div class="chip"><b>13</b><span>שקופיות</span></div>
+    <div class="chip"><b>50 דקות</b><span>משך מומלץ</span></div>
+  </div>
+  <div class="meta" style="margin-top:20pt">מותאם לטכנאי שטח · סביבת Windows מנוהלת</div>
+</div>
+
+<!-- 2 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">00 · בריף למדריך</div>
+  <h1>לפני שמתחילים</h1><hr class="rule">
+  <div class="chips">
+    <div class="chip"><b>שטח</b><span>רמת המיקוד</span></div>
+    <div class="chip"><b>13</b><span>שקופיות כולל שער</span></div>
+    <div class="chip"><b>50 דקות</b><span>משך מומלץ</span></div>
+  </div>
+
+  <div class="cards">
+    <div style="flex:1">
+      <h2 style="margin-top:0">מטרת השיעור</h2>
+      <p>לתת בסיס מעשי לכלל ״הפיזי קודם״ של שיעור 5: מה בודקים, למה דווקא שם, ומה כל בדיקה מוכיחה.</p>
+      <div class="note teal"><h3>מה החניך צריך לדעת</h3>
+        <p>בסיום החניך יסביר למה השזירה מגינה מהפרעות, יבדוק כבל ומחבר בעין וביד, יקרא LinkSpeed כראיה, יפעיל טסטר גידים ויריץ החלפה מבוקרת - שינוי אחד בכל פעם.</p>
+      </div>
+    </div>
+    <div style="flex:1">
+      <h2 style="margin-top:0">הכנה מראש</h2>
+      <ul>
+        <li>להביא לכיתה: כבל תקין, כבל עם תפס שבור, מחבר RJ45 חתוך וטסטר גידים.</li>
+        <li>אם יש - קטע סיב ומודול SFP להעברה בין הידיים (מנותקים בלבד).</li>
+        <li>לחזור על שקופיות הבדיקה החזותית משיעור אבחון בשטח ברדיו - ההקבלה מפורשת.</li>
+      </ul>
+      <div class="note amber"><h3>היקף השיעור</h3>
+        <p>לא מלמדים תכנון כבילה מבנית, לא הסמכת קווים, לא אלחוט ולא סוגי סיב. סדר הצבעים T568B לא נלמד בעל פה - רק העיקרון ששני קצוות חייבים להתאים.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>חלוקת זמן מוצעת</h2>
+  <table>
+    <tr><th>חלק</th><th>מה מעבירים</th><th class="n">דקות</th></tr>
+    <tr><td class="k">פתיחה</td><td>למה פיזי קודם: שכיחות, עלות בדיקה ומיקום בשרשרת</td><td class="n">6</td></tr>
+    <tr><td class="k">בתוך הכבל</td><td>זוגות שזורים וביטול הפרעות; מה הורס את ההגנה</td><td class="n">8</td></tr>
+    <tr><td class="k">מחבר וסיב</td><td>הסנטימטר האחרון; נחושת מול סיב ובטיחות לייזר</td><td class="n">10</td></tr>
+    <tr><td class="k">Link ומו״מ</td><td>מה הנורה מוכיחה; קצב נמוך ו-Duplex Mismatch</td><td class="n">8</td></tr>
+    <tr><td class="k">מסלול וכלים</td><td>שקע-פאנל-מתג, PoE, טסטר והחלפה מבוקרת</td><td class="n">12</td></tr>
+    <tr><td class="k">סגירה</td><td>עץ אבחון, גבולות, חיבור לשאר המסלול</td><td class="n">6</td></tr>
+  </table>
+
+  <div class="note green"><h3>פתיחה מומלצת</h3>
+    <p>הרימו כבל עם תפס שבור ושאלו: איך מחבר כזה יכול לגרום להודעת ״השרת לא זמין״?</p>
+  </div>
+</div>
+
+<!-- 3 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">01 · למה פיזי קודם</div>
+  <h1>מתחילים בכבלים ובמחברים</h1><hr class="rule">
+  <p>כבלים ומחברים הם החלקים היחידים ברשת שמזיזים, דורכים עליהם ומנתקים כל יום. אפשר להתחיל בבדיקה פשוטה - עין, יד ונורה - וכל השכבות שמעל נשענות עליהם.</p>
+
+  <div class="band sm">אין טעם לתחקר DNS כשאין Link, <span class="w">ואין טעם לתחקר Link כשהמחבר שבור בעין</span></div>
+
+  <div class="cards">
+    <div class="pc teal"><h3>ההקבלה לרדיו</h3>
+      <p>שיעור אבחון בשטח ברדיו התחיל בהסתכלות: אטימה, כיפוף חד, מתיחה ליד המחבר. אותן בדיקות מתאימות גם לכבלי רשת. חניך שעבר את שני המסלולים צריך לזהות תורת אחזקה אחת.</p>
+    </div>
+    <div class="pc amber"><h3>ולמה לא ״תמיד כבל״</h3>
+      <p>הפיזי קודם כי הוא זול ושכיח - לא כי הוא תמיד האשם. אחרי שנשלל, ממשיכים במעלה השכבות בסדר של שיעור 5. הסדר חוסך זמן; הוא לא מחליף את התהליך.</p>
+    </div>
+  </div>
+
+  <div class="note green"><h3>איך להעביר</h3>
+    <p>שאלו מי פתר פעם תקלת ״שרת לא זמין״ בהחלפת כבל. בקשו לתאר מה עזר לזהות שהכבל תקול.</p>
+  </div>
+</div>
+
+<!-- 4 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">02 · בתוך הכבל ובקצה</div>
+  <h1>השזירה מגינה; המחבר הוא נקודת התורפה</h1><hr class="rule">
+  <p>האות משודר כהפרש בין שני גידי הזוג. הפרעה חיצונית פוגעת בשני הגידים כמעט שווה - ובהפרש היא נעלמת. לכן שזירה שנפתחה, זוג שפוצל או כבל פרום מחזירים את הרגישות לרעש.</p>
+
+  <div class="cards">
+    <div class="pc teal"><h3>מה הורס את ההגנה</h3>
+      <p>יותר מסנטימטר של גידים פרומים לפני הפינים, כיפוף חד שמעוות את הגיאומטריה, ומעיכה (גלגל כיסא, דלת). הכבל ״עובד״ - ורגיש פתאום לכל מקור רעש בסביבה.</p>
+    </div>
+    <div class="pc red"><h3>הסנטימטר האחרון</h3>
+      <p>תפס שבור = מחבר שמחזיק בחיכוך ונשלף ממגע: גורם אפשרי לניתוקים לסירוגין. קרימפ לא מלא = פין תלוי שעובד בקור ומנתק בחום. כבל חשוד מחליפים ומסמנים - לא מתקנים בשטח.</p>
+    </div>
+  </div>
+
+  <h2>נחושת מול סיב - ההחלטה לפי מרחק וסביבה</h2>
+  <table>
+    <tr><th></th><th>זוגות שזורים</th><th>סיב אופטי</th></tr>
+    <tr><td class="k">טווח מעשי</td><td>עד <span class="ltr">100</span> מטר לקטע</td><td>מאות מטרים עד קילומטרים</td></tr>
+    <tr><td class="k">הפרעות חשמליות</td><td>קיימות; השזירה מקטינה</td><td>אין - אור לא מושפע משדות</td></tr>
+    <tr><td class="k">נקודת תורפה</td><td>מחברים ומתיחה</td><td>כיפוף חד ולכלוך בפני המחבר</td></tr>
+    <tr><td class="k">חיבור למתג</td><td>RJ45 ישיר</td><td>מודול SFP מתאים לסוג הסיב</td></tr>
+  </table>
+
+  <div class="note red"><h3>בטיחות - לומר במפורש</h3>
+    <p>לעולם לא מסתכלים לתוך סיב או מודול SFP פעילים. הלייזר אינו נראה ואינו כואב, והנזק לעין אמיתי. סיב בודקים בציוד, לא בעין.</p>
+  </div>
+</div>
+
+<!-- 5 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">03 · Link ומשא ומתן</div>
+  <h1>נורת Link אינה מדד לאיכות הקישור</h1><hr class="rule">
+  <p>שני הצדדים מנהלים Auto-Negotiation וסוגרים קצב ו-Duplex. ‏Link Up מוכיח רצף חשמלי והסכמה על קצב - ולא VLAN, כתובת, ניתוב או איכות תחת עומס.</p>
+
+  <div class="cards">
+    <div class="pc amber"><h3>קצב שננעל נמוך</h3>
+      <p><span class="ltr">100 Mbps</span> במקום <span class="ltr">1 Gbps</span> הוא ממצא, לא ״לאט אבל עובד״: לרוב זוג פגום - הקישור ויתר על הזוגות שלא עברו. ‏LinkSpeed של שיעור 4 הופך כאן לראיה.</p>
+    </div>
+    <div class="pc red"><h3>Duplex Mismatch</h3>
+      <p>צד אחד קבוע ידנית והשני מנחש - התקן מפיל את המנחש ל-Half. התוצאה: עובד, אבל איטי ומקוטע תחת עומס. התלונה נשמעת ״שרת איטי״; המקור בשכבה 1.</p>
+      <p>ההנחיה: ‏Auto בשני הצדדים או קבוע בשניהם. לעולם לא מעורב.</p>
+    </div>
+  </div>
+
+  <h2>המסלול המלא: יותר מכבל אחד</h2>
+  <p>תחנה ← כבל גישור ← שקע קיר ← כבילה קבועה ← ‏Patch Panel ← כבל גישור ← מתג. כל מקטע חשוד נפרד; שני כבלי הגישור בקצוות מחליפים בקלות, הכבילה הקבועה - רק עם ראיה.</p>
+
+  <div class="note amber"><h3>כלל ארון התקשורת</h3>
+    <p>המספור מאפשר לעקוב אחר החיבור: שקע 14 בקיר מגיע לפורט 14 בפאנל. ולא מנתקים כבל שלא אתם חיברתם בלי לדעת מה בקצה השני - גם לא ״רק לרגע״.</p>
+  </div>
+
+  <div class="note teal"><h3>‏PoE בקצרה</h3>
+    <p>אותם גידים מעבירים גם הזנה לטלפון, מצלמה או נקודת גישה. מכשיר כזה שאינו נדלק - החשודים כוללים גם את ההזנה: תקציב שנגמר במתג, יציאה שאינה תומכת או כבל גרוע מדי. ראיה מהירה: אותו מכשיר ביציאת PoE אחרת שעובדת.</p>
+  </div>
+</div>
+
+<!-- 6 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">04 · כלים וסדר בדיקה</div>
+  <h1>טסטר בודק רציפות; החלפה מבוקרת עוזרת לבודד תקלה</h1><hr class="rule">
+
+  <div class="cards">
+    <div class="pc teal"><h3>טסטר גידים (Wiremap)</h3>
+      <p>נורית לכל גיד: מגלה נתק, קצר וזוגות מוחלפים. הגבול שלו: הוא בודק רצף בזרם זעיר, לא ביצועים ברוחב פס מלא. כבל יכול לעבור טסטר ולהיכשל בקצב מלא - ״עבר טסטר״ + קצב נמוך = עדיין מחליפים.</p>
+    </div>
+    <div class="pc green"><h3>החלפה מבוקרת</h3>
+      <p>מחליפים רק את הכבל החשוד בידוע-תקין ובודקים שוב. שינוי אחד בכל פעם - בדיוק כמו בתהליך של שיעור 5. עבד? מסמנים את הפגום, מוציאים מהמחזור ומתעדים. אל תחזירו כבל פגום לשימוש.</p>
+    </div>
+  </div>
+
+  <h2>עץ האבחון של השיעור</h2>
+  <table>
+    <tr><th class="n">שלב</th><th>פעולה</th><th>מה זה מבודד</th></tr>
+    <tr><td class="n">1</td><td class="k">עין ויד</td><td>מחברים, תפס, כיפוף, מתיחה - בשני הקצוות</td></tr>
+    <tr><td class="n">2</td><td class="k">נורה וקצב</td><td>יש Link? ‏LinkSpeed כצפוי?</td></tr>
+    <tr><td class="n">3</td><td class="k">כבל גישור</td><td>החלפה מבוקרת בידוע-תקין</td></tr>
+    <tr><td class="n">4</td><td class="k">שקע אחר</td><td>אותה תחנה, נקודה אחרת - מפריד שקע מתחנה</td></tr>
+    <tr><td class="n">5</td><td class="k">תחנה אחרת</td><td>מפריד תחנה מתשתית</td></tr>
+    <tr><td class="n">6</td><td class="k">הסלמה</td><td>מספרי שקע ופורט + כל מה שנבדק ונשלל</td></tr>
+  </table>
+
+  <div class="note green"><h3>תרגיל מומלץ</h3>
+    <p>תנו תרחיש: ״התחנה לא עובדת, אבל באותו כבל בשקע השכן - עובדת״. בקשו מהקבוצה להסיק מי החשוד (השקע או הכבילה הקבועה שלו) ומה הצעד הבא.</p>
+  </div>
+
+  <div class="note red"><h3>הסלמה עם ראיות</h3>
+    <p>מוסרים מספר שקע, מספר פורט, מה הוחלף, מה נבדק ומה נשלל - לא ״כנראה הכבל״. התיעוד מאפשר לצוות התשתית להמשיך מהבדיקות שכבר נעשו.</p>
+  </div>
+</div>
+
+<!-- 7 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">05 · גבולות והקשר</div>
+  <h1>שכבה 1 תקינה אינה שוללת תקלה בשכבות שמעליה</h1><hr class="rule">
+
+  <div class="cards">
+    <div class="pc amber"><h3>הגבול כלפי מעלה</h3>
+      <p>‏Link מושלם לא שולל VLAN שגוי (שיעור 1), כתובת שלא הוקצתה (שיעור 6), ניתוב, DNS או Domain. אחרי הבדיקה הפיזית ממשיכים לשכבות שמעליה.</p>
+    </div>
+    <div class="pc red"><h3>גם בתוך השכבה</h3>
+      <p>טסטר שעבר אינו מבטיח ביצועים, נורה ירוקה אינה מבטיחה איכות, וכבל חדש מהאריזה אינו בהכרח תקין. מפרשים כל תוצאה לפי מגבלות הבדיקה.</p>
+    </div>
+  </div>
+
+  <h2>מה הושמט בכוונה</h2>
+  <ul>
+    <li>תכנון כבילה מבנית ותקניה - צוות תשתית.</li>
+    <li>הסמכת קווים במכשירי מדידה (certifier) - ציוד ותחום של צוות התשתית.</li>
+    <li>אלחוט על כל צורותיו - דורש שיעור נפרד (תדרים, כיסוי, אבטחה); עקרונות ההתפשטות כבר נלמדו במסלול הרדיו.</li>
+    <li>סוגי סיב ומודולים - נאמר רק שקיימים ושחייבים התאמה.</li>
+  </ul>
+
+  <div class="note teal"><h3>אם נשאלים ״למה אין שיעור אלחוט?״</h3>
+    <p>רשתות היחידה קוויות. אלחוט מנוהל הוא תחום שלם משלו, והחלטה ללמד אותו צריכה להתקבל במסגרת תכנית ההדרכה - לא כנספח לשיעור כבילה.</p>
+  </div>
+</div>
+
+<!-- 8 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">סיום · מפת השיעור</div>
+  <h1>מהלך המצגת ודגשים למדריך</h1><hr class="rule">
+
+  <table>
+    <tr><th class="n">מס׳</th><th>שלב</th><th>תוכן</th></tr>
+    <tr><td class="n">1</td><td class="k">שער</td><td>שכבה פיזית: כבלים, מחברים ובדיקת Link.</td></tr>
+    <tr><td class="n">2</td><td class="k">למה פיזי קודם</td><td>שכיחות, עלות בדיקה, מיקום בשרשרת.</td></tr>
+    <tr><td class="n">3</td><td class="k">שזירה</td><td>האות הוא הפרש; הפרעה משותפת נעלמת.</td></tr>
+    <tr><td class="n">4</td><td class="k">המחבר</td><td>הסנטימטר האחרון; תפס, קרימפ, שזירה פתוחה.</td></tr>
+    <tr><td class="n">5</td><td class="k">נחושת מול סיב</td><td>מרחק וסביבה; בטיחות לייזר.</td></tr>
+    <tr><td class="n">6</td><td class="k">Link ומו״מ</td><td>הסכמה על קצב; ‏Duplex Mismatch.</td></tr>
+    <tr><td class="n">7</td><td class="k">איפה נשבר</td><td>כיפוף, מתיחה, מעיכה, מים וחשמל.</td></tr>
+    <tr><td class="n">8</td><td class="k">המסלול המלא</td><td>גישור, שקע, פאנל, מתג - מקטע מקטע.</td></tr>
+    <tr><td class="n">9</td><td class="k">PoE</td><td>חשמל על גידי נתונים; מכשיר כבוי: בדקו גם הזנה.</td></tr>
+    <tr><td class="n">10</td><td class="k">כלי בדיקה</td><td>טסטר גידים והחלפה מבוקרת.</td></tr>
+    <tr><td class="n">11</td><td class="k">עץ אבחון</td><td>שישה צעדים מהזול ליקר.</td></tr>
+    <tr><td class="n">12</td><td class="k">גבולות</td><td>תנאי הכרחי, לא מספיק; מה הושמט.</td></tr>
+    <tr><td class="n">13</td><td class="k">סיכום</td><td>סדר הבדיקה של השכבה הפיזית.</td></tr>
+  </table>
+
+  <h2>מילון קצר למדריך</h2>
+  <table>
+    <tr><th>מונח</th><th>הגדרה</th><th>מונח</th><th>הגדרה</th></tr>
+    <tr><td class="k">זוג שזור</td><td>שני גידים שהאות הוא ההפרש ביניהם.</td><td class="k">Wiremap</td><td>בדיקת רצף וסדר גידים בנוריות.</td></tr>
+    <tr><td class="k">Auto-Negotiation</td><td>סיכום קצב ו-Duplex בין הצדדים.</td><td class="k">Duplex Mismatch</td><td>צד קבוע מול צד מנחש; איטיות תחת עומס.</td></tr>
+    <tr><td class="k">Patch Panel</td><td>קצה הכבילה הקבועה בארון.</td><td class="k">PoE</td><td>הזנת חשמל על גידי הנתונים מהמתג.</td></tr>
+  </table>
+
+  <div class="note teal"><h3>שאלת סיום</h3>
+    <p>‏Link דולק, ‏LinkSpeed מציג <span class="ltr">100 Mbps</span> בתשתית של <span class="ltr">1 Gbps</span>. מה זה כבר מוכיח, מה עוד לא, ומה הצעד הבא?</p>
+  </div>
+
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>לא לומר שנורה ירוקה או טסטר שעבר מוכיחים כבל תקין לכל דבר. שניהם מוכיחים רצף והסכמה - לא ביצועים ולא איכות תחת עומס.</p>
+  </div>
+</div>
+
+</body></html>

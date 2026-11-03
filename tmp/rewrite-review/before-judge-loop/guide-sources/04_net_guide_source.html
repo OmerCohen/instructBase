@@ -1,0 +1,290 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>כלי תחקור ב-Windows</title><style>
+@page{size:A4;margin:52pt 54pt 46pt 54pt;
+  @bottom-right{content:"מחלקת תקשוב · כלי תחקור · שיעור 4";
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:right;vertical-align:top;padding-top:10pt;direction:rtl}
+  @bottom-left{content:counter(page) " / " counter(pages);
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:left;vertical-align:top;padding-top:10pt;direction:ltr}}
+@page:first{@bottom-right{content:""}@bottom-left{content:""}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Liberation Sans",Arial,sans-serif;color:#1b2a38;font-size:10pt;line-height:1.55;direction:rtl}
+.pg{page-break-after:always}
+.pg:last-child{page-break-after:auto}
+.eyebrow{font-size:9pt;font-weight:bold;color:#0f2740;margin-bottom:9pt}
+h1{font-size:20pt;font-weight:bold;margin:0 0 14pt;color:#0f2740;line-height:1.24;text-align:center}
+h2{font-size:13pt;margin:16pt 0 8pt;color:#0f2740;font-weight:bold}
+.rule{border:0;border-top:1px solid #dbe3ea;margin:0 0 16pt}
+p{margin:0 0 7pt}
+ul{margin:0 0 7pt;padding-right:15pt}
+li{margin-bottom:4pt}
+
+/* stat chips */
+.chips{display:flex;gap:11pt;margin:0 0 16pt}
+.chip{flex:1;background:#0f2740;border-radius:6pt;padding:11pt 8pt;text-align:center}
+.chip b{display:block;font-size:14pt;color:#3fd0e0;line-height:1.15}
+.chip span{display:block;font-size:8.5pt;color:#b6c6d4;margin-top:3pt}
+
+/* two rounded cards with a coloured inner edge */
+.cards{display:flex;gap:11pt;margin:0 0 14pt}
+.cards.three>*{flex:1}
+.cards>*{flex:1;min-width:0}
+.pc{border-radius:7pt;padding:10pt 13pt;position:relative;overflow:hidden}
+.pc::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.pc h3{margin:0 0 5pt;font-size:10pt;font-weight:bold}
+.pc p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.pc p:last-child{margin-bottom:0}
+.pc.teal{background:#e9f4f7}.pc.teal::after{background:#0f8793}.pc.teal h3{color:#0f6f7a}
+.pc.amber{background:#fdf4e6}.pc.amber::after{background:#e0a038}.pc.amber h3{color:#a8701a}
+.pc.red{background:#fdeef0}.pc.red::after{background:#d9556a}.pc.red h3{color:#a83a4c}
+.pc.green{background:#eef7f0}.pc.green::after{background:#4a9c62}.pc.green h3{color:#2f7546}
+
+/* full-width note block, same visual family */
+.note{border-radius:7pt;padding:9pt 13pt;margin:0 0 10pt;position:relative;overflow:hidden}
+.note::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.note h3{margin:0 0 4pt;font-size:9pt;font-weight:bold;letter-spacing:.02em}
+.note p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.note p:last-child{margin-bottom:0}
+.note.teal{background:#e9f4f7}.note.teal::after{background:#0f8793}.note.teal h3{color:#0f6f7a}
+.note.amber{background:#fdf4e6}.note.amber::after{background:#e0a038}.note.amber h3{color:#a8701a}
+.note.red{background:#fdeef0}.note.red::after{background:#d9556a}.note.red h3{color:#a83a4c}
+.note.green{background:#eef7f0}.note.green::after{background:#4a9c62}.note.green h3{color:#2f7546}
+
+/* dark headline band (used for the formula / the one-line rule of a page) */
+.band{background:#0f2740;border-radius:8pt;padding:14pt 18pt;margin:0 0 14pt;text-align:center;
+  color:#3fd0e0;font-size:16pt;font-weight:bold}
+.band.sm{font-size:12.5pt;padding:11pt 16pt}
+.band .w{color:#fff}
+
+table{width:100%;border-collapse:collapse;font-size:9pt;margin:0 0 11pt}
+th,td{border:1px solid #dbe3ea;padding:5pt 8pt;text-align:right;vertical-align:top}
+th{background:#eef4f8;color:#0f6f7a;font-weight:bold}
+td.k{font-weight:bold;color:#0f2740}
+td.n,th.n{text-align:center;width:52pt;white-space:nowrap;direction:ltr;unicode-bidi:embed}
+.ltr{direction:ltr;unicode-bidi:embed;display:inline-block}
+
+.title-pg{height:660pt;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.title-pg .kick{font-size:10pt;color:#0f8793;font-weight:bold;margin-bottom:20pt}
+.title-pg h1{font-size:27pt;margin-bottom:12pt}
+.title-pg .sub{font-size:12pt;color:#5b7186;margin:0 auto 26pt;max-width:400pt;line-height:1.55}
+.title-pg .meta{font-size:9.5pt;color:#5b7186}
+</style></head><body>
+
+<!-- 1 ─────────────────────────── -->
+<div class="pg title-pg">
+  <div class="kick">מחלקת תקשוב · רשתות · דף הנחיה למדריך</div>
+  <h1>כלי תחקור ב-Windows</h1>
+  <div class="sub">כל פקודה עונה על שאלה אחת: Link, כתובת, שכנות, מסלול, שם, פורט, Domain ואמון</div>
+  <div class="chips" style="max-width:400pt;margin:0 auto">
+    <div class="chip"><b>55 דקות</b><span>משך מומלץ</span></div>
+    <div class="chip"><b>14</b><span>שקופיות</span></div>
+    <div class="chip"><b>שטח</b><span>רמת המיקוד</span></div>
+  </div>
+  <div class="meta" style="margin-top:20pt">מותאם לטכנאי שטח · סביבת Windows מנוהלת</div>
+</div>
+
+<!-- 2 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">00 · בריף למדריך</div>
+  <h1>לפני שמתחילים</h1><hr class="rule">
+  <div class="chips">
+    <div class="chip"><b>שטח</b><span>רמת המיקוד</span></div>
+    <div class="chip"><b>14</b><span>שקופיות כולל שער</span></div>
+    <div class="chip"><b>55 דקות</b><span>משך מומלץ</span></div>
+  </div>
+
+  <div class="cards">
+    <div style="flex:1">
+      <h2 style="margin-top:0">מטרת השיעור</h2>
+      <p>ללמד בחירת כלי לפי השאלה הפתוחה, והפקת ראיה מדויקת מהפלט.</p>
+      <div class="note teal"><h3>תוצר השיעור</h3>
+        <p>החניך בוחר את הכלי שמתאים לשאלת האבחון וקורא בפלט את השדה שעונה עליה.</p>
+      </div>
+    </div>
+    <div style="flex:1">
+      <h2 style="margin-top:0">הכנה מראש</h2>
+      <ul>
+        <li>ודאו שהפקודות זמינות בגרסת Windows המקומית.</li>
+        <li>הכירו את חלופת ה-GUI לכל PowerShell cmdlet שחסר.</li>
+        <li>השתמשו בכתובות ובשמות לדוגמה, בלי נתונים רגישים.</li>
+      </ul>
+      <div class="note amber"><h3>היקף השיעור</h3>
+        <p>עובדים רק בכלים המובנים ב-Windows, ומכל פלט קוראים את השדה שעונה על השאלה. הגדרות מערכת לא משנים בשיעור.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>חלוקת זמן מוצעת</h2>
+  <table>
+    <tr><th>חלק</th><th>מה מעבירים</th><th class="n">דקות</th></tr>
+    <tr><td class="k">פתיחה</td><td>בחירת כלי לפי שאלה</td><td class="n">5</td></tr>
+    <tr><td class="k">מתאם וכתובת</td><td>Get-NetAdapter ו-ipconfig</td><td class="n">10</td></tr>
+    <tr><td class="k">שכנות ומסלול</td><td>ping, arp, route ו-tracert</td><td class="n">12</td></tr>
+    <tr><td class="k">שם ופורט</td><td>Resolve-DnsName ו-Test-NetConnection</td><td class="n">10</td></tr>
+    <tr><td class="k">מצב חיבורים</td><td>netstat / Get-NetTCPConnection</td><td class="n">6</td></tr>
+    <tr><td class="k">Domain ואמון</td><td>תעודות ואירועים, w32tm, nltest, klist</td><td class="n">9</td></tr>
+    <tr><td class="k">סגירה</td><td>שרשרת ראיות</td><td class="n">3</td></tr>
+  </table>
+
+  <div class="note teal"><h3>שאלה לפתיחה</h3>
+    <p>איזו פקודה עונה על השאלה "האם Windows רואה Link"?</p>
+  </div>
+</div>
+
+<!-- 3 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">01 · בחירת כלי</div>
+  <h1>איזה כלי עונה על איזו שאלה</h1><hr class="rule">
+  
+  <table>
+    <tr><th>Link</th><th>כתובת</th><th>שכן</th><th>מסלול</th><th>שם ופורט</th><th>זהות</th></tr>
+    <tr>
+      <td class="n">Get-NetAdapter</td>
+      <td class="n">ipconfig /all</td>
+      <td class="n">arp -a</td>
+      <td class="n">route / tracert</td>
+      <td class="n">DNS / Test-NetConnection</td>
+      <td class="n">w32tm / nltest / klist</td>
+    </tr>
+  </table>
+
+  <p>אין צורך להריץ את כל הפקודות בכל אירוע. מריצים רק את הכלי שעונה על השאלה הפתוחה ומשווים את התוצאה לצפוי.</p>
+
+  <div class="note teal"><h3>איך להעביר</h3>
+    <p>עברו על הטבלה עמודה אחר עמודה, ובכל עמודה בקשו מהחניכים לנסח את השאלה שהכלי עונה עליה.</p>
+  </div>
+</div>
+
+<!-- 4 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">02 · זהות מקומית</div>
+  <h1>Get-NetAdapter ו-ipconfig מראים מה Windows רואה</h1><hr class="rule">
+  <p>Get-NetAdapter מציג מתאם, Status, קצב קישור ו-MAC. ipconfig /all מציג כתובת, מסכה, Gateway, DNS ומצב DHCP.</p>
+
+  <p>פלט לדוגמה: <b>ipconfig /all</b></p>
+  <table>
+    <tr><th>שדה</th><th class="n">ערך לדוגמה</th></tr>
+    <tr><td class="k">IPv4 Address</td><td class="n">10.20.30.15</td></tr>
+    <tr><td class="k">Default Gateway</td><td class="n">10.20.30.1</td></tr>
+    <tr><td class="k">DNS Servers</td><td class="n">10.20.10.10</td></tr>
+  </table>
+  <p>משווים כל שדה לתכנון או למערכת ייחוס תקינה. בסביבה סטטית הערכים צריכים להתאים לתכנון, ולא מספיק שייראו סבירים.</p>
+
+  <div class="note red"><h3>זהירות</h3>
+    <p>Status Up אינו מוכיח VLAN, IP או דרך.</p>
+    <p>בודקים את המתאם הפעיל הנכון; מתאמים וירטואליים יכולים להטעות.</p>
+  </div>
+</div>
+
+<!-- 5 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">03 · שכנות ומסלול</div>
+  <h1>Ping, ARP, route ו-tracert עונים על שאלות שונות</h1><hr class="rule">
+
+  <table>
+    <tr><th>כלי</th><th>מה הוא מראה</th></tr>
+    <tr><td class="k">Ping</td><td>תגובת ICMP ו-RTT.</td></tr>
+    <tr><td class="k">arp -a</td><td>מיפוי IP מקומי ל-MAC, לאחר שהייתה תעבורה.</td></tr>
+    <tr><td class="k">route print</td><td>את החלטת הניתוב של התחנה.</td></tr>
+    <tr><td class="k">tracert</td><td>מי השיב לאורך הדרך. תלוי בתגובות ציוד ביניים; כוכבית או חוסר תגובה אינם בהכרח הפסקת העברת תעבורה.</td></tr>
+  </table>
+
+  <table>
+    <tr><th>תחנה</th><th>נתב</th><th>שרת</th></tr>
+    <tr><td>IP יעד</td><td>טבלת ניתוב</td><td>IP יעד</td></tr>
+  </table>
+  <p style="font-size:9pt;color:#5b7186">בדרך: ARP מאתר את ה-MAC של השער, ובכל קפיצה נבנית מסגרת Ethernet חדשה.</p>
+
+  <div class="note red"><h3>שימו לב</h3>
+    <p>רשומת ARP חסרה לבדה אינה תקלה; ייתכן שעדיין לא נשלחה תעבורה ליעד.</p>
+  </div>
+</div>
+
+<!-- 6 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">04 · שם ופורט</div>
+  <h1>Resolve-DnsName ו-Test-NetConnection מפרידים שם משירות</h1><hr class="rule">
+  <p>ב-DNS מחפשים מי ענה, איזה שם נשאל, סוג רשומה והכתובת שהוחזרה. בבדיקת פורט מחפשים כתובת מרוחקת, פורט ותוצאת TCP.</p>
+
+  <table>
+    <tr><th>תחנה</th><th>DNS</th><th>שרת</th></tr>
+    <tr><td class="n">server.unit</td><td>שם ← כתובת</td><td class="n">10.20.40.25</td></tr>
+  </table>
+  <p>כשהמשתמש פונה בשם, בודקים קודם את פתרון השם, ורק אחר כך את השירות בכתובת שהוחזרה.</p>
+
+  <div class="note amber"><h3>מה לא הוכח</h3>
+    <p>TcpTestSucceeded=True מוכיח שנפתח TCP ליעד ולפורט; הוא אינו מוכיח שהיישום החזיר תוכן תקין.</p>
+  </div>
+</div>
+
+<!-- 7 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">05 · Domain, תעודה ואירועים</div>
+  <h1>בדיקות Kerberos, תעודה ואירועים</h1><hr class="rule">
+  <p>w32tm /query /status בודק זמן ומקור; nltest /dsgetdc:domain בודק איתור DC; klist מציג כרטיסי Kerberos. תעודה ואירועים נותנים שם, תוקף, מנפיק ורצף בזמן.</p>
+
+  <table>
+    <tr><th>DNS</th><th>זמן</th><th>Kerberos</th><th>הרשאה</th></tr>
+    <tr><td>איתור DC</td><td>תוקף כרטיס</td><td>אימות</td><td>קבוצות</td></tr>
+  </table>
+
+  <div class="note teal"><h3>תעודה</h3>
+    <p>את התעודה פותחים ב-Certificate Viewer ובודקים שם, תוקף, מנפיק ושרשרת.</p>
+  </div>
+
+  <p>ב-Event Viewer מתעדים שעה, מקור, Event ID והודעה מלאה.</p>
+
+  <div class="note teal"><h3>חלופה</h3>
+    <p>אם כלי PowerShell אינו קיים בגרסה המקומית, משתמשים בחלון המקביל; השאלה והשדה לא משתנים.</p>
+  </div>
+</div>
+
+<!-- 8 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">סיום · מפת השיעור</div>
+  <h1>מהלך המצגת ודגשים למדריך</h1><hr class="rule">
+
+  <table>
+    <tr><th class="n">שק׳</th><th>נושא</th><th>מה חייב להיאמר</th></tr>
+    <tr><td class="n">1</td><td class="k">שער: כלי Windows</td><td>כל פקודה עונה על שאלה מוגדרת.</td></tr>
+    <tr><td class="n">2</td><td class="k">איזה כלי עונה על איזו שאלה</td><td>מה כל כלי מוכיח, מ-Link עד זהות.</td></tr>
+    <tr><td class="n">3</td><td class="k">Get-NetAdapter</td><td>Status Up לא מוכיח VLAN, IP או מסלול.</td></tr>
+    <tr><td class="n">4</td><td class="k">ipconfig /all</td><td>משווים כל שדה לתכנון, כולל DHCP Enabled.</td></tr>
+    <tr><td class="n">5</td><td class="k">Ping</td><td>כישלון לא מוכיח שהיעד כבוי; ICMP עשוי להיות מסונן.</td></tr>
+    <tr><td class="n">6</td><td class="k">arp -a</td><td>MAC לבדו אינו "טוב" או "רע"; משווים לייחוס.</td></tr>
+    <tr><td class="n">7</td><td class="k">route print ו-tracert</td><td>כוכבית ב-tracert אינה בהכרח תקלה.</td></tr>
+    <tr><td class="n">8</td><td class="k">Resolve-DnsName</td><td>שרת, רשומה וכתובת.</td></tr>
+    <tr><td class="n">9</td><td class="k">Test-NetConnection</td><td>True לא מוכיח שהיישום החזיר תוכן תקין.</td></tr>
+    <tr><td class="n">10</td><td class="k">Get-NetTCPConnection</td><td>LISTENING בצד השרת, ESTABLISHED לחיבור קיים.</td></tr>
+    <tr><td class="n">11</td><td class="k">בדיקות Kerberos</td><td>מסמנים בפלט רק את השורה הרלוונטית.</td></tr>
+    <tr><td class="n">12</td><td class="k">Certificate ו-Event Viewer</td><td>מתעדים הודעה מלאה, Event ID ושעה.</td></tr>
+    <tr><td class="n">13</td><td class="k">תרגול אבחון (סימולטור)</td><td>סדר הבדיקות ושורת הסיום של nltest.</td></tr>
+    <tr><td class="n">14</td><td class="k">שרשרת הראיות</td><td>מהמתאם עד הזהות; עוצרים רק בשלב שחורג מהתכנון.</td></tr>
+  </table>
+
+  <h2>מילון קצר למדריך</h2>
+  <div class="cards">
+    <div style="flex:1">
+      <p><b>Status Up:</b> המתאם רואה קישור.</p>
+      <p><b>Route:</b> כלל בחירת דרך.</p>
+      <p><b>Established:</b> חיבור TCP שנוצר.</p>
+      <p><b>Event ID:</b> מזהה סוג אירוע.</p>
+    </div>
+    <div style="flex:1">
+      <p><b>RTT:</b> זמן הלוך ושוב.</p>
+      <p><b>Listener:</b> שירות שמאזין לפורט.</p>
+      <p><b>SRV:</b> רשומת DNS לאיתור שירות.</p>
+      <p><b>Cache:</b> מידע שמור זמנית.</p>
+    </div>
+  </div>
+
+  <div class="note green"><h3>שאלת סיום</h3>
+    <p>איזו תוצאה של Test-NetConnection מוכיחה פתיחת TCP, ומה היא אינה מוכיחה לגבי היישום?</p>
+  </div>
+
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>הפלט של nltest מסתיים בשורה שהפקודה הצליחה, והטכנאי מסיק שה-Domain תקין, אף שהבדיקה עצמה נכשלה.</p>
+  </div>
+</div>
+
+</body></html>

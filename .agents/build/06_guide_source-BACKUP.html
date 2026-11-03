@@ -1,0 +1,537 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>אנטנות: מונופול מוארק, אזורי פרנל ותבניות קרינה</title><style>
+@page{size:A4;margin:52pt 54pt 46pt 54pt;
+  @bottom-right{content:"מחלקת תקשוב · אנטנות ופרנל · שיעור 6";
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:right;vertical-align:top;padding-top:10pt;direction:rtl}
+  @bottom-left{content:counter(page) " / " counter(pages);
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:left;vertical-align:top;padding-top:10pt;direction:ltr}}
+@page:first{@bottom-right{content:""}@bottom-left{content:""}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Liberation Sans",Arial,sans-serif;color:#1b2a38;font-size:10pt;line-height:1.55;direction:rtl}
+.pg{page-break-after:always}
+.pg:last-child{page-break-after:auto}
+.eyebrow{font-size:9pt;font-weight:bold;color:#0f2740;margin-bottom:9pt}
+h1{font-size:20pt;font-weight:bold;margin:0 0 14pt;color:#0f2740;line-height:1.24;text-align:center}
+h2{font-size:13pt;margin:16pt 0 8pt;color:#0f2740;font-weight:bold}
+.rule{border:0;border-top:1px solid #dbe3ea;margin:0 0 16pt}
+p{margin:0 0 7pt}
+ul{margin:0 0 7pt;padding-right:15pt}
+li{margin-bottom:4pt}
+
+/* stat chips */
+.chips{display:flex;gap:11pt;margin:0 0 16pt}
+.chip{flex:1;background:#0f2740;border-radius:6pt;padding:11pt 8pt;text-align:center}
+.chip b{display:block;font-size:14pt;color:#3fd0e0;line-height:1.15}
+.chip span{display:block;font-size:8.5pt;color:#b6c6d4;margin-top:3pt}
+
+/* two rounded cards with a coloured inner edge */
+.cards{display:flex;gap:11pt;margin:0 0 14pt}
+.cards.three>*{flex:1}
+.cards>*{flex:1;min-width:0}
+.pc{border-radius:7pt;padding:10pt 13pt;position:relative;overflow:hidden}
+.pc::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.pc h3{margin:0 0 5pt;font-size:10pt;font-weight:bold}
+.pc p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.pc p:last-child{margin-bottom:0}
+.pc.teal{background:#e9f4f7}.pc.teal::after{background:#0f8793}.pc.teal h3{color:#0f6f7a}
+.pc.amber{background:#fdf4e6}.pc.amber::after{background:#e0a038}.pc.amber h3{color:#a8701a}
+.pc.red{background:#fdeef0}.pc.red::after{background:#d9556a}.pc.red h3{color:#a83a4c}
+.pc.green{background:#eef7f0}.pc.green::after{background:#4a9c62}.pc.green h3{color:#2f7546}
+
+/* full-width note block, same visual family */
+.note{border-radius:7pt;padding:9pt 13pt;margin:0 0 10pt;position:relative;overflow:hidden}
+.note::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.note h3{margin:0 0 4pt;font-size:9pt;font-weight:bold;letter-spacing:.02em}
+.note p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.note p:last-child{margin-bottom:0}
+.note.teal{background:#e9f4f7}.note.teal::after{background:#0f8793}.note.teal h3{color:#0f6f7a}
+.note.amber{background:#fdf4e6}.note.amber::after{background:#e0a038}.note.amber h3{color:#a8701a}
+.note.red{background:#fdeef0}.note.red::after{background:#d9556a}.note.red h3{color:#a83a4c}
+.note.green{background:#eef7f0}.note.green::after{background:#4a9c62}.note.green h3{color:#2f7546}
+
+/* dark headline band (used for the formula / the one-line rule of a page) */
+.band{background:#0f2740;border-radius:8pt;padding:14pt 18pt;margin:0 0 14pt;text-align:center;
+  color:#3fd0e0;font-size:16pt;font-weight:bold}
+.band.sm{font-size:12.5pt;padding:11pt 16pt}
+.band .w{color:#fff}
+
+table{width:100%;border-collapse:collapse;font-size:9pt;margin:0 0 11pt}
+th,td{border:1px solid #dbe3ea;padding:5pt 8pt;text-align:right;vertical-align:top}
+th{background:#eef4f8;color:#0f6f7a;font-weight:bold}
+td.k{font-weight:bold;color:#0f2740}
+td.n,th.n{text-align:center;width:52pt;white-space:nowrap;direction:ltr;unicode-bidi:embed}
+.ltr{direction:ltr;unicode-bidi:embed;display:inline-block}
+
+.title-pg{height:660pt;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.title-pg .kick{font-size:10pt;color:#0f8793;font-weight:bold;margin-bottom:20pt}
+.title-pg h1{font-size:27pt;margin-bottom:12pt}
+.title-pg .sub{font-size:12pt;color:#5b7186;margin:0 auto 26pt;max-width:400pt;line-height:1.55}
+.title-pg .meta{font-size:9.5pt;color:#5b7186}
+</style></head><body>
+
+<!-- 1 ─────────────────────────── -->
+<div class="pg title-pg">
+  <div class="kick">מחלקת תקשוב · שבוע רדיו · דף הנחיה למדריך</div>
+  <h1>אנטנות: מונופול מוארק,<br>אזורי פרנל ותבניות קרינה</h1>
+  <div class="sub">מה משלים את האנטנה, לאן הולכת האנרגיה, ולמה קו ראייה לא מספיק.</div>
+  <div class="chips" style="max-width:400pt;margin:0 auto">
+    <div class="chip"><b><span class="ltr">85–90</span> דקות</b><span>משך מומלץ</span></div>
+    <div class="chip"><b>28</b><span>שקופיות</span></div>
+    <div class="chip"><b>VHF</b><span>תחום המיקוד</span></div>
+  </div>
+  <div class="meta" style="margin-top:20pt">קהל משולב · מתקינים בשטח ומפקדים · ללא רקע טכני נדרש</div>
+</div>
+
+<!-- 2 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">00 · בריף למדריך</div>
+  <h1>לפני שמתחילים</h1><hr class="rule">
+  <div class="chips">
+    <div class="chip"><b><span class="ltr">50–55</span> דקות</b><span>חלק א׳ · פרקטי</span></div>
+    <div class="chip"><b><span class="ltr">30–35</span> דקות</b><span>חלק ב׳ · תיאורטי</span></div>
+    <div class="chip"><b>16 / 12</b><span>שקופיות בכל חלק</span></div>
+  </div>
+
+  <div class="cards">
+    <div style="flex:1">
+      <h2 style="margin-top:0">מטרת השיעור</h2>
+      <p>להפוך את כללי ההתקנה מרשימת הוראות לכללים שמבינים <b>למה</b> הם נכונים, ולתת לכל אחד מהם מספר.</p>
+      <div class="note teal"><h3>תוצר נדרש</h3>
+        <p>בסיום, החניך יידע לענות: כמה רחוק השוט שלי מהמתכת? קשרתי נמוך, רופף ובחומר נכון? האם הנתיב פנוי, גם מטר סביב האנטנה?</p>
+      </div>
+    </div>
+    <div style="flex:1">
+      <h2 style="margin-top:0">הכנה מראש</h2>
+      <ul>
+        <li>לפתוח את קובץ ה־HTML פעם אחת ולוודא שהסימולטור נטען (ראו עמוד 3).</li>
+        <li>להביא גומייה רחבה, אזיקון ותופסן מתכת: שקופית 6 עובדת הכי טוב עם החפצים ביד.</li>
+        <li>לוודא שמושגי הספק ו־dB מהשיעורים הקודמים ברורים.</li>
+      </ul>
+      <div class="note amber"><h3>גבול ההעמקה</h3>
+        <p>לא נכנסים לפתרון אימפדנס, חישוב SWR, סוגי אנטנות מעבר לארבעה, או תכנון מערכים. מתמקדים במונופול ובהתקנה.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="note green"><h3>עמוד השדרה של החלק המעשי</h3>
+    <p>ארבעה כללי התקנה, שכל אחד מהם מקבל מספר מדוד: קשירה נכונה עולה <b>פחות מדציבל</b>, חריגה עולה <b><span class="ltr">6–9</span> דציבל</b>. זה מה שהופך אותם מהמלצה להחלטה.</p>
+    <p style="margin-top:6px;font-size:9pt;color:#5b7186"><b>למדריך בלבד:</b> ארבעת הכללים תואמים את הוראות ההתקנה הקיימות ביחידה. אומתו מול המודל ולא הוצגו כציטוט, כדי לא לבלבל קהל שלא מכיר אותן.</p>
+  </div>
+
+  <div class="note red"><h3>חפיפה עם שיעור 4</h3>
+    <p>שיעור 4 (אנטנות ו־SWR) מכסה חלק מהנושאים לקהל טכני. זהו <b>מסלול מקביל</b>, לא המשך. אם בקהל יש מי שעבר את שיעור 4, ציינו שההבדל הוא בכיוון: כאן מונופול והתקנה, שם מדידה והתאמה.</p>
+  </div>
+
+  <h2>חלוקת זמן מוצעת</h2>
+  <table>
+    <tr><th>חלק</th><th class="n">שק׳</th><th>מה עושים</th><th class="n">דקות</th></tr>
+    <tr><td class="k">פתיחה ומונופול</td><td class="n">1–3</td><td>שאלת פתיחה, רישום ניחושים, רעיון ״חצי אנטנה״</td><td class="n">7</td></tr>
+    <tr><td class="k">מתכת קרובה</td><td class="n">4</td><td>הדגמה: כמה עולה שהשוט צמוד לגוף הרכב</td><td class="n">7</td></tr>
+    <tr><td class="k">ארבעה כללים</td><td class="n">5</td><td>ארבעת ה״כן״ וארבעת ה״לא״, עם המחיר של כל אחד</td><td class="n">7</td></tr>
+    <tr><td class="k">חומרי קשירה</td><td class="n">6</td><td>גומייה / חבל / אזיקון / תופסן: עם החפצים ביד</td><td class="n">6</td></tr>
+    <tr><td class="k">הדגמת הטיה</td><td class="n">7</td><td>עד כמה הטיה באמת מזיקה · מאיפה מגיע גבול ה־30°</td><td class="n">5</td></tr>
+    <tr><td class="k">סימולטור</td><td class="n">8–9</td><td>משחק חופשי בזוגות, ואז שלוש הקשירות זו לצד זו</td><td class="n">12</td></tr>
+    <tr><td class="k">שתי מטרות לקשירה</td><td class="n">10</td><td>ריסון מול הורדת גובה, ולמה זה נותן תשובות הפוכות</td><td class="n">4</td></tr>
+    <tr><td class="k">תבניות ורפרנס</td><td class="n">11–12</td><td>מעבר בין סוגי אנטנות, בעיקר עם/בלי מישור</td><td class="n">7</td></tr>
+    <tr><td class="k">פרנל</td><td class="n">13–15</td><td>הדגמה · פינוי קרוב · שלושת מקרי השטח</td><td class="n">10</td></tr>
+    <tr><td class="k">סיכום חלק א׳</td><td class="n">16</td><td>שבעת הכללים · נקודת עצירה אפשרית</td><td class="n">3</td></tr>
+    <tr><td class="k">חלק ב׳ · תיאוריה</td><td class="n">17–28</td><td>דמות, זרם, יעילות, אימפדנס, פרנל, קרקע, גבולות</td><td class="n">33</td></tr>
+  </table>
+
+</div>
+
+<!-- 3 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">הכנה טכנית</div>
+  <h1>בדיקה של חמש דקות, פעם אחת</h1><hr class="rule">
+  <p>השיעור מכיל ארבע הדגמות אינטראקטיביות, ארבע תצוגות תלת־ממד קטנות בתוך השקופיות, וסימולטור מסך מלא. הכל מוטמע בקובץ אחד ואינו דורש רשת, אבל התלת־ממד דורש WebGL.</p>
+
+  <table>
+    <tr><th class="n">שלב</th><th>מה עושים</th><th>מה אמור לקרות</th></tr>
+    <tr><td class="n">1</td><td>לחיצה כפולה על קובץ ה־HTML</td><td>שקופית פתיחה, ניווט בחיצים</td></tr>
+    <tr><td class="n">2</td><td>שקופית 4: להזיז את מחוון המרחק מהמתכת</td><td>התבנית מתנפחת ומתכווצת; שני האפסים נשארים במקומם</td></tr>
+    <tr><td class="n">3</td><td>שקופית 9</td><td>שלושה רכבים תלת־ממדיים מסתובבים לאט, זה לצד זה</td></tr>
+    <tr><td class="n">4</td><td>שקופית 8: ״פתיחת הסימולטור״</td><td>מסך מלא עם רכב, שוט וענן קרינה</td></tr>
+    <tr><td class="n">5</td><td>בסימולטור: ״נמוך ורופף ✓״ ואז ״קצה לרכב ✗״</td><td>הטווח נופל מ־94% ל־59%, ונדלקת אזהרה אדומה על מגע במתכת</td></tr>
+    <tr><td class="n">6</td><td>להזיז את מחוון השקיפות</td><td>ענן הקרינה מתבהר והרכב מתגלה</td></tr>
+    <tr><td class="n">7</td><td><span class="ltr">ESC</span></td><td>חזרה לשקופית 8</td></tr>
+  </table>
+
+  <div class="cards">
+    <div class="pc red"><h3>אם התלת־ממד לא נטען</h3>
+      <p>תופיע הודעה במקום כשל שקט. הסיבה הנפוצה: האצת חומרה כבויה בדפדפן.</p>
+      <p><b>השיעור עדיין שלם.</b> שקופיות 5, 7 ו־11 מגיעות לאותה מסקנה בלי תלת־ממד. אל תבזבזו זמן כיתה על תיקון.</p>
+    </div>
+    <div class="pc teal"><h3>מקשים</h3>
+      <p><span class="ltr">← →</span> מעבר שקופיות · <span class="ltr">N</span> הערות למעביר · <span class="ltr">F</span> מסך מלא</p>
+      <p><span class="ltr">Home / End</span> ראשונה / אחרונה · <span class="ltr">ESC</span> סגירת הסימולטור</p>
+      <p>לכל שקופית יש הערות למעביר מתחת ל־<span class="ltr">N</span>.</p>
+    </div>
+  </div>
+
+  <div class="note amber"><h3>מה להביא</h3>
+    <p>אנטנת שוט אמיתית, וגומייה רחבה / אזיקון / תופסן מתכת לשקופית 6. אם יש, צילום של התקנה בעייתית מהיחידה.</p>
+  </div>
+</div>
+
+<!-- 4 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">01 · שקופיות <span class="ltr">1–3</span></div>
+  <h1>המונופול הוא חצי: המשטח הוא החצי השני</h1><hr class="rule">
+  <div class="band sm">הזרם חייב מסלול חזרה.<br><span class="w">אם אין משטח, הוא חוזר דרך הכבל.</span></div>
+
+  <div class="cards">
+    <div class="pc green"><h3>יש משטח</h3>
+      <p>גוף הרכב. הזרם חוזר דרכו, והאנטנה מתנהגת כפי שתוכננה: כיסוי היקפי, תבנית צפויה.</p>
+    </div>
+    <div class="pc red"><h3>אין משטח</h3>
+      <p>המעטה החיצוני של הכבל הופך לחצי השני. התבנית תלויה בדרך שבה הכבל מונח, והתוצאה מפסיקה להיות צפויה.</p>
+    </div>
+  </div>
+
+  <div class="note teal"><h3>למה זה חשוב לקהל הזה</h3>
+    <p>זו תקלת ההתקנה הנפוצה ביותר וגם הקשה ביותר לזיהוי: הכל מחובר, המכשיר דולק, מד ה־SWR עשוי להראות מצוין, ופשוט אין טווח. מי שלא מכיר את הרעיון יחפש את הבעיה בציוד.</p>
+  </div>
+
+  <div class="note amber"><h3>מלכודת ניסוח</h3>
+    <p>הימנעו מ״הארקה״ במובן הבטיחותי. מישור הארקה ברדיו אינו הארקת בטיחות ואינו מגן מברק. אם עולה בלבול, הפרידו: <b>מישור הארקה</b> = מסלול חזרה לזרם רדיו; <b>הארקת בטיחות</b> = נושא אחר.</p>
+  </div>
+
+  <div class="note green"><h3>פתיחה מומלצת · לפני שקופית 1</h3>
+    <p>מה קורה לקשר אם אני קושר את האנטנה לרכב? קבלו <span class="ltr">3–4</span> ניחושים, רשמו על הלוח, אל תענו. חוזרים אליהם בשקופית 9.</p>
+  </div>
+  <div class="note teal"><h3>תרשים ״הדמות״ בשקופית 3</h3>
+    <p>הקו המקווקו מתחת למישור אינו מוט אמיתי. אל תעמיקו כאן, ההסבר המלא בשקופית 15. אם לוחצים: ״נגיע לזה בחלק השני״.</p>
+  </div>
+</div>
+
+<!-- 5 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">02 · שקופית 4</div>
+  <h1>כמה מתכת קרובה עולה</h1><hr class="rule">
+  <div class="band sm">15 ס״מ מהתא = <span class="w">10dB.</span> חצי מטר = כמעט חינם.</div>
+
+  <table>
+    <tr><th class="n">מרחק</th><th class="n">באורכי גל</th><th class="n">רווח מול שוט חופשי</th><th>מה זה אומר</th></tr>
+    <tr><td class="n">5 ס״מ</td><td class="n">0.008λ</td><td class="n">−20.0dB</td><td>המראה המתכתית מבטלת את השוט כמעט לגמרי.</td></tr>
+    <tr><td class="n">15 ס״מ</td><td class="n">0.024λ</td><td class="n">−10.5dB</td><td>מצב נפוץ מאוד בשטח, ואיש לא חושד בו.</td></tr>
+    <tr><td class="n">30 ס״מ</td><td class="n">0.048λ</td><td class="n">−4.6dB</td><td>עדיין משמעותי.</td></tr>
+    <tr><td class="n">50 ס״מ</td><td class="n">0.080λ</td><td class="n">−0.4dB</td><td><b>נקודת האיזון.</b> מכאן ומעלה כמעט אין קנס.</td></tr>
+    <tr><td class="n">1.5 מ׳</td><td class="n">0.240λ</td><td class="n">+6.0dB</td><td>המתכת הפכה לרפלקטור ומחזירה קדימה.</td></tr>
+  </table>
+
+  <div class="cards">
+    <div class="pc teal"><h3>המנגנון: אותה מראה משקופית 3</h3>
+      <p>משטח מתכתי גדול מייצר עותק של השוט מאחוריו, <b>בפאזה הפוכה</b>. קרוב: השניים מבטלים זה את זה. רחוק כרבע גל: הם מתחברים והמתכת עוזרת.</p>
+      <p>זה גם המנגנון של שקופית 18, רק במאונך במקום באופקי.</p>
+    </div>
+    <div class="pc amber"><h3>הכיוונים העיוורים</h3>
+      <p>בכל מרחק נוצרים <b>שני כיוונים שבהם כמעט לא מקרינים</b>: מקבילים למשטח.</p>
+      <p>הם מסתובבים יחד עם הרכב. זו התשובה ל״למה הקשר נופל דווקא כשאני מסתובב״.</p>
+    </div>
+  </div>
+
+  <div class="note amber"><h3>גבול המודל</h3>
+    <p>החישוב מניח משטח מתכתי גדול ושטוח. תא אמיתי סופי ומעוגל, ולכן האפסים בפועל עמוקים בעשרות dB ולא אינסופיים, והמספרים אופטימיים בעוצמתם. <b>המגמה והמנגנון מדויקים.</b></p>
+  </div>
+</div>
+
+<div class="pg">
+  <div class="eyebrow">03 · שקופיות <span class="ltr">5–6</span></div>
+  <h1>ארבעת הכללים, ובמה קושרים</h1><hr class="rule">
+  <div class="band sm">קשירה נכונה: <span class="w">−0.9dB.</span> חריגה: <span class="w">−6 עד −9dB.</span></div>
+
+  <table>
+    <tr><th>מה עשיתם</th><th class="n">זווית</th><th class="n">מרחק ממתכת</th><th class="n">טווח</th><th class="n">מחיר</th></tr>
+    <tr><td class="k" style="color:#2f7546">נמוך, רופף, גומייה רחבה</td><td class="n">11°</td><td class="n">0.43m</td><td class="n">94%</td><td class="n">−0.9dB</td></tr>
+    <tr><td class="k" style="color:#a83a4c">קשירה מעל חצי האורך</td><td class="n">27°</td><td class="n">0.01m</td><td class="n">63%</td><td class="n">−6.1dB</td></tr>
+    <tr><td class="k" style="color:#a83a4c">קצה האנטנה צמוד לרכב</td><td class="n">28°</td><td class="n">0.00m</td><td class="n">59%</td><td class="n">−7.0dB</td></tr>
+    <tr><td class="k" style="color:#a83a4c">אותו דבר עם תופסן מתכת</td><td class="n">24°</td><td class="n">0.03m</td><td class="n">52%</td><td class="n">−9.2dB</td></tr>
+  </table>
+
+  <h2>שלוש התכונות שקובעות חומר קשירה</h2>
+  <div class="cards">
+    <div class="pc green"><h3>גומייה רחבה: המומלץ</h3>
+      <p>לא מוליכה, לא סופגת מים, גמישה. רחבה כדי לפזר לחץ ולא ליצור נקודת כיפוף.</p>
+    </div>
+    <div class="pc amber"><h3>חבל: בתנאי</h3>
+      <p>סינתטי יבש בסדר. <b>חבל טבעי סופג מים</b> והופך למוליך חלקי.</p>
+    </div>
+    <div class="pc amber"><h3>אזיקון: בעייתי</h3>
+      <p>לא מוליך, אבל קשיח: מקבע הדוק, מרכז לחץ, ויוצר כיפוף חד.</p>
+    </div>
+    <div class="pc red"><h3>תופסן מתכת: אסור</h3>
+      <p>מוליך בנגיעה בשוט. <span class="ltr">−2.5dB</span> לכל תופסן, מעבר לנזק המכני.</p>
+    </div>
+  </div>
+
+  <div class="note teal"><h3>שתי נקודות שקל לפספס</h3>
+    <p><b>עטיפת נקודת המגע בפלנלית, רצוי מנוילנת</b>, מפזרת לחץ ומונעת ספיגת מים בבד עצמו.</p>
+    <p><b>למה מים משנים:</b> מים מלוכלכים או מלוחים מוליכים. חומר רטוב שנוגע בשוט הופך לנתיב הפסד בדיוק כמו תופסן, רק שאי אפשר לראות אותו. זה מסביר תקלות שמופיעות רק בגשם.</p>
+  </div>
+
+  <div class="note green"><h3>איך להעביר</h3>
+    <p>עם החפצים ביד. גומייה, אזיקון ותופסן על השולחן; שאלו איזה היו בוחרים לפני שמראים את הכרטיסים.</p>
+  </div>
+</div>
+
+<div class="pg">
+  <div class="eyebrow">04 · שקופית 7</div>
+  <h1>עד כמה הטיה באמת מזיקה</h1><hr class="rule">
+  <div class="band sm">עד 20°: זניח. <span class="w">30° הוא גבול העבודה.</span> ב־80°: קריסה.</div>
+
+  <table>
+    <tr><th class="n">זווית</th><th class="n">רווח לאופק</th><th>מסקנה מעשית</th></tr>
+    <tr><td class="n">10°</td><td class="n">−0.1dB</td><td>לא מדיד. אל תעכבו שיירה בשביל ליישר.</td></tr>
+    <tr><td class="n">20°</td><td class="n">−0.5dB</td><td>עדיין זניח.</td></tr>
+    <tr><td class="n">30°</td><td class="n">−1.2dB</td><td><b>גבול העבודה.</b> עד כאן המחיר קטן; מעבר לזה הוא מצטבר מהר.</td></tr>
+    <tr><td class="n">45°</td><td class="n">−3.0dB</td><td>חצי מההספק. מתחיל להצטבר עם הפסדים אחרים.</td></tr>
+    <tr><td class="n">70°</td><td class="n">−9.3dB</td><td>פגיעה חמורה.</td></tr>
+    <tr><td class="n">80°</td><td class="n">−15.2dB</td><td>קריסה. זה המצב של ״קשירה מהקצה״.</td></tr>
+  </table>
+
+  <div class="note red"><h3>דקוּת שקל לטעות בה</h3>
+    <p>אינטואיטיבית נראה שההפסד נובע מ<b>אי־התאמת קיטוב</b> מול תחנה אנכית. מעל משטח מוליך טוב זה <b>לא נכון</b>: הדמות מבטלת את הרכיב האופקי, ולכן מה שמוקרן נשאר מקוטב אנכית. מה שקורה הוא שהמוט <b>מבטל את עצמו</b>, ככל שהוא שוכב, פחות ממנו מקרין.</p>
+    <p>אי־התאמת קיטוב היא בעיה אמיתית דווקא כשאין מישור טוב: מכשיר יד מוטה, אנטנה על מוט מבודד, אופקית מול אנכית.</p>
+  </div>
+
+  <div class="note teal"><h3>איך להפעיל</h3>
+    <p>0° להתחלה, ואז 20°: ״מישהו רואה הבדל?״ (התשובה: כמעט לא). קפצו ל־80°. עברו ל״מבט על״ והראו שהתבנית נשארת עגולה: הפגיעה אחידה לכל הכיוונים.</p>
+  </div>
+</div>
+
+<!-- 8 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">05 · שקופיות <span class="ltr">8–10</span></div>
+  <h1>מיתקון אנטנה: הסימולטור</h1><hr class="rule">
+  <div class="band sm">שתים־עשרה דקות. <span class="w">רובן בידיים של הקהל, לא שלכם.</span></div>
+
+  <div class="cards three">
+    <div class="pc teal"><h3>2 דקות · הדגמה</h3>
+      <p>בחירת כלי, הקשה על השוט, הקשה על הרכב. זהו. אל תסבירו מדדים.</p>
+    </div>
+    <div class="pc green"><h3>6 דקות · משחק חופשי</h3>
+      <p>בזוגות אם יש מסך אחד. המשימה: הטווח הטוב ביותר עם סיכון שבירה מתחת ל־40%.</p>
+    </div>
+    <div class="pc amber"><h3>4 דקות · סגירה</h3>
+      <p>שקופית 8 מול הניחושים שנרשמו בפתיחה. מי צדק ומי לא.</p>
+    </div>
+  </div>
+
+  <table>
+    <tr><th>תרחיש בסימולטור</th><th class="n">זווית</th><th class="n">טווח</th><th>מה להגיד</th></tr>
+    <tr><td class="k">ללא קיבוע</td><td class="n">0°</td><td class="n">100%</td><td>ההעדפה הראשונה. ייחוס לכל השאר.</td></tr>
+    <tr><td class="k" style="color:#2f7546">נמוך ורופף</td><td class="n">11°</td><td class="n">94%</td><td><b>גומייה נמוכה ורופפת.</b> השוט לא מתכופף, הוא רק נוטה. פחות מדציבל.</td></tr>
+    <tr><td class="k" style="color:#a83a4c">גבוה מדי</td><td class="n">27°</td><td class="n">63%</td><td>מעל חצי האורך. הזווית עוברת 30° והשוט כמעט נוגע בתא.</td></tr>
+    <tr><td class="k" style="color:#a83a4c">קצה לרכב</td><td class="n">28°</td><td class="n">59%</td><td>הטעות הקלאסית. הקצה נוגע במתכת.</td></tr>
+    <tr><td class="k" style="color:#a83a4c">תופסן מתכת</td><td class="n">24°</td><td class="n">52%</td><td>אותה קשירה בחומר מוליך. עוד 2dB.</td></tr>
+  </table>
+
+  <div class="note red"><h3>שקופית 10: שתי מטרות לקשירה. אל תדלגו.</h3>
+    <p>הכלל אומר ״נמוך, לא יותר מחצי אורך״. אבל אם המטרה היא <b>להוריד את הקצה</b>, קשירה נמוכה לא עוזרת, צריך דווקא לקשור גבוה. שתי מטרות שונות, שתי תשובות הפוכות:</p>
+    <p><b>ריסון</b>: שהשוט לא יתנפנף ולא יתפוס ענפים. קשירה נמוכה ורופפת, הקצה נשאר גבוה. ברירת המחדל.</p>
+    <p><b>הסימולטור מתמחר</b> חריגה: כמה עולה להוריד את הקצה בפועל. <span class="ltr">6–7dB</span>. לא המלצה, תמחור.</p>
+    <p>הניסוח שמיישב: <b>נמוך ורופף כברירת מחדל; קשירה גבוהה היא חריגה מודעת שעושים רק מול מכשול פיזי אמיתי.</b></p>
+  </div>
+
+  <div class="note amber"><h3>מגבלה שכדאי לומר</h3>
+    <p>מד ״סיכון ההיתקלות״ בסימולטור מודד <b>היתקלות בענפים</b>, לא עייפות בבסיס מהתנפנפות, שהיא בדיוק מה שהקשירה הנמוכה מונעת. לכן היא נראית שם כאילו ״לא עוזרת״. היא עוזרת, פשוט לא במדד הזה.</p>
+  </div>
+</div>
+
+<!-- 9 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">06 · שקופיות <span class="ltr">11–12</span></div>
+  <h1>מה כל אנטנה עושה עם האנרגיה</h1><hr class="rule">
+  <p>התבניות בשקופית 9 אינן ציורים, הן מחושבות מחיבור פאזות, ולכן המספרים בהן תקפים וניתן לצטט אותם.</p>
+
+  <table>
+    <tr><th>מצב</th><th class="n">רווח באופק</th><th>מה להצביע עליו</th></tr>
+    <tr><td class="k">מונופול עם מישור</td><td class="n">5.1dBi</td><td>התבנית נדחסת לאופק. אין קרינה כלפי מטה.</td></tr>
+    <tr><td class="k">מונופול בלי מישור</td><td class="n">2.4dBi</td><td><b>כמחצית מההספק יורדת למטה ומתבזבזת.</b></td></tr>
+    <tr><td class="k">דיפול אנכי</td><td class="n">2.1dBi</td><td>אנטנה שלמה בפני עצמה. אפס חד לאורך ציר המוליך.</td></tr>
+    <tr><td class="k">דיפול אופקי</td><td class="n">2.2dBi</td><td>״שמונה״ במבט על. כיוון מתיחת החוט קובע את הכיסוי.</td></tr>
+    <tr><td class="k">יאגי 3 אלמנטים</td><td class="n">7.4dBi</td><td>יחס קדמי/אחורי כ־14dB. הרפלקטור והמכוון אינם מוזנים.</td></tr>
+  </table>
+
+  <div class="note green"><h3>ההשוואה שחייבים לעשות</h3>
+    <p>החליפו הלוך־ושוב בין <b>עם מישור</b> ל<b>בלי מישור</b> שלוש־ארבע פעמים, במבט מהצד. זו ההצדקה הוויזואלית לכל מה שנאמר בשקופית 3, וזו השקופית שהקהל יזכור.</p>
+  </div>
+
+  <div class="note teal"><h3>למה אפשר לסמוך על המספרים</h3>
+    <p>הם מתלכדים עם הספרות: מונופול רבע־גל מעל מישור מושלם כ־<span class="ltr">5.15dBi</span>, דיפול חצי־גל <span class="ltr">2.15dBi</span>, יאגי 3 אלמנטים <span class="ltr">7–8dBi</span>. בניגוד למספרים בהדגמות שמסומנות כסכמטיות.</p>
+  </div>
+
+  <div class="note amber"><h3>טבלת הרפרנס בשקופית 10</h3>
+    <p>לזיהוי בלבד. אל תיגררו לאנטנות נוספות. שתי השורות הראשונות הן <b>אותה אנטנה פיזית</b>, הדגישו זאת.</p>
+  </div>
+</div>
+
+<!-- 10 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">07 · שקופיות <span class="ltr">13–15</span></div>
+  <h1>למה קו ראייה לא מספיק</h1><hr class="rule">
+  <div class="band sm">מכשול בדיוק על קו הראייה = <span class="w">6dB הפסד.</span></div>
+
+  <table>
+    <tr><th>מה משנים</th><th>מה קורה</th><th>המסקנה</th></tr>
+    <tr><td class="k">מכשול מ־50% ל־10%</td><td>אותו גובה, הפינוי משתפר פלאים</td><td>מכשול באמצע מסוכן פי כמה ממכשול צמוד לאנטנה</td></tr>
+    <tr><td class="k">תדר מ־450 ל־30 MHz</td><td>האליפסה מתנפחת, הפינוי מתדרדר</td><td>תדר נמוך דורש יותר פינוי (<span class="ltr">r ∝ √λ</span>)</td></tr>
+    <tr><td class="k">מכשול ל־60% מ־<span class="ltr">r₁</span></td><td>ההפסד מגיע בדיוק ל־<span class="ltr">0dB</span></td><td>זה מקור כלל האצבע ״60% פינוי״</td></tr>
+    <tr><td class="k">מכשול לגובה 0</td><td>ההפסד קופץ ל־<span class="ltr">6dB</span></td><td>המספר שהכי מפתיע את הקהל</td></tr>
+  </table>
+
+  <div class="cards three">
+    <div class="pc amber"><h3>שורת עצים באמצע</h3>
+      <p>הצמרות נמוכות מהקו אבל חודרות עמוק לאליפסה.</p>
+      <p><b>סימן:</b> קשר גרוע קבוע שמשתפר מעט בהזזה של עשרות מטרים.</p>
+    </div>
+    <div class="pc red"><h3>רכס או גג לפני האנטנה</h3>
+      <p>מכשול קרוב מכסה חלק גדול מהאזור למרות שהוא נמוך.</p>
+      <p><b>סימן:</b> צעד אחד קדימה משנה הכל.</p>
+    </div>
+    <div class="pc teal"><h3>עונות ומזג אוויר</h3>
+      <p>נתיב שעבד בחורף מפסיק לעבוד באביב. עלווה מלאה סופגת ומפזרת.</p>
+      <p><b>סימן:</b> תלוי־עונה בלי שינוי בציוד.</p>
+    </div>
+  </div>
+
+  <div class="note green"><h3>הרגע החזק</h3>
+    <p>העמידו את גובה המכשול על 0 מטר. ״רואים אחד את השני מצוין. ההפסד הוא 6dB, רבע מההספק.״</p>
+  </div>
+</div>
+
+<!-- 11 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">08 · שקופית 16</div>
+  <h1>שבעת הכללים</h1><hr class="rule">
+  <p>אם השיעור מיועד לקהל מבצעי בלבד, אפשר וכדאי לסיים כאן. הודיעו שהחלק השני קיים ותנו את מספרי השקופיות (<span class="ltr">14–25</span>).</p>
+
+  <table>
+    <tr><td class="n">1</td><td><b>עדיף לא לקבע בכלל.</b> אם אין הכרח מבצעי, אל תקשרו.</td></tr>
+    <tr><td class="n">2</td><td><b>אם קושרים: נמוך, רופף, בגומייה רחבה.</b> לא מעל חצי האורך, זווית עד 30°.</td></tr>
+    <tr><td class="n">3</td><td><b>בלי מוליכים, בלי סופגי מים, בלי פלסטיק קשיח.</b></td></tr>
+    <tr><td class="n">4</td><td><b>הרחיקו את השוט מהמתכת.</b> 15 ס״מ עולים 10dB; חצי מטר כמעט חינם.</td></tr>
+    <tr><td class="n">5</td><td><b>הקצה חופשי ורחוק מהרכב.</b> קצה צמוד = −7dB.</td></tr>
+    <tr><td class="n">6</td><td><b>גובה מנצח כמעט כל דבר אחר.</b> הכפלת גובה ≈ +6dB.</td></tr>
+    <tr><td class="n">7</td><td><b>קו ראייה אינו תנאי מספיק.</b> בדקו מטר סביב האנטנה וגם את אמצע הנתיב.</td></tr>
+  </table>
+
+  <div class="note green"><h3>תרגיל סגירה · 5 דקות</h3>
+    <p>״תחנה על תורן בשדה פתוח, 8 ק״מ לתחנה שנייה מעבר לשורת עצים באמצע. אין קשר. שלושה דברים שהייתם בודקים, לפי סדר?״</p>
+    <p><b>תשובה טובה:</b> מה משמש כמישור הארקה · אפשר להעלות את האנטנה · פינוי פרנל מול העצים.</p>
+    <p><b>תשובה חלשה:</b> להחליף מכשיר, להעלות הספק, להחליף כבל. אלה מה שרוב האנשים ינסו קודם, ובדרך כלל האחרונים שעוזרים.</p>
+  </div>
+</div>
+
+<!-- 12 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">09 · שקופיות <span class="ltr">17–21</span></div>
+  <h1>חלק ב׳ · דמות, זרם, יעילות, מסלול חזרה</h1><hr class="rule">
+  <p>קצב איטי יותר, פחות הדגמות. מי שנשאר בא מרצון, אפשר להרשות דיון.</p>
+
+  <table>
+    <tr><th class="n">שק׳</th><th>נושא</th><th>מה חייב להיאמר</th><th>מה לא</th></tr>
+    <tr><td class="n">15</td><td class="k">תורת הדמות</td><td>מונופול λ/4 מעל מישור ≡ דיפול λ/2, אבל רק בחצי המרחב העליון. שלוש התוצאות: <span class="ltr">73Ω→36.5Ω</span>, <span class="ltr">+3dB</span>, תבנית נדחסת לאופק.</td><td>תנאי שפה, משוואות מקסוול</td></tr>
+    <tr><td class="n">16</td><td class="k">התפלגות הזרם</td><td>אפס בקצה, מקסימום בבסיס. <b>לכן</b> החלק התחתון עושה את רוב העבודה, ולכן קשירה באמצע פוגעת פחות. זה החיבור לחלק א׳.</td><td>פיתוח סינוסי</td></tr>
+    <tr><td class="n">17</td><td class="k">יעילות</td><td><span class="ltr">η = R_rad/(R_rad+R_gnd+R_loss)</span>. הנקודה החדה: <b>הפסד קרקע משפר את ה־SWR</b>. עומס דמה = SWR מושלם, אפס קרינה.</td><td>חישוב <span class="ltr">R_rad</span></td></tr>
+    <tr><td class="n">21</td><td class="k">מסלול החזרה</td><td>גוף הרכב אינו ״מאריק״, הוא מחזיר את הזרם דרך מתכת רציפה במקום דרך אדמה. לכן התקנת רכב ״פשוט עובדת״, ולכן מגע מחליד בבסיס הורס אותה.</td><td>טבלאות קרקע, אורכי רדיאלים</td></tr>
+  </table>
+
+  <div class="note red"><h3>הבלבול הנפוץ ביותר</h3>
+    <p><b>״אז אם אשפר את ההארקה, אעבור את הרכס?״: לא.</b> מסלול החזרה מטפל בהפסד <b>מקומי</b> ליד האנטנה. רכס, עצים ואזור פרנל הם מנגנונים <b>לאורך הנתיב</b>. שיפור באחד לא פותר את השני. אם הבלבול עולה מוקדם, הקדימו את שקופית 22.</p>
+  </div>
+</div>
+
+<!-- 13 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">10 · שקופיות <span class="ltr">22–28</span></div>
+  <h1>אימפדנס, תבנית, פרנל, קרקע וסיכום</h1><hr class="rule">
+
+  <table>
+    <tr><th class="n">שק׳</th><th>נושא</th><th>מה חייב להיאמר</th></tr>
+    <tr><td class="n">19</td><td class="k">נקודת ההזנה</td><td>אותה אנטנה, התנגדות שונה לפי מקום ההזנה. מרכז דיפול <span class="ltr">73Ω</span>, קצה <span class="ltr"><span class="ltr">2000–5000</span>Ω</span>, בסיס מונופול <span class="ltr">36.5Ω</span>.</td></tr>
+    <tr><td class="n">20</td><td class="k">איך נוצרת תבנית</td><td>סכום פאזות, לא תכונה של החומר. אותה אנרגיה, חלוקה אחרת.</td></tr>
+    <tr><td class="n">21</td><td class="k">נוסחת פרנל</td><td><span class="ltr">r = √(nλd₁d₂/(d₁+d₂))</span>. המכפלה מקסימלית באמצע; <span class="ltr">r ∝ √λ</span>.</td></tr>
+    <tr><td class="n">22</td><td class="k">שלושת מנגנוני הקרקע</td><td>החזרה (נותנת את כלל <span class="ltr">+6dB</span> לגובה כפול) · ספיגה (מקומית, זו של מסלול החזרה) · עקיפה (לאורך הנתיב). <b>ההפרדה היא כל השקופית.</b></td></tr>
+    <tr><td class="n">23</td><td class="k">קיטוב והדדיות</td><td>אותה תבנית בשידור ובקליטה. הטבלה הופכת ״לשמור על אנכיות״ למספר (45° = <span class="ltr">−3dB</span>).</td></tr>
+    <tr><td class="n">24</td><td class="k">גבולות המודל</td><td><b>אל תדלגו.</b> ראו עמוד 14.</td></tr>
+    <tr><td class="n">25</td><td class="k">סיכום</td><td>שלוש השאלות. חזרה לשאלת הפתיחה.</td></tr>
+  </table>
+
+  <div class="note teal"><h3>ההבחנה בשקופית 19</h3>
+    <p>״לקשור אנטנה מהקצה״ (החלק הפרקטי) הוא קשירה <b>מכנית</b>: הכבל עדיין בבסיס. ״אנטנה מוזנת־קצה״ זה משהו אחר: שם <b>הכבל</b> מחובר בקצה. הקהל מבלבל ביניהם באופן קבוע.</p>
+  </div>
+
+  <div class="note green"><h3>סיום מומלץ</h3>
+    <p>פתחו שוב את הסימולטור ותנו למישהו מהקהל להסביר מה קורה על המסך. אם הוא מצליח, השיעור עבד.</p>
+  </div>
+
+  <div class="note amber"><h3>המשך</h3>
+    <p>שיעור 2: גלים והתפשטות VHF · שיעור 4: אנטנות ו־SWR (צד המדידה) · שיעור 5: אבחון ותיקון בשטח.</p>
+  </div>
+</div>
+
+<!-- 14 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">נספח א׳</div>
+  <h1>גבולות המודל</h1><hr class="rule">
+  <div class="band sm">״זה מדמה <span class="w">למה</span> דברים קורים,<br>לא <span class="w">כמה</span> בדיוק.״</div>
+  <p>הפירוט הזה הוא לכם, לא לשקופית. הוא נועד לאפשר לענות בביטחון על ״כמה זה מדויק?״.</p>
+
+  <table>
+    <tr><th>רכיב</th><th>אמין</th><th>לא אמין</th></tr>
+    <tr><td class="k">גלריית התבניות<br><span style="font-weight:400;color:#8b9bab">שקופית 9</span></td>
+        <td>מדויק. חיבור פאזות של אלמנטי זרם. מתלכד עם הספרות עד כ־<span class="ltr">0.1dB</span>.</td>
+        <td>לא פותר אימפדנס, לא כולל קרקע לא־מושלמת.</td></tr>
+    <tr><td class="k">הדגמת ההטיה<br><span style="font-weight:400;color:#8b9bab">שקופית 6</span></td>
+        <td>אותו מנוע. הביטול העצמי מול הדמות הוא אפקט אמיתי.</td>
+        <td>מניח מישור מושלם ואינסופי. גוף רכב אמיתי סופי, הקריסה תהיה פחות חדה.</td></tr>
+    <tr><td class="k">אזור פרנל<br><span style="font-weight:400;color:#8b9bab">שקופית 11</span></td>
+        <td>הגיאומטריה והנוסחה מדויקות. ההפסד לפי מודל סכין־חוד תקני.</td>
+        <td>מכשול חד בודד בלבד. שטח עם כמה רכסים סוטה, לפעמים לקולא, לפעמים לחומרה.</td></tr>
+    <tr><td class="k">מתכת קרובה<br><span style="font-weight:400;color:#8b9bab">שקופית 4</span></td>
+        <td>מדויק. אותה תורת דמות, במאונך. אין קבועים מותאמים.</td>
+        <td>מניח משטח גדול ושטוח. תא אמיתי סופי, האפסים עמוקים בעשרות dB ולא אינסופיים, והמספרים אופטימיים.</td></tr>
+    <tr><td class="k">הסימולטור<br><span style="font-weight:400;color:#8b9bab">שקופית 7</span></td>
+        <td>השוואות יחסיות בין קשירות. כיוון ההשפעה וסדר הגודל. אזהרת ״כיפוף חד״ מבוססת על רדיוס הכיפוף בפועל.</td>
+        <td>אין פתרון אימפדנס או SWR. התפלגות הזרם קבועה, <b>מחוון התדר מדגים מגמה בלבד</b>. גוף הרכב הוא מכשול גיאומטרי; הצימוד החשמלי לא נפתר. ״טווח״ הוא פרוקסי יחסי.</td></tr>
+  </table>
+
+  <div class="note amber"><h3>אם נשאלים ״אז מה כן משתמשים לתכנון?״</h3>
+    <p>כלי תכנון ייעודי עם מודל שטח, ואחריו מדידה. הכלים כאן בונים אינטואיציה נכונה, לא מחליפים תכנון.</p>
+  </div>
+</div>
+
+<!-- 15 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">נספח ב׳</div>
+  <h1>שאלות שיישאלו</h1><hr class="rule">
+  <table>
+    <tr><td class="k" style="width:38%">מה זה ״מישור הארקה״, קשור להארקה בבית?</td>
+        <td>לא. ברדיו זה מסלול חזרה לזרם, לא הגנה חשמלית. שני נושאים שונים באותה מילה.</td></tr>
+    <tr><td class="k">מד ה־SWR מראה 1:1. האנטנה תקינה?</td>
+        <td>לא בהכרח. הוא מודד כמה הספק חוזר, לא כמה מוקרן. עומס דמה נותן 1:1 מושלם ואפס קרינה, והפסד קרקע דווקא <b>משפר</b> את הקריאה.</td></tr>
+    <tr><td class="k">עדיף אנטנה ארוכה יותר?</td>
+        <td>לא אוטומטית. מעל כ־<span class="ltr">0.7λ</span> התבנית מתפצלת וחלקים מהמוט מבטלים זה את זה לכיוון האופק.</td></tr>
+    <tr><td class="k">אם אכפיל הספק, כמה טווח ארוויח?</td>
+        <td>מעט. בקירוב דו־קרן הטווח גדל כשורש רביעי של ההספק: כ־<span class="ltr">+19%</span>. הכפלת <b>גובה</b> נותנת הרבה יותר.</td></tr>
+    <tr><td class="k">גג בטון נחשב מישור?</td>
+        <td>אל תסמכו על זה. בטון מזוין אינו רציף. הניחו משטח מתכתי ייעודי מתחת לאנטנה.</td></tr>
+    <tr><td class="k">מקבל טוב אבל משדר רע. איך?</td>
+        <td>מבחינת <b>תבנית</b>: לא יכול. הדדיות אומרת שהתבנית והרווח זהים בשני הכיוונים. הפער נובע מהספק, מרעש או מרגישות.</td></tr>
+    <tr><td class="k">יש קו ראייה, למה צריך פרנל?</td>
+        <td>הגל נוסע בנפח, לא בקו. מכשול בדיוק על הקו כבר גורם ל־<span class="ltr">6dB</span>, רבע מההספק.</td></tr>
+    <tr><td class="k">כמה רחוק השוט צריך להיות מהתא?</td>
+        <td>חצי מטר הוא נקודת האיזון, מעבר לזה כמעט אין קנס. 15 ס״מ כבר עולים כ־10dB, ו־5 ס״מ כ־20dB.</td></tr>
+    <tr><td class="k">אפשר לצטט מספרים מהסימולטור בסיכום מבצעי?</td>
+        <td>לא. ראו נספח א׳.</td></tr>
+  </table>
+
+  <div class="note teal"><h3>אם אין לכם תשובה</h3>
+    <p>״לא יודע, נבדוק״ עדיף על ניחוש. בקהל הזה, מדריך שמפריד בין מה שהוא יודע למה שלא, נאמן יותר.</p>
+  </div>
+</div>
+
+</body></html>

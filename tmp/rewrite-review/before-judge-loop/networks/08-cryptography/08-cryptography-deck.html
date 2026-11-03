@@ -1,0 +1,1173 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><title>הצפנה וזהות</title></head><body><style>
+:root{--deep:#04070d;--panel:#0b1220;--panel2:#101b30;--card:rgba(255,255,255,.052);--border:rgba(255,255,255,.105);--cyan:#22d3ee;--cyan2:#0891b2;--amber:#fbbf24;--red:#fb7185;--green:#4ade80;--ink:#f1f5f9;--muted:#a7b7c9;--dim:#8ba0b5}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;font-family:"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased}button{font:inherit}.deck-root{position:fixed;inset:0;background:radial-gradient(circle at 50% 24%,#0c1a2b 0,#000 76%);direction:rtl}.stage-shell{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}.stage{width:1280px;height:720px;position:relative;transform-origin:center;background:linear-gradient(155deg,#08111e 0%,#0a1829 58%,#07101c 100%);border-radius:16px;box-shadow:0 42px 110px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.06);overflow:hidden}.stage::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(34,211,238,.035) 1px,transparent 1px);background-size:100% 56px}.slide{position:absolute;inset:0;padding:43px 62px 66px;display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateX(-14px);transition:opacity .28s ease,transform .28s ease}.slide.active{opacity:1;pointer-events:auto;transform:none}.eyebrow{display:flex;align-items:center;gap:10px;padding-right:122px;color:var(--cyan);font-size:15px;font-weight:700;margin-bottom:8px}.eyebrow .num{display:inline-flex;align-items:center;justify-content:center;width:29px;height:29px;border-radius:8px;background:rgba(34,211,238,.11);border:1px solid rgba(34,211,238,.35);font-size:12px}.title{font-size:42px;line-height:1.13;color:var(--ink);font-weight:800;margin:0 0 7px}.subtitle{font-size:19px;line-height:1.5;color:var(--muted);margin:0 0 15px;max-width:1080px}.body{flex:1;min-height:0;display:flex;flex-direction:column}.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.34fr);gap:34px;flex:1;min-height:0;align-items:stretch}.split.text-wide{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}.stack{display:flex;flex-direction:column;gap:13px;min-width:0}.copy{font-size:19px;line-height:1.58;color:var(--muted);margin:0}.copy strong{color:var(--ink)}.key{background:rgba(34,211,238,.065);border-right:4px solid var(--cyan);border-radius:12px;padding:14px 17px;color:var(--ink);font-size:18px;line-height:1.5}.key.amber{background:rgba(251,191,36,.07);border-color:var(--amber)}.key.red{background:rgba(251,113,133,.07);border-color:var(--red)}.visual{position:relative;min-height:0;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:16px;background:radial-gradient(circle at 50% 40%,rgba(34,211,238,.075),transparent 67%),var(--panel);overflow:hidden;padding:16px}.visual.flat{border:0;background:transparent;padding:0}.visual svg{width:100%;height:100%;max-height:500px;overflow:visible}.visual-label{position:absolute;inset:auto 18px 12px;font-size:14px;color:var(--dim);text-align:center}.formula{direction:ltr;unicode-bidi:isolate;display:flex;align-items:center;justify-content:center;gap:15px;border:1px solid var(--border);background:var(--panel2);border-radius:14px;padding:15px 22px;color:var(--ink);font-size:31px;font-weight:800}.formula .accent{color:var(--cyan)}.formula .amber{color:var(--amber)}.grid2,.grid3,.grid4{display:grid;gap:16px;flex:1;align-content:stretch}.grid2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid4{grid-template-columns:repeat(4,minmax(0,1fr))}.card{border:1px solid var(--border);border-radius:15px;background:var(--card);padding:17px 19px;min-width:0}.card h3{margin:0 0 7px;color:var(--ink);font-size:22px}.card p{margin:0;color:var(--muted);font-size:16.5px;line-height:1.48}.card .tag{font-size:13px;font-weight:800;color:var(--cyan);margin-bottom:7px}.card.amber .tag{color:var(--amber)}.card.red .tag{color:var(--red)}.card.green .tag{color:var(--green)}.steps{display:flex;align-items:stretch;gap:26px;direction:rtl;flex:1}.step{flex:1 1 0;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:22px 22px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.025);overflow-wrap:anywhere;word-break:break-word}.step:not(:last-child)::after{content:"←";position:absolute;left:-26px;top:50%;transform:translateY(-50%);z-index:2;width:26px;height:26px;display:grid;place-items:center;border-radius:50%;background:var(--panel2);border:1px solid var(--border);color:var(--cyan)}.step strong{font-size:19px;color:var(--ink);margin-bottom:6px}.step span{font-size:15px;color:var(--muted);line-height:1.4}.metric{display:flex;align-items:baseline;gap:10px;direction:ltr;justify-content:center}.metric .value{font-size:58px;color:var(--cyan);font-weight:800}.metric .unit{font-size:20px;color:var(--muted)}.ltr{direction:ltr;unicode-bidi:isolate}span.ltr,b.ltr,i.ltr,em.ltr{display:inline;white-space:nowrap}.table{width:100%;border-collapse:collapse;font-size:16px}.table th,.table td{padding:11px 14px;border:1px solid var(--border);text-align:center}.table th{background:var(--panel2);color:var(--cyan)}.table td{background:rgba(255,255,255,.025);color:var(--muted)}.table td:first-child{color:var(--ink);font-weight:700}.checklist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}.checklist li{display:block;position:relative;padding-right:36px;min-height:24px;color:var(--muted);font-size:18px;line-height:1.45}.checklist li::before{content:"•";flex:0 0 25px;width:25px;height:25px;border-radius:7px;display:grid;place-items:center;background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.3);color:var(--green);font-weight:800}.question{font-size:28px;color:var(--ink);font-weight:800;line-height:1.35}.answer-row{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:20px}.answer{border:1px solid var(--border);border-radius:14px;padding:18px;background:rgba(255,255,255,.035);color:var(--muted);font-size:17px;line-height:1.45}.answer strong{display:block;color:var(--cyan);font-size:20px;margin-bottom:5px}.sources{font-size:13px;color:var(--dim);line-height:1.45;margin-top:8px}.sources a{color:var(--dim)}.footer{position:absolute;right:62px;left:62px;bottom:24px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--dim)}.title-slide{align-items:center;justify-content:center;text-align:center}.title-slide .badge{display:inline-flex;align-items:center;padding:8px 20px;border-radius:999px;border:1px solid rgba(34,211,238,.36);background:rgba(34,211,238,.09);color:var(--cyan);font-size:16px;font-weight:700;margin-bottom:25px}.title-slide h1{font-size:70px;line-height:1.08;margin:0 0 16px;color:var(--ink)}.title-slide p{font-size:24px;color:var(--muted);line-height:1.55;max-width:900px;margin:0 auto 28px}.hero-wave{width:650px;height:88px;max-width:72%}.nav{position:absolute;z-index:20;right:0;left:0;bottom:0;display:flex;align-items:center;gap:12px;padding:10px 25px;background:linear-gradient(0deg,rgba(0,0,0,.72),transparent)}.nav button{border:1px solid var(--border);background:rgba(255,255,255,.065);color:var(--ink);padding:7px 13px;border-radius:9px;cursor:pointer}.nav button:hover:not(:disabled){background:rgba(34,211,238,.14)}.nav button:disabled{opacity:.28;cursor:default}.progress{flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden}.progress>span{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--amber));transition:width .25s}.counter{direction:ltr;color:var(--dim);font-size:14px;min-width:58px;text-align:center}.notes-panel{position:absolute;z-index:30;left:24px;bottom:58px;width:390px;max-height:220px;overflow:auto;border:1px solid rgba(251,191,36,.36);border-radius:13px;background:rgba(6,10,18,.96);padding:14px 16px;color:var(--muted);font-size:15px;line-height:1.5;box-shadow:0 18px 60px rgba(0,0,0,.5)}.notes-panel[hidden]{display:none}.notes-panel strong{color:var(--amber);display:block;margin-bottom:5px}.speaker-note{display:none}.kbd-hint{position:absolute;left:21px;top:18px;color:var(--dim);font-size:11px}svg text{paint-order:stroke;stroke:#071019;stroke-width:2.4px;stroke-linejoin:round}.visual svg text,.card svg text{font-family:"Segoe UI",Arial,sans-serif}.flow{stroke-dasharray:8 10;animation:dash 2s linear infinite}.pulse{animation:pulse 1.7s ease-in-out infinite}.float{animation:float 3s ease-in-out infinite}.rotate{transform-origin:center;animation:spin 8s linear infinite}@keyframes dash{to{stroke-dashoffset:-72}}@keyframes pulse{50%{opacity:.35}}@keyframes float{50%{transform:translateY(-7px)}}@keyframes spin{to{transform:rotate(360deg)}}.flow.rev{animation-direction:reverse}.flow.slow{animation-duration:3.6s}.flow.fast{animation-duration:1.1s}.wave{transform-box:fill-box;animation:travel 2.6s linear infinite}.wave.rev{animation-direction:reverse}.wave.slow{animation-duration:4.2s}@keyframes travel{to{transform:translateX(var(--period,120px))}}.pkt{transform-box:fill-box;animation:pkt 2.8s ease-in-out infinite}@keyframes pkt{0%{opacity:0}8%{opacity:1}92%{opacity:1}100%{opacity:0;transform:translateX(var(--run,220px))}}.pkt.rev{animation-name:pktr}@keyframes pktr{0%{opacity:0}8%{opacity:1}92%{opacity:1}100%{opacity:0;transform:translateX(calc(-1*var(--run,220px)))}}.pkt.d1{animation-delay:.35s}.pkt.d2{animation-delay:.7s}.pkt.d3{animation-delay:1.05s}.blink{animation:blink 1.8s steps(1,end) infinite}@keyframes blink{0%,55%{opacity:1}56%,100%{opacity:.2}}.breathe{transform-box:fill-box;transform-origin:center;animation:breathe 2.4s ease-in-out infinite}@keyframes breathe{50%{transform:scale(1.12)}}.fade-cycle{animation:fadecyc 3.2s ease-in-out infinite}@keyframes fadecyc{0%,100%{opacity:.15}45%,55%{opacity:1}}@media(prefers-reduced-motion:reduce){.deck-root:not(.motion-on) *{animation:none!important;transition:none!important}}.motion-badge{position:absolute;left:21px;top:38px;z-index:6;font-size:11px;color:var(--cyan);background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.35);border-radius:6px;padding:2px 7px;pointer-events:none}.motion-badge[hidden]{display:none}
+@media print{html,body{height:auto;overflow:visible;background:#fff}.deck-root{position:static;background:#fff}.stage-shell{position:static;display:block;overflow:visible}.stage{width:1280px;height:auto;transform:none!important;border-radius:0;box-shadow:none;overflow:visible;background:#08111e}.slide{position:relative;width:1280px;height:720px;opacity:1!important;transform:none!important;pointer-events:auto;page-break-after:always}.nav,.notes-panel,.kbd-hint{display:none!important}}
+.tsim{display:flex;gap:20px;flex:1;min-height:0}.tsim-guide{flex:0 0 400px;display:flex;flex-direction:column;gap:11px;min-height:0;overflow:auto;padding-left:6px}.tsim-guide>.tsim-why{flex:0 0 auto}.tsim-spacer{flex:1 1 auto;min-height:0}.tsim-term{flex:1;min-width:0;display:flex;flex-direction:column;background:#05080f;border:1px solid var(--border);border-radius:14px;overflow:hidden}.tsim-bar{display:flex;align-items:center;gap:7px;padding:9px 13px;background:#0d1626;border-bottom:1px solid var(--border);flex:0 0 auto;direction:ltr}.tsim-bar i{width:11px;height:11px;border-radius:50%;display:block}.tsim-bar b{color:#8ba0b5;font-size:12.5px;font-weight:600;margin-left:10px;letter-spacing:.02em;direction:ltr;unicode-bidi:isolate}.tsim-out{flex:1;min-height:0;overflow:auto;direction:ltr;text-align:left;padding:12px 15px;font-family:Consolas,'Courier New',monospace;font-size:13.5px;line-height:1.52;color:#c3d7e8;white-space:pre-wrap;word-break:break-word}.tsim-out .tsim-boot{color:#5b7086;margin-bottom:2px}.tsim-out .caret{color:#4ade80;animation:tscar 1.1s steps(1,end) infinite}@keyframes tscar{0%,50%{opacity:1}51%,100%{opacity:0}}.tsim-out .p{color:#4ade80}.tsim-out .c{color:#f1f5f9;font-weight:700}.tsim-out .e{color:#fb7185}.tsim-out .h{color:#fbbf24}.tsim-out .cur{color:#4ade80}.tsim-hd{display:flex;align-items:baseline;gap:9px;flex:0 0 auto}.tsim-hd span{color:var(--cyan);font-size:13.5px;font-weight:800;letter-spacing:.02em}.tsim-hd b{color:var(--ink);font-size:19.5px;font-weight:800;line-height:1.25}.tsim-why{color:var(--muted);font-size:15.5px;line-height:1.46;margin:0}.tsim-cmd{direction:ltr;unicode-bidi:isolate;text-align:left;font-family:Consolas,'Courier New',monospace;font-size:13.5px;color:#fde68a;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.32);border-radius:9px;padding:8px 11px;word-break:break-all}.tsim-btn{appearance:none;cursor:pointer;font-family:inherit;text-align:right;border-radius:10px;padding:9px 13px;font-size:15.5px;line-height:1.35;border:1px solid var(--border);background:var(--card);color:var(--ink);transition:border-color .15s,background .15s}.tsim-btn:hover{border-color:var(--cyan);background:rgba(34,211,238,.11)}.tsim-btn:disabled{opacity:.45;cursor:default}.tsim-go{background:rgba(34,211,238,.16);border-color:rgba(34,211,238,.65);color:#e6fbff;font-weight:800;font-size:16px;text-align:center}.tsim-read{color:var(--ink);font-size:15.5px;line-height:1.45;background:rgba(34,211,238,.065);border-right:4px solid var(--cyan);border-radius:10px;padding:10px 13px}.tsim-read.win{background:rgba(74,222,128,.09);border-right-color:var(--green)}.tsim-fb{font-size:15px;line-height:1.4;border-radius:9px;padding:9px 12px;color:#fecdd3;background:rgba(251,113,133,.1);border-right:3px solid var(--red)}.tsim-ask{color:var(--muted);font-size:14px;font-weight:700;margin:2px 0 -3px}.tsim-ch{display:flex;flex-direction:column;gap:7px}.tsim-warn{color:#fde68a;font-size:15px;line-height:1.45;background:rgba(251,191,36,.09);border-right:4px solid var(--amber);border-radius:10px;padding:10px 13px}svg text.ltrtx,svg tspan.ltrtx{direction:ltr;unicode-bidi:isolate}svg text.nohalo{stroke:none;paint-order:normal}.table td,.table th,.rt td,.rt th{unicode-bidi:plaintext}.table td.fx,.rt td.fx{unicode-bidi:isolate}.crest{background-image:url(data:image/png;base64,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);background-size:contain;background-position:center;background-repeat:no-repeat;display:inline-block;flex:0 0 auto}.crest-lg{width:76px;height:107px}.crest-sm{width:27px;height:38px}.brand{display:flex;align-items:center;gap:15px;margin-bottom:22px;direction:rtl}.brand-txt{display:flex;flex-direction:column;align-items:flex-start;line-height:1.18;text-align:right}.brand-txt b{font-size:25px;font-weight:800;color:var(--ink);letter-spacing:.01em}.brand-txt i{font-size:16px;font-style:normal;color:var(--cyan);font-weight:600}.slide-mark{position:absolute;top:28px;right:62px;z-index:4;display:flex;align-items:flex-end;gap:9px;font-size:13px;font-weight:600;color:var(--dim);letter-spacing:.01em;pointer-events:none}.slide-mark>span:last-child{padding-bottom:3px}.foot-brand{display:inline-flex;align-items:center;gap:7px;color:var(--dim);white-space:nowrap}/* ===== net-08 additions: part-B styling (antenna-lesson convention) + live-demo widgets ===== */
+:root{--violet:#a78bfa}
+.eyebrow.p2{color:var(--violet)}.eyebrow.p2 .num{background:rgba(167,139,250,.12);border-color:rgba(167,139,250,.42)}
+.key.violet{background:rgba(167,139,250,.08);border-color:var(--violet)}.key.green{background:rgba(74,222,128,.07);border-color:var(--green)}
+.key.sm{font-size:15.5px;padding:10px 13px;line-height:1.45}.copy.sm{font-size:16.5px;line-height:1.5}
+.card.violet .tag{color:var(--violet)}
+.c8-col{display:flex;flex-direction:column;gap:10px;min-width:0;min-height:0}
+.c8-row{display:flex;gap:10px;align-items:center;min-width:0}
+.c8-row.wrap{flex-wrap:wrap}
+.c8-lbl{font-size:13.5px;font-weight:700;color:var(--dim);white-space:nowrap}
+.c8-in{width:100%;background:#050a12;border:1px solid rgba(255,255,255,.16);border-radius:10px;color:var(--ink);font:inherit;font-size:17px;padding:8px 12px;outline:none}
+.c8-in:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(34,211,238,.15)}
+textarea.c8-in{resize:none;line-height:1.45}
+.c8-in.ltr,.c8-ro.ltr{direction:ltr;text-align:left;unicode-bidi:isolate}
+.c8-ro{background:#050a12;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px 12px;color:var(--ink);font-size:16px;line-height:1.45;min-height:38px;overflow-wrap:anywhere;word-break:break-word}
+.c8-mono{font-family:Consolas,"Courier New",monospace;direction:ltr;unicode-bidi:isolate;text-align:left;letter-spacing:.02em}
+.c8-btn{appearance:none;cursor:pointer;border:1px solid var(--border);background:rgba(255,255,255,.06);color:var(--ink);border-radius:9px;padding:7px 13px;font-size:15px;line-height:1.2;white-space:nowrap;transition:background .15s,border-color .15s}
+.c8-btn:hover{background:rgba(34,211,238,.13);border-color:rgba(34,211,238,.5)}
+.c8-btn.on{background:rgba(34,211,238,.2);border-color:var(--cyan);color:#e6fbff}
+.c8-btn.go{background:rgba(34,211,238,.18);border-color:rgba(34,211,238,.6);font-weight:800}
+.c8-btn.warn{background:rgba(251,113,133,.12);border-color:rgba(251,113,133,.5)}
+.c8-btn:disabled{opacity:.4;cursor:default}
+.c8-sel{background:#050a12;border:1px solid rgba(255,255,255,.16);border-radius:9px;color:var(--ink);font:inherit;font-size:15px;padding:6px 8px}
+input[type=range].c8-rng{width:100%;accent-color:var(--cyan)}
+.c8-ok{color:var(--green)!important}.c8-bad{color:var(--red)!important}.c8-warn{color:var(--amber)!important}
+.c8-big{font-size:30px;font-weight:800;color:var(--cyan);direction:ltr;unicode-bidi:isolate}
+.c8-pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 11px;font-size:13.5px;font-weight:700;border:1px solid var(--border);background:rgba(255,255,255,.05);color:var(--muted)}
+.c8-pill.ok{border-color:rgba(74,222,128,.5);background:rgba(74,222,128,.1);color:var(--green)}
+.c8-pill.bad{border-color:rgba(251,113,133,.5);background:rgba(251,113,133,.1);color:var(--red)}
+.c8-panel{border:1px solid var(--border);border-radius:14px;background:var(--panel);padding:13px 15px;min-width:0}
+.c8-panel h4{margin:0 0 8px;font-size:15px;color:var(--cyan);font-weight:800}
+/* hex with per-character change highlight */
+.c8-hex{font-family:Consolas,"Courier New",monospace;direction:ltr;unicode-bidi:isolate;text-align:left;font-size:15.5px;line-height:1.55;color:var(--muted);word-break:break-all}
+.c8-hex b{color:var(--amber);font-weight:700}
+/* 256-cell avalanche grid */
+.c8-bits{display:grid;grid-template-columns:repeat(32,1fr);gap:2px;direction:ltr}
+.c8-bits i{display:block;aspect-ratio:1;border-radius:2px;background:rgba(255,255,255,.08);transition:background .25s}
+.c8-bits i.one{background:rgba(34,211,238,.55)}.c8-bits i.flip{background:var(--amber);box-shadow:0 0 6px rgba(251,191,36,.6)}
+/* AES 4x4 state */
+.c8-state{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;direction:ltr;width:100%}
+.c8-state div{font-family:Consolas,monospace;font-size:21px;font-weight:700;color:var(--ink);text-align:center;padding:10px 0;border-radius:9px;border:1px solid rgba(255,255,255,.12);background:#0a1426;transition:background .35s,color .35s,transform .35s}
+.c8-state div.chg{background:rgba(251,191,36,.18);border-color:rgba(251,191,36,.6);color:#fde68a}
+.c8-state div.mv{transform:translateY(-3px)}
+/* bit rows (XOR) */
+.c8-bitrow{display:flex;gap:4px;direction:ltr;justify-content:center}
+.c8-bitrow span{width:24px;height:30px;display:grid;place-items:center;border-radius:6px;font-family:Consolas,monospace;font-size:17px;font-weight:700;background:#0a1426;border:1px solid rgba(255,255,255,.1);color:var(--muted);transition:background .3s,color .3s}
+.c8-bitrow span.b1{color:var(--ink);background:rgba(34,211,238,.18);border-color:rgba(34,211,238,.45)}
+.c8-bitrow.k span.b1{background:rgba(167,139,250,.22);border-color:rgba(167,139,250,.55)}
+.c8-bitrow.c span.b1{background:rgba(251,191,36,.2);border-color:rgba(251,191,36,.55)}
+.c8-bitrow span.sep{width:10px;background:none;border:0}
+/* frequency bars */
+.c8-bars{display:flex;align-items:flex-end;gap:3px;height:150px;direction:ltr;padding-top:6px}
+.c8-bars .col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative}
+.c8-bars .ref{position:absolute;bottom:16px;width:100%;border-top:2px dashed rgba(167,139,250,.9);transition:bottom .25s}
+.c8-bars .bar{width:76%;background:linear-gradient(0deg,rgba(34,211,238,.35),rgba(34,211,238,.85));border-radius:3px 3px 0 0;transition:height .35s}
+.c8-bars .lt{font-family:Consolas,monospace;font-size:11.5px;color:var(--dim);height:16px;line-height:16px}
+/* keypad */
+.c8-pad{display:grid;grid-template-columns:repeat(3,58px);gap:8px;direction:ltr;justify-content:center}
+.c8-pad button{height:46px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.06);color:var(--ink);font-size:20px;font-weight:700;cursor:pointer}
+.c8-pad button:hover{background:rgba(34,211,238,.14)}
+.c8-dots{display:flex;gap:10px;justify-content:center;direction:ltr}
+.c8-dots i{width:16px;height:16px;border-radius:50%;border:2px solid var(--muted)}.c8-dots i.f{background:var(--cyan);border-color:var(--cyan)}
+.c8-tries{display:flex;gap:7px;justify-content:center}.c8-tries i{width:26px;height:9px;border-radius:5px;background:var(--green);transition:background .3s}.c8-tries i.used{background:rgba(251,113,133,.35)}
+/* chain / steps */
+.c8-link{border:1.5px solid var(--border);border-radius:13px;background:#0a1426;padding:10px 13px;transition:border-color .3s,background .3s,box-shadow .3s}
+.c8-link.chk{border-color:var(--amber);box-shadow:0 0 0 3px rgba(251,191,36,.15)}
+.c8-link.ok{border-color:var(--green);background:rgba(74,222,128,.06)}
+.c8-link.bad{border-color:var(--red);background:rgba(251,113,133,.08)}
+.c8-arrowv{text-align:center;color:var(--dim);font-size:16px;line-height:1;margin:-2px 0}
+.c8-scn{display:flex;flex-wrap:wrap;gap:6px}
+/* reveal-on-show staggering (CSS only; restarts each time the slide becomes active) */
+.slide.active .c8-rise{animation:c8rise .55s ease both}
+.slide.active .c8-rise:nth-child(2){animation-delay:.12s}.slide.active .c8-rise:nth-child(3){animation-delay:.24s}
+.slide.active .c8-rise:nth-child(4){animation-delay:.36s}.slide.active .c8-rise:nth-child(5){animation-delay:.48s}
+.slide.active .c8-rise:nth-child(6){animation-delay:.6s}.slide.active .c8-rise:nth-child(7){animation-delay:.72s}
+@keyframes c8rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes c8glow{0%,100%{box-shadow:0 0 0 0 rgba(34,211,238,0)}50%{box-shadow:0 0 0 4px rgba(34,211,238,.18)}}
+.c8-cycle>*{animation:c8glow 6s ease-in-out infinite}
+.c8-cycle>*:nth-child(2){animation-delay:1.5s}.c8-cycle>*:nth-child(3){animation-delay:3s}.c8-cycle>*:nth-child(4){animation-delay:4.5s}
+@media print{.slide .c8-rise{animation:none!important;opacity:1!important;transform:none!important}}
+/* four-tools: rise first, then the slow glow cycle (both animations on one element) */
+.slide.active .c8-cycle>.c8-rise{animation:c8rise .55s ease both,c8glow 6s ease-in-out 1s infinite}
+.slide.active .c8-cycle>.c8-rise:nth-child(2){animation-delay:.12s,2.5s}.slide.active .c8-cycle>.c8-rise:nth-child(3){animation-delay:.24s,4s}.slide.active .c8-cycle>.c8-rise:nth-child(4){animation-delay:.36s,5.5s}
+/* title hero: letters flip between plain and cipher (driven by demos.js) */
+.c8-hero{display:flex;justify-content:center;gap:4px;direction:rtl;margin-top:4px;min-height:58px}
+.c8-hero span{display:inline-block;width:38px;font-size:40px;font-weight:800;color:var(--cyan);text-align:center;transition:color .25s,transform .25s}
+.c8-hero span.x{color:var(--amber);transform:rotateX(360deg)}.c8-hero span.sp{width:20px}
+/* part-B divider */
+.c8-divider{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 90px 30px}
+.c8-divider>*:not(.c8-bitsbg){position:relative;z-index:1}
+.c8-bitsbg{position:absolute;inset:0;z-index:0;overflow:hidden;font-family:Consolas,monospace;font-size:15px;line-height:22px;color:rgba(167,139,250,.13);direction:ltr;white-space:pre;padding:18px 24px;pointer-events:none;-webkit-mask-image:radial-gradient(ellipse at 50% 50%,transparent 22%,#000 70%);mask-image:radial-gradient(ellipse at 50% 50%,transparent 22%,#000 70%)}
+.c8-bitsbg b{color:rgba(167,139,250,.45);font-weight:400}
+/* asymmetric padlock loop (10s) */
+.as-a1{animation:asA1 10s ease-in-out infinite}.as-a2{animation:asA2 10s ease-in-out infinite}.as-a3{animation:asA3 10s ease-in-out infinite}.as-key{animation:asK 10s ease-in-out infinite}
+@keyframes asA1{0%{transform:translate(95px,150px);opacity:0}5%{transform:translate(95px,150px);opacity:1}28%{transform:translate(465px,150px);opacity:1}34%{transform:translate(465px,190px);opacity:0}100%{transform:translate(465px,190px);opacity:0}}
+@keyframes asA2{0%,32%{transform:translate(465px,200px);opacity:0}37%{transform:translate(465px,200px);opacity:1}62%{transform:translate(95px,200px);opacity:1}74%{transform:translate(95px,200px);opacity:1}78%,100%{transform:translate(95px,200px);opacity:0}}
+@keyframes asA3{0%,74%{transform:translate(95px,200px);opacity:0}78%,92%{transform:translate(95px,200px);opacity:1}97%,100%{transform:translate(95px,200px);opacity:0}}
+@keyframes asK{0%,63%{transform:translate(80px,285px)}70%,78%{transform:translate(80px,238px)}86%,100%{transform:translate(80px,285px)}}
+#as-s1{animation:asS1 10s ease-in-out infinite}#as-s2{animation:asS2 10s ease-in-out infinite}#as-s3{animation:asS3 10s ease-in-out infinite}
+@keyframes asS1{0%,29%{border-color:#fbbf24;box-shadow:0 0 0 3px rgba(251,191,36,.15)}33%,100%{border-color:rgba(255,255,255,.105);box-shadow:none}}
+@keyframes asS2{0%,30%{border-color:rgba(255,255,255,.105);box-shadow:none}34%,61%{border-color:#fbbf24;box-shadow:0 0 0 3px rgba(251,191,36,.15)}65%,100%{border-color:rgba(255,255,255,.105);box-shadow:none}}
+@keyframes asS3{0%,62%{border-color:rgba(255,255,255,.105);box-shadow:none}66%,94%{border-color:#4ade80;box-shadow:0 0 0 3px rgba(74,222,128,.15)}98%,100%{border-color:rgba(255,255,255,.105);box-shadow:none}}
+/* hybrid: one key exchange, then the stream (7s) */
+.hy-k{animation:hyK 7s ease-in-out infinite}
+@keyframes hyK{0%{transform:translate(225px,100px);opacity:0}6%{transform:translate(225px,100px);opacity:1}30%{transform:translate(855px,100px);opacity:1}36%,100%{transform:translate(855px,100px);opacity:0}}
+.hy-bar{transform-box:fill-box;transform-origin:0 50%;animation:hyB 7s ease-out infinite}
+@keyframes hyB{0%,30%{transform:scaleX(0)}62%,100%{transform:scaleX(1)}}
+.hy-pkts .pkt{animation-fill-mode:backwards}
+/* smart card challenge-response (9s) */
+.sc-m1{animation:scM1 9s ease-in-out infinite}.sc-m2{animation:scM2 9s ease-in-out infinite}
+.sc-glow{transform-box:fill-box;transform-origin:center;animation:scG 9s ease-in-out infinite}.sc-ok{animation:scOk 9s ease-in-out infinite}
+@keyframes scM1{0%{transform:translate(552px,160px);opacity:0}5%{transform:translate(552px,160px);opacity:1}34%{transform:translate(118px,160px);opacity:1}39%,100%{transform:translate(118px,160px);opacity:0}}
+@keyframes scG{0%,37%{opacity:0;transform:scale(.8)}42%{opacity:1;transform:scale(1)}47%{opacity:1;transform:scale(1.15)}52%{opacity:1;transform:scale(1)}57%,100%{opacity:0;transform:scale(.8)}}
+@keyframes scM2{0%,52%{transform:translate(118px,270px);opacity:0}56%{transform:translate(118px,270px);opacity:1}81%{transform:translate(522px,270px);opacity:1}85%,100%{transform:translate(522px,270px);opacity:0}}
+@keyframes scOk{0%,82%{opacity:0}86%,96%{opacity:1}100%{opacity:0}}
+/* Diffie-Hellman paint mixing (12s) */
+.dh-mix1,.dh-mix2,.dh-fin{transform-box:fill-box;transform-origin:center}
+.dh-mix1,.dh-mix2{animation:dhMix 12s ease-in-out infinite}
+@keyframes dhMix{0%,3%{transform:scale(0)}12%,93%{transform:scale(1)}100%{transform:scale(0)}}
+.dh-go1{animation:dhGo1 12s ease-in-out infinite}.dh-go2{animation:dhGo2 12s ease-in-out infinite}
+@keyframes dhGo1{0%,14%{transform:translate(130px,160px);opacity:0}18%{transform:translate(130px,160px);opacity:1}44%{transform:translate(440px,160px);opacity:1}56%{transform:translate(490px,262px);opacity:1}62%,100%{transform:translate(490px,300px);opacity:0}}
+@keyframes dhGo2{0%,14%{transform:translate(490px,160px);opacity:0}18%{transform:translate(490px,160px);opacity:1}44%{transform:translate(180px,160px);opacity:1}56%{transform:translate(130px,262px);opacity:1}62%,100%{transform:translate(130px,300px);opacity:0}}
+.dh-seen{animation:dhSeen 12s ease-in-out infinite}
+@keyframes dhSeen{0%,28%{opacity:0}34%,93%{opacity:1}100%{opacity:0}}
+.dh-fin{animation:dhFin 12s ease-in-out infinite}
+@keyframes dhFin{0%,58%{transform:scale(0)}68%,93%{transform:scale(1)}100%{transform:scale(0)}}
+/* wheel, mesh, TLS stepper */
+.c8-ring{transition:transform .7s cubic-bezier(.3,.7,.2,1)}
+.c8-fade{animation:c8fade .5s ease both}@keyframes c8fade{from{opacity:0}to{opacity:1}}
+.tl-new line,.tl-new path{stroke-dasharray:440;stroke-dashoffset:440;animation:tlDraw .75s ease forwards}
+.tl-new text,.tl-new circle{animation:c8fade .6s ease .35s both}
+@keyframes tlDraw{to{stroke-dashoffset:0}}
+.c8-flash{animation:c8flash 1.2s ease}@keyframes c8flash{0%{background:rgba(251,191,36,.35)}100%{background:rgba(255,255,255,.025)}}
+.tv-chg td{color:var(--green)!important}
+@media print{.as-a1,.as-a2,.as-a3,.as-key,.hy-k,.sc-m1,.sc-m2,.sc-glow,.dh-go1,.dh-go2{animation-play-state:paused}}
+.c8-link>b{display:block;color:var(--ink);font-size:16.5px}.c8-link>span{display:block;font-size:13.5px;color:var(--muted);line-height:1.4}
+.c8-pill.lg{font-size:16px;padding:6px 14px}
+.c8-rules .key{display:flex;align-items:center;margin:0}
+.c8-bitrow{gap:2px}.c8-bitrow span{width:17px;height:27px;font-size:14px;border-radius:4px}.c8-bitrow span.sep{width:9px}
+/* walk-through highlight across a row of steps */
+@keyframes c8walk{0%,14%{border-color:rgba(34,211,238,.75);box-shadow:0 0 0 3px rgba(34,211,238,.14);background:rgba(34,211,238,.06)}20%,100%{border-color:rgba(255,255,255,.105);box-shadow:none;background:rgba(255,255,255,.025)}}
+.slide.active .c8-walk>.step.c8-rise{animation:c8rise .55s ease both,c8walk 9s ease-in-out 1s infinite}
+.slide.active .c8-walk>.step.c8-rise:nth-child(2){animation-delay:.12s,2.8s}.slide.active .c8-walk>.step.c8-rise:nth-child(3){animation-delay:.24s,4.6s}
+.slide.active .c8-walk>.step.c8-rise:nth-child(4){animation-delay:.36s,6.4s}.slide.active .c8-walk>.step.c8-rise:nth-child(5){animation-delay:.48s,8.2s}
+.c8-walk{flex:0 0 300px;margin-top:10px}
+.c8-link>.c8-big{color:var(--cyan)}
+
+</style><style>@page{size:13.333in 7.5in;margin:0}svg text[font-family*="Consolas"],svg text[font-family*="monospace"]{direction:ltr;unicode-bidi:bidi-override}</style><div class="deck-root motion-on" id="network-lesson-8" dir="rtl"><div class="stage-shell"><main class="stage" aria-label="הצפנה וזהות"><div class="motion-badge" hidden>אנימציות כבויות</div><div class="kbd-hint">← → ניווט · N הערות · F מסך מלא · A כיבוי אנימציות</div><section class="slide title-slide active" aria-hidden="false"><div class="brand"><span class="crest crest-lg" role="img" aria-label="סמל היחידה"></span><span class="brand-txt"><b>גדס״ם 5059</b><i>מחלקת תקשוב</i></span></div><div class="badge">רשתות · שיעור 8</div><h1>הצפנה וזהות</h1><p>מצופן אתב״ש ועד TLS 1.3 וכרטיס חכם: מה כל כלי מבטיח, ואיך הוא עובד.</p><div class="c8-hero" id="c8hero" aria-label="טקסט שמוצפן ומפוענח">
+<span>ה</span><span>צ</span><span>פ</span><span>נ</span><span>ה</span><span class="sp"></span><span>ש</span><span>ו</span><span>מ</span><span>ר</span><span>ת</span><span class="sp"></span><span>ס</span><span>ו</span><span>ד</span></div><aside class="speaker-note">הכותרת מתחלפת בין טקסט גלוי לטקסט מוצפן: אותו מידע, ומי שאין לו מפתח רואה רעש. שקופיות 3 עד 18 לעבודה בשטח; משקופית 19 מסבירים איך האלגוריתמים עובדים, ואפשר במפגש נפרד. ברוב השקופיות יש הדגמה חיה שאפשר להקליד בה ולשנות; כדאי לבקש ניחוש לפני שלוחצים.</aside></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">01</span>מפת השיעור</div><h1 class="title">מהלך השיעור</h1><p class="subtitle">כל ההדגמות מחושבות בדפדפן, בלי חיבור לרשת.</p><div class="body"><div class="stack" style="gap:14px"><div class="card c8-rise"><ul style="margin:0;padding-right:24px;font-size:18px;line-height:1.65;color:var(--ink)"><li>קידוד, הצפנה והסתרה: Base64, סטגנוגרפיה וצופן החלפה (<span class="ltr">3-5</span>)</li><li>Hash, הצפנה סימטרית, אסימטרית והיברידית (<span class="ltr">6-10</span>)</li><li>מה המנעול בדפדפן מבטיח, חתימה דיגיטלית, שרשרת תעודות ושגיאות תעודה נפוצות (<span class="ltr">11-14</span>)</li><li>כרטיס חכם, PIN ואיתור תקלות בכרטיס, ובסוף כללים לשטח (<span class="ltr">15-18</span>)</li><li>איך זה עובד מבפנים: פיצוח תדירויות, SHA-256, XOR, AES, RSA, דיפי-הלמן, חתימה במספרים ולחיצת היד של TLS 1.3, ובסוף מגבלות ההדגמות (<span class="ltr">19-30</span>)</li></ul></div><p class="copy">רוב הטעויות בשטח הן הנחה שכלי מבטיח יותר ממה שהוא נותן.</p></div></div><aside class="speaker-note">החלק התיאורטי מתאים למי שצריך להבין למה. אם הזמן קצר, דלגו בו על XOR ועל הצד המתמטי של החתימה, ושמרו את לחיצת היד של TLS.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק א׳</span><span class="ltr">02 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">02</span>מה זה בכלל</div><h1 class="title">מה הצפנה נותנת, ולמה Base64 הוא לא הצפנה</h1><p class="subtitle">הצפנה הופכת מידע לבלתי קריא למי שאין לו מפתח. טקסט שנראה ״מוזר״ הוא לא בהכרח מוצפן.</p><div class="body"><div class="split"><div class="stack"><div class="card c8-rise" style="padding:13px 15px"><p><strong>סודיות</strong> - מי שאין לו מפתח רואה רעש.<br><strong>שלמות</strong> - שינוי של תו אחד מתגלה.<br><strong>אימות</strong> - מוכח מי שלח או מי עונה.</p></div><p class="copy sm">כמעט אף כלי בשיעור לא נותן את שלושתם לבד, ולכן מערכות אמיתיות משלבות כמה כלים.</p><div class="key red sm">Base64, Hex ו-URL encoding הם צורות כתיבה ולא הצפנה: אין בהם מפתח, וכל אחד הופך אותם בחזרה. ״הסיסמה שמורה ב-Base64״ פירושו שהיא שמורה גלויה.</div></div><div class="visual" style="align-items:stretch"><div class="c8-col" style="width:100%;justify-content:center;gap:12px"><div class="c8-lbl">הקלידו טקסט</div><input class="c8-in" id="b64-in" value="סיסמה: Unit-5059!" autocomplete="off" spellcheck="false"><div class="c8-lbl">ב-Base64 (נראה מוצפן)</div><div class="c8-ro c8-mono" id="b64-out"></div><div class="c8-lbl">פענוח, בלי מפתח</div><div class="c8-ro" id="b64-back"></div><div class="c8-row" style="justify-content:space-between"><span class="c8-pill bad" id="b64-pill">מפתח בשימוש: אין</span><span class="c8-lbl" id="b64-len"></span></div></div></div></div></div><aside class="speaker-note">הקלידו סיסמה: הפלט נראה כמו רעש, והשורה התחתונה מפענחת אותו מיד בלי מפתח. הטעות הנפוצה היא לחשוב שמה שנראה כמו רעש מוצפן. Base64 קיים כדי להעביר בתים בערוץ שתומך רק בטקסט (דוא״ל, JSON, תעודות בפורמט PEM). הוא לא מגן על כלום. בשטח פוגשים את זה בקובצי הגדרות ובסקריפטים עם ״סיסמה מוסתרת״.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק א׳</span><span class="ltr">03 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">03</span>הסתרה מול הצפנה</div><h1 class="title">סטגנוגרפיה מסתירה מסר בתוך תמונה</h1><p class="subtitle">המסר נכתב לביט האחרון של כל ערך צבע בתמונה, ובעין לא רואים הבדל.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,.82fr) minmax(0,1.4fr)"><div class="stack"><p class="copy sm">הצפנה לא מסתירה שיש מסר: רואים שעובר משהו מוצפן, רק לא מבינים אותו. סטגנוגרפיה מסתירה את עצם קיומו בתוך תמונה רגילה, קובץ קול או רווחים בטקסט, אבל מי שמוצא את השיטה קורא הכול.</p><div class="key sm">אפשר לשלב: מצפינים קודם ואז מסתירים, וכך גם מי שמגלה את ההסתרה רואה רק רעש.</div><div class="key amber sm">בשטח זה בעיקר איום: מידע שיוצא מהרשת בתוך קבצים שנראים תמימים. כלי סינון שבודק רק ״מה סוג הקובץ״ לא יראה את זה.</div></div><div class="visual" style="align-items:stretch;padding:12px"><div class="c8-col" style="width:100%;gap:9px"><div class="c8-row" style="gap:10px;align-items:stretch"><div class="c8-col" style="flex:1;gap:5px"><div class="c8-lbl" style="text-align:center">מקור</div><canvas id="st-a" width="64" height="40" style="width:100%;border-radius:10px;image-rendering:pixelated"></canvas></div><div class="c8-col" style="flex:1;gap:5px"><div class="c8-lbl" style="text-align:center" id="st-blbl">עם מסר מוסתר</div><canvas id="st-b" width="64" height="40" style="width:100%;border-radius:10px;image-rendering:pixelated"></canvas></div></div><div class="c8-row"><input class="c8-in" id="st-msg" maxlength="60" value="נקודת מפגש: גשר צפוני 0300" autocomplete="off" spellcheck="false"><button class="c8-btn" id="st-amp" type="button">הגבר ביט אחרון</button></div><div class="c8-row" style="justify-content:space-between"><span class="c8-lbl" id="st-stat"></span><span class="c8-pill ok" id="st-out"></span></div></div></div></div></div><aside class="speaker-note">שתי התמונות נראות זהות. לחצו על ״הגבר ביט אחרון״: הכפתור מציג רק את הביט הנמוך של כל צבע, מוגדל פי 255. בתמונה עם המסר (השמאלית) רואים בראש התמונה פס רעש בדיוק בפיקסלים שבהם נכתב המסר, בזמן ששאר התמונה נשאר משטחים אחידים. ההבדל המרבי בכל ערוץ צבע הוא 1 מתוך 255, ולכן העין לא מבחינה. שנו את הטקסט וראו שהפס מתארך. הדגישו שהצפנה לא מסתירה את קיום התקשורת, ושסטגנוגרפיה לבדה לא מגינה על התוכן.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק א׳</span><span class="ltr">04 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">04</span>הצפנה קלאסית</div><h1 class="title">צופן החלפה: כל אות מוחלפת לפי כלל קבוע</h1><p class="subtitle">הטבעת הפנימית היא האלפבית המוצפן. בקיסר, המפתח הוא רק בכמה מקומות מסובבים אותה.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)"><div class="stack"><div class="c8-row"><button class="c8-btn on" type="button" id="wh-atb">אתב״ש</button><button class="c8-btn" type="button" id="wh-cae">קיסר</button><input type="range" class="c8-rng" id="wh-shift" min="1" max="21" value="3" aria-label="הזזה"><span class="c8-big" id="wh-sv" style="font-size:22px;min-width:30px">3</span></div><input class="c8-in" id="wh-in" value="בבל" autocomplete="off" spellcheck="false"><div class="c8-ro" id="wh-out" style="font-size:22px;font-weight:800;color:var(--amber)"></div><div class="key sm"><strong>אתב״ש</strong>: א↔ת, ב↔ש, ג↔ר... ב״ששך״ (ירמיהו כה, כו) מסתתרת ״בבל״. צופן החלפה בן יותר מ-2,500 שנה.</div><div class="key amber sm">מספר המפתחות בהחלפה כללית של 22 אותיות הוא <span class="ltr">22! ≈ 1.1×10²¹</span>, ובכל זאת הצופן נשבר בקלות בניתוח תדירויות (חלק ב׳).</div></div><div class="visual" style="padding:8px"><svg id="wh-svg" viewBox="0 0 440 440" role="img" aria-label="גלגל צופן החלפה"></svg></div></div></div><aside class="speaker-note">התחילו באתב״ש: הקלידו ״בבל״ וקבלו ״ששך״. זה באמת כתוב בתנ״ך, וזו כנראה הדוגמה העברית הוותיקה ביותר להצפנה. עברו לקיסר והזיזו את הסליידר: הטבעת מסתובבת וכל האותיות זזות יחד. בכל הצפנה כזו האות ״י״ תמיד תהפוך לאותה אות, ולכן האות הנפוצה בשפה נשארת נפוצה גם אחרי ההצפנה. את החולשה הזו ננצל בחלק ב׳. העיקרון המודרני שנולד מהכישלונות האלה (קרקהוף): מניחים שהאויב יודע את השיטה, ורק המפתח סודי.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק א׳</span><span class="ltr">05 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">05</span>הכלים המודרניים</div><h1 class="title">Hash, סימטרית, אסימטרית וחתימה</h1><p class="subtitle">השיטות ציבוריות ונבדקו שנים, והסוד היחיד הוא המפתח.</p><div class="body"><table class="table c8-tbl" style="font-size:16px"><tr><th style="width:15%">כלי</th><th style="width:37%">איך הוא עובד</th><th style="width:24%">נותן</th><th>מגבלה</th></tr><tr class="c8-rise"><td>Hash</td><td>טביעת אצבע: קלט בכל גודל, פלט באורך קבוע. אין מפתח ואין דרך חזרה.</td><td>מגלה שינוי</td><td>לא מסתיר, ולא מוכיח מי שלח</td></tr><tr class="c8-rise"><td>סימטרית</td><td>אותו מפתח נועל ופותח. מהירה מאוד (למשל AES).</td><td>סודיות לכמויות גדולות</td><td>צריך להעביר את המפתח בבטחה</td></tr><tr class="c8-rise"><td>אסימטרית</td><td>זוג מפתחות: ציבורי לכולם, פרטי לבעלים בלבד. RSA, ECC.</td><td>הסכמה על מפתח בלי סוד משותף</td><td>איטית, לא לנתונים רבים</td></tr><tr class="c8-rise"><td>חתימה</td><td>ה-Hash של המסמך, נעול במפתח הפרטי</td><td>מוכיחה מי חתם ושלא שינו אף תו</td><td>לא מסתירה את התוכן</td></tr></table><div class="key sm" style="margin-top:14px">בגלל המגבלות האלה, במערכות אמיתיות כמו TLS, VPN וכרטיס חכם הכלים מופיעים יחד.</div></div><aside class="speaker-note">הטבלה היא המפה להמשך: כל כלי מקבל שקופית משלו. לבדיקת הבנה: מה מגן על סיסמאות שמורות בשרת (Hash), מה מצפין קובץ גדול (סימטרית), איך מעבירים את המפתח הסימטרי (אסימטרית), ואיך יודעים שעדכון תוכנה באמת מהיצרן (חתימה).</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק א׳</span><span class="ltr">06 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">06</span>Hash בשטח</div><h1 class="title">שינוי של תו אחד משנה את כל ה-Hash</h1><p class="subtitle">אותו קלט נותן תמיד אותו Hash. אבל תו אחד שונה בשורה התחתונה הופך בערך מחצית מהביטים (״אפקט המפולת״).</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,1fr) minmax(0,1.25fr)"><div class="stack"><p class="copy sm"><strong>בדיקת קובץ שהורד:</strong> מחשבים Hash ומשווים לערך שהיצרן פרסם. אם הערך שונה, הקובץ השתנה או נפגם.</p><div class="c8-ro c8-mono" style="font-size:14.5px">Get-FileHash .\image.iso -Algorithm SHA256<br>certutil -hashfile image.iso SHA256</div><p class="copy sm">שרת תקין שומר Hash של הסיסמה (עם ״מלח״ ייחודי), לא את הסיסמה. בכניסה הוא מחשב שוב ומשווה.</p><div class="key red sm">MD5 ו-SHA-1 נשברו: אפשר לייצר שני קבצים שונים עם אותו Hash. לבדיקת תקלות אפשר להשתמש בהם, לאבטחה רק SHA-256 ומעלה.</div></div><div class="visual" style="align-items:stretch;padding:14px"><div class="c8-col" style="width:100%;gap:8px"><div class="c8-lbl">קלט א׳</div><input class="c8-in" id="h6-a" value="העברה מאושרת: 500 ליטר דלק" autocomplete="off" spellcheck="false"><div class="c8-hex" id="h6-ha"></div><div class="c8-lbl">קלט ב׳ - שנו תו אחד</div><input class="c8-in" id="h6-b" value="העברה מאושרת: 900 ליטר דלק" autocomplete="off" spellcheck="false"><div class="c8-hex" id="h6-hb"></div><div class="c8-row" style="justify-content:space-between;margin-top:4px"><span class="c8-lbl">ביטים שונים בין שני ה-Hash</span><span class="c8-big" id="h6-n">0</span></div><div style="height:12px;border-radius:7px;background:rgba(255,255,255,.08);overflow:hidden;direction:ltr"><div id="h6-bar" style="height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--amber));transition:width .35s"></div></div><div class="c8-lbl" style="text-align:center">ציפייה סטטיסטית: כמחצית מ-256 הביטים</div></div></div></div></div><aside class="speaker-note">ההבדל בין שני המשפטים הוא ספרה אחת (5 מול 9), אבל כמחצית מהביטים ב-Hash התהפכו, והתווים המודגשים בצהוב שונים כמעט בכל מקום. כלומר, אי אפשר ״לכוון״ Hash בעזרת שינויים קטנים, ואי אפשר ללמוד מה-Hash איך נראה הקלט. ההדגמה מחשבת SHA-256 אמיתי בדפדפן (נבדק מול ספריית Python) - אפשר להעתיק את הערך ולהשוות. בשטח: Get-FileHash ו-certutil מובנים ב-Windows, ואין צורך בתוכנה חיצונית.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק א׳</span><span class="ltr">07 / 30</span></div></section>
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">07</span>סימטרית</div><h1 class="title">הצפנה סימטרית ובעיית הפצת המפתח</h1><p class="subtitle">אותו מפתח נועל ופותח, וכל זוג שצריך לדבר בסוד צריך מפתח משלו. הסליידר מראה כמה מפתחות זה.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,1fr) minmax(0,1.2fr)"><div class="stack"><p class="copy sm">אותו מפתח מצפין ומפענח, והאלגוריתמים מהירים מאוד: הצפנת דיסק שלם או זרם וידאו בלי שמרגישים.</p><p class="copy sm">בשטח זה הצפנת דיסק (BitLocker), ארכיון עם סיסמה ורשת Wi-Fi עם סיסמה משותפת. בכולם, כל מי שמחזיק את הסוד יכול גם לקרוא וגם לכתוב.</p><div class="key amber sm"><strong>בעיית ההפצה:</strong> איך מעבירים את המפתח לצד השני בלי שמישהו ייירט אותו בדרך? ואם יש <span class="ltr">N</span> משתתפים, כל זוג צריך מפתח נפרד.</div><div class="formula" style="font-size:24px;padding:10px 14px">N(N-1)/2</div></div><div class="visual" style="flex-direction:column;gap:8px;padding:12px"><svg id="sy-svg" viewBox="0 0 420 330" role="img" aria-label="רשת מפתחות בין משתתפים" style="max-height:330px"></svg><div class="c8-row" style="width:100%"><span class="c8-lbl">משתתפים</span><input type="range" class="c8-rng" id="sy-n" min="2" max="40" value="6" aria-label="מספר משתתפים"><span class="c8-big" id="sy-nv" style="font-size:22px;min-width:34px">6</span></div><div class="c8-row" style="width:100%;justify-content:space-between"><span class="c8-lbl">מפתחות סימטריים דרושים</span><span class="c8-big" id="sy-k">15</span></div></div></div></div><aside class="speaker-note">הזיזו לאט מ-2 ל-40. עם 6 משתתפים צריך 15 מפתחות, עם 40 כבר 780, ועם גדוד שלם של כמה מאות - עשרות אלפים. וכל מפתח צריך להגיע לשני הצדדים בדרך בטוחה. את הבעיה הזו פותרת ההצפנה האסימטרית. ברשת Wi-Fi עם סיסמה משותפת (PSK) כולם מחזיקים אותו סוד, ולכן מי שמכיר את הסיסמה יכול, בתנאים מסוימים, לפענח תעבורה של אחרים.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק א׳</span><span class="ltr">08 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">08</span>אסימטרית</div><h1 class="title">בהצפנה אסימטרית המפתח הפרטי לא יוצא מהבעלים</h1><p class="subtitle">המפתח הציבורי הוא כמו מנעול פתוח: כל אחד יכול לסגור איתו, ורק בעל המפתח הפרטי יכול לפתוח.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,.9fr) minmax(0,1.4fr)"><div class="stack"><div class="c8-link" id="as-s1"><b>1 · דנה מפרסמת מנעול פתוח</b><span>המפתח הציבורי. אפשר לתלות אותו על לוח המודעות.</span></div><div class="c8-link" id="as-s2"><b>2 · יוסי סוגר בו את ההודעה</b><span>אחרי שנסגר - גם יוסי עצמו לא יכול לפתוח.</span></div><div class="c8-link" id="as-s3"><b>3 · רק המפתח הפרטי של דנה פותח</b><span>הוא לא עזב את דנה אף פעם, ולכן לא היה מה ליירט.</span></div><div class="key sm">עם <span class="ltr">N</span> משתתפים מספיקים <span class="ltr">N</span> זוגות מפתחות, במקום <span class="ltr">N(N-1)/2</span> מפתחות סימטריים.</div><div class="key amber sm"><strong>חתימה</strong> עובדת בכיוון ההפוך: מה שנחתם במפתח הפרטי, כל אחד בודק במפתח הציבורי, ורק בעל המפתח הפרטי יכול היה לחתום.</div></div><div class="visual"><svg viewBox="0 0 560 400" role="img" aria-label="מנעול פתוח, קופסה נסגרת, ומפתח פרטי פותח"><defs><g id="as-lock-open"><path d="M-16 -4 V-22 a16 16 0 0 1 32 0 V-14" fill="none" stroke="#fbbf24" stroke-width="6" stroke-linecap="round"/><rect x="-22" y="-4" width="44" height="34" rx="6" fill="#fbbf24"/><circle cx="0" cy="11" r="5" fill="#0b1220"/></g><g id="as-lock-shut"><path d="M-16 -4 V-22 a16 16 0 0 1 32 0 V-4" fill="none" stroke="#fbbf24" stroke-width="6" stroke-linecap="round"/><rect x="-22" y="-4" width="44" height="34" rx="6" fill="#fbbf24"/><circle cx="0" cy="11" r="5" fill="#0b1220"/></g></defs><rect x="20" y="40" width="150" height="300" rx="18" fill="#101b30" stroke="#22d3ee" stroke-width="2"/><text x="95" y="72" text-anchor="middle" fill="#f1f5f9" font-size="19" font-weight="700">דנה</text><rect x="390" y="40" width="150" height="300" rx="18" fill="#101b30" stroke="#4ade80" stroke-width="2"/><text x="465" y="72" text-anchor="middle" fill="#f1f5f9" font-size="19" font-weight="700">יוסי</text><g class="as-a1"><use href="#as-lock-open" x="0" y="0"/></g><g class="as-a2"><rect x="-30" y="-18" width="60" height="44" rx="6" fill="#22d3ee" opacity=".25" stroke="#22d3ee"/><text x="0" y="10" text-anchor="middle" fill="#f1f5f9" font-size="14">הודעה</text><use href="#as-lock-shut" x="0" y="-40" transform="scale(.7)"/></g><g class="as-a3"><rect x="-30" y="-18" width="60" height="44" rx="6" fill="#4ade80" opacity=".25" stroke="#4ade80"/><text x="0" y="10" text-anchor="middle" fill="#f1f5f9" font-size="14">הודעה</text><use href="#as-lock-open" x="0" y="-40" transform="scale(.7)"/></g><g class="as-key"><circle cx="0" cy="0" r="11" fill="none" stroke="#a78bfa" stroke-width="5"/><path d="M11 0 H44 M34 0 V10 M42 0 V8" stroke="#a78bfa" stroke-width="5" stroke-linecap="round"/></g><text x="95" y="320" text-anchor="middle" fill="#a78bfa" font-size="14">מפתח פרטי · נשאר כאן</text><text x="280" y="388" text-anchor="middle" fill="#8ba0b5" font-size="14">הערוץ באמצע גלוי לכולם</text><line x1="170" y1="200" x2="390" y2="200" stroke="#8ba0b5" stroke-width="2" stroke-dasharray="6 8" opacity=".6"/></svg></div></div></div><aside class="speaker-note">האנימציה רצה בלולאה: המנעול הפתוח (המפתח הציבורי) עובר מדנה ליוסי, יוסי סוגר בו קופסה עם הודעה, הקופסה הסגורה חוזרת לדנה, ורק המפתח הסגול (הפרטי) של דנה פותח אותה. הדגישו: הערוץ באמצע גלוי לכולם, ומי שמעתיק את המנעול הפתוח לא מרוויח כלום - עם מנעול אפשר רק לסגור. המגבלה בצד המתמטי: זה איטי מאוד, ולכן לא מצפינים כך קבצים - רק מפתחות קטנים.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק א׳</span><span class="ltr">09 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">09</span>הצפנה היברידית</div><h1 class="title">בפועל משלבים את שתי השיטות</h1><p class="subtitle">בתחילת החיבור מסכימים, בהצפנה אסימטרית, על מפתח סימטרי. משם כל המידע עובר בהצפנה סימטרית, במהירות שלה.</p><div class="body"><div class="visual" style="flex:1"><svg viewBox="0 0 1080 360" role="img" aria-label="הסכמה חד-פעמית על מפתח ואחריה זרם מידע מוצפן סימטרית"><rect x="40" y="70" width="170" height="220" rx="18" fill="#101b30" stroke="#22d3ee" stroke-width="2.5"/><text x="125" y="186" text-anchor="middle" fill="#f1f5f9" font-size="21" font-weight="700">לקוח</text><rect x="870" y="70" width="170" height="220" rx="18" fill="#101b30" stroke="#4ade80" stroke-width="2.5"/><text x="955" y="186" text-anchor="middle" fill="#f1f5f9" font-size="21" font-weight="700">שרת</text><text x="540" y="70" text-anchor="middle" fill="#fbbf24" font-size="17" font-weight="700">1 · אסימטרית: פעם אחת, הודעות קטנות</text><line x1="215" y1="100" x2="865" y2="100" stroke="#fbbf24" stroke-width="3" stroke-dasharray="10 9" opacity=".7"/><g class="hy-k"><rect x="-20" y="-13" width="40" height="26" rx="6" fill="#fbbf24"/><circle cx="-6" cy="0" r="5" fill="#0b1220"/><path d="M-1 0 H12" stroke="#0b1220" stroke-width="3"/></g><text x="540" y="186" text-anchor="middle" fill="#22d3ee" font-size="17" font-weight="700">2 · סימטרית: כל המידע, ברצף</text><line x1="215" y1="214" x2="865" y2="214" stroke="#22d3ee" stroke-width="3" opacity=".5"/><g class="hy-pkts"><rect class="pkt" style="--run:620px;animation-duration:1.9s;animation-delay:2.2s" x="220" y="204" width="30" height="20" rx="4" fill="#22d3ee"/><rect class="pkt" style="--run:620px;animation-duration:1.9s;animation-delay:2.55s" x="220" y="204" width="30" height="20" rx="4" fill="#22d3ee"/><rect class="pkt" style="--run:620px;animation-duration:1.9s;animation-delay:2.9s" x="220" y="204" width="30" height="20" rx="4" fill="#22d3ee"/><rect class="pkt" style="--run:620px;animation-duration:1.9s;animation-delay:3.25s" x="220" y="204" width="30" height="20" rx="4" fill="#22d3ee"/><rect class="pkt" style="--run:620px;animation-duration:1.9s;animation-delay:3.6s" x="220" y="204" width="30" height="20" rx="4" fill="#22d3ee"/></g><text x="540" y="268" text-anchor="middle" fill="#a7b7c9" font-size="15">אותו מפתח בשני הצדדים, ואף אחד לא שלח אותו בגלוי</text><rect x="300" y="300" width="480" height="14" rx="7" fill="rgba(255,255,255,.07)"/><rect class="hy-bar" x="300" y="300" width="470" height="14" rx="7" fill="#22d3ee"/><rect x="300" y="324" width="480" height="14" rx="7" fill="rgba(255,255,255,.07)"/><rect x="300" y="324" width="6" height="14" rx="3" fill="#fbbf24"/><text x="292" y="312" text-anchor="start" fill="#22d3ee" font-size="13">סימטרית</text><text x="292" y="336" text-anchor="start" fill="#fbbf24" font-size="13">אסימטרית</text><text x="790" y="324" fill="#8ba0b5" font-size="13" text-anchor="start" class="ltrtx">throughput</text></svg></div><div class="c8-row" style="margin-top:12px;gap:14px;align-items:stretch"><div class="key sm" style="flex:1.5">כך עובדים <strong>TLS</strong> (אתרים), <strong>VPN</strong> ו<strong>דוא״ל מוצפן</strong>. החלק האסימטרי פותר את הפצת המפתח, והמידע עצמו מוצפן בסימטרית.</div><div class="key amber sm" style="flex:1">הפסים בתחתית מראים סדר גודל בלבד. אסימטרית איטית בכמה סדרי גודל, ולכן משתמשים בה רק להסכמה ולחתימה.</div></div></div><aside class="speaker-note">הצביעו על שני הנתיבים: למעלה, פעם אחת, מנעול צהוב קטן - ההסכמה על מפתח. למטה, אחרי ההסכמה, זרם מתמשך של מנות - המידע עצמו בהצפנה סימטרית. זה המבנה של כמעט כל פרוטוקול מאובטח שתפגשו. אל תתנו מספר מדויק ליחס המהירויות; הוא תלוי באלגוריתם ובחומרה. מספיק לומר ״סדרי גודל״.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק א׳</span><span class="ltr">10 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">10</span>TLS בעין הטכנאי</div><h1 class="title">מה המנעול בדפדפן מבטיח</h1><p class="subtitle">גם כשהתעבורה מוצפנת, מי שמאזין בדרך רואה כתובות, פורט, שם אתר וכמות מידע.</p><div class="body"><div class="split text-wide"><div class="visual"><svg viewBox="0 0 640 380" role="img" aria-label="ערוץ מוצפן בין לקוח לשרת ומה רואה מאזין"><rect x="20" y="40" width="130" height="150" rx="16" fill="#101b30" stroke="#22d3ee" stroke-width="2.5"/><text x="85" y="122" text-anchor="middle" fill="#f1f5f9" font-size="19" font-weight="700">דפדפן</text><rect x="490" y="40" width="130" height="150" rx="16" fill="#101b30" stroke="#4ade80" stroke-width="2.5"/><text x="555" y="112" text-anchor="middle" fill="#f1f5f9" font-size="19" font-weight="700">שרת</text><text class="ltrtx" x="555" y="138" text-anchor="middle" fill="#9fb0c3" font-size="13">portal.unit</text><rect x="150" y="94" width="340" height="44" rx="22" fill="rgba(74,222,128,.08)" stroke="#4ade80" stroke-width="2"/><text x="320" y="86" text-anchor="middle" fill="#4ade80" font-size="14">מנהרת TLS</text><rect class="pkt" style="--run:300px;animation-duration:2.2s" x="158" y="106" width="24" height="20" rx="4" fill="#4ade80"/><rect class="pkt d2" style="--run:300px;animation-duration:2.2s" x="158" y="106" width="24" height="20" rx="4" fill="#4ade80"/><rect class="pkt rev d1" style="--run:300px;animation-duration:2.2s" x="458" y="106" width="24" height="20" rx="4" fill="#22d3ee"/><line x1="320" y1="140" x2="320" y2="226" stroke="#fb7185" stroke-width="2" stroke-dasharray="4 5"/><circle class="breathe" cx="320" cy="250" r="22" fill="rgba(251,113,133,.15)" stroke="#fb7185" stroke-width="2"/><text x="320" y="257" text-anchor="middle" fill="#fb7185" font-size="18">👁</text><rect x="40" y="288" width="270" height="80" rx="12" fill="rgba(251,191,36,.06)" stroke="#fbbf24" stroke-width="1.5"/><text x="175" y="312" text-anchor="middle" fill="#fbbf24" font-size="15" font-weight="700">המאזין עדיין רואה</text><text x="175" y="336" text-anchor="middle" fill="#f1f5f9" font-size="13.5">כתובות IP · פורט 443 · שם האתר</text><text x="175" y="356" text-anchor="middle" fill="#f1f5f9" font-size="13.5">כמות המידע ותזמון</text><rect x="330" y="288" width="270" height="80" rx="12" fill="rgba(74,222,128,.06)" stroke="#4ade80" stroke-width="1.5"/><text x="465" y="312" text-anchor="middle" fill="#4ade80" font-size="15" font-weight="700">ולא רואה</text><text x="465" y="336" text-anchor="middle" fill="#f1f5f9" font-size="13.5">כתובת הדף · תוכן · טפסים</text><text x="465" y="356" text-anchor="middle" fill="#f1f5f9" font-size="13.5">סיסמאות · עוגיות</text></svg></div><div class="stack"><div class="card green c8-rise" style="padding:12px 15px"><div class="tag">מובטח</div><p>אף אחד בדרך לא קורא ולא משנה את התוכן, והשרת מחזיק מפתח פרטי של תעודה תקפה <strong>לשם שבשורת הכתובת</strong>.</p></div><div class="key red sm">המנעול לא אומר שהאתר הגון, וגם לא שזה האתר שהתכוונתם אליו (שם דומה מספיק).</div><div class="key amber sm">בארגונים יש לעתים בדיקת תעבורה מוצפנת עם תעודת שורש פנימית שמותקנת בתחנות. אז הדפדפן מציג מנעול תקין גם כשהתעבורה נפתחת בדרך, לפי מדיניות.</div></div></div></div><aside class="speaker-note">בירוק מה שהמנעול מוכיח. דוגמה לאדום: תעודה תקפה לשם ״portal-unit.com״ לא אומרת שהוא קשור ל״portal.unit״. לגבי הכתום: בארגונים רבים יש בדיקת תעבורה מוצפנת, שבה רכיב ביניים פותח את ה-TLS ומצפין מחדש בתעודה שנחתמה בשורש פנימי. זה חוקי ומכוון, ולכן בתוך הרשת הארגונית המנעול לא מוכיח שאין אף אחד באמצע.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק א׳</span><span class="ltr">11 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">11</span>חתימה דיגיטלית</div><h1 class="title">חתימה דיגיטלית: מוכיחה מי חתם, ושאף תו לא השתנה</h1><p class="subtitle">חותמים על המסמך, משנים בו משהו, אפילו רווח, ובודקים שוב.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)"><div class="visual" style="align-items:stretch;padding:14px"><div class="c8-col" style="width:100%;gap:9px"><div class="c8-lbl">המסמך</div><textarea class="c8-in" id="sg-doc" rows="3" spellcheck="false">מאושרת הצבת אנטנה בעמדה 7, יום ראשון 14:30.
+מפקד הפלוגה</textarea><div class="c8-row"><button class="c8-btn go" type="button" id="sg-sign">✍ חתום (מפתח פרטי)</button><button class="c8-btn" type="button" id="sg-verify">בדוק (מפתח ציבורי)</button></div><div class="c8-row" style="align-items:stretch;gap:8px"><div class="c8-link" id="sg-l1" style="flex:1"><b>Hash בזמן החתימה</b><span class="c8-mono" id="sg-h0">-</span></div><div class="c8-link" id="sg-l2" style="flex:1"><b>החתימה</b><span class="c8-mono" id="sg-s">-</span></div></div><div class="c8-link" id="sg-l3"><b id="sg-res">עוד לא נחתם</b><span id="sg-why">לחצו ״חתום״.</span></div></div></div><div class="stack"><div class="c8-row" style="gap:6px;flex-wrap:wrap"><span class="c8-pill">מסמך</span><span>←</span><span class="c8-pill">Hash</span><span>←</span><span class="c8-pill" style="border-color:rgba(167,139,250,.6);color:#c4b5fd">נעילה במפתח הפרטי</span><span>←</span><span class="c8-pill ok">חתימה</span></div><p class="copy sm"><strong>הבודק</strong> פותח את החתימה במפתח הציבורי ומקבל את ה-Hash המקורי. אחר כך מחשב Hash למסמך שקיבל. שווים - המסמך שלם, ורק בעל המפתח הפרטי יכול היה לחתום.</p><div class="key sm">חתימה לא מסתירה את המסמך, וכל אחד יכול לקרוא אותו. היא מוכיחה מקור ושלמות בלבד.</div><div class="key amber sm">בשטח: עדכוני תוכנה ומנהלי התקן חתומים, ו-Windows מסרב או מזהיר כשהחתימה לא תקינה. זו גם הסיבה שקובץ שהורד ״נשבר״ אחרי שנפתח ונשמר מחדש.</div></div></div></div><aside class="speaker-note">חתמו, ואז שנו את 7 ל-8 ובדקו: אדום. החזירו את 7: שוב ירוק. אחר כך הוסיפו רווח בסוף: אדום, כי גם שינוי שהעין לא רואה שובר את החתימה. ההדגמה משתמשת ב-SHA-256 אמיתי ובמפתח RSA זעיר (n=3233) כדי שהמספרים יהיו קריאים; בחלק ב׳ נראה את החשבון. בעולם האמיתי המפתח ארוך פי מאות, אבל התהליך זהה.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק א׳</span><span class="ltr">12 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">12</span>שרשרת תעודות</div><h1 class="title">כל תעודה בשרשרת חתומה בידי זו שמעליה</h1><p class="subtitle">הדפדפן בודק חוליה אחרי חוליה, ועוצר בחוליה הראשונה שנכשלת.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)"><div class="c8-col" style="justify-content:center;gap:6px"><div class="c8-link" id="ch-root"><b>שורש · Unit Root CA</b><span>חתום על ידי עצמו. נמצא במאגר האמון של Windows.</span></div><div class="c8-arrowv">חותם על ▼</div><div class="c8-link" id="ch-int"><b>ביניים · Unit Issuing CA</b><span>חתום על ידי השורש. מנפיק את תעודות השרתים.</span></div><div class="c8-arrowv">חותם על ▼</div><div class="c8-link" id="ch-leaf"><b>שרת · <span class="ltr">portal.unit.local</span></b><span id="ch-leafsub">בתוקף עד 15/07/2027 · מוצג לדפדפן.</span></div><div class="c8-link" id="ch-clock" style="margin-top:8px"><b>שעון התחנה</b><span id="ch-clocksub">מסונכרן לשעון הדומיין.</span></div></div><div class="c8-col" style="gap:10px"><div class="c8-scn" id="ch-scn"><button class="c8-btn on" type="button" data-s="ok">תקין</button><button class="c8-btn" type="button" data-s="exp">פג תוקף</button><button class="c8-btn" type="button" data-s="name">שם לא תואם</button><button class="c8-btn" type="button" data-s="root">שורש לא מוכר</button><button class="c8-btn" type="button" data-s="mid">חסרה תעודת ביניים</button><button class="c8-btn" type="button" data-s="clock">שעון שגוי בתחנה</button></div><button class="c8-btn go" type="button" id="ch-run">▶ הרץ בדיקה</button><div class="c8-panel" style="flex:1"><h4 id="ch-h">מה הדפדפן בודק</h4><div id="ch-log" class="copy sm" style="font-size:15.5px;line-height:1.55"></div></div></div></div></div><aside class="speaker-note">הריצו קודם ״תקין״ כדי לראות את סדר הבדיקות. אחר כך עברו על התרחישים; לפני כל הרצה אפשר לבקש ניחוש איזו חוליה תיכשל. שני תרחישים שכדאי להתעכב עליהם: ״שעון שגוי בתחנה״ נראה בדיוק כמו ״פג תוקף״, אבל התיקון הוא בתחנה ולא בשרת. ״חסרה תעודת ביניים״ עובד בחלק מהדפדפנים (שמורידים אותה בעצמם) ונכשל בתוכנות אחרות, ולכן זו תקלה ש״עובדת אצלי״. קודי השגיאה המוצגים הם של Chrome ו-Edge.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק א׳</span><span class="ltr">13 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">13</span>תקלות תעודה</div><h1 class="title">שגיאות תעודה נפוצות ואיפה בודקים</h1><p class="subtitle">כל שגיאה מצביעה על חוליה אחרת. קודם קוראים את ההודעה, ואז פותחים את התעודה.</p><div class="body"><table class="table c8-tbl" style="font-size:15.5px"><tr><th style="width:24%">מה רואים</th><th style="width:34%">סיבה אופיינית</th><th>איפה בודקים</th></tr><tr class="c8-rise"><td><span class="ltr">ERR_CERT_DATE_INVALID</span></td><td>התעודה פגה, או ששעון התחנה שגוי</td><td>Certificate Viewer › Valid from / to · <span class="c8-mono">w32tm /query /status</span></td></tr><tr class="c8-rise"><td><span class="ltr">ERR_CERT_COMMON_NAME_INVALID</span></td><td>נכנסו בכתובת IP או בשם קצר, והתעודה הונפקה לשם המלא</td><td>Details › Subject Alternative Name: האם השם בשורת הכתובת ברשימה?</td></tr><tr class="c8-rise"><td><span class="ltr">ERR_CERT_AUTHORITY_INVALID</span></td><td>שורש פנימי לא מותקן בתחנה, או שהשרת לא שולח את תעודת הביניים</td><td>Certification Path · <span class="c8-mono">certlm.msc</span> › Trusted Root Certification Authorities</td></tr><tr class="c8-rise"><td>״לא ניתן לבדוק ביטול״</td><td>אין גישה לרשימת הביטולים (CRL) או לשרת OCSP</td><td><span class="c8-mono">certutil -verify -urlfetch server.cer</span></td></tr></table><div class="key red sm" style="margin-top:14px">לא לוחצים ״המשך בכל זאת״: זה בדיוק המצב שהתעודה נועדה לחסום. מתעדים את השגיאה ומתקנים את החוליה.</div></div><aside class="speaker-note">כל שורה היא תרחיש מבודק השרשרת, עם הכלי שבודק אותו. הדגישו ש-ERR_CERT_COMMON_NAME_INVALID נובע לרוב מהמשתמש ולא מהשרת: נכנסו ב-IP או בשם הקצר במקום בשם המלא שבתעודה. certutil -verify -urlfetch בודק את כל השרשרת ואת זמינות רשימות הביטול, ומדפיס איפה נכשל. Certificate Viewer נפתח בלחיצה על המנעול או על הודעת השגיאה בדפדפן.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק א׳</span><span class="ltr">14 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">14</span>כרטיס חכם</div><h1 class="title">כרטיס חכם: המפתח הפרטי נוצר בשבב ולא יוצא ממנו</h1><p class="subtitle">השרת לא מקבל סיסמה. הוא שולח אתגר חד-פעמי, והכרטיס חותם עליו מבפנים.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,.9fr) minmax(0,1.45fr)"><div class="stack"><div class="card c8-rise" style="padding:12px 15px"><p>על הכרטיס יש מפתח פרטי שלא ניתן לייצא, ותעודה (החלק הציבורי) שקושרת אותו לשם המשתמש. לכניסה צריך את הכרטיס (משהו שיש לי) וגם את ה-PIN (משהו שאני יודע); אחד בלי השני לא מספיק.</p></div><div class="key sm">ב-Windows, כניסה לדומיין בכרטיס חכם משתמשת ב-Kerberos בגרסה מבוססת תעודות (PKINIT). לכן גם כאן שעון מסונכרן ושרשרת תקינה הם תנאי.</div><div class="key green sm">הקלטה לא עוזרת לתוקף: האתגר שונה בכל פעם, וחתימה על אתגר ישן לא תתקבל.</div></div><div class="visual"><svg viewBox="0 0 640 400" role="img" aria-label="אתגר ותגובה בין שרת, תחנה וכרטיס חכם"><rect x="18" y="120" width="140" height="190" rx="16" fill="#101b30" stroke="#a78bfa" stroke-width="2.5"/><rect x="48" y="150" width="80" height="54" rx="8" fill="#fbbf24" opacity=".85"/><path d="M60 162 H116 M60 177 H116 M60 192 H116 M74 150 V204 M102 150 V204" stroke="#7c5a10" stroke-width="2"/><text x="88" y="240" text-anchor="middle" fill="#f1f5f9" font-size="17" font-weight="700">כרטיס חכם</text><text x="88" y="264" text-anchor="middle" fill="#a78bfa" font-size="13">מפתח פרטי · נעול בשבב</text><circle class="sc-glow" cx="88" cy="177" r="40" fill="none" stroke="#a78bfa" stroke-width="3"/><rect x="250" y="120" width="140" height="190" rx="16" fill="#101b30" stroke="#22d3ee" stroke-width="2.5"/><text x="320" y="210" text-anchor="middle" fill="#f1f5f9" font-size="17" font-weight="700">תחנה + קורא</text><text x="320" y="236" text-anchor="middle" fill="#9fb0c3" font-size="13">כאן מקלידים PIN</text><rect x="482" y="120" width="140" height="190" rx="16" fill="#101b30" stroke="#4ade80" stroke-width="2.5"/><text x="552" y="204" text-anchor="middle" fill="#f1f5f9" font-size="17" font-weight="700">בקר דומיין</text><text x="552" y="230" text-anchor="middle" fill="#9fb0c3" font-size="13">מכיר רק את התעודה</text><line x1="158" y1="160" x2="250" y2="160" stroke="#8ba0b5" stroke-dasharray="5 6"/><line x1="390" y1="160" x2="482" y2="160" stroke="#8ba0b5" stroke-dasharray="5 6"/><line x1="158" y1="270" x2="250" y2="270" stroke="#8ba0b5" stroke-dasharray="5 6"/><line x1="390" y1="270" x2="482" y2="270" stroke="#8ba0b5" stroke-dasharray="5 6"/><g class="sc-m1"><rect x="-34" y="-13" width="68" height="26" rx="6" fill="#22d3ee"/><text class="ltrtx nohalo" x="0" y="5" text-anchor="middle" fill="#04070d" font-size="13" font-weight="700">a91f…</text></g><g class="sc-m2"><rect x="-34" y="-13" width="68" height="26" rx="6" fill="#a78bfa"/><text x="0" y="5" text-anchor="middle" fill="#04070d" font-size="13" font-weight="700" class="nohalo">חתימה</text></g><g class="sc-ok"><circle cx="552" cy="80" r="22" fill="rgba(74,222,128,.18)" stroke="#4ade80" stroke-width="2.5"/><path d="M541 80 l8 8 l14 -16" fill="none" stroke="#4ade80" stroke-width="4" stroke-linecap="round"/></g><text x="420" y="356" text-anchor="middle" fill="#22d3ee" font-size="14">1 · אתגר אקראי ←</text><text x="200" y="356" text-anchor="middle" fill="#a78bfa" font-size="14">2 · חתימה בתוך השבב</text><text x="420" y="382" text-anchor="middle" fill="#a78bfa" font-size="14">3 · החתימה חוזרת ונבדקת →</text><text x="552" y="56" text-anchor="middle" fill="#4ade80" font-size="13">4 · זהות אומתה</text></svg></div></div></div><aside class="speaker-note">עקבו אחרי הלולאה: בקר הדומיין שולח מספר אקראי (תכלת), התחנה מעבירה אותו לכרטיס, הכרטיס חותם עליו בתוך השבב (העיגול הסגול זוהר), החתימה חוזרת, והבקר בודק אותה במפתח הציבורי שבתעודה - אחרי שבדק את שרשרת התעודה כמו בשקופית שרשרת התעודות. המפתח הפרטי וה-PIN לא זזים אף פעם. זה ההבדל העקרוני מסיסמה, שנשלחת או נגזרת בכל כניסה. התהליך המדויק ב-Windows (PKINIT) מורכב יותר; העיקרון הוא אתגר וחתימה.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק א׳</span><span class="ltr">15 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">15</span>PIN ומונה ניסיונות</div><h1 class="title">למה PIN של 4 ספרות מספיק בכרטיס חכם</h1><p class="subtitle">ה-PIN נבדק בתוך הכרטיס, והכרטיס סופר ניסיונות שגויים.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)"><div class="stack"><p class="copy sm">אחרי מספר קבוע של טעויות (לרוב בין 3 ל-10, לפי מדיניות) הכרטיס ננעל. עם 3 ניסיונות מתוך 10,000 צירופים, הסיכוי לנחש הוא <span class="ltr">0.03%</span>.</p><p class="copy sm">בסיסמה המצב אחר. מי שגנב קובץ Hash של סיסמאות מנחש במחשב שלו, בלי מונה ובלי נעילה, ובסוגי Hash מהירים זה מיליארדי ניסיונות בשנייה. שם מגינים רק אורך ואקראיות.</p><div class="key sm">ה-PIN לא יוצא מהתחנה ולא מגיע לשרת. הוא משמש רק לפתיחת הכרטיס.</div><div class="key amber sm">כרטיס חסום משתחרר רק בתהליך מנהלתי (קוד שחרור או כלי ניהול), לפי נוהל היחידה. הטכנאי מזהה ומתעד, ולא ״מאפס״ את הכרטיס.</div></div><div class="visual" style="flex-direction:column;gap:12px"><div class="c8-lbl" id="pn-state" style="font-size:16px;color:var(--ink)">הכרטיס נעול · הזינו PIN</div><div class="c8-dots" id="pn-dots"><i></i><i></i><i></i><i></i></div><div class="c8-pad" id="pn-pad"><button type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">4</button><button type="button">5</button><button type="button">6</button><button type="button">7</button><button type="button">8</button><button type="button">9</button><button type="button" data-k="c">⌫</button><button type="button">0</button><button type="button" data-k="ok">✓</button></div><div class="c8-lbl">ניסיונות שנותרו</div><div class="c8-tries" id="pn-tries"><i></i><i></i><i></i></div><div class="c8-row"><button class="c8-btn" type="button" id="pn-reset">כרטיס חדש</button><span class="c8-lbl">PIN לתרגול: <span class="ltr">2580</span></span></div></div></div></div><aside class="speaker-note">הזינו שלושה PIN שגויים (אפשר לתת לחניך לנחש). אחרי הניסיון השלישי הכרטיס ננעל, והראו שגם ה-PIN הנכון כבר לא עוזר. הדגישו: PIN קצר בטוח יותר מסיסמה ארוכה במצב אחד מסוים - כשהבדיקה נעשית בחומרה שסופרת ניסיונות. בסיסמה, מי שגנב את קובץ ה-Hash מנחש בלי הגבלה. מספר הניסיונות ותהליך השחרור נקבעים במדיניות של מערכת הכרטיסים ביחידה; אל תציגו מספר אחר כעובדה.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק א׳</span><span class="ltr">16 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">16</span>כרטיס חכם בשטח</div><h1 class="title">כשכרטיס חכם לא עובד: בודקים מלמטה למעלה</h1><p class="subtitle">כמו בכל איתור תקלות: קודם החומרה, אחר כך השירות, ורק בסוף התעודה והזהות.</p><div class="body"><div class="steps c8-walk"><div class="step c8-rise"><strong>קורא מזוהה</strong><span>מנהל ההתקנים · נורית בקורא · כבל וחיבור</span></div><div class="step c8-rise"><strong>השירות פועל</strong><span>Smart Card <span class="ltr">(SCardSvr)</span> ב-services.msc</span></div><div class="step c8-rise"><strong>הכרטיס נקרא</strong><span><span class="c8-mono">certutil -scinfo</span> מציג את הקורא, הכרטיס והתעודות</span></div><div class="step c8-rise"><strong>תעודה תקינה</strong><span>בתוקף · שרשרת מלאה · לא בוטלה</span></div><div class="step c8-rise"><strong>PIN וזמן</strong><span>PIN לא חסום · שעון מסונכרן לדומיין</span></div></div><div class="c8-row" style="margin-top:16px;gap:14px;align-items:stretch"><div class="key sm" style="flex:1.2">״כרטיס לא מזוהה״ בכל התחנות = קורא או מנהל התקן. רק בתחנה אחת = שירות או התקנה מקומית. רק משתמש אחד = הכרטיס או התעודה שלו.</div><div class="key amber sm" style="flex:1">שחרור PIN חסום, החלפת כרטיס והנפקת תעודה נעשים בידי הגורם המוסמך ולפי נוהל היחידה. מה שמעבירים הלאה: תסמין, היקף, ופלט <span class="c8-mono">certutil -scinfo</span>.</div></div></div><aside class="speaker-note">בקופסה הימנית: ההיקף מצביע על החשוד (כל התחנות, תחנה אחת, או משתמש אחד). certutil -scinfo היא הבדיקה החזקה ביותר כאן: היא מראה אם Windows רואה את הקורא, את הכרטיס ואת התעודות שעליו, ומבקשת PIN כדי לבדוק את המפתח. אם אין לכם כרטיס לתרגול, הראו את הפקודה ואת השירות בלבד. הדגישו שאין כאן נוהל שחרור: הוא של היחידה.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק א׳</span><span class="ltr">17 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">17</span>סיכום חלק א׳</div><h1 class="title">כללים לשטח</h1><p class="subtitle">מה לקחת מחלק א׳ לעבודה בשטח.</p><div class="body"><div class="card c8-rise" style="padding:16px 18px"><ul style="margin:0;padding-right:24px;font-size:19px;line-height:1.55;color:var(--ink);display:flex;flex-direction:column;gap:9px"><li>Base64, Hex ודומיהם הם צורת כתיבה. בלי מפתח אין הצפנה.</li><li>השיטה ציבורית ורק המפתח סודי. לא סומכים על אלגוריתם סודי.</li><li>Hash מגלה שינוי, אבל לא מסתיר ולא מוכיח מי שלח.</li><li>סימטרית מצפינה את המידע, אסימטרית משמשת להסכמה על מפתח ולחתימה. במערכות אמיתיות יש את שתיהן.</li><li>המנעול בדפדפן מבטיח ערוץ מוגן וזהות שרת, לא שהאתר הגון.</li><li>תעודה נבדקת כשרשרת: שם, תוקף, חתימה ושורש. גם שעון התחנה משפיע.</li><li>בכרטיס חכם המפתח הפרטי לא יוצא מהשבב וה-PIN נבדק בכרטיס. לכן PIN קצר מספיק. כרטיס חסום משחררים לפי נוהל היחידה.</li></ul></div></div><aside class="speaker-note">אפשר לבקש מכל משתתף לבחור כלל ולתת דוגמה מהשטח.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק א׳</span><span class="ltr">18 / 30</span></div></section>
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="c8-divider"><div class="c8-bitsbg" id="c8bg" aria-hidden="true"></div><div class="badge" style="border-color:rgba(167,139,250,.45);background:rgba(167,139,250,.1);color:#c4b5fd">חלק ב׳ · רקע תיאורטי</div><h1 style="font-size:58px;margin:18px 0 12px;color:var(--ink)">איך זה עובד מבפנים</h1><p style="font-size:22px;color:var(--muted);max-width:860px;margin:0 auto;line-height:1.55">פיצוח צופן קלאסי, <span class="ltr">SHA-256</span>, <span class="ltr">XOR</span>, <span class="ltr">AES</span>, <span class="ltr">RSA</span> ודיפי-הלמן, ובסוף לחיצת היד של <span class="ltr">TLS 1.3</span>.</p></div><aside class="speaker-note">כאן אפשר לפצל למפגש שני. כל ההדגמות בחלק הזה מחשבות את האלגוריתם האמיתי בדפדפן (SHA-256 ו-AES נבדקו מול ספריות סטנדרטיות). המספרים ב-RSA ובדיפי-הלמן קטנים בכוונה, כדי שאפשר יהיה לבדוק אותם בראש; בסוף החלק יש שקופית שמפרטת מה ההדגמות לא אומרות.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק ב׳ · רקע תיאורטי</span><span class="ltr">19 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow p2"><span class="num">19</span>פיצוח צופן קלאסי</div><h1 class="title">ניתוח תדירויות שובר צופן החלפה</h1><p class="subtitle">העמודות הן תדירות האותיות בטקסט אחרי ניסיון פענוח, והקווים המקווקווים הם התדירות הצפויה באנגלית. צורת השפה שורדת את ההצפנה.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,.9fr) minmax(0,1.35fr)"><div class="stack"><div class="c8-lbl">טקסט מוצפן (אפשר להדביק או להקליד)</div><textarea class="c8-in ltr c8-mono" id="fq-ct" rows="4" spellcheck="false" style="font-size:14.5px"></textarea><div class="c8-row"><button class="c8-btn go" type="button" id="fq-go">▶ פצח אוטומטית</button><button class="c8-btn" type="button" id="fq-short">טקסט קצר</button><button class="c8-btn" type="button" id="fq-long">טקסט ארוך</button></div><div class="c8-lbl">ניסיון פענוח</div><div class="c8-ro c8-mono" id="fq-pt" style="font-size:14.5px;height:96px;overflow-y:auto"></div><div class="key violet sm">מחשבים לכל הזזה ציון <span class="ltr">χ²</span>, שמודד כמה ההתפלגות רחוקה מאנגלית, ובוחרים את הנמוך. אנגלית כאן כי טבלת התדירויות שלה סטנדרטית.</div></div><div class="visual" style="flex-direction:column;align-items:stretch;gap:10px;padding:14px"><div class="c8-bars" id="fq-bars"></div><div class="c8-row"><span class="c8-lbl">הזזה</span><input type="range" class="c8-rng" id="fq-s" min="0" max="25" value="0" aria-label="הזזה"><span class="c8-big" id="fq-sv" style="font-size:22px;min-width:30px">0</span></div><svg id="fq-chi" viewBox="0 0 520 110" style="width:100%;height:110px" role="img" aria-label="ציון כי בריבוע לכל הזזה"></svg><div class="c8-row" style="justify-content:space-between"><span class="c8-lbl">ציון χ² להזזה הנוכחית</span><span class="c8-big" id="fq-score" style="font-size:22px">0</span></div></div></div></div><aside class="speaker-note">גררו את הסליידר לאט: העמודות זזות כמקשה אחת, והצורה שלהן לא משתנה - רק המיקום. כשהן ״נוחתות״ על הקווים המקווקווים, הטקסט נקרא, כי הצפנת החלפה שומרת על צורת השפה. לחיצה על ״פצח אוטומטית״ מנסה את 26 ההזזות ומסמנת את הנמוכה בגרף. ואז לחצו ״טקסט קצר״: עם שלוש-ארבע מילים אין מספיק סטטיסטיקה, והניחוש הראשון יכול לטעות. כדאי להראות את זה, כי זה מסביר למה הודעות קצרות ״שרדו״ יותר. בהחלפה כללית (לא רק הזזה) הרעיון זהה, רק מתאימים כל אות בנפרד.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק ב׳ · רקע תיאורטי</span><span class="ltr">20 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow p2"><span class="num">20</span>Hash מבפנים</div><h1 class="title">SHA-256: 64 סבבי ערבול לכל בלוק של 512 ביט</h1><p class="subtitle">כל ריבוע הוא ביט אחד מתוך 256 בפלט. ריבועים שהתהפכו בהקשה האחרונה מסומנים.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,1fr) minmax(0,1.2fr)"><div class="stack"><svg viewBox="0 0 470 190" style="width:100%;height:auto" role="img" aria-label="שלבי SHA-256"><rect x="370" y="20" width="96" height="44" rx="9" fill="#101b30" stroke="#22d3ee"/><text x="418" y="47" text-anchor="middle" fill="#f1f5f9" font-size="14">הודעה</text><rect x="250" y="20" width="104" height="44" rx="9" fill="#101b30" stroke="#a78bfa"/><text x="302" y="40" text-anchor="middle" fill="#f1f5f9" font-size="13">ריפוד + אורך</text><text x="302" y="56" text-anchor="middle" fill="#8ba0b5" font-size="11">עד כפולה של 512</text><rect x="130" y="20" width="104" height="44" rx="9" fill="#101b30" stroke="#a78bfa"/><text x="182" y="47" text-anchor="middle" fill="#f1f5f9" font-size="13">בלוקים של 512</text><rect x="8" y="20" width="106" height="44" rx="9" fill="#101b30" stroke="#fbbf24"/><text x="61" y="40" text-anchor="middle" fill="#f1f5f9" font-size="13">דחיסה</text><text x="61" y="56" text-anchor="middle" fill="#fbbf24" font-size="11" class="ltrtx">64 rounds</text><path class="flow fast" d="M370 42 H354 M250 42 H234 M130 42 H114" stroke="#a78bfa" stroke-width="3"/><path d="M61 64 V100 H418 V140" fill="none" stroke="#fbbf24" stroke-width="2" stroke-dasharray="6 6"/><text x="240" y="94" text-anchor="middle" fill="#8ba0b5" font-size="12">המצב (256 ביט) עובר לבלוק הבא</text><rect class="breathe" x="340" y="140" width="126" height="40" rx="9" fill="rgba(251,191,36,.12)" stroke="#fbbf24"/><text x="403" y="165" text-anchor="middle" fill="#fbbf24" font-size="14" font-weight="700" class="ltrtx">256-bit digest</text></svg><div class="card" style="padding:11px 14px"><div class="tag">מה נדרש מ-Hash</div><p><strong>חד-כיווני:</strong> אין דרך לחזור מהפלט לקלט.<br><strong>עמיד להתנגשות:</strong> לא מוצאים שני קלטים עם אותו פלט.<br><strong>מפולת:</strong> כל ביט בפלט תלוי בכל ביט בקלט.</p></div><div class="key red sm">ב-MD5 וב-SHA-1 נמצאו התנגשויות בפועל. הם עדיין מחשבים Hash, אבל אסור להשתמש בהם לאבטחה.</div></div><div class="visual" style="flex-direction:column;align-items:stretch;gap:10px;padding:14px"><input class="c8-in" id="sh-in" value="שלום" autocomplete="off" spellcheck="false"><div class="c8-bits" id="sh-bits"></div><div class="c8-hex" id="sh-hex" style="font-size:14px"></div><div class="c8-row" style="justify-content:space-between"><span class="c8-lbl">ביטים שהתהפכו בהקשה האחרונה</span><span class="c8-big" id="sh-n" style="font-size:24px">0</span></div><div class="c8-row" style="justify-content:space-between"><span class="c8-lbl">גודל הקלט</span><span class="c8-big" id="sh-blk" style="font-size:18px;color:var(--violet);direction:rtl">-</span></div></div></div></div><aside class="speaker-note">הקלידו מילה אות אחר אות ושימו לב: בכל הקשה בערך חצי מהריבועים מתהפכים (צהוב), גם כשמוסיפים רק רווח. זה לא אקראי (אותה מילה תמיד נותנת אותו דפוס), אבל אי אפשר לצפות אותו מראש. השורה התחתונה מראה כמה בתים יש בקלט וכמה בלוקים של 64 בתים (512 ביט) עובדו; אות עברית היא שני בתים ב-UTF-8. המימוש כאן נבדק מול ספריית hashlib של Python על 32 קלטים, כולל עברית וגבולות הריפוד, ותואם בדיוק.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק ב׳ · רקע תיאורטי</span><span class="ltr">21 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow p2"><span class="num">21</span>XOR</div><h1 class="title">אותה פעולת XOR מצפינה ומפענחת</h1><p class="subtitle">ביט מפתח 1 הופך את ביט הטקסט, וביט מפתח 0 משאיר אותו. אחרי XOR שני עם אותו מפתח חוזרים לטקסט המקורי.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)"><div class="visual" style="flex-direction:column;gap:10px;padding:14px"><div class="c8-row" style="width:100%"><span class="c8-lbl">טקסט (עד 3 תווים לטיניים)</span><input class="c8-in ltr" id="xr-in" value="GO!" maxlength="3" style="width:110px;font-family:Consolas,monospace" autocomplete="off" spellcheck="false"><button class="c8-btn" type="button" id="xr-key">🎲 מפתח חדש</button><button class="c8-btn go" type="button" id="xr-run">▶ הרץ</button></div><div class="c8-col" style="width:100%;gap:7px"><div class="c8-row" style="gap:12px"><span class="c8-lbl" style="width:84px">טקסט</span><div class="c8-bitrow" id="xr-p"></div></div><div class="c8-row" style="gap:12px"><span class="c8-lbl" style="width:84px;color:var(--violet)">⊕ מפתח</span><div class="c8-bitrow k" id="xr-k"></div></div><div class="c8-row" style="gap:12px"><span class="c8-lbl" style="width:84px;color:var(--amber)">= מוצפן</span><div class="c8-bitrow c" id="xr-c"></div></div><div class="c8-row" style="gap:12px"><span class="c8-lbl" style="width:84px;color:var(--violet)">⊕ מפתח</span><div class="c8-bitrow k" id="xr-k2"></div></div><div class="c8-row" style="gap:12px"><span class="c8-lbl" style="width:84px;color:var(--green)">= טקסט</span><div class="c8-bitrow" id="xr-d"></div></div></div><div class="c8-row" style="justify-content:space-between;width:100%"><span class="c8-lbl">מוצפן (hex)</span><span class="c8-mono" id="xr-cs" style="color:var(--amber);font-size:17px"></span><span class="c8-lbl">אחרי פענוח</span><span class="c8-mono" id="xr-ds" style="color:var(--green);font-size:17px"></span></div></div><div class="stack"><div class="formula" style="font-size:22px;padding:10px">(P ⊕ K) ⊕ K = P</div><div class="card" style="padding:11px 14px"><div class="tag">פנקס חד-פעמי</div><p>אם המפתח אקראי באמת, ארוך כמו ההודעה ומשמש <strong>פעם אחת בלבד</strong>, ההצפנה בלתי ניתנת לשבירה (הוכח מתמטית).</p></div><div class="key red sm">שימוש חוזר במפתח חושף את ההודעות: <span class="ltr">C₁ ⊕ C₂ = P₁ ⊕ P₂</span>. המפתח נעלם מהחשבון ונשאר שילוב של שתי ההודעות.</div><div class="key violet sm">צפני זרם מודרניים (ChaCha20, וגם AES במצב CTR או GCM) מייצרים ״מפתח זרם״ ארוך ממפתח קצר וממספר חד-פעמי, ומבצעים עליו את ה-XOR הזה.</div></div></div></div><aside class="speaker-note">לחצו ״הרץ״: השורות מתמלאות עמודה אחרי עמודה. שימו לב לשורה הרביעית: אותו מפתח בדיוק, ושוב XOR, והטקסט חוזר. זה הבסיס של כל הצפנה סימטרית מודרנית: כולן מייצרות בדרך כלשהי רצף שנראה אקראי ומבצעות עליו XOR. הדגישו את הקופסה האדומה: מפתח זרם שחוזר על עצמו (למשל מספר חד-פעמי שנעשה בו שימוש כפול) חושף את ההודעות. מכאן הדרישה שבכל הודעה ב-TLS יש מספר חד-פעמי חדש.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק ב׳ · רקע תיאורטי</span><span class="ltr">22 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow p2"><span class="num">22</span>AES</div><h1 class="title">AES מצפין בלוק של <span class="ltr">4×4</span> בתים בעשרה סבבים</h1><p class="subtitle">בלוק אמיתי מוצפן ב-AES-128, צעד אחרי צעד. התאים שהשתנו בצעד האחרון מסומנים בצהוב.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"><div class="visual" style="flex-direction:column;gap:12px;padding:16px"><div class="c8-row" style="justify-content:space-between;width:100%"><span class="c8-big" id="ae-rd" style="font-size:20px;color:var(--violet);direction:rtl">סבב 0</span><span class="c8-pill" id="ae-st" style="font-size:15px">AddRoundKey</span></div><div class="c8-state" id="ae-grid"></div><div class="c8-row" style="width:100%"><button class="c8-btn" type="button" id="ae-prev">◀</button><button class="c8-btn go" type="button" id="ae-play">▶ נגן</button><button class="c8-btn" type="button" id="ae-next">▶|</button><button class="c8-btn" type="button" id="ae-reset">⟲</button><input type="range" class="c8-rng" id="ae-pos" min="0" max="39" value="0" aria-label="צעד"></div><div class="c8-hex" style="font-size:13px;width:100%">key <span id="ae-key"></span><br>in&nbsp; 3243f6a8885a308d313198a2e0370734<br>now <span id="ae-out" style="color:var(--amber)"></span></div></div><div class="stack"><div class="c8-panel" id="ae-exp" style="min-height:96px"><h4>הצעד הנוכחי</h4><p class="copy sm" id="ae-txt" style="margin:0"></p></div><div class="c8-row" style="gap:8px;flex-wrap:wrap"><span class="c8-pill">SubBytes · החלפה</span><span class="c8-pill">ShiftRows · הזזה</span><span class="c8-pill">MixColumns · ערבוב</span><span class="c8-pill">AddRoundKey · XOR</span></div><div class="c8-panel"><h4>מפולת במפתח</h4><div class="c8-row"><button class="c8-btn" type="button" id="ae-flip">הפוך ביט אחד במפתח</button><span class="c8-lbl">ביטים שונים בפלט:</span><span class="c8-big" id="ae-diff" style="font-size:22px">-</span><span class="c8-lbl">/ 128</span></div></div><div class="key violet sm">אותו בלוק כמו בתקן FIPS-197 (נספח B). הפלט <span class="c8-mono">3925841d…</span> הוא הערך הרשמי שבתקן.</div></div></div></div><aside class="speaker-note">נגנו את כל עשרת הסבבים פעם אחת, ואחר כך עצרו וצעדו ידנית בסבב הראשון. שימו לב איך SubBytes משנה את כל 16 התאים, ShiftRows רק מזיז שורות (השורה העליונה לא זזה), MixColumns מערבב כל עמודה, ו-AddRoundKey מוסיף את מפתח הסבב. אחרי שניים-שלושה סבבים כל בית תלוי בכל בית בקלט. ״הפוך ביט אחד במפתח״ מראה שכמחצית מ-128 ביטי הפלט משתנים. הבלוק והמפתח הם בדיוק אלה שבנספח B לתקן, והפלט הסופי זהה לערך הרשמי. המימוש נבדק גם מול OpenSSL על 50 בלוקים אקראיים.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק ב׳ · רקע תיאורטי</span><span class="ltr">23 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow p2"><span class="num">23</span>RSA</div><h1 class="title">RSA במספרים קטנים: הכול נשען על הקושי לפרק את n</h1><p class="subtitle">בחרו שני ראשוניים ומעריך. המפתח הפרטי d מחושב מהם, ומי שמפרק את n יכול לחשב גם אותו.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)"><div class="visual" style="flex-direction:column;align-items:stretch;gap:10px;padding:14px"><div class="c8-row"><span class="c8-lbl">p</span><select class="c8-sel" id="rs-p"></select><span class="c8-lbl">q</span><select class="c8-sel" id="rs-q"></select><span class="c8-lbl">e</span><select class="c8-sel" id="rs-e"><option>3</option><option>5</option><option>7</option><option selected>17</option><option>65537</option></select></div><div class="c8-row" style="align-items:stretch;gap:8px"><div class="c8-link" style="flex:1"><b class="ltr">n = p·q</b><span class="c8-big" id="rs-n" style="font-size:22px"></span></div><div class="c8-link" style="flex:1"><b class="ltr">φ = (p-1)(q-1)</b><span class="c8-big" id="rs-phi" style="font-size:22px"></span></div><div class="c8-link" style="flex:1;border-color:rgba(167,139,250,.6)"><b class="ltr">d = e⁻¹ mod φ</b><span class="c8-big" id="rs-d" style="font-size:22px;color:var(--violet)"></span></div></div><div class="c8-row"><span class="c8-lbl">הודעה m</span><input class="c8-in ltr" id="rs-m" value="65" style="width:120px" inputmode="numeric" autocomplete="off"><span class="c8-lbl" id="rs-mr"></span></div><div class="c8-ro c8-mono" id="rs-enc" style="font-size:16px"></div><div class="c8-ro c8-mono" id="rs-dec" style="font-size:16px"></div><div class="c8-row"><button class="c8-btn warn" type="button" id="rs-fac">פרק את n כמו תוקף</button><span class="c8-lbl" id="rs-facr"></span></div></div><div class="stack"><div class="formula" style="font-size:21px;padding:9px;flex-direction:column;gap:4px"><span>c = m<sup>e</sup> mod n</span><span>m = c<sup>d</sup> mod n</span></div><p class="copy sm"><strong>ציבורי:</strong> <span class="ltr">(n, e)</span>. <strong>פרטי:</strong> <span class="ltr">d</span>. כדי לחשב את <span class="ltr">d</span> צריך את <span class="ltr">φ</span>, וכדי לחשב את <span class="ltr">φ</span> צריך את <span class="ltr">p</span> ו-<span class="ltr">q</span>.</p><div class="key violet sm">כאן <span class="ltr">n</span> בן ארבע ספרות ומתפרק מיד. ב-RSA אמיתי <span class="ltr">n</span> בן 2048 ביט (כ-617 ספרות עשרוניות), ואין שיטה ידועה לפרק אותו במחשב רגיל בזמן סביר.</div><div class="key amber sm">אם <span class="ltr">e</span> חולק גורם עם <span class="ltr">φ</span>, אין <span class="ltr">d</span>. ההדגמה מסמנת זאת באדום. זה חלק מהחשבון ולא תקלה בהדגמה.</div></div></div></div><aside class="speaker-note">ברירת המחדל היא הדוגמה הקלאסית: p=61, q=53, e=17, ולכן n=3233 ו-d=2753, וההודעה 65 מוצפנת ל-2790. אפשר לבדוק במחשבון. שנו את p ו-q וראו ש-d משתנה לגמרי. לחצו ״פרק את n כמו תוקף״: הדפדפן מוצא את p ו-q בשבריר שנייה, ומשם מחשב את d. אבטחת RSA נשענת על הגודל של n. נסו גם e=3 עם p=61 ו-q=31 כדי לראות מקרה ש-d לא קיים. המימוש משתמש ב-BigInt ונבדק ביותר מעשרת אלפים הצפנות ופענוחים הלוך-חזור.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק ב׳ · רקע תיאורטי</span><span class="ltr">24 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow p2"><span class="num">24</span>דיפי-הלמן</div><h1 class="title">איך שני צדדים מסכימים על סוד בערוץ פתוח</h1><p class="subtitle">כמו ערבוב צבעים: קל לערבב וכמעט בלתי אפשרי להפריד. המאזין רואה את כל מה שנשלח, אבל לא את הסוד.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)"><div class="visual" style="padding:8px"><svg viewBox="0 0 620 400" role="img" aria-label="ערבוב צבעים כמשל לדיפי-הלמן"><text x="130" y="30" text-anchor="middle" fill="#f1f5f9" font-size="17" font-weight="700">דנה</text><text x="490" y="30" text-anchor="middle" fill="#f1f5f9" font-size="17" font-weight="700">יוסי</text><text x="310" y="30" text-anchor="middle" fill="#fb7185" font-size="15">מאזין</text><circle cx="310" cy="72" r="20" fill="#fbbf24" stroke="#fff" stroke-width="1.5"/><text x="310" y="108" text-anchor="middle" fill="#8ba0b5" font-size="12">צבע ציבורי</text><circle cx="130" cy="72" r="20" fill="#e11d48"/><text x="130" y="108" text-anchor="middle" fill="#8ba0b5" font-size="12">סוד של דנה</text><circle cx="490" cy="72" r="20" fill="#2563eb"/><text x="490" y="108" text-anchor="middle" fill="#8ba0b5" font-size="12">סוד של יוסי</text><circle cx="130" cy="160" r="24" fill="#f26a2e" class="dh-mix1"/><text x="130" y="200" text-anchor="middle" fill="#a7b7c9" font-size="12">ציבורי + סוד</text><circle cx="490" cy="160" r="24" fill="#7f9a6b" class="dh-mix2"/><text x="490" y="200" text-anchor="middle" fill="#a7b7c9" font-size="12">ציבורי + סוד</text><line x1="160" y1="160" x2="460" y2="160" stroke="#8ba0b5" stroke-width="1.5" stroke-dasharray="6 7"/><g class="dh-go1"><circle r="16" fill="#f26a2e"/></g><g class="dh-go2"><circle r="16" fill="#7f9a6b"/></g><circle cx="310" cy="238" r="14" fill="#f26a2e" class="dh-seen"/><circle cx="338" cy="238" r="14" fill="#7f9a6b" class="dh-seen"/><text x="324" y="272" text-anchor="middle" fill="#fb7185" font-size="12">רואה את שני הערבובים</text><circle cx="130" cy="320" r="30" fill="#a8574a" class="dh-fin"/><circle cx="490" cy="320" r="30" fill="#a8574a" class="dh-fin"/><text x="130" y="372" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="700">אותו צבע סופי</text><text x="490" y="372" text-anchor="middle" fill="#4ade80" font-size="13" font-weight="700">אותו צבע סופי</text><text x="310" y="326" text-anchor="middle" fill="#a7b7c9" font-size="12">כל צד מוסיף</text><text x="310" y="342" text-anchor="middle" fill="#a7b7c9" font-size="12">את הסוד שלו</text></svg></div><div class="stack"><div class="c8-panel"><h4>במספרים</h4><div class="c8-hex" style="font-size:14.5px;color:var(--ink)">p = 23, g = 5  (ציבוריים)</div><div class="c8-row"><span class="c8-lbl" style="color:#fb7185">a</span><input type="range" class="c8-rng" id="dh-a" min="2" max="21" value="6" aria-label="סוד של דנה"><span class="c8-big" id="dh-av" style="font-size:18px;min-width:26px">6</span></div><div class="c8-row"><span class="c8-lbl" style="color:#60a5fa">b</span><input type="range" class="c8-rng" id="dh-b" min="2" max="21" value="15" aria-label="סוד של יוסי"><span class="c8-big" id="dh-bv" style="font-size:18px;min-width:26px">15</span></div><div id="dh-calc" style="font-size:15.5px;color:var(--ink);line-height:1.8"></div></div><div class="key violet sm">המאזין רואה <span class="ltr">p, g, A, B</span>. כדי לחשב את הסוד הוא צריך את <span class="ltr">a</span> או <span class="ltr">b</span>. זו בעיית ״לוגריתם בדיד״, קשה מאוד במספרים גדולים.</div><div class="key green sm"><strong>ב-TLS 1.3</strong> מייצרים סודות חדשים בכל חיבור ומוחקים אותם (ECDHE). גם מי שיגנוב בעתיד את מפתח התעודה לא יפענח הקלטות ישנות: סודיות קדימה.</div></div></div></div><aside class="speaker-note">סיפור הצבעים: שני הצדדים מתחילים מצבע ציבורי (צהוב), כל אחד מוסיף צבע סודי, ושולח את התערובת. המאזין רואה את שתי התערובות, אבל אין דרך ״להוציא״ את הצבע הסודי מתערובת. כל צד מוסיף את הסוד שלו לתערובת שקיבל, ושניהם מגיעים לאותו צבע. במספרים: הזיזו את a ו-b ובדקו שהסוד המשותף תמיד זהה בשני הצדדים. ברירת המחדל (a=6, b=15) נותנת A=8, B=19 וסוד 2 (הדוגמה המוכרת). חשוב: דיפי-הלמן לבדו לא יודע מי בצד השני. לכן ב-TLS השרת גם חותם על ההחלפה בתעודה שלו - נראה את זה בלחיצת היד.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק ב׳ · רקע תיאורטי</span><span class="ltr">25 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow p2"><span class="num">25</span>חתימה במספרים</div><h1 class="title">חתימה: ה-Hash של המסמך, בחזקת המפתח הפרטי</h1><p class="subtitle">מפתח ה-RSA הקלאסי מהדגמת RSA (<span class="ltr">n = 3233</span>), בכיוון ההפוך. כל צעד מוצג במספרים.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)"><div class="visual" style="flex-direction:column;align-items:stretch;gap:9px;padding:14px"><div class="c8-lbl">מסמך</div><input class="c8-in" id="sm-doc" value="העבירו 3 מכשירים לפלוגה ב׳" autocomplete="off" spellcheck="false"><div class="c8-row"><button class="c8-btn go" type="button" id="sm-sign">חתום</button><span class="c8-lbl">ואחר כך שנו את המסמך</span></div><div class="c8-ro c8-mono" id="sm-1" style="font-size:14.5px"></div><div class="c8-ro c8-mono" id="sm-2" style="font-size:14.5px"></div><div class="c8-ro c8-mono" id="sm-3" style="font-size:14.5px"></div><div class="c8-ro c8-mono" id="sm-4" style="font-size:14.5px"></div><div class="c8-link" id="sm-res"><b id="sm-rt">-</b><span id="sm-rw"></span></div></div><div class="stack"><div class="formula" style="font-size:20px;padding:9px;flex-direction:column;gap:4px"><span>h = SHA-256(m) mod n</span><span>s = h<sup>d</sup> mod n</span><span>s<sup>e</sup> mod n  =?  h</span></div><p class="copy sm">רק מי שמחזיק את <span class="ltr">d</span> יכול לייצר <span class="ltr">s</span> שעובר את הבדיקה. כל אחד יכול לבדוק, כי <span class="ltr">e</span> ו-<span class="ltr">n</span> ציבוריים.</p><div class="key violet sm">ב-RSA אמיתי לא חותמים על ה-Hash ״ערום״ אלא אחרי ריפוד מיוחד (PSS), ואין צמצום של ה-Hash לגודל של <span class="ltr">n</span>. כאן <span class="ltr">mod 3233</span> רק כדי שהמספרים יהיו קריאים.</div></div></div></div><aside class="speaker-note">זו אותה הדגמה כמו בחלק א׳, אבל עכשיו רואים את החשבון: h הוא ה-Hash של המסמך (SHA-256 אמיתי) מצומצם למודולו 3233, s הוא החתימה, והבדיקה מעלה את s בחזקת e ומשווה ל-h. שנו אות במסמך וראו ש-h החדש שונה, ולכן הבדיקה נכשלת. בגלל הצמצום ל-3233 יש בערך סיכוי אחד ל-3233 ששינוי ״יעבור״ במקרה, ולכן בעולם האמיתי לא מצמצמים כך.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק ב׳ · רקע תיאורטי</span><span class="ltr">26 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow p2"><span class="num">26</span>לחיצת יד TLS 1.3</div><h1 class="title">לחיצת היד של TLS 1.3 בסבב הודעות אחד</h1><p class="subtitle">הצבע של כל הודעה אומר במה היא מוגנת: גלוי, מפתחות לחיצת יד או מפתחות יישום.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)"><div class="visual" style="padding:6px"><svg id="tl-svg" viewBox="0 0 640 430" role="img" aria-label="תרשים רצף של לחיצת יד TLS 1.3"></svg></div><div class="stack"><div class="c8-row"><button class="c8-btn" type="button" id="tl-prev">◀</button><button class="c8-btn go" type="button" id="tl-next">הבא ▶</button><button class="c8-btn" type="button" id="tl-play">▶ נגן</button><button class="c8-btn" type="button" id="tl-reset">⟲</button><span class="c8-big" id="tl-n" style="font-size:18px;margin-inline-start:auto"></span></div><div class="c8-panel" style="flex:1;display:flex;flex-direction:column;gap:6px"><h4 id="tl-h"></h4><p class="copy sm" id="tl-t" style="margin:0"></p><div style="margin-top:auto" class="c8-row wrap"><span class="c8-pill" id="tl-prot"></span></div></div><div class="c8-panel" style="border-color:rgba(251,113,133,.35)"><h4 style="color:var(--red)">מה רואה המאזין בצעד הזה</h4><p class="copy sm" id="tl-eve" style="margin:0"></p></div></div></div></div><aside class="speaker-note">צעדו ידנית: ClientHello והשרת עונה ב-ServerHello, ושניהם כוללים חצי של דיפי-הלמן (key_share). מהרגע הזה שני הצדדים מחשבים אותו סוד, וכל מה שהשרת שולח אחר כך כבר מוצפן - כולל התעודה, שב-TLS 1.2 עברה גלויה. CertificateVerify הוא הרגע שבו השרת מוכיח שהוא מחזיק במפתח הפרטי של התעודה: הוא חותם על כל ההודעות עד כה, ולכן גם על ה-key_share, וזה מה שמונע מתוקף באמצע להחליף את חצי הדיפי-הלמן. Finished בשני הכיוונים מוודא ששני הצדדים ראו בדיוק את אותן הודעות. בשיעור 3 ברשתות זה הוצג בקצרה כ״Hello, תעודה, גזירת מפתחות ו-Finished״.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק ב׳ · רקע תיאורטי</span><span class="ltr">27 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow p2"><span class="num">27</span>מה רואה המאזין</div><h1 class="title">מה המאזין רואה ב-TLS 1.2 וב-TLS 1.3</h1><p class="subtitle">בין הגרסאות חלק מהפריטים עברו מ״גלוי״ ל״מוצפן״.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)"><div class="c8-col" style="gap:8px"><div class="c8-row"><button class="c8-btn" type="button" id="tv-12">TLS 1.2</button><button class="c8-btn on" type="button" id="tv-13">TLS 1.3</button></div><table class="table" id="tv-tbl" style="font-size:15.5px"><tr><th style="width:46%">פריט</th><th>מה המאזין רואה</th></tr></table></div><div class="stack"><div class="c8-panel"><h4>סבבי הודעות עד מידע ראשון</h4><div class="c8-row" style="gap:14px"><span class="c8-big" id="tv-rtt">1</span><span class="c8-lbl" id="tv-rttl">סבב אחד (1-RTT)</span></div><div style="height:12px;border-radius:7px;background:rgba(255,255,255,.08);overflow:hidden;direction:ltr;margin-top:8px"><div id="tv-rttbar" style="height:100%;width:50%;background:var(--cyan);transition:width .4s"></div></div></div><div class="key violet sm" id="tv-note"></div><div class="key amber sm">שם האתר (SNI) עדיין עובר גלוי בשתי הגרסאות. הרחבה חדשה (ECH) מצפינה גם אותו, אבל היא עוד לא נתמכת בכל מקום.</div></div></div></div><aside class="speaker-note">החליפו בין 1.2 ל-1.3. מה השתנה: התעודה של השרת כבר לא גלויה, החלפת מפתחות בלי דיפי-הלמן (RSA ישיר) נעלמה ואיתה גם האפשרות לפענח הקלטות ישנות אם המפתח ידלוף, ולחיצת היד קצרה בסבב. מה שלא השתנה: כתובות IP, פורטים, שם האתר, וגודל ותזמון התעבורה, ומהם לבד אפשר לפעמים להסיק לא מעט. זו גם הסיבה שבדיקת תקלות TLS עם לוכד תעבורה ב-1.3 מראה פחות מבעבר.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק ב׳ · רקע תיאורטי</span><span class="ltr">28 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow p2"><span class="num">28</span>גבולות ההדגמות</div><h1 class="title">מגבלות ההדגמות</h1><p class="subtitle">החישובים בהדגמות אמיתיים, אבל כל הדגמה מפשטת משהו.</p><div class="body"><table class="table c8-tbl" style="font-size:15px"><tr><th style="width:17%">הדגמה</th><th style="width:43%">מה הופשט</th><th>מה יש בפועל</th></tr><tr class="c8-rise"><td>הצפנה וחתימה ב-RSA</td><td>מספרים זעירים ובלי ריפוד. RSA ״ספרותי״ כזה שביר גם במספרים גדולים.</td><td>2048 ביט ומעלה, OAEP להצפנה ו-PSS לחתימה</td></tr><tr class="c8-rise"><td>AES</td><td>בלוק בודד, כלומר מצב ECB: אותו בלוק תמיד נותן אותו פלט.</td><td>מצב כמו GCM, עם מספר חד-פעמי לכל הודעה ובדיקת שלמות מובנית</td></tr><tr class="c8-rise"><td>כרטיס חכם ו-TLS</td><td>התרשימים מראים את העיקרון בלבד.</td><td>הפרוטוקולים האמיתיים (PKINIT, TLS 1.3) כוללים עוד שדות, בדיקות ומקרי קצה</td></tr></table><p class="copy sm" style="margin-top:10px">פיצוח תדירויות עובד על קיסר ועל החלפה פשוטה. על AES אין לו שום השפעה, בגלל אפקט המפולת. מחשב קוונטי גדול מספיק ישבור את RSA ואת ECC; המעבר לאלגוריתמים עמידים כבר התחיל, למשל החלפת מפתחות היברידית עם ML-KEM בדפדפנים.</p><div class="key red sm" style="margin-top:10px">הקוד כאן הוא כלי הוראה. במערכת אמיתית לא כותבים קריפטוגרפיה לבד: משתמשים בספריות מוכרות ובהגדרות מומלצות.</div><div class="key sm" style="margin-top:10px">מה <strong>כן</strong> אמין: SHA-256 ו-AES כאן תואמים את התקנים (נבדקו מול ספריות סטנדרטיות), והעקרונות עצמם (מפולת, פירוק לגורמים, לוגריתם בדיד, שרשרת חתימות) הם אלה שבמערכות אמיתיות.</div></div><aside class="speaker-note">לא לדלג. הטעות הנפוצה אחרי שיעור כזה היא לחשוב ש״RSA זה פשוט החשבון הזה״. החשבון נכון, אבל בלי ריפוד, בלי גדלים אמיתיים ובלי מצבי הפעלה זה לא בטוח. בנושא הקוונטים מספיק להסביר שמעבר אלגוריתמים כבר קורה. כאן העיקרון ״השיטה ציבורית, רק המפתח סודי״ עוזר: מחליפים אלגוריתם בלי לבנות את המערכת מחדש.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק ב׳ · רקע תיאורטי</span><span class="ltr">29 / 30</span></div></section>
+
+
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow p2"><span class="num">29</span>סיכום</div><h1 class="title">הכלים משלימים זה את זה</h1><p class="subtitle">כל כלי מכסה משהו שהקודם לא נותן.</p><div class="body"><div class="steps c8-walk"><div class="step c8-rise"><strong>Hash</strong><span>מגלה כל שינוי</span></div><div class="step c8-rise"><strong>סימטרית</strong><span>מצפינה הרבה, מהר</span></div><div class="step c8-rise"><strong>אסימטרית</strong><span>מסכמת מפתח בלי סוד משותף</span></div><div class="step c8-rise"><strong>תעודה</strong><span>קושרת מפתח ציבורי לשם</span></div><div class="step c8-rise"><strong>כרטיס חכם</strong><span>שומר את המפתח הפרטי אצל האדם</span></div></div><div class="key" style="margin-top:18px">בלחיצת היד של TLS 1.3 רובם פועלים יחד: דיפי-הלמן מסכם מפתח, התעודה והחתימה מוכיחות מי השרת, Hash מאמת את כל לחיצת היד, ו-AES מצפין את המידע.</div></div><aside class="speaker-note">לסגירה: לכל אחד מהכלים, מה הוא מוכיח ומה לא. אחר כך בקשו מחניך לתאר במשפט אחד מה קורה כשנכנסים לאתר בדפדפן. תשובה טובה כוללת הסכמה על מפתח, תעודה, חתימה והצפנה סימטרית.</aside><div class="footer"><span>שיעור 8 · הצפנה וזהות · חלק ב׳ · רקע תיאורטי</span><span class="ltr">30 / 30</span></div></section>
+<div class="nav"><button type="button" data-prev aria-label="שקופית קודמת">הקודם</button><button type="button" data-next aria-label="שקופית הבאה">הבא</button><div class="progress" aria-hidden="true"><span></span></div><div class="counter"></div><button type="button" data-notes>הערות</button></div><div class="notes-panel" hidden></div></main></div></div><script>
+(() => {
+  const root = document.querySelector('.deck-root');
+  const stage = root.querySelector('.stage');
+  const slides = [...root.querySelectorAll('.slide')];
+  const prev = root.querySelector('[data-prev]');
+  const next = root.querySelector('[data-next]');
+  const counter = root.querySelector('.counter');
+  const progress = root.querySelector('.progress span');
+  const notesButton = root.querySelector('[data-notes]');
+  const notesPanel = root.querySelector('.notes-panel');
+  let index = 0;
+  function scaleStage(){
+    const s = Math.min((innerWidth-20)/1280,(innerHeight-20)/720);
+    stage.style.transform = 'scale('+Math.max(.2,s)+')';
+  }
+  function show(i){
+    index = Math.max(0,Math.min(slides.length-1,i));
+    slides.forEach((s,n)=>{const active=n===index;s.classList.toggle('active',active);s.setAttribute('aria-hidden',String(!active));});
+    prev.disabled=index===0; next.disabled=index===slides.length-1;
+    counter.textContent=(index+1)+' / '+slides.length;
+    progress.style.width=((index+1)/slides.length*100)+'%';
+    notesPanel.hidden=true;
+  }
+  prev.addEventListener('click',()=>show(index-1));
+  next.addEventListener('click',()=>show(index+1));
+  notesButton.addEventListener('click',()=>{
+    const note=slides[index].querySelector('.speaker-note');
+    notesPanel.innerHTML='<strong>הערות למעביר</strong>'+(note?note.innerHTML:'אין הערות לשקופית זו.');
+    notesPanel.hidden=!notesPanel.hidden;
+  });
+  addEventListener('keydown',(e)=>{
+    if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(index+1)}
+    else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(index-1)}
+    else if(e.key==='Home')show(0);else if(e.key==='End')show(slides.length-1);
+    else if(e.key.toLowerCase()==='n')notesButton.click();
+    else if(e.key.toLowerCase()==='a'){root.classList.toggle('motion-on');var mb=root.querySelector('.motion-badge');if(mb)mb.hidden=root.classList.contains('motion-on');root.querySelectorAll('svg').forEach(function(v){if(v.pauseAnimations){root.classList.contains('motion-on')?v.unpauseAnimations():v.pauseAnimations();}});}else if(e.key.toLowerCase()==='f'){if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()}
+  });
+  
+  addEventListener('resize',scaleStage);scaleStage();show(0);
+})();
+</script><script>
+/* ===== net-08 crypto engines: pure JS, no SubtleCrypto (IIS may serve over plain HTTP,
+   where crypto.subtle is undefined). Every engine is verified against an external oracle
+   in test_engines.js before it is allowed into the deck. ===== */
+var C8 = (function () {
+  'use strict';
+  /* ---------- UTF-8 / hex ---------- */
+  function utf8(str) { return Array.from(new TextEncoder().encode(str)); }
+  function hex(bytes) { return bytes.map(function (b) { return (b < 16 ? '0' : '') + b.toString(16); }).join(''); }
+  function fromHex(h) { var o = []; for (var i = 0; i < h.length; i += 2) o.push(parseInt(h.substr(i, 2), 16)); return o; }
+  function bitsDiff(a, b) { var n = 0; for (var i = 0; i < a.length; i++) { var x = a[i] ^ b[i]; while (x) { n += x & 1; x >>>= 1; } } return n; }
+
+  /* ---------- SHA-256 (FIPS 180-4) ---------- */
+  var K = [
+    0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+    0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+    0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+    0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+    0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+    0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+    0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+    0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2];
+  function rotr(x, n) { return (x >>> n) | (x << (32 - n)); }
+  function sha256(bytes) {
+    var H = [0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19];
+    var l = bytes.length, m = bytes.slice();
+    m.push(0x80);
+    while (m.length % 64 !== 56) m.push(0);
+    var bitLen = l * 8, hi = Math.floor(bitLen / 0x100000000), lo = bitLen >>> 0;
+    m.push((hi >>> 24) & 255, (hi >>> 16) & 255, (hi >>> 8) & 255, hi & 255, (lo >>> 24) & 255, (lo >>> 16) & 255, (lo >>> 8) & 255, lo & 255);
+    var W = new Array(64);
+    for (var off = 0; off < m.length; off += 64) {
+      for (var t = 0; t < 16; t++) W[t] = (m[off + 4 * t] << 24) | (m[off + 4 * t + 1] << 16) | (m[off + 4 * t + 2] << 8) | m[off + 4 * t + 3];
+      for (t = 16; t < 64; t++) {
+        var s0 = rotr(W[t - 15], 7) ^ rotr(W[t - 15], 18) ^ (W[t - 15] >>> 3);
+        var s1 = rotr(W[t - 2], 17) ^ rotr(W[t - 2], 19) ^ (W[t - 2] >>> 10);
+        W[t] = (W[t - 16] + s0 + W[t - 7] + s1) | 0;
+      }
+      var a = H[0], b = H[1], c = H[2], d = H[3], e = H[4], f = H[5], g = H[6], h = H[7];
+      for (t = 0; t < 64; t++) {
+        var S1 = rotr(e, 6) ^ rotr(e, 11) ^ rotr(e, 25), ch = (e & f) ^ (~e & g);
+        var T1 = (h + S1 + ch + K[t] + W[t]) | 0;
+        var S0 = rotr(a, 2) ^ rotr(a, 13) ^ rotr(a, 22), mj = (a & b) ^ (a & c) ^ (b & c);
+        var T2 = (S0 + mj) | 0;
+        h = g; g = f; f = e; e = (d + T1) | 0; d = c; c = b; b = a; a = (T1 + T2) | 0;
+      }
+      H[0] = (H[0] + a) | 0; H[1] = (H[1] + b) | 0; H[2] = (H[2] + c) | 0; H[3] = (H[3] + d) | 0;
+      H[4] = (H[4] + e) | 0; H[5] = (H[5] + f) | 0; H[6] = (H[6] + g) | 0; H[7] = (H[7] + h) | 0;
+    }
+    var out = [];
+    H.forEach(function (w) { out.push((w >>> 24) & 255, (w >>> 16) & 255, (w >>> 8) & 255, w & 255); });
+    return out;
+  }
+
+  /* ---------- AES-128 (FIPS 197), single block, with per-step trace for the animation ---------- */
+  var SBOX = (function () {
+    var s = new Array(256), p = 1, q = 1;
+    do {
+      p = p ^ ((p << 1) & 0xff) ^ (p & 0x80 ? 0x1b : 0);
+      q ^= q << 1; q ^= q << 2; q ^= q << 4; q &= 0xff; if (q & 0x80) q ^= 0x09;
+      var x = q ^ ((q << 1 | q >>> 7) & 0xff) ^ ((q << 2 | q >>> 6) & 0xff) ^ ((q << 3 | q >>> 5) & 0xff) ^ ((q << 4 | q >>> 4) & 0xff);
+      s[p] = (x ^ 0x63) & 0xff;
+    } while (p !== 1);
+    s[0] = 0x63; return s;
+  })();
+  function xt(b) { return ((b << 1) ^ (b & 0x80 ? 0x1b : 0)) & 0xff; }
+  function expandKey(key) {
+    var w = key.slice(), rcon = 1;
+    for (var i = 16; i < 176; i += 4) {
+      var t = w.slice(i - 4, i);
+      if (i % 16 === 0) {
+        t = [SBOX[t[1]] ^ rcon, SBOX[t[2]], SBOX[t[3]], SBOX[t[0]]];
+        rcon = xt(rcon);
+      }
+      for (var j = 0; j < 4; j++) w.push(w[i - 16 + j] ^ t[j]);
+    }
+    return w;
+  }
+  /* state is column-major: s[r + 4c] */
+  function subBytes(s) { return s.map(function (b) { return SBOX[b]; }); }
+  function shiftRows(s) { var o = s.slice(); for (var r = 1; r < 4; r++) for (var c = 0; c < 4; c++) o[r + 4 * c] = s[r + 4 * ((c + r) % 4)]; return o; }
+  function mixColumns(s) {
+    var o = s.slice();
+    for (var c = 0; c < 4; c++) {
+      var a0 = s[4 * c], a1 = s[4 * c + 1], a2 = s[4 * c + 2], a3 = s[4 * c + 3];
+      o[4 * c] = xt(a0) ^ xt(a1) ^ a1 ^ a2 ^ a3;
+      o[4 * c + 1] = a0 ^ xt(a1) ^ xt(a2) ^ a2 ^ a3;
+      o[4 * c + 2] = a0 ^ a1 ^ xt(a2) ^ xt(a3) ^ a3;
+      o[4 * c + 3] = xt(a0) ^ a0 ^ a1 ^ a2 ^ xt(a3);
+    }
+    return o;
+  }
+  function addKey(s, w, r) { return s.map(function (b, i) { return b ^ w[16 * r + i]; }); }
+  function aesTrace(key, pt) {
+    var w = expandKey(key), trace = [], s = addKey(pt, w, 0);
+    trace.push({ round: 0, step: 'AddRoundKey', state: s });
+    for (var r = 1; r <= 10; r++) {
+      s = subBytes(s); trace.push({ round: r, step: 'SubBytes', state: s });
+      s = shiftRows(s); trace.push({ round: r, step: 'ShiftRows', state: s });
+      if (r < 10) { s = mixColumns(s); trace.push({ round: r, step: 'MixColumns', state: s }); }
+      s = addKey(s, w, r); trace.push({ round: r, step: 'AddRoundKey', state: s });
+    }
+    return trace;
+  }
+  function aes128(key, pt) { var t = aesTrace(key, pt); return t[t.length - 1].state; }
+
+  /* ---------- number theory on BigInt (RSA, DH) ---------- */
+  function modpow(b, e, m) { b = BigInt(b) % BigInt(m); e = BigInt(e); m = BigInt(m); var r = 1n; while (e > 0n) { if (e & 1n) r = r * b % m; b = b * b % m; e >>= 1n; } return r; }
+  function egcd(a, b) { a = BigInt(a); b = BigInt(b); var x0 = 1n, x1 = 0n; while (b) { var q = a / b; var t = a - q * b; a = b; b = t; t = x0 - q * x1; x0 = x1; x1 = t; } return [a, x0]; }
+  function modinv(a, m) { var r = egcd(a, m); if (r[0] !== 1n) return null; var x = r[1] % BigInt(m); return x < 0n ? x + BigInt(m) : x; }
+  function gcd(a, b) { return egcd(a, b)[0]; }
+  function isPrime(n) { n = Number(n); if (n < 2) return false; for (var i = 2; i * i <= n; i++) if (n % i === 0) return false; return true; }
+  function rsaKeys(p, q, e) {
+    p = BigInt(p); q = BigInt(q); e = BigInt(e);
+    var n = p * q, phi = (p - 1n) * (q - 1n);
+    if (gcd(e, phi) !== 1n) return { n: n, phi: phi, e: e, d: null };
+    return { n: n, phi: phi, e: e, d: modinv(e, phi) };
+  }
+
+  /* ---------- classical ciphers ---------- */
+  var HEB = 'אבגדהוזחטיכלמנסעפצקרשת';
+  var FINALS = { 'ך': 'כ', 'ם': 'מ', 'ן': 'נ', 'ף': 'פ', 'ץ': 'צ' };
+  var TOFINAL = { 'כ': 'ך', 'מ': 'ם', 'נ': 'ן', 'פ': 'ף', 'צ': 'ץ' };
+  function hebNorm(ch) { return FINALS[ch] || ch; }
+  function hebFinals(s) { /* restore final letter forms at word ends */
+    return s.replace(/([כמנפצ])(?=$|[^א-ת])/g, function (m) { return TOFINAL[m]; });
+  }
+  function hebMap(text, fn) {
+    var out = '';
+    for (var i = 0; i < text.length; i++) {
+      var ch = hebNorm(text[i]), k = HEB.indexOf(ch);
+      out += k < 0 ? text[i] : HEB[fn(k)];
+    }
+    return hebFinals(out);
+  }
+  function atbash(text) { return hebMap(text, function (k) { return 21 - k; }); }
+  function caesarHeb(text, s) { return hebMap(text, function (k) { return ((k + s) % 22 + 22) % 22; }); }
+  function caesarEn(text, s) {
+    return text.replace(/[a-z]/gi, function (ch) {
+      var base = ch <= 'Z' ? 65 : 97;
+      return String.fromCharCode((((ch.charCodeAt(0) - base + s) % 26) + 26) % 26 + base);
+    });
+  }
+  /* English letter frequencies (%), standard reference table */
+  var EN = [8.167, 1.492, 2.782, 4.253, 12.702, 2.228, 2.015, 6.094, 6.966, 0.153, 0.772, 4.025, 2.406,
+    6.749, 7.507, 1.929, 0.095, 5.987, 6.327, 9.056, 2.758, 0.978, 2.360, 0.150, 1.974, 0.074];
+  function counts(text) { var c = new Array(26).fill(0); text.toLowerCase().replace(/[a-z]/g, function (ch) { c[ch.charCodeAt(0) - 97]++; return ch; }); return c; }
+  function chi2ForShift(ct, s) { /* score of decrypting ct with shift s */
+    var c = counts(caesarEn(ct, -s)), N = c.reduce(function (a, b) { return a + b; }, 0) || 1, x = 0;
+    for (var i = 0; i < 26; i++) { var exp = EN[i] / 100 * N; x += (c[i] - exp) * (c[i] - exp) / exp; }
+    return x;
+  }
+  function crackCaesar(ct) {
+    var best = 0, scores = [];
+    for (var s = 0; s < 26; s++) { scores.push(chi2ForShift(ct, s)); if (scores[s] < scores[best]) best = s; }
+    return { shift: best, scores: scores };
+  }
+
+  return {
+    utf8: utf8, hex: hex, fromHex: fromHex, bitsDiff: bitsDiff, sha256: sha256,
+    SBOX: SBOX, aesTrace: aesTrace, aes128: aes128, expandKey: expandKey,
+    modpow: modpow, modinv: modinv, gcd: gcd, isPrime: isPrime, rsaKeys: rsaKeys,
+    HEB: HEB, atbash: atbash, caesarHeb: caesarHeb, caesarEn: caesarEn, counts: counts, EN: EN,
+    chi2ForShift: chi2ForShift, crackCaesar: crackCaesar
+  };
+})();
+if (typeof module !== 'undefined') module.exports = C8;
+
+</script><script>
+(function () {
+  'use strict';
+  var root = document.querySelector('.deck-root');
+  function $(id) { return document.getElementById(id); }
+  function el(tag, attrs, text) {
+    var e = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function motionOK() {
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return !reduce || (root && root.classList.contains('motion-on'));
+  }
+  function activeSlideOf(node) { var s = node && node.closest('.slide'); return !!(s && s.classList.contains('active')); }
+  function onInput(node, fn) { node.addEventListener('input', fn); }
+  function L(s) { return '<span class="ltr">' + s + '</span>'; }
+  function safe(name, fn) { try { fn(); } catch (err) { if (window.console) console.error('[net08] ' + name, err); } }
+
+  /* typing inside a field must not drive the deck (space, n, a, f, arrows) */
+  document.querySelectorAll('.deck-root input:not([type=range]), .deck-root textarea, .deck-root select').forEach(function (f) {
+    f.addEventListener('keydown', function (e) { e.stopPropagation(); if (e.key === 'Escape') f.blur(); });
+  });
+
+  /* ================= title hero: Atbash letter flip ================= */
+  safe('hero', function () {
+    var box = $('c8hero'); if (!box) return;
+    var spans = [].slice.call(box.querySelectorAll('span:not(.sp)'));
+    var plain = spans.map(function (s) { return s.textContent; });
+    /* encrypt whole words so final letter forms land only at word ends */
+    var ciph = [], kids = [].slice.call(box.children), word = [];
+    function flush() { var w = C8.atbash(word.map(function (s) { return s.textContent; }).join('')); for (var q = 0; q < word.length; q++) ciph.push(w[q]); word = []; }
+    kids.forEach(function (s) { if (s.classList.contains('sp')) flush(); else word.push(s); }); flush();
+    var i = 0, dir = 1, hold = 0;
+    setInterval(function () {
+      if (!motionOK() || !activeSlideOf(box)) return;
+      if (hold > 0) { hold--; return; }
+      var s = spans[i];
+      if (dir > 0) { s.textContent = ciph[i]; s.classList.add('x'); } else { s.textContent = plain[i]; s.classList.remove('x'); }
+      i++;
+      if (i >= spans.length) { i = 0; dir = -dir; hold = 12; }
+    }, 130);
+  });
+
+  /* ================= Base64 is not encryption ================= */
+  safe('b64', function () {
+    var inp = $('b64-in'); if (!inp) return;
+    function run() {
+      var bytes = C8.utf8(inp.value), bin = '';
+      bytes.forEach(function (b) { bin += String.fromCharCode(b); });
+      var b64 = btoa(bin);
+      $('b64-out').textContent = b64 || ' ';
+      var back = atob(b64), arr = new Uint8Array(back.length);
+      for (var i = 0; i < back.length; i++) arr[i] = back.charCodeAt(i);
+      $('b64-back').textContent = new TextDecoder().decode(arr) || ' ';
+      $('b64-len').innerHTML = L(bytes.length) + ' בתים, ' + L(b64.length) + ' תווי Base64';
+    }
+    onInput(inp, run); run();
+  });
+
+  /* ================= steganography: LSB ================= */
+  safe('stego', function () {
+    var ca = $('st-a'), cb = $('st-b'); if (!ca) return;
+    var W = ca.width, H = ca.height, xa = ca.getContext('2d'), xb = cb.getContext('2d');
+    var cover = xa.createImageData(W, H), d = cover.data;
+    for (var y = 0; y < H; y++) for (var x = 0; x < W; x++) {
+      var p = 4 * (y * W + x), hill = Math.round(H * 0.6 + 4 * Math.sin(x / 7) + 2 * Math.sin(x / 3.1 + 1));
+      var r, g, b, dx = x - 46, dy = y - 9;
+      /* flat colour areas, like a logo or a screenshot: the lowest bit is constant inside each area */
+      if (y < hill) { var band = Math.min(3, y / 6 | 0); r = 61 + 23 * band; g = 121 + 17 * band; b = 203 + 11 * band; if (dx * dx + dy * dy < 30) { r = 251; g = 207; b = 85; } }
+      else { r = 59; g = 138; b = 67; if ((y - hill) > 6) { r = 46; g = 113; b = 53; } }
+      d[p] = Math.round(r); d[p + 1] = Math.round(g); d[p + 2] = Math.round(b); d[p + 3] = 255;
+    }
+    var amp = false, stego = null;
+    function lsbView(img) {
+      var o = new ImageData(new Uint8ClampedArray(img.data), W, H);
+      for (var i = 0; i < o.data.length; i += 4) { o.data[i] = (o.data[i] & 1) * 255; o.data[i + 1] = (o.data[i + 1] & 1) * 255; o.data[i + 2] = (o.data[i + 2] & 1) * 255; }
+      return o;
+    }
+    function embed(msg) {
+      var bytes = C8.utf8(msg).slice(0, 255), bits = [], i;
+      for (i = 7; i >= 0; i--) bits.push((bytes.length >> i) & 1);
+      bytes.forEach(function (b) { for (var k = 7; k >= 0; k--) bits.push((b >> k) & 1); });
+      var img = new ImageData(new Uint8ClampedArray(cover.data), W, H);
+      /* one bit per pixel, written into the lowest bit of R, G and B together: maximum change 1/255 per channel */
+      for (i = 0; i < bits.length && i < W * H; i++) { var q = 4 * i; for (var c = 0; c < 3; c++) img.data[q + c] = (img.data[q + c] & 254) | bits[i]; }
+      return { img: img, nbits: bits.length, nbytes: bytes.length };
+    }
+    function extract(img) {
+      function bit(i) { return img.data[4 * i] & 1; }
+      var n = 0, i, out = [];
+      for (i = 0; i < 8; i++) n = (n << 1) | bit(i);
+      for (var j = 0; j < n; j++) { var b = 0; for (i = 0; i < 8; i++) b = (b << 1) | bit(8 + 8 * j + i); out.push(b); }
+      return new TextDecoder().decode(new Uint8Array(out));
+    }
+    function maxDiff(a, b) { var m = 0; for (var i = 0; i < a.data.length; i++) m = Math.max(m, Math.abs(a.data[i] - b.data[i])); return m; }
+    function draw() {
+      stego = embed($('st-msg').value);
+      xa.putImageData(amp ? lsbView(cover) : cover, 0, 0);
+      xb.putImageData(amp ? lsbView(stego.img) : stego.img, 0, 0);
+      $('st-blbl').textContent = amp ? 'ביט אחרון בלבד · עם מסר' : 'עם מסר מוסתר';
+      $('st-amp').classList.toggle('on', amp);
+      $('st-amp').textContent = amp ? 'חזרה לתמונה' : 'הגבר ביט אחרון';
+      var rows = Math.ceil(stego.nbits / W);
+      $('st-stat').innerHTML = L(stego.nbytes) + ' בתים · ' + L(stego.nbits) + ' ביטים · ' + L(rows) + ' שורות פיקסלים · שינוי מרבי ' + L(maxDiff(cover, stego.img) + '/255');
+      $('st-out').textContent = 'חולץ: ' + extract(stego.img);
+    }
+    $('st-amp').addEventListener('click', function () { amp = !amp; draw(); });
+    onInput($('st-msg'), draw); draw();
+  });
+
+  /* ================= substitution wheel ================= */
+  safe('wheel', function () {
+    var svg = $('wh-svg'); if (!svg) return;
+    var NS = 22, TH = 360 / NS, CX = 220, CY = 220, mode = 'atb', shift = 3;
+    svg.appendChild(el('circle', { cx: CX, cy: CY, r: 208, fill: '#0a1426', stroke: 'rgba(255,255,255,.14)', 'stroke-width': 1.5 }));
+    svg.appendChild(el('circle', { cx: CX, cy: CY, r: 160, fill: '#101b30', stroke: 'rgba(34,211,238,.45)', 'stroke-width': 1.5 }));
+    svg.appendChild(el('circle', { cx: CX, cy: CY, r: 100, fill: '#0b1220', stroke: 'rgba(251,191,36,.45)', 'stroke-width': 1.5 }));
+    var hl = el('g', {}); svg.appendChild(hl);
+    var hlO = el('circle', { r: 17, fill: 'rgba(34,211,238,.25)', stroke: '#22d3ee', 'stroke-width': 2, opacity: 0 });
+    var hlI = el('circle', { r: 17, fill: 'rgba(251,191,36,.25)', stroke: '#fbbf24', 'stroke-width': 2, opacity: 0 });
+    hl.appendChild(hlO); hl.appendChild(hlI);
+    var outer = el('g', {}); svg.appendChild(outer);
+    var ring = el('g', { 'class': 'c8-ring' }); ring.style.transformOrigin = CX + 'px ' + CY + 'px'; svg.appendChild(ring);
+    var inner = [];
+    function pos(i, r) { var a = (i * TH - 90) * Math.PI / 180; return [CX + r * Math.cos(a), CY + r * Math.sin(a)]; }
+    for (var i = 0; i < NS; i++) {
+      var po = pos(i, 184), pi = pos(i, 130);
+      outer.appendChild(el('text', { x: po[0], y: po[1] + 7, 'text-anchor': 'middle', fill: '#f1f5f9', 'font-size': 21, 'font-weight': 700 }, C8.HEB[i]));
+      var t = el('text', { x: pi[0], y: pi[1] + 7, 'text-anchor': 'middle', fill: '#fbbf24', 'font-size': 21, 'font-weight': 700, 'class': 'c8-ring' }, '');
+      t.style.transformBox = 'fill-box'; t.style.transformOrigin = 'center';
+      ring.appendChild(t); inner.push(t);
+      var s1 = pos(i + 0.5, 160), s2 = pos(i + 0.5, 208);
+      outer.appendChild(el('line', { x1: s1[0], y1: s1[1], x2: s2[0], y2: s2[1], stroke: 'rgba(255,255,255,.1)' }));
+    }
+    var centre = el('text', { x: CX, y: CY - 4, 'text-anchor': 'middle', fill: '#f1f5f9', 'font-size': 24, 'font-weight': 800 }, '');
+    var centre2 = el('text', { x: CX, y: CY + 24, 'text-anchor': 'middle', fill: '#8ba0b5', 'font-size': 14 }, 'חוץ: גלוי · פנים: מוצפן');
+    svg.appendChild(centre); svg.appendChild(centre2);
+    function layoutInner() {
+      for (var j = 0; j < NS; j++) inner[j].textContent = mode === 'atb' ? C8.HEB[NS - 1 - j] : C8.HEB[j];
+      var rot = mode === 'atb' ? 0 : -shift * TH;
+      ring.style.transform = 'rotate(' + rot + 'deg)';
+      /* keep every inner letter upright while the ring turns */
+      for (var u = 0; u < NS; u++) inner[u].style.transform = 'rotate(' + (-rot) + 'deg)';
+    }
+    function run() {
+      var txt = $('wh-in').value;
+      $('wh-out').textContent = (mode === 'atb' ? C8.atbash(txt) : C8.caesarHeb(txt, shift)) || ' ';
+      centre.textContent = mode === 'atb' ? 'אתב״ש' : 'קיסר · הזזה ' + shift;
+      $('wh-sv').textContent = shift;
+      $('wh-shift').disabled = mode === 'atb';
+      $('wh-atb').classList.toggle('on', mode === 'atb'); $('wh-cae').classList.toggle('on', mode === 'cae');
+      var last = null, norm = { 'ך': 'כ', 'ם': 'מ', 'ן': 'נ', 'ף': 'פ', 'ץ': 'צ' };
+      for (var k = txt.length - 1; k >= 0; k--) { var ch = norm[txt[k]] || txt[k]; if (C8.HEB.indexOf(ch) >= 0) { last = C8.HEB.indexOf(ch); break; } }
+      if (last == null) { hlO.setAttribute('opacity', 0); hlI.setAttribute('opacity', 0); return; }
+      var a = pos(last, 184), b = pos(last, 130);
+      hlO.setAttribute('cx', a[0]); hlO.setAttribute('cy', a[1]); hlI.setAttribute('cx', b[0]); hlI.setAttribute('cy', b[1]);
+      hlO.setAttribute('opacity', 1); hlI.setAttribute('opacity', 1);
+    }
+    $('wh-atb').addEventListener('click', function () { mode = 'atb'; layoutInner(); run(); });
+    $('wh-cae').addEventListener('click', function () { mode = 'cae'; layoutInner(); run(); });
+    onInput($('wh-shift'), function () { shift = +$('wh-shift').value; mode = 'cae'; layoutInner(); run(); });
+    onInput($('wh-in'), run);
+    layoutInner(); run();
+  });
+
+  /* ================= hash avalanche (part A) ================= */
+  function hexDiff(a, b) {
+    var out = '';
+    for (var i = 0; i < a.length; i++) out += a[i] !== b[i] ? '<b>' + a[i] + '</b>' : a[i];
+    return out;
+  }
+  safe('hash6', function () {
+    var a = $('h6-a'); if (!a) return;
+    function run() {
+      var ha = C8.sha256(C8.utf8(a.value)), hb = C8.sha256(C8.utf8($('h6-b').value));
+      var xa = C8.hex(ha), xb = C8.hex(hb);
+      $('h6-ha').innerHTML = xa.slice(0, 32) + '<br>' + xa.slice(32);
+      $('h6-hb').innerHTML = hexDiff(xb.slice(0, 32), xa.slice(0, 32)) + '<br>' + hexDiff(xb.slice(32), xa.slice(32));
+      var n = C8.bitsDiff(ha, hb);
+      $('h6-n').textContent = n; $('h6-bar').style.width = (n / 256 * 100) + '%';
+    }
+    onInput(a, run); onInput($('h6-b'), run); run();
+  });
+
+  /* ================= symmetric key mesh ================= */
+  safe('mesh', function () {
+    var svg = $('sy-svg'); if (!svg) return;
+    function run() {
+      var n = +$('sy-n').value, k = n * (n - 1) / 2;
+      $('sy-nv').textContent = n; $('sy-k').textContent = k.toLocaleString('en-US');
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+      var pts = [], R = n > 20 ? 148 : 140;
+      for (var i = 0; i < n; i++) { var a = (i / n) * 2 * Math.PI - Math.PI / 2; pts.push([210 + R * Math.cos(a), 165 + R * Math.sin(a)]); }
+      var op = Math.max(0.07, Math.min(0.75, 6 / n)), g = el('g', { 'class': 'c8-fade' });
+      for (var p = 0; p < n; p++) for (var q = p + 1; q < n; q++) g.appendChild(el('line', { x1: pts[p][0], y1: pts[p][1], x2: pts[q][0], y2: pts[q][1], stroke: '#fbbf24', 'stroke-width': n > 20 ? 0.8 : 1.6, opacity: op }));
+      svg.appendChild(g);
+      pts.forEach(function (pt) { svg.appendChild(el('circle', { cx: pt[0], cy: pt[1], r: n > 20 ? 5 : 9, fill: '#22d3ee', stroke: '#04070d', 'stroke-width': 2 })); });
+    }
+    onInput($('sy-n'), run); run();
+  });
+
+  /* ================= signature (part A, toy RSA n=3233) ================= */
+  var TOY = { n: 3233n, e: 17n, d: 2753n };
+  function hModN(text) { var h = C8.sha256(C8.utf8(text)); return { hex: C8.hex(h), v: BigInt('0x' + C8.hex(h)) % TOY.n }; }
+  safe('sign', function () {
+    var doc = $('sg-doc'); if (!doc) return;
+    var signed = null;
+    function setLink(id, cls) { var e = $(id); e.classList.remove('ok', 'bad', 'chk'); if (cls) e.classList.add(cls); }
+    function reset() {
+      setLink('sg-l3', null);
+      $('sg-res').textContent = signed ? 'המסמך נחתם' : 'עוד לא נחתם';
+      $('sg-why').textContent = signed ? 'שנו משהו במסמך (או לא), ולחצו ״בדוק״.' : 'לחצו ״חתום״.';
+    }
+    $('sg-sign').addEventListener('click', function () {
+      var h = hModN(doc.value), s = C8.modpow(h.v, TOY.d, TOY.n);
+      signed = { hex: h.hex, h: h.v, s: s };
+      $('sg-h0').textContent = h.hex.slice(0, 12) + '…';
+      $('sg-s').textContent = String(s);
+      setLink('sg-l1', 'ok'); setLink('sg-l2', 'ok');
+      reset();
+    });
+    $('sg-verify').addEventListener('click', function () {
+      if (!signed) { setLink('sg-l3', 'bad'); $('sg-res').textContent = 'אין חתימה לבדוק'; $('sg-why').textContent = 'קודם לחצו ״חתום״.'; return; }
+      var now = hModN(doc.value), rec = C8.modpow(signed.s, TOY.e, TOY.n);
+      setLink('sg-l3', 'chk'); $('sg-res').textContent = 'בודק…';
+      setTimeout(function () {
+        var ok = rec === now.v;
+        setLink('sg-l3', ok ? 'ok' : 'bad');
+        $('sg-res').textContent = ok ? '✓ החתימה תקינה: המסמך שלם ונחתם במפתח הפרטי' : '✗ החתימה לא תקינה: המסמך השתנה אחרי החתימה';
+        $('sg-why').innerHTML = ok
+          ? 'החתימה נפתחה במפתח הציבורי ל-' + L(String(rec)) + ', וזה בדיוק ה-Hash של המסמך שלפניכם.'
+          : 'מהחתימה יוצא ' + L(String(rec)) + ', אבל ה-Hash של המסמך הנוכחי הוא ' + L(String(now.v)) + ' (' + L(now.hex.slice(0, 8) + '…') + ').';
+      }, 450);
+    });
+    onInput(doc, function () { if (signed) reset(); });
+    reset();
+  });
+
+  /* ================= certificate chain validator ================= */
+  safe('chain', function () {
+    var run = $('ch-run'); if (!run) return;
+    var Y = new Date().getFullYear(), scn = 'ok', timer = null;
+    var LINKS = ['ch-root', 'ch-int', 'ch-leaf', 'ch-clock'];
+    function mark(id, cls) { var e = $(id); e.classList.remove('ok', 'bad', 'chk'); if (cls) e.classList.add(cls); }
+    function leafText() {
+      if (scn === 'exp') return 'בתוקף עד ' + L('15/07/' + (Y - 1)) + ' · מוצג לדפדפן.';
+      if (scn === 'name') return 'הונפקה ל-' + L('portal.unit.local') + ' · המשתמש גלש ל-' + L('https://10.20.0.15');
+      return 'בתוקף עד ' + L('15/07/' + (Y + 1)) + ' · מוצג לדפדפן.';
+    }
+    function prep() {
+      if (timer) { clearTimeout(timer); timer = null; }
+      LINKS.forEach(function (id) { mark(id, null); });
+      $('ch-leafsub').innerHTML = leafText();
+      $('ch-clocksub').innerHTML = scn === 'clock' ? 'התחנה מציגה ' + L('03/01/' + (Y + 3)) + ' (סוללת שעון או סנכרון זמן)' : 'מסונכרן לשעון הדומיין.';
+      $('ch-int').style.opacity = scn === 'mid' ? '.35' : '1';
+      $('ch-h').textContent = 'מה הדפדפן בודק';
+      $('ch-log').innerHTML = 'בחרו תרחיש ולחצו ״הרץ בדיקה״.';
+      [].forEach.call($('ch-scn').querySelectorAll('button'), function (b) { b.classList.toggle('on', b.dataset.s === scn); });
+    }
+    var STEPS = [
+      { ids: ['ch-leaf'], txt: 'השם בשורת הכתובת מופיע בתעודה (SAN)', fail: 'name', code: 'ERR_CERT_COMMON_NAME_INVALID', why: 'התעודה תקינה, אבל לא לשם שהוקלד. גולשים בשם המלא שבתעודה, או שמוסיפים את השם ל-SAN בהנפקה הבאה.' },
+      { ids: ['ch-leaf', 'ch-clock'], txt: 'התעודה בתוקף לפי השעון של התחנה', fail: ['exp', 'clock'], code: 'ERR_CERT_DATE_INVALID' },
+      { ids: ['ch-int'], txt: 'תעודת הביניים קיימת וחתימתה על תעודת השרת תקינה', fail: 'mid', code: 'ERR_CERT_AUTHORITY_INVALID', why: 'השרת שולח רק את התעודה שלו. חלק מהלקוחות מורידים את תעודת הביניים בעצמם (AIA) ולכן ״אצלי זה עובד״. התיקון בשרת: להגדיר את השרשרת המלאה.' },
+      { ids: ['ch-root'], txt: 'חתימת השורש על הביניים תקינה, והשורש במאגר האמון של התחנה', fail: 'root', code: 'ERR_CERT_AUTHORITY_INVALID', why: 'השורש של היחידה לא מותקן בתחנה הזו. בודקים ב-certlm.msc ומתקינים לפי המדיניות (בדרך כלל GPO), לא בלחיצה על ״המשך״.' }
+    ];
+    function go() {
+      prep();
+      var log = $('ch-log'); log.innerHTML = ''; var k = 0;
+      function step() {
+        if (k > 0) STEPS[k - 1].ids.forEach(function (id) { if (!$(id).classList.contains('bad')) mark(id, 'ok'); });
+        if (k >= STEPS.length) {
+          $('ch-h').innerHTML = '<span class="c8-ok">✓ חיבור מאובטח</span>';
+          log.insertAdjacentHTML('beforeend', '<div class="c8-ok">כל החוליות עברו. המנעול מוצג, בלי שגיאה.</div>');
+          return;
+        }
+        var s = STEPS[k];
+        s.ids.forEach(function (id) { mark(id, 'chk'); });
+        timer = setTimeout(function () {
+          var fails = [].concat(s.fail).indexOf(scn) >= 0;
+          log.insertAdjacentHTML('beforeend', '<div>' + (fails ? '<span class="c8-bad">✗</span> ' : '<span class="c8-ok">✓</span> ') + (k + 1) + ' · ' + s.txt + '</div>');
+          if (fails) {
+            if (scn === 'clock') { mark('ch-leaf', 'bad'); mark('ch-clock', 'bad'); }
+            else if (scn === 'exp') { mark('ch-leaf', 'bad'); mark('ch-clock', 'ok'); }
+            else s.ids.forEach(function (id) { mark(id, 'bad'); });
+            var why = s.why;
+            if (scn === 'exp') why = 'התעודה פגה. מחדשים אותה בשרת. כל התחנות יראו את אותה שגיאה.';
+            if (scn === 'clock') why = 'השרת תקין. לפי השעון השגוי התעודה נראית פגה, ולכן רק התחנה הזו נכשלת. התיקון בתחנה: <span class="c8-mono">w32tm /resync</span> ובדיקת סוללת השעון.';
+            $('ch-h').innerHTML = '<span class="c8-bad ltr">' + s.code + '</span>';
+            log.insertAdjacentHTML('beforeend', '<div style="margin-top:6px;color:var(--ink)">' + why + '</div><div class="c8-lbl" style="margin-top:4px">הבדיקה נעצרת בחוליה הראשונה שנכשלת.</div>');
+            return;
+          }
+          k++; step();
+        }, 700);
+      }
+      step();
+    }
+    [].forEach.call($('ch-scn').querySelectorAll('button'), function (b) { b.addEventListener('click', function () { scn = b.dataset.s; prep(); }); });
+    run.addEventListener('click', go);
+    prep();
+  });
+
+  /* ================= PIN keypad with retry counter ================= */
+  safe('pin', function () {
+    var pad = $('pn-pad'); if (!pad) return;
+    var PIN = '2580', MAX = 3, entry = '', left = MAX, state = 'locked';
+    function paint(msg, cls) {
+      var dots = $('pn-dots').children; for (var i = 0; i < 4; i++) dots[i].classList.toggle('f', i < entry.length);
+      var t = $('pn-tries').children; for (var j = 0; j < MAX; j++) t[j].classList.toggle('used', j >= left);
+      var st = $('pn-state'); st.classList.remove('c8-ok', 'c8-bad', 'c8-warn'); if (cls) st.classList.add(cls);
+      if (msg) st.textContent = msg;
+    }
+    pad.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      if (state === 'blocked') { entry = ''; paint('הכרטיס חסום, וגם PIN נכון לא יפתח אותו. נדרש תהליך שחרור לפי הנוהל.', 'c8-bad'); return; }
+      if (state === 'open') { entry = ''; state = 'locked'; }
+      var k = b.dataset.k;
+      if (k === 'c') { entry = entry.slice(0, -1); paint('הכרטיס נעול · הזינו PIN', null); return; }
+      if (k === 'ok') {
+        if (entry.length < 4) { paint('הזינו 4 ספרות', 'c8-warn'); return; }
+        if (entry === PIN) { left = MAX; entry = ''; state = 'open'; paint('✓ PIN נכון. הכרטיס פתוח וחותם על האתגר. המונה התאפס.', 'c8-ok'); return; }
+        left--; entry = '';
+        if (left <= 0) { state = 'blocked'; paint('✗ הכרטיס חסום. המונה בתוך השבב הגיע לאפס.', 'c8-bad'); return; }
+        paint('✗ PIN שגוי · נותרו ' + left + ' ניסיונות', 'c8-bad'); return;
+      }
+      if (entry.length < 4) entry += b.textContent.trim();
+      paint('הכרטיס נעול · הזינו PIN', null);
+    });
+    $('pn-reset').addEventListener('click', function () { entry = ''; left = MAX; state = 'locked'; paint('הכרטיס נעול · הזינו PIN', null); });
+    paint(null, null);
+  });
+
+  /* ================= part B divider: drifting hex ================= */
+  safe('bitsbg', function () {
+    var bg = $('c8bg'); if (!bg) return;
+    var H = '0123456789abcdef', rows = [];
+    function rnd(n) { var s = ''; for (var i = 0; i < n; i++) s += H[Math.random() * 16 | 0]; return s; }
+    for (var r = 0; r < 30; r++) rows.push(rnd(140));
+    function paint(hiRow, hiCol) {
+      bg.innerHTML = rows.map(function (s, i) { return i === hiRow ? esc(s.slice(0, hiCol)) + '<b>' + s.slice(hiCol, hiCol + 8) + '</b>' + esc(s.slice(hiCol + 8)) : s; }).join('\n');
+    }
+    paint(-1, 0);
+    setInterval(function () {
+      if (!motionOK() || !activeSlideOf(bg)) return;
+      var r = Math.random() * rows.length | 0, c = Math.random() * 130 | 0;
+      rows[r] = rows[r].slice(0, c) + rnd(8) + rows[r].slice(c + 8);
+      paint(r, c);
+    }, 140);
+  });
+
+  /* ================= frequency analysis ================= */
+  safe('freq', function () {
+    var ta = $('fq-ct'); if (!ta) return;
+    var LONG = 'THE CONVOY WILL LEAVE THE NORTHERN GATE AT FIVE IN THE MORNING. EVERY VEHICLE MUST CARRY WATER, FUEL AND A WORKING RADIO. THE SIGNAL TEAM WILL TEST ALL THE NETWORKS BEFORE THE START AND REPORT ANY FAULT TO THE OPERATIONS ROOM. KEEP THE RADIO SILENT UNTIL THE SECOND CHECKPOINT, THEN SEND A SHORT STATUS REPORT EVERY THIRTY MINUTES.';
+    var SHORT = 'FLY BY NIGHT';
+    var bars = $('fq-bars'), cols = [], best = -1, sweep = null, MAXP = 14;
+    for (var i = 0; i < 26; i++) {
+      var c = document.createElement('div'); c.className = 'col';
+      c.innerHTML = '<div class="ref"></div><div class="bar"></div><div class="lt">' + String.fromCharCode(65 + i) + '</div>';
+      bars.appendChild(c); cols.push(c);
+      c.querySelector('.ref').style.bottom = (16 + Math.min(1, C8.EN[i] / MAXP) * 128) + 'px';
+    }
+    var chi = $('fq-chi');
+    function drawChi(scores, s) {
+      while (chi.firstChild) chi.removeChild(chi.firstChild);
+      var mx = Math.max.apply(null, scores.map(function (v) { return Math.sqrt(v); })) || 1;
+      for (var k = 0; k < 26; k++) {
+        var h = Math.max(2, Math.sqrt(scores[k]) / mx * 78), x = 6 + k * 19.7;
+        var fill = k === s ? '#22d3ee' : k === best ? '#4ade80' : 'rgba(167,139,250,.45)';
+        chi.appendChild(el('rect', { x: x, y: 92 - h, width: 14, height: h, rx: 2, fill: fill }));
+        chi.appendChild(el('text', { x: x + 7, y: 106, 'text-anchor': 'middle', fill: '#8ba0b5', 'font-size': 9, 'class': 'ltrtx nohalo' }, k));
+      }
+      chi.appendChild(el('text', { x: 514, y: 11, 'text-anchor': 'start', fill: '#8ba0b5', 'font-size': 11, 'class': 'nohalo' }, 'ציון לכל הזזה: עמודה נמוכה = דומה לאנגלית'));
+    }
+    function show() {
+      var ct = ta.value, s = +$('fq-s').value, sc = [];
+      for (var k = 0; k < 26; k++) sc.push(C8.chi2ForShift(ct, k));
+      var cnt = C8.counts(C8.caesarEn(ct, -s)), N = cnt.reduce(function (a, b) { return a + b; }, 0) || 1;
+      cols.forEach(function (c, j) { c.querySelector('.bar').style.height = (Math.min(1, cnt[j] / N * 100 / MAXP) * 128) + 'px'; });
+      $('fq-sv').textContent = s;
+      $('fq-score').textContent = Math.round(sc[s]).toLocaleString('en-US');
+      $('fq-pt').textContent = C8.caesarEn(ct, -s) || ' ';
+      drawChi(sc, s);
+    }
+    function load(txt, key) { if (sweep) { clearInterval(sweep); sweep = null; } best = -1; ta.value = C8.caesarEn(txt, key); $('fq-s').value = 0; show(); }
+    $('fq-long').addEventListener('click', function () { load(LONG, 7); });
+    $('fq-short').addEventListener('click', function () { load(SHORT, 11); });
+    $('fq-go').addEventListener('click', function () {
+      if (sweep) clearInterval(sweep);
+      var r = C8.crackCaesar(ta.value), k = 0; best = -1;
+      if (!motionOK()) { best = r.shift; $('fq-s').value = r.shift; show(); return; }
+      sweep = setInterval(function () {
+        if (k <= 25) { $('fq-s').value = k++; show(); return; }
+        clearInterval(sweep); sweep = null; best = r.shift; $('fq-s').value = r.shift; show();
+      }, 90);
+    });
+    onInput($('fq-s'), function () { show(); });
+    onInput(ta, function () { best = -1; show(); });
+    load(LONG, 7);
+  });
+
+  /* ================= SHA-256 bit grid ================= */
+  safe('sha', function () {
+    var inp = $('sh-in'); if (!inp) return;
+    var grid = $('sh-bits'), cells = [], prev = null;
+    for (var i = 0; i < 256; i++) { var c = document.createElement('i'); grid.appendChild(c); cells.push(c); }
+    function run() {
+      var bytes = C8.utf8(inp.value), h = C8.sha256(bytes), flips = 0;
+      for (var b = 0; b < 256; b++) {
+        var bit = (h[b >> 3] >> (7 - (b & 7))) & 1, was = prev ? (prev[b >> 3] >> (7 - (b & 7))) & 1 : bit;
+        cells[b].className = (bit ? 'one' : '') + (bit !== was ? ' flip' : '');
+        if (bit !== was) flips++;
+      }
+      $('sh-hex').textContent = C8.hex(h);
+      $('sh-n').textContent = flips;
+      var blocks = Math.floor((bytes.length + 8) / 64) + 1;
+      $('sh-blk').innerHTML = L(bytes.length) + ' בתים · ' + L(blocks) + (blocks === 1 ? ' בלוק' : ' בלוקים');
+      prev = h;
+    }
+    onInput(inp, run); run();
+  });
+
+  /* ================= XOR ================= */
+  safe('xor', function () {
+    var inp = $('xr-in'); if (!inp) return;
+    var key = [0x5a, 0xc3, 0x1e], timer = null;
+    function bytesOf() { var s = inp.value.slice(0, 3), o = []; for (var i = 0; i < s.length; i++) { var c = s.charCodeAt(i); o.push(c < 128 ? c : 63); } return o; }
+    function row(id, bytes, upto) {
+      var h = '';
+      bytes.forEach(function (b, i) {
+        if (i) h += '<span class="sep"></span>';
+        for (var k = 7; k >= 0; k--) { var idx = i * 8 + (7 - k), on = idx < upto, v = (b >> k) & 1; h += '<span class="' + (on && v ? 'b1' : '') + '">' + (on ? v : '·') + '</span>'; }
+      });
+      $(id).innerHTML = h;
+    }
+    function hexs(a) { return a.map(function (b) { return (b < 16 ? '0' : '') + b.toString(16); }).join(' '); }
+    function render(upto) {
+      var p = bytesOf(), k = key.slice(0, p.length), c = p.map(function (b, i) { return b ^ k[i]; }), d = c.map(function (b, i) { return b ^ k[i]; });
+      var all = p.length * 8;
+      row('xr-p', p, all); row('xr-k', k, all); row('xr-c', c, upto); row('xr-k2', k, upto >= all ? all : 0); row('xr-d', d, upto >= all ? upto - all : 0);
+      $('xr-cs').textContent = upto >= all ? hexs(c) : '…';
+      $('xr-ds').textContent = upto >= 2 * all ? String.fromCharCode.apply(null, d) : '…';
+      return all;
+    }
+    function full() { if (timer) { clearInterval(timer); timer = null; } render(1e9); }
+    $('xr-run').addEventListener('click', function () {
+      if (timer) clearInterval(timer);
+      if (!motionOK()) { full(); return; }
+      var u = 0, all = render(0);
+      timer = setInterval(function () { u++; render(u); if (u >= 2 * all) { clearInterval(timer); timer = null; } }, 70);
+    });
+    $('xr-key').addEventListener('click', function () { key = [0, 0, 0].map(function () { return Math.random() * 256 | 0; }); full(); });
+    onInput(inp, full); full();
+  });
+
+  /* ================= AES-128 step-through ================= */
+  safe('aes', function () {
+    var grid = $('ae-grid'); if (!grid) return;
+    var KEY = C8.fromHex('2b7e151628aed2a6abf7158809cf4f3c'), PT = C8.fromHex('3243f6a8885a308d313198a2e0370734');
+    var T = C8.aesTrace(KEY, PT), pos = 0, timer = null, flipBit = 0, cells = [];
+    var BASE = C8.aes128(KEY, PT);
+    for (var i = 0; i < 16; i++) { var c = document.createElement('div'); grid.appendChild(c); cells.push(c); }
+    var TXT = {
+      AddRoundKey: 'XOR של כל 16 הבתים עם מפתח הסבב. מפתח הסבב נגזר מהמפתח הראשי, ושונה בכל סבב. בלי השלב הזה, כל השאר היה ציבורי והפיך.',
+      SubBytes: 'כל בית מוחלף לפי טבלה קבועה (S-Box). זה הצעד הלא-ליניארי: בלעדיו כל AES היה משוואה ליניארית אחת שאפשר לפתור.',
+      ShiftRows: 'שורה 0 נשארת, שורה 1 זזה מקום אחד, שורה 2 שני מקומות, שורה 3 שלושה. כך בתים מעמודה אחת עוברים לעמודות אחרות.',
+      MixColumns: 'כל עמודה של 4 בתים מוכפלת במטריצה קבועה: כל בית בעמודה תלוי עכשיו בכל ארבעת הבתים שלה. בסבב האחרון הצעד הזה מושמט.'
+    };
+    function show(p) {
+      pos = Math.max(0, Math.min(T.length - 1, p));
+      var cur = T[pos], prv = pos > 0 ? T[pos - 1].state : PT;
+      for (var r = 0; r < 4; r++) for (var c = 0; c < 4; c++) {
+        var v = cur.state[r + 4 * c], cell = cells[r * 4 + c];
+        cell.textContent = (v < 16 ? '0' : '') + v.toString(16);
+        cell.className = v !== prv[r + 4 * c] ? 'chg' : '';
+      }
+      $('ae-rd').textContent = 'סבב ' + cur.round + ' מתוך 10';
+      $('ae-st').textContent = cur.step;
+      $('ae-txt').textContent = (pos === 0 ? 'לפני הסבב הראשון: ' : '') + TXT[cur.step] + (pos === T.length - 1 ? ' זה הצעד האחרון: הפלט שווה לערך בתקן.' : '');
+      $('ae-pos').value = pos;
+      $('ae-out').textContent = C8.hex(cur.state);
+      $('ae-out').style.color = pos === T.length - 1 ? 'var(--green)' : 'var(--amber)';
+    }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } $('ae-play').textContent = '▶ נגן'; }
+    $('ae-prev').addEventListener('click', function () { stop(); show(pos - 1); });
+    $('ae-next').addEventListener('click', function () { stop(); show(pos + 1); });
+    $('ae-reset').addEventListener('click', function () { stop(); show(0); });
+    onInput($('ae-pos'), function () { stop(); show(+$('ae-pos').value); });
+    $('ae-play').addEventListener('click', function () {
+      if (timer) { stop(); return; }
+      if (pos >= T.length - 1) show(0);
+      $('ae-play').textContent = '⏸ עצור';
+      timer = setInterval(function () { if (pos >= T.length - 1 || !activeSlideOf(grid)) { stop(); return; } show(pos + 1); }, 650);
+    });
+    $('ae-key').textContent = C8.hex(KEY);
+    $('ae-flip').addEventListener('click', function () {
+      var k2 = KEY.slice(); k2[flipBit >> 3] ^= 1 << (7 - (flipBit & 7));
+      var n = C8.bitsDiff(BASE, C8.aes128(k2, PT));
+      $('ae-diff').textContent = n;
+      $('ae-flip').textContent = 'הפוך ביט אחר (ביט ' + flipBit + ')';
+      flipBit = (flipBit + 37) % 128;
+    });
+    show(0);
+  });
+
+  /* ================= RSA ================= */
+  safe('rsa', function () {
+    var sp = $('rs-p'); if (!sp) return;
+    var PR = [11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97];
+    [sp, $('rs-q')].forEach(function (s, j) { PR.forEach(function (p) { var o = document.createElement('option'); o.textContent = p; if (p === (j ? 53 : 61)) o.selected = true; s.appendChild(o); }); });
+    var keys = null;
+    function run() {
+      var p = +sp.value, q = +$('rs-q').value, e = +$('rs-e').value;
+      $('rs-facr').textContent = '';
+      if (p === q) {
+        keys = null;
+        $('rs-n').textContent = $('rs-phi').textContent = '-'; $('rs-d').innerHTML = '<span class="c8-bad">-</span>';
+        $('rs-mr').textContent = ''; $('rs-enc').innerHTML = '<span class="c8-bad">p ו-q חייבים להיות שונים.</span>'; $('rs-enc').style.direction = 'rtl'; $('rs-dec').textContent = '';
+        return;
+      }
+      $('rs-enc').style.direction = '';
+      keys = C8.rsaKeys(p, q, e);
+      $('rs-n').textContent = String(keys.n); $('rs-phi').textContent = String(keys.phi);
+      $('rs-d').innerHTML = keys.d == null ? '<span class="c8-bad">אין</span>' : String(keys.d);
+      $('rs-mr').innerHTML = '(' + L('0 ≤ m < ' + keys.n) + ')';
+      var mv = $('rs-m').value.trim();
+      if (!/^\d+$/.test(mv) || BigInt(mv) >= keys.n) {
+        $('rs-enc').innerHTML = '<span class="c8-bad">m חייב להיות מספר שלם קטן מ-n</span>'; $('rs-enc').style.direction = 'rtl'; $('rs-dec').textContent = ''; return;
+      }
+      var m = BigInt(mv), c = C8.modpow(m, keys.e, keys.n);
+      $('rs-enc').textContent = 'c = ' + m + '^' + keys.e + ' mod ' + keys.n + ' = ' + c;
+      if (keys.d == null) { $('rs-dec').innerHTML = '<span class="c8-bad">gcd(e, φ) = ' + C8.gcd(keys.e, keys.phi) + ' ≠ 1</span>'; return; }
+      var back = C8.modpow(c, keys.d, keys.n);
+      $('rs-dec').innerHTML = 'm = ' + c + '^' + keys.d + ' mod ' + keys.n + ' = <span class="' + (back === m ? 'c8-ok' : 'c8-bad') + '">' + back + '</span>';
+    }
+    [sp, $('rs-q'), $('rs-e')].forEach(function (s) { s.addEventListener('change', run); });
+    onInput($('rs-m'), run);
+    $('rs-fac').addEventListener('click', function () {
+      if (!keys) return;
+      var n = Number(keys.n), tries = 0, f = 0;
+      for (var i = 2; i * i <= n; i++) { tries++; if (n % i === 0) { f = i; break; } }
+      var g = n / f, r = C8.rsaKeys(f, g, keys.e);
+      $('rs-facr').style.whiteSpace = 'normal';
+      $('rs-facr').innerHTML = L(tries) + ' חלוקות: ' + L(n + ' = ' + f + ' × ' + g) + (r.d == null ? '' : ' · <span class="c8-bad">' + L('d = ' + r.d) + ' נחשף</span>');
+    });
+    run();
+  });
+
+  /* ================= Diffie-Hellman numbers ================= */
+  safe('dh', function () {
+    var a = $('dh-a'); if (!a) return;
+    function run() {
+      var av = +a.value, bv = +$('dh-b').value, P = 23n, G = 5n;
+      var A = C8.modpow(G, av, P), B = C8.modpow(G, bv, P), s1 = C8.modpow(B, av, P), s2 = C8.modpow(A, bv, P);
+      $('dh-av').textContent = av; $('dh-bv').textContent = bv;
+      var ok = s1 === s2 ? 'c8-ok' : 'c8-bad';
+      $('dh-calc').innerHTML =
+        '<div>דנה שולחת ' + L('A = 5<sup>' + av + '</sup> mod 23 = <b>' + A + '</b>') + '</div>' +
+        '<div>יוסי שולח ' + L('B = 5<sup>' + bv + '</sup> mod 23 = <b>' + B + '</b>') + '</div>' +
+        '<div>דנה מחשבת ' + L('B<sup>a</sup> = ' + B + '<sup>' + av + '</sup> mod 23 = <b class="' + ok + '">' + s1 + '</b>') + '</div>' +
+        '<div>יוסי מחשב ' + L('A<sup>b</sup> = ' + A + '<sup>' + bv + '</sup> mod 23 = <b class="' + ok + '">' + s2 + '</b>') + '</div>';
+    }
+    onInput(a, run); onInput($('dh-b'), run); run();
+  });
+
+  /* ================= signature math (part B) ================= */
+  safe('sigmath', function () {
+    var doc = $('sm-doc'); if (!doc) return;
+    var signed = null;
+    function run() {
+      var h = hModN(doc.value);
+      $('sm-1').textContent = 'SHA-256(m) = ' + h.hex.slice(0, 24) + '…';
+      $('sm-2').textContent = 'h = SHA-256(m) mod 3233 = ' + h.v;
+      var res = $('sm-res'); res.classList.remove('ok', 'bad');
+      if (!signed) { $('sm-3').textContent = 's = ?'; $('sm-4').textContent = 's^17 mod 3233 = ?'; $('sm-rt').textContent = 'עוד לא נחתם'; $('sm-rw').textContent = 'לחצו ״חתום״: החתימה מחושבת מה-h הנוכחי במפתח הפרטי d = 2753.'; return; }
+      var rec = C8.modpow(signed.s, TOY.e, TOY.n), ok = rec === h.v;
+      $('sm-3').textContent = 's = ' + signed.h + '^2753 mod 3233 = ' + signed.s;
+      $('sm-4').textContent = 's^17 mod 3233 = ' + rec + (ok ? '  =  ' : '  ≠  ') + 'h = ' + h.v;
+      res.classList.add(ok ? 'ok' : 'bad');
+      $('sm-rt').textContent = ok ? '✓ החתימה תקינה' : '✗ החתימה לא תקינה';
+      $('sm-rw').textContent = ok ? 'מה שיצא מהחתימה במפתח הציבורי שווה ל-h של המסמך הנוכחי.' : 'המסמך השתנה: h חדש, והחתימה הישנה כבר לא מתאימה לו.';
+    }
+    $('sm-sign').addEventListener('click', function () { var h = hModN(doc.value); signed = { h: h.v, s: C8.modpow(h.v, TOY.d, TOY.n) }; run(); });
+    onInput(doc, run); run();
+  });
+
+  /* ================= TLS 1.3 handshake stepper ================= */
+  safe('tls', function () {
+    var svg = $('tl-svg'); if (!svg) return;
+    var CX = 120, SX = 520, GRAY = '#cbd5e1', AMB = '#fbbf24', GRN = '#4ade80';
+    var PROT = { p: ['גלוי', ''], h: ['מוצפן · מפתחות לחיצת יד', 'c8-warn'], a: ['מוצפן · מפתחות יישום', 'ok'], k: ['חישוב מקומי · אין הודעה', ''], s: ['סיכום', ''] };
+    var S = [
+      { y: 88, dir: 1, lbl: 'ClientHello + key_share', col: GRAY, p: 'p', h: 'ClientHello',
+        t: 'הלקוח פותח: גרסאות וצפנים שהוא תומך בהם, מספר אקראי ושם האתר (SNI). ובנוסף key_share: החצי הציבורי שלו של דיפי-הלמן, כבר בהודעה הראשונה.',
+        e: 'הכול: הגרסאות, רשימת הצפנים, שם האתר והחצי הציבורי של דיפי-הלמן. החצי הציבורי לא מגלה את הסוד.' },
+      { y: 124, dir: -1, lbl: 'ServerHello + key_share', col: GRAY, p: 'p', h: 'ServerHello',
+        t: 'השרת בוחר צופן ושולח את החצי הציבורי שלו של דיפי-הלמן.',
+        e: 'את הצופן שנבחר ואת החצי של השרת. עכשיו יש לו את שני החצאים הציבוריים, אבל לא את הסוד.' },
+      { y: 156, key: 'h', p: 'k', h: 'שני הצדדים מחשבים סוד משותף',
+        t: 'כל צד משלב את החצי שקיבל עם הסוד הפרטי שלו ומגיע לאותו סוד, כמו בהדגמת דיפי-הלמן. ממנו נגזרים מפתחות לחיצת היד. שום מפתח לא נשלח.',
+        e: 'שום דבר חדש. מכאן והלאה הוא רואה רק בתים מוצפנים.' },
+      { y: 192, dir: -1, lbl: '{EncryptedExtensions}', col: AMB, p: 'h', h: 'EncryptedExtensions',
+        t: 'שאר הגדרות החיבור. מההודעה הזו כל מה שהשרת שולח מוצפן.', e: 'רק את גודל ההודעה.' },
+      { y: 224, dir: -1, lbl: '{Certificate}', col: AMB, p: 'h', h: 'Certificate',
+        t: 'שרשרת התעודות של השרת. ב-TLS 1.3 היא עוברת מוצפנת; ב-TLS 1.2 היא עברה גלויה.', e: 'רק את הגודל, לא את התעודה ולא את שם הבעלים שלה.' },
+      { y: 256, dir: -1, lbl: '{CertificateVerify}', col: AMB, p: 'h', h: 'CertificateVerify',
+        t: 'השרת חותם במפתח הפרטי של התעודה על Hash של כל ההודעות עד כה. כך הוא מוכיח שהוא מחזיק את המפתח, ושאף אחד באמצע לא החליף את ה-key_share.',
+        e: 'שום דבר חדש. תוקף שהיה מחליף את ה-key_share בדרך נכשל כאן, כי החתימה לא מתאימה.' },
+      { y: 288, dir: -1, lbl: '{Finished}', col: AMB, p: 'h', h: 'Finished (שרת)',
+        t: 'קוד אימות (HMAC) על כל לחיצת היד: השרת מאשר שראה בדיוק את אותן הודעות כמו הלקוח.', e: 'רק גודל ותזמון.' },
+      { y: 324, dir: 1, lbl: '{Finished}', col: AMB, p: 'h', h: 'הלקוח בודק ושולח Finished',
+        t: 'הלקוח בודק את שרשרת התעודה (שם, תוקף, חתימות, שורש - כמו בחלק א׳) ואת CertificateVerify. רק אם הכול תקין הוא שולח Finished משלו. אחרת: הודעת שגיאה בדפדפן.',
+        e: 'רק גודל ותזמון.' },
+      { y: 384, dir: 0, lbl: '[Application Data]', col: GRN, key: 'a', p: 'a', h: 'מידע היישום',
+        t: 'מאותו סוד נגזרים מפתחות יישום, ובהם מוצפן המידע עצמו (AES-GCM או ChaCha20). הבקשה הראשונה יוצאת מיד אחרי ה-Finished של הלקוח.',
+        e: 'כמות המידע ותזמון. לא את כתובת הדף, לא תוכן ולא עוגיות.' },
+      { y: 0, sum: true, p: 's', h: 'סבב הודעות אחד: ' + L('1-RTT'),
+        t: 'אחרי סבב אחד (הלקוח שלח, השרת ענה) המידע כבר עובר מוצפן. דיפי-הלמן מסכם מפתח, התעודה והחתימה מוכיחות מי השרת, Hash ו-HMAC מאמתים את כל לחיצת היד, והצפנה סימטרית מגינה על המידע.',
+        e: 'כתובות IP, פורטים, שם האתר (SNI), גדלים ותזמון. כל השאר מוצפן.' }
+    ];
+    var defs = el('defs', {});
+    [['g', GRAY], ['a', AMB], ['n', GRN]].forEach(function (m) {
+      var mk = el('marker', { id: 'tl-m' + m[0], viewBox: '0 0 10 10', refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: 'auto-start-reverse' });
+      mk.appendChild(el('path', { d: 'M0 0 L10 5 L0 10 z', fill: m[1] })); defs.appendChild(mk);
+    });
+    function mid(col) { return col === GRAY ? 'g' : col === AMB ? 'a' : 'n'; }
+    var n = 1, timer = null;
+    function draw() {
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+      svg.appendChild(defs);
+      [[CX, 'לקוח · דפדפן', '#22d3ee'], [SX, 'שרת', '#4ade80']].forEach(function (b) {
+        svg.appendChild(el('rect', { x: b[0] - 80, y: 8, width: 160, height: 40, rx: 10, fill: '#101b30', stroke: b[2], 'stroke-width': 2 }));
+        svg.appendChild(el('text', { x: b[0], y: 34, 'text-anchor': 'middle', fill: '#f1f5f9', 'font-size': 16, 'font-weight': 700 }, b[1]));
+        svg.appendChild(el('line', { x1: b[0], y1: 48, x2: b[0], y2: 400, stroke: 'rgba(255,255,255,.22)', 'stroke-dasharray': '4 6' }));
+      });
+      var all = n >= S.length;
+      S.forEach(function (s, i) {
+        if (s.sum || i + 1 > n) return;
+        var g = el('g', { opacity: all || i + 1 === n ? 1 : 0.5 });
+        if (i + 1 === n && !all && motionOK()) g.setAttribute('class', 'tl-new');
+        if (s.key) {
+          var ky = s.key === 'a' ? 352 : s.y, kc = s.key === 'a' ? GRN : AMB;
+          [CX, SX].forEach(function (x) { g.appendChild(el('circle', { cx: x, cy: ky, r: 8, fill: kc, stroke: '#04070d', 'stroke-width': 2 })); });
+          g.appendChild(el('text', { x: 320, y: ky + 5, 'text-anchor': 'middle', fill: kc, 'font-size': 13.5 }, s.key === 'a' ? 'מפתחות יישום (מאותו סוד)' : 'אותו סוד בשני הצדדים · מפתחות לחיצת יד'));
+        }
+        if (s.lbl) {
+          var x1 = s.dir >= 0 ? CX + 6 : SX - 6, x2 = s.dir >= 0 ? SX - 6 : CX + 6;
+          var ln = el('line', { x1: x1, y1: s.y, x2: x2, y2: s.y, stroke: s.col, 'stroke-width': 2.5, 'marker-end': 'url(#tl-m' + mid(s.col) + ')' });
+          if (s.dir === 0) ln.setAttribute('marker-start', 'url(#tl-m' + mid(s.col) + ')');
+          g.appendChild(ln);
+          g.appendChild(el('text', { x: 320, y: s.y - 7, 'text-anchor': 'middle', fill: s.col, 'font-size': 14.5, 'font-weight': 700, 'class': 'ltrtx' }, s.lbl));
+        }
+        svg.appendChild(g);
+      });
+      if (all) {
+        var b = el('g', { 'class': motionOK() ? 'c8-fade' : '' });
+        b.appendChild(el('path', { d: 'M48 82 H38 V292 H48', fill: 'none', stroke: '#22d3ee', 'stroke-width': 2.5 }));
+        b.appendChild(el('text', { x: 30, y: 192, 'text-anchor': 'middle', fill: '#22d3ee', 'font-size': 14, 'font-weight': 800, 'class': 'ltrtx', transform: 'rotate(-90 30 192)' }, '1-RTT'));
+        svg.appendChild(b);
+      }
+      [[GRAY, 'גלוי', 600], [AMB, '{ } לחיצת יד', 440], [GRN, '[ ] יישום', 260]].forEach(function (l) {
+        svg.appendChild(el('rect', { x: l[2] - 14, y: 410, width: 14, height: 10, rx: 2, fill: l[0] }));
+        svg.appendChild(el('text', { x: l[2] - 22, y: 420, 'text-anchor': 'start', fill: '#a7b7c9', 'font-size': 12.5 }, l[1]));
+      });
+      var cur = S[n - 1], pr = PROT[cur.p];
+      $('tl-h').innerHTML = cur.h; $('tl-t').textContent = cur.t; $('tl-eve').textContent = cur.e;
+      var pill = $('tl-prot'); pill.className = 'c8-pill' + (pr[1] === 'ok' ? ' ok' : ''); pill.textContent = pr[0];
+      pill.style.color = pr[1] === 'c8-warn' ? 'var(--amber)' : ''; pill.style.borderColor = pr[1] === 'c8-warn' ? 'rgba(251,191,36,.5)' : '';
+      $('tl-n').textContent = n + ' / ' + S.length;
+      $('tl-prev').disabled = n <= 1; $('tl-next').disabled = n >= S.length;
+    }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } $('tl-play').textContent = '▶ נגן'; }
+    $('tl-next').addEventListener('click', function () { stop(); n = Math.min(S.length, n + 1); draw(); });
+    $('tl-prev').addEventListener('click', function () { stop(); n = Math.max(1, n - 1); draw(); });
+    $('tl-reset').addEventListener('click', function () { stop(); n = 1; draw(); });
+    $('tl-play').addEventListener('click', function () {
+      if (timer) { stop(); return; }
+      if (n >= S.length) n = 1, draw();
+      $('tl-play').textContent = '⏸ עצור';
+      timer = setInterval(function () { if (n >= S.length || !activeSlideOf(svg)) { stop(); return; } n++; draw(); }, 2800);
+    });
+    draw();
+  });
+
+  /* ================= TLS 1.2 vs 1.3: what the eavesdropper sees ================= */
+  safe('tlsv', function () {
+    var tbl = $('tv-tbl'); if (!tbl) return;
+    var ROWS = [
+      ['כתובות IP ופורטים', 'גלוי', 'גלוי'],
+      ['שם האתר (SNI)', 'גלוי', 'גלוי (אלא אם ECH)'],
+      ['גרסה ורשימת צפנים', 'גלוי', 'גלוי'],
+      ['תעודת השרת', 'גלויה', 'מוצפנת'],
+      ['החלפת מפתחות', 'מותר גם RSA ישיר, בלי סודיות קדימה', 'רק דיפי-הלמן זמני: תמיד סודיות קדימה'],
+      ['כתובת הדף, תוכן, עוגיות', 'מוצפן', 'מוצפן'],
+      ['גודל ותזמון', 'גלוי', 'גלוי']
+    ];
+    var NOTE = {
+      '12': 'ב-TLS 1.2 התעודה עוברת גלויה, וכל מי שמקליט רואה לאיזה שרת היא שייכת. ואם השתמשו בהחלפת מפתחות RSA ישירה, מי שישיג פעם את מפתח השרת יפענח גם הקלטות ישנות.',
+      '13': 'ב-TLS 1.3 התעודה מוצפנת, החלפת המפתחות תמיד עם דיפי-הלמן זמני, ולחיצת היד קצרה בסבב שלם.'
+    };
+    var ver = '13';
+    function run(flash) {
+      while (tbl.rows.length > 1) tbl.deleteRow(1);
+      ROWS.forEach(function (r) {
+        var tr = tbl.insertRow(), changed = r[1] !== r[2];
+        tr.insertCell().textContent = r[0];
+        var td = tr.insertCell(); td.textContent = ver === '12' ? r[1] : r[2];
+        if (changed && ver === '13') tr.className = 'tv-chg';
+        if (changed && flash) td.className = 'c8-flash';
+      });
+      $('tv-12').classList.toggle('on', ver === '12'); $('tv-13').classList.toggle('on', ver === '13');
+      $('tv-rtt').textContent = ver === '12' ? '2' : '1';
+      $('tv-rttl').innerHTML = ver === '12' ? 'שני סבבים (' + L('2-RTT') + ')' : 'סבב אחד (' + L('1-RTT') + ')';
+      $('tv-rttbar').style.width = ver === '12' ? '100%' : '50%';
+      $('tv-note').textContent = NOTE[ver];
+    }
+    $('tv-12').addEventListener('click', function () { ver = '12'; run(true); });
+    $('tv-13').addEventListener('click', function () { ver = '13'; run(true); });
+    run(false);
+  });
+})();
+
+</script></body></html>

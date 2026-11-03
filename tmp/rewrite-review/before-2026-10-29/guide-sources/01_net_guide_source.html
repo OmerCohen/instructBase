@@ -1,0 +1,335 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>מודל שכבות ומדדי רשת</title><style>
+@page{size:A4;margin:52pt 54pt 46pt 54pt;
+  @bottom-right{content:"מחלקת תקשוב · מודל שכבות · שיעור 1";
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:right;vertical-align:top;padding-top:10pt;direction:rtl}
+  @bottom-left{content:counter(page) " / " counter(pages);
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:left;vertical-align:top;padding-top:10pt;direction:ltr}}
+@page:first{@bottom-right{content:""}@bottom-left{content:""}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Liberation Sans",Arial,sans-serif;color:#1b2a38;font-size:10pt;line-height:1.55;direction:rtl}
+.pg{page-break-after:always}
+.pg:last-child{page-break-after:auto}
+.eyebrow{font-size:9pt;font-weight:bold;color:#0f2740;margin-bottom:9pt}
+h1{font-size:20pt;font-weight:bold;margin:0 0 14pt;color:#0f2740;line-height:1.24;text-align:center}
+h2{font-size:13pt;margin:16pt 0 8pt;color:#0f2740;font-weight:bold}
+.rule{border:0;border-top:1px solid #dbe3ea;margin:0 0 16pt}
+p{margin:0 0 7pt}
+ul{margin:0 0 7pt;padding-right:15pt}
+li{margin-bottom:4pt}
+
+/* stat chips */
+.chips{display:flex;gap:11pt;margin:0 0 16pt}
+.chip{flex:1;background:#0f2740;border-radius:6pt;padding:11pt 8pt;text-align:center}
+.chip b{display:block;font-size:14pt;color:#3fd0e0;line-height:1.15}
+.chip span{display:block;font-size:8.5pt;color:#b6c6d4;margin-top:3pt}
+
+/* two rounded cards with a coloured inner edge */
+.cards{display:flex;gap:11pt;margin:0 0 14pt}
+.cards.three>*{flex:1}
+.cards>*{flex:1;min-width:0}
+.pc{border-radius:7pt;padding:10pt 13pt;position:relative;overflow:hidden}
+.pc::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.pc h3{margin:0 0 5pt;font-size:10pt;font-weight:bold}
+.pc p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.pc p:last-child{margin-bottom:0}
+.pc.teal{background:#e9f4f7}.pc.teal::after{background:#0f8793}.pc.teal h3{color:#0f6f7a}
+.pc.amber{background:#fdf4e6}.pc.amber::after{background:#e0a038}.pc.amber h3{color:#a8701a}
+.pc.red{background:#fdeef0}.pc.red::after{background:#d9556a}.pc.red h3{color:#a83a4c}
+.pc.green{background:#eef7f0}.pc.green::after{background:#4a9c62}.pc.green h3{color:#2f7546}
+
+/* full-width note block, same visual family */
+.note{border-radius:7pt;padding:9pt 13pt;margin:0 0 10pt;position:relative;overflow:hidden}
+.note::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.note h3{margin:0 0 4pt;font-size:9pt;font-weight:bold;letter-spacing:.02em}
+.note p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.note p:last-child{margin-bottom:0}
+.note.teal{background:#e9f4f7}.note.teal::after{background:#0f8793}.note.teal h3{color:#0f6f7a}
+.note.amber{background:#fdf4e6}.note.amber::after{background:#e0a038}.note.amber h3{color:#a8701a}
+.note.red{background:#fdeef0}.note.red::after{background:#d9556a}.note.red h3{color:#a83a4c}
+.note.green{background:#eef7f0}.note.green::after{background:#4a9c62}.note.green h3{color:#2f7546}
+
+/* dark headline band (used for the formula / the one-line rule of a page) */
+.band{background:#0f2740;border-radius:8pt;padding:14pt 18pt;margin:0 0 14pt;text-align:center;
+  color:#3fd0e0;font-size:16pt;font-weight:bold}
+.band.sm{font-size:12.5pt;padding:11pt 16pt}
+.band .w{color:#fff}
+
+table{width:100%;border-collapse:collapse;font-size:9pt;margin:0 0 11pt}
+th,td{border:1px solid #dbe3ea;padding:5pt 8pt;text-align:right;vertical-align:top}
+th{background:#eef4f8;color:#0f6f7a;font-weight:bold}
+td.k{font-weight:bold;color:#0f2740}
+td.n,th.n{text-align:center;width:52pt;white-space:nowrap;direction:ltr;unicode-bidi:embed}
+.ltr{direction:ltr;unicode-bidi:embed;display:inline-block}
+
+.title-pg{height:660pt;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.title-pg .kick{font-size:10pt;color:#0f8793;font-weight:bold;margin-bottom:20pt}
+.title-pg h1{font-size:27pt;margin-bottom:12pt}
+.title-pg .sub{font-size:12pt;color:#5b7186;margin:0 auto 26pt;max-width:400pt;line-height:1.55}
+.title-pg .meta{font-size:9.5pt;color:#5b7186}
+</style></head><body>
+
+<!-- 1 ─────────────────────────── -->
+<div class="pg title-pg">
+  <div class="kick">מחלקת תקשוב · רשתות · דף הנחיה למדריך</div>
+  <h1>מודל שכבות ומדדי רשת</h1>
+  <div class="sub">אינקפסולציה, Ethernet, VLAN, פורטים והמדדים שמבדילים בין קישור איטי לקישור לא יציב.</div>
+  <div class="chips" style="max-width:400pt;margin:0 auto">
+    <div class="chip"><b>שטח</b><span>רמת המיקוד</span></div>
+    <div class="chip"><b>13</b><span>שקופיות</span></div>
+    <div class="chip"><b>50 דקות</b><span>משך מומלץ</span></div>
+  </div>
+  <div class="meta" style="margin-top:20pt">מותאם לטכנאי שטח · סביבת Windows מנוהלת</div>
+</div>
+
+<!-- 2 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">00 · בריף למדריך</div>
+  <h1>לפני שמתחילים</h1><hr class="rule">
+  <div class="chips">
+    <div class="chip"><b>שטח</b><span>רמת המיקוד</span></div>
+    <div class="chip"><b>13</b><span>שקופיות כולל שער</span></div>
+    <div class="chip"><b>50 דקות</b><span>משך מומלץ</span></div>
+  </div>
+
+  <div class="cards">
+    <div style="flex:1">
+      <h2 style="margin-top:0">מטרת השיעור</h2>
+      <p>לבנות שפה משותפת שמפרידה בין שלבי העברת הנתונים ומונעת שימוש במילה הכללית "הרשת" לכל תקלה.</p>
+      <div class="note teal"><h3>מה החניך צריך לדעת</h3>
+        <p>בסיום החניך ימפה תקלה לשכבה, יסביר אינקפסולציה, ויבדיל בין רוחב פס, קצב בפועל, השהיה, ריצוד ואובדן.</p>
+      </div>
+    </div>
+    <div style="flex:1">
+      <h2 style="margin-top:0">הכנה מראש</h2>
+      <ul>
+        <li>לעבור מראש על חמש השכבות המעשיות במצגת.</li>
+        <li>להכין דוגמה מקומית לשירות שעובד לאט לעומת שירות שמתנתק.</li>
+        <li>לוודא שהמונחים VLAN ופורט מוצגים כהיכרות, לא כמשימת ניהול.</li>
+      </ul>
+      <div class="note amber"><h3>היקף השיעור</h3>
+        <p>לא מלמדים את כל מודל OSI בעל פה, לא מנתחים שדות בינאריים, ולא מנהלים VLAN. המודל הוא כלי אבחון.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>חלוקת זמן מוצעת</h2>
+  <table>
+    <tr><th>חלק</th><th>מה מעבירים</th><th class="n">דקות</th></tr>
+    <tr><td class="k">פתיחה</td><td>למה מחלקים תקשורת לשכבות</td><td class="n">5</td></tr>
+    <tr><td class="k">מודל עבודה</td><td>חמש שכבות ושאלת האבחון של כל אחת</td><td class="n">10</td></tr>
+    <tr><td class="k">אינקפסולציה</td><td>מידע הופך למנה, חבילה ומסגרת</td><td class="n">9</td></tr>
+    <tr><td class="k">Ethernet ו-VLAN</td><td>MAC, מתג וגבול לוגי</td><td class="n">10</td></tr>
+    <tr><td class="k">תעבורה ומדדים</td><td>פורט, TCP, רוחב פס, השהיה וריצוד</td><td class="n">12</td></tr>
+    <tr><td class="k">סגירה</td><td>בחירת השכבה הראשונה לבדיקה</td><td class="n">4</td></tr>
+  </table>
+
+  <div class="note green"><h3>פתיחה מומלצת</h3>
+    <p>שתי תחנות מחוברות לאותו מתג וכל הנוריות ירוקות: האם זה מוכיח שהן באותה רשת?</p>
+  </div>
+</div>
+
+<!-- 3 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">01 · מפת עבודה</div>
+  <h1>שאלת האבחון בכל שכבה</h1><hr class="rule">
+  <p>כל שכבה עונה על שאלה אחרת: האם יש אות, האם יש שכנות מקומית, האם קיימת דרך לכתובת, האם השירות מאזין, והאם היישום מבין את התשובה.</p>
+
+  <table>
+    <tr><th>שכבה</th><th>מוקד</th><th>שאלת האבחון</th></tr>
+    <tr><td class="k" style="color:#2f7546">יישום</td><td>בקשה ושירות</td><td>האם היישום מבין את התשובה</td></tr>
+    <tr><td class="k" style="color:#a8701a">תעבורה</td><td>פורט ואמינות</td><td>האם השירות מאזין</td></tr>
+    <tr><td class="k" style="color:#0f6f7a">רשת</td><td>IP וניתוב</td><td>האם קיימת דרך לכתובת</td></tr>
+    <tr><td class="k" style="color:#5b4bb8">קישור</td><td>Ethernet, MAC ו-VLAN</td><td>האם יש שכנות מקומית</td></tr>
+    <tr><td class="k" style="color:#a83a4c">פיזית</td><td>כבל, אות ו-Link</td><td>האם יש אות</td></tr>
+  </table>
+  <p style="font-size:9pt;font-style:italic;color:#5b7186;text-align:center">המודל המעשי מצמצם את אזור החיפוש בלי לדרוש שינון מלא של OSI.</p>
+
+  <div class="note green"><h3>איך להעביר</h3>
+    <p>בכל שכבה בקש מהחניך לנסח שאלה שאפשר לבדוק.</p>
+  </div>
+</div>
+
+<!-- 4 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">02 · עטיפת מידע</div>
+  <h1>אינקפסולציה מחברת בין השכבות בלי לערבב תפקידים</h1><hr class="rule">
+  <p>היישום מוסר מידע; שכבת התעבורה מוסיפה פורטים; שכבת הרשת מוסיפה כתובות IP; ו-Ethernet מוסיף כתובות MAC ובדיקת מסגרת.</p>
+
+  <div style="border:1px solid #dbe3ea;border-radius:8pt;padding:16pt;margin:0 0 12pt;background:#fbfcfd">
+    <div style="display:flex;align-items:center;justify-content:center;gap:9pt;flex-wrap:wrap">
+      <div style="border:1.5px solid #4a9c62;background:#eef7f0;border-radius:7pt;padding:8pt 12pt;text-align:center;min-width:64pt">
+        <b style="display:block;color:#2f7546;font-size:9.5pt">מידע</b><span style="font-size:8pt;color:#5b7186">יישום</span>
+      </div>
+      <span style="font-size:13pt;color:#8b9bab">&larr;</span>
+      <div style="border:1.5px solid #e0a038;background:#fdf4e6;border-radius:7pt;padding:8pt 12pt;text-align:center">
+        <b style="display:block;color:#a8701a;font-size:9pt;margin-bottom:5pt">כותרת תעבורה</b>
+        <div style="border:1.5px solid #4a9c62;background:#eef7f0;border-radius:6pt;padding:5pt 10pt;font-size:9pt;font-weight:bold;color:#2f7546">מידע</div>
+      </div>
+      <span style="font-size:13pt;color:#8b9bab">&larr;</span>
+      <div style="border:1.5px solid #5b4bb8;background:#f1effa;border-radius:7pt;padding:8pt 12pt;text-align:center">
+        <b style="display:block;color:#5b4bb8;font-size:9pt;margin-bottom:5pt">מסגרת Ethernet</b>
+        <div style="border:1.5px solid #0f8793;background:#e9f4f7;border-radius:6pt;padding:6pt 10pt">
+          <span style="font-size:8.5pt;font-weight:bold;color:#0f6f7a;display:block;margin-bottom:4pt">חבילת IP</span>
+          <div style="border:1px dashed #9fb0c3;border-radius:5pt;padding:4pt 9pt;font-size:8.5pt;color:#3c5266">מטען</div>
+        </div>
+      </div>
+    </div>
+    <p style="margin:10pt 0 0;font-size:8.5pt;font-style:italic;color:#5b7186;text-align:center">בצד המקבל מסירים את המעטפות בסדר ההפוך.</p>
+    <p style="margin:3pt 0 0;font-size:8.5pt;font-style:italic;color:#5b7186;text-align:center">האיור סכמטי: המטרה היא להבין קינון וסדר, לא גדלי שדות.</p>
+  </div>
+
+  <p style="display:flex;gap:8pt;align-items:flex-start;margin:0 0 6pt">
+    <span style="flex:none;width:14pt;height:14pt;border-radius:50%;background:#0f2740;color:#fff;font-size:7.5pt;font-weight:bold;text-align:center;line-height:14pt">1</span>
+    <span>הדגש שהמטען של שכבה אחת הוא היחידה השלמה של השכבה שמעליה.</span>
+  </p>
+  <p style="display:flex;gap:8pt;align-items:flex-start;margin:0 0 6pt">
+    <span style="flex:none;width:14pt;height:14pt;border-radius:50%;background:#0f2740;color:#fff;font-size:7.5pt;font-weight:bold;text-align:center;line-height:14pt">2</span>
+    <span>בצד המקבל הסדר מתהפך; תקלה במעטפת תחתונה מונעת מהמידע להגיע ליישום.</span>
+  </p>
+</div>
+
+<!-- 5 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">03 · תחום מקומי</div>
+  <h1>Ethernet, מתג ו-VLAN קובעים מי יכול להיות שכן</h1><hr class="rule">
+  <p>המתג מעביר לפי MAC יעד בתוך תחום קישור. VLAN מחלק את אותו ציוד פיזי לתחומים לוגיים נפרדים, ולכן נוריות ירוקות אינן מוכיחות שהתחנות שכנות.</p>
+
+  <div style="border:1px solid #dbe3ea;border-radius:8pt;padding:16pt;margin:0 0 12pt;background:#fbfcfd">
+    <div style="display:flex;align-items:center;justify-content:center;gap:12pt;flex-wrap:wrap">
+      <div style="display:flex;flex-direction:column;gap:7pt">
+        <div style="border:1.5px solid #4a9c62;background:#eef7f0;border-radius:7pt;padding:5pt 12pt;text-align:center">
+          <b class="ltr" style="display:block;color:#2f7546;font-size:9.5pt">VLAN 10</b><span style="font-size:8pt;color:#5b7186">A · B</span>
+        </div>
+        <div style="border:1.5px solid #e0a038;background:#fdf4e6;border-radius:7pt;padding:5pt 12pt;text-align:center">
+          <b class="ltr" style="display:block;color:#a8701a;font-size:9.5pt">VLAN 20</b><span style="font-size:8pt;color:#5b7186">C · D</span>
+        </div>
+      </div>
+      <span style="font-size:13pt;color:#8b9bab">&larr;</span>
+      <div style="border:1.5px solid #0f8793;background:#e9f4f7;border-radius:7pt;padding:10pt 14pt;text-align:center">
+        <b style="display:block;color:#0f6f7a;font-size:9.5pt">מתג</b><span style="font-size:8pt;color:#5b7186">Link יכול להיות תקין</span>
+      </div>
+      <span style="font-size:14pt;color:#d9556a;font-weight:bold">&#10005;</span>
+      <div style="border:1.5px dashed #d9556a;background:#fdeef0;border-radius:7pt;padding:8pt 12pt;text-align:center">
+        <b style="color:#a83a4c;font-size:9pt">אין מעבר בלי ניתוב</b>
+      </div>
+    </div>
+    <p style="margin:10pt 0 0;font-size:8.5pt;font-style:italic;color:#5b7186;text-align:center">הטכנאי אוסף ראיות ל-Link, פורט, MAC ושכנות; צוות התשתית מנהל את ה-VLAN.</p>
+  </div>
+
+  <div class="note amber"><h3>גבול אחריות</h3>
+    <p>אין להסביר שינויי VLAN. מלמדים לזהות תבנית ולהעביר לצוות המנהל עם שעה, פורט, MAC וכתובת צפויה.</p>
+  </div>
+</div>
+
+<!-- 6 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">04 · שירות וקצב</div>
+  <h1>פורט מזהה שירות; "מהירות" חייבת לקבל שם מדויק</h1><hr class="rule">
+
+  <div class="cards">
+    <div class="pc teal"><h3>קיבולת</h3>
+      <p>רוחב פס הוא הגבול התאורטי של הדרך. Throughput הוא הקצב שנמדד; Goodput הוא מידע שימושי לאחר תקורה ושידורים חוזרים.</p>
+    </div>
+    <div class="pc amber"><h3>תעבורה</h3>
+      <p>פורט מזהה שירות. TCP מנהל חיבור ומצב. UDP מוזכר כהיכרות בלבד ואינו מוקד ההעמקה.</p>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;justify-content:center;gap:8pt;flex-wrap:wrap;margin:0 0 12pt">
+    <span class="ltr" style="border:1.5px solid #c7d2db;border-radius:6pt;padding:6pt 12pt;font-weight:bold;font-size:9.5pt;color:#0f2740">יישום</span>
+    <span style="font-size:12pt;color:#8b9bab">&larr;</span>
+    <span style="border:1.5px solid #c7d2db;border-radius:6pt;padding:6pt 12pt;font-weight:bold;font-size:9.5pt;color:#0f2740">פורט</span>
+    <span style="font-size:12pt;color:#8b9bab">&larr;</span>
+    <span class="ltr" style="border:1.5px solid #c7d2db;border-radius:6pt;padding:6pt 12pt;font-weight:bold;font-size:9.5pt;color:#0f2740">IP</span>
+    <span style="font-size:12pt;color:#8b9bab">&larr;</span>
+    <span class="ltr" style="border:1.5px solid #c7d2db;border-radius:6pt;padding:6pt 12pt;font-weight:bold;font-size:9.5pt;color:#0f2740">Ethernet</span>
+    <span style="font-size:12pt;color:#8b9bab">&larr;</span>
+    <span class="ltr" style="border:1.5px solid #c7d2db;border-radius:6pt;padding:6pt 12pt;font-weight:bold;font-size:9.5pt;color:#0f2740">Link</span>
+  </div>
+
+  <div class="note teal"><h3>שאלה למדריך</h3>
+    <p>כאשר משתמש אומר "האינטרנט איטי", איזה מספר חסר כדי להפוך את המשפט לבעיה מדידה?</p>
+  </div>
+</div>
+
+<!-- 7 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">05 · איכות דרך</div>
+  <h1>השהיה, ריצוד ואובדן מתארים תקלות שונות</h1><hr class="rule">
+  <p>Latency מודד כמה זמן לוקח להגיע ולקבל תשובה. Jitter מודד עד כמה מרווחי ההגעה משתנים. Loss מציין מנות שלא הגיעו. צוואר בקבוק מגביל קצב גם כששאר החוליות מהירות.</p>
+
+  <div style="border:1px solid #dbe3ea;border-radius:8pt;padding:14pt 10pt;margin:0 0 12pt;background:#fbfcfd">
+    <div style="display:flex;align-items:stretch;justify-content:center;gap:3pt;flex-wrap:nowrap">
+      <div style="border:1.5px solid #d9556a;background:#fdeef0;border-radius:6pt;padding:5pt 4pt;text-align:center">
+        <b class="ltr" style="display:block;font-size:8.5pt;color:#a83a4c;white-space:nowrap">Link</b><span style="font-size:7pt;color:#5b7186;white-space:nowrap">כבל ומתאם</span>
+      </div>
+      <span style="font-size:9pt;color:#8b9bab;align-self:center">&larr;</span>
+      <div style="border:1.5px solid #5b4bb8;background:#f1effa;border-radius:6pt;padding:5pt 4pt;text-align:center">
+        <b class="ltr" style="display:block;font-size:8.5pt;color:#5b4bb8;white-space:nowrap">Ethernet</b><span style="font-size:7pt;color:#5b7186;white-space:nowrap">VLAN ושכנות</span>
+      </div>
+      <span style="font-size:9pt;color:#8b9bab;align-self:center">&larr;</span>
+      <div style="border:1.5px solid #0f8793;background:#e9f4f7;border-radius:6pt;padding:5pt 4pt;text-align:center">
+        <b class="ltr" style="display:block;font-size:8.5pt;color:#0f6f7a;white-space:nowrap">IP / Route</b><span style="font-size:7pt;color:#5b7186;white-space:nowrap">כתובת ודרך</span>
+      </div>
+      <span style="font-size:9pt;color:#8b9bab;align-self:center">&larr;</span>
+      <div style="border:1.5px solid #e0a038;background:#fdf4e6;border-radius:6pt;padding:5pt 4pt;text-align:center">
+        <b class="ltr" style="display:block;font-size:8.5pt;color:#a8701a;white-space:nowrap">DNS / Service</b><span style="font-size:7pt;color:#5b7186;white-space:nowrap">שם ופורט</span>
+      </div>
+      <span style="font-size:9pt;color:#8b9bab;align-self:center">&larr;</span>
+      <div style="border:1.5px solid #4a9c62;background:#eef7f0;border-radius:6pt;padding:5pt 4pt;text-align:center">
+        <b class="ltr" style="display:block;font-size:8.5pt;color:#2f7546;white-space:nowrap">Domain</b><span style="font-size:7pt;color:#5b7186;white-space:nowrap">זהות ואמון</span>
+      </div>
+    </div>
+    <p style="margin:10pt 0 0;font-size:8.5pt;font-style:italic;color:#5b7186;text-align:center">עוצרים בשלב הראשון שבו הראיה אינה תואמת לציפייה.</p>
+  </div>
+
+  <p>אותו סימפטום יישומי יכול להיווצר בכמה שכבות; מחפשים את הראיה הראשונה שאינה תקינה.</p>
+
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>קצב ממוצע גבוה אינו שולל קפיצות השהיה ואובדן קצרות. מדד יחיד אינו מתאר את כל איכות הדרך.</p>
+  </div>
+</div>
+
+<!-- 8 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">סיום · מפת השיעור</div>
+  <h1>מהלך המצגת ודגשים למדריך</h1><hr class="rule">
+
+  <table>
+    <tr><th class="n">מס׳</th><th>שלב</th><th>תוכן</th></tr>
+    <tr><td class="n">1</td><td class="k">שער</td><td>הצג את המטרה: לפרק את "הרשת" לשאלות.</td></tr>
+    <tr><td class="n">2</td><td class="k">חמש שכבות</td><td>יישום, תעבורה, רשת, קישור ופיזית.</td></tr>
+    <tr><td class="n">3</td><td class="k">אינקפסולציה</td><td>כל שכבה מוסיפה מידע לצרכן המקביל.</td></tr>
+    <tr><td class="n">4</td><td class="k">דה-אינקפסולציה</td><td>בצד המקבל מסירים מעטפות.</td></tr>
+    <tr><td class="n">5</td><td class="k">מסגרת Ethernet</td><td>MAC ומטען בתוך תחום מקומי.</td></tr>
+    <tr><td class="n">6</td><td class="k">מתג ו-MAC</td><td>המתג לומד מאיזה פורט הגיע מקור.</td></tr>
+    <tr><td class="n">7</td><td class="k">VLAN</td><td>Link תקין אינו מוכיח שכנות לוגית.</td></tr>
+    <tr><td class="n">8</td><td class="k">פורט ופרוטוקול</td><td>פורט מזהה שירות; TCP הוא המוקד.</td></tr>
+    <tr><td class="n">9</td><td class="k">קיבולת בפועל</td><td>רוחב פס, Throughput ו-Goodput.</td></tr>
+    <tr><td class="n">10</td><td class="k">השהיה</td><td>זמן הלוך וחזור כולל עיבוד.</td></tr>
+    <tr><td class="n">11</td><td class="k">ריצוד ואובדן</td><td>קצב הגעה משתנה ומנות חסרות.</td></tr>
+    <tr><td class="n">12</td><td class="k">צוואר בקבוק</td><td>החוליה האיטית מגבילה את הדרך.</td></tr>
+    <tr><td class="n">13</td><td class="k">תמונה שלמה</td><td>מיישום ועד Link לפי סדר האבחון.</td></tr>
+  </table>
+
+  <h2>מילון קצר למדריך</h2>
+  <table>
+    <tr><th>מונח</th><th>הגדרה</th><th>מונח</th><th>הגדרה</th></tr>
+    <tr><td class="k">שכבה</td><td>חלוקת אחריות בתקשורת.</td><td class="k">אינקפסולציה</td><td>הוספת מעטפת בכל שכבה.</td></tr>
+    <tr><td class="k">MAC</td><td>זהות קישור מקומית.</td><td class="k">מסגרת</td><td>יחידת Ethernet מקומית.</td></tr>
+    <tr><td class="k">פורט</td><td>מספר שמזהה שירות.</td><td class="k">VLAN</td><td>תחום קישור לוגי מבודד.</td></tr>
+    <tr><td class="k">Latency</td><td>זמן הגעה ותגובה.</td><td class="k">Jitter</td><td>שינוי במרווחי ההגעה.</td></tr>
+  </table>
+
+  <div class="note teal"><h3>שאלת סיום</h3>
+    <p>אם Link תקין אך אין ARP ליעד המקומי, באיזה שלב מתחילים לחשוד ומה עדיין לא הוכח?</p>
+  </div>
+
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>לא לומר ש-Link Up או נורית ירוקה מוכיחים IP, VLAN, ניתוב או זמינות שירות.</p>
+  </div>
+</div>
+
+</body></html>

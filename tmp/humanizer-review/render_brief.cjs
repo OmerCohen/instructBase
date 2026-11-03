@@ -1,0 +1,3 @@
+const {chromium}=require('C:/Users/OmerCohen/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const path=require('path');const {pathToFileURL}=require('url');
+(async()=>{const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});try{const page=await browser.newPage();await page.goto(pathToFileURL(path.resolve('.agents/guide-sources/06_guide_source.html')).href);await page.evaluate(()=>document.fonts.ready);await page.pdf({path:'tmp/humanizer-review/rendered/06_guide_source.pdf',preferCSSPageSize:true,printBackground:true});console.log('Radio 06 PDF regenerated');}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1});

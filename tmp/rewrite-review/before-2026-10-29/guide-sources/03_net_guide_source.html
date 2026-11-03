@@ -1,0 +1,326 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>Domain, אימות, הצפנה ותעודות</title><style>
+@page{size:A4;margin:52pt 54pt 46pt 54pt;
+  @bottom-right{content:"מחלקת תקשוב · Domain ואימות · שיעור 3";
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:right;vertical-align:top;padding-top:10pt;direction:rtl}
+  @bottom-left{content:counter(page) " / " counter(pages);
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:left;vertical-align:top;padding-top:10pt;direction:ltr}}
+@page:first{@bottom-right{content:""}@bottom-left{content:""}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Liberation Sans",Arial,sans-serif;color:#1b2a38;font-size:10pt;line-height:1.55;direction:rtl}
+.pg{page-break-after:always}
+.pg:last-child{page-break-after:auto}
+.eyebrow{font-size:9pt;font-weight:bold;color:#0f2740;margin-bottom:9pt}
+h1{font-size:20pt;font-weight:bold;margin:0 0 14pt;color:#0f2740;line-height:1.24;text-align:center}
+h2{font-size:13pt;margin:16pt 0 8pt;color:#0f2740;font-weight:bold}
+.rule{border:0;border-top:1px solid #dbe3ea;margin:0 0 16pt}
+p{margin:0 0 7pt}
+ul{margin:0 0 7pt;padding-right:15pt}
+li{margin-bottom:4pt}
+
+/* stat chips */
+.chips{display:flex;gap:11pt;margin:0 0 16pt}
+.chip{flex:1;background:#0f2740;border-radius:6pt;padding:11pt 8pt;text-align:center}
+.chip b{display:block;font-size:14pt;color:#3fd0e0;line-height:1.15}
+.chip span{display:block;font-size:8.5pt;color:#b6c6d4;margin-top:3pt}
+
+/* two rounded cards with a coloured inner edge */
+.cards{display:flex;gap:11pt;margin:0 0 14pt}
+.cards.three>*{flex:1}
+.cards>*{flex:1;min-width:0}
+.pc{border-radius:7pt;padding:10pt 13pt;position:relative;overflow:hidden}
+.pc::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.pc h3{margin:0 0 5pt;font-size:10pt;font-weight:bold}
+.pc p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.pc p:last-child{margin-bottom:0}
+.pc.teal{background:#e9f4f7}.pc.teal::after{background:#0f8793}.pc.teal h3{color:#0f6f7a}
+.pc.amber{background:#fdf4e6}.pc.amber::after{background:#e0a038}.pc.amber h3{color:#a8701a}
+.pc.red{background:#fdeef0}.pc.red::after{background:#d9556a}.pc.red h3{color:#a83a4c}
+.pc.green{background:#eef7f0}.pc.green::after{background:#4a9c62}.pc.green h3{color:#2f7546}
+
+/* full-width note block, same visual family */
+.note{border-radius:7pt;padding:9pt 13pt;margin:0 0 10pt;position:relative;overflow:hidden}
+.note::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.note h3{margin:0 0 4pt;font-size:9pt;font-weight:bold;letter-spacing:.02em}
+.note p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.note p:last-child{margin-bottom:0}
+.note.teal{background:#e9f4f7}.note.teal::after{background:#0f8793}.note.teal h3{color:#0f6f7a}
+.note.amber{background:#fdf4e6}.note.amber::after{background:#e0a038}.note.amber h3{color:#a8701a}
+.note.red{background:#fdeef0}.note.red::after{background:#d9556a}.note.red h3{color:#a83a4c}
+.note.green{background:#eef7f0}.note.green::after{background:#4a9c62}.note.green h3{color:#2f7546}
+
+/* dark headline band (used for the formula / the one-line rule of a page) */
+.band{background:#0f2740;border-radius:8pt;padding:14pt 18pt;margin:0 0 14pt;text-align:center;
+  color:#3fd0e0;font-size:16pt;font-weight:bold}
+.band.sm{font-size:12.5pt;padding:11pt 16pt}
+.band .w{color:#fff}
+
+table{width:100%;border-collapse:collapse;font-size:9pt;margin:0 0 11pt}
+th,td{border:1px solid #dbe3ea;padding:5pt 8pt;text-align:right;vertical-align:top}
+th{background:#eef4f8;color:#0f6f7a;font-weight:bold}
+td.k{font-weight:bold;color:#0f2740}
+td.n,th.n{text-align:center;width:52pt;white-space:nowrap;direction:ltr;unicode-bidi:embed}
+.ltr{direction:ltr;unicode-bidi:embed;display:inline-block}
+
+.title-pg{height:660pt;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.title-pg .kick{font-size:10pt;color:#0f8793;font-weight:bold;margin-bottom:20pt}
+.title-pg h1{font-size:27pt;margin-bottom:12pt}
+.title-pg .sub{font-size:12pt;color:#5b7186;margin:0 auto 26pt;max-width:400pt;line-height:1.55}
+.title-pg .meta{font-size:9.5pt;color:#5b7186}
+</style></head><body>
+
+<!-- 1 ─────────────────────────── -->
+<div class="pg title-pg">
+  <div class="kick">מחלקת תקשוב · רשתות · דף הנחיה למדריך</div>
+  <h1>Domain, אימות, הצפנה ותעודות</h1>
+  <div class="sub">זהות מנוהלת ב-Windows, הצפנה סימטרית ואסימטרית, תעודות ו-TLS</div>
+  <div class="chips" style="max-width:400pt;margin:0 auto">
+    <div class="chip"><b>55 דקות</b><span>משך מומלץ</span></div>
+    <div class="chip"><b>17</b><span>שקופיות כולל שער</span></div>
+    <div class="chip"><b>שטח</b><span>רמת המיקוד</span></div>
+  </div>
+  <div class="meta" style="margin-top:20pt">מותאם לטכנאי שטח · סביבת Windows מנוהלת</div>
+</div>
+
+<!-- 2 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">00 · בריף למדריך</div>
+  <h1>לפני שמתחילים</h1><hr class="rule">
+  <div class="chips">
+    <div class="chip"><b>שטח</b><span>רמת המיקוד</span></div>
+    <div class="chip"><b>17</b><span>שקופיות כולל שער</span></div>
+    <div class="chip"><b>55 דקות</b><span>משך מומלץ</span></div>
+  </div>
+
+  <div class="cards">
+    <div style="flex:1">
+      <h2 style="margin-top:0">מטרת השיעור</h2>
+      <p>לחבר בין תשתית הרשת, זהות ואמון: כיצד התחנה מאתרת DC, מאמתת משתמש, בודקת תעודה ומקימה חיבור TLS.</p>
+      <div class="note teal"><h3>מה החניך צריך לדעת</h3>
+        <p>בסיום החניך יפריד בין אימות להרשאה ובין הצפנה סימטרית לאסימטרית, ויסביר תעודה, Cipher Suite ו-TLS Handshake ברמת אבחון.</p>
+      </div>
+    </div>
+    <div style="flex:1">
+      <h2 style="margin-top:0">הכנה מראש</h2>
+      <ul>
+        <li>לוודא שהקהל מכיר DNS, כתובת ו-Gateway מהשיעור הקודם.</li>
+        <li>להכין דוגמה להודעת תעודה או כניסה מוכרת ללא פרטים רגישים.</li>
+        <li>לעבור מראש על רצף ה-TLS Handshake ולשמור את ההסבר ברמת זרימה ותקלות.</li>
+      </ul>
+      <div class="note amber"><h3>היקף השיעור</h3>
+        <p>לא מנהלים Active Directory, GPO או CA. לא נכנסים למתמטיקה של הצפנה, לניתוח אלגוריתמים או לפרטי פרוטוקול Kerberos.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>חלוקת זמן מוצעת</h2>
+  <table>
+    <tr><th>חלק</th><th>מה מעבירים</th><th class="n">דקות</th></tr>
+    <tr><td class="k">פתיחה</td><td>Domain כגבול זהות</td><td class="n">5</td></tr>
+    <tr><td class="k">AD, DNS והצטרפות</td><td>אובייקטים, איתור DC וחשבון מחשב</td><td class="n">9</td></tr>
+    <tr><td class="k">אימות והרשאה</td><td>Kerberos, כרטיסים וזמן</td><td class="n">10</td></tr>
+    <tr><td class="k">שני סוגי הצפנה</td><td>תפקיד אסימטרי מול סימטרי</td><td class="n">8</td></tr>
+    <tr><td class="k">תעודות ומשא ומתן</td><td>שרשרת אמון ו-Cipher Suite</td><td class="n">10</td></tr>
+    <tr><td class="k">TLS Handshake</td><td>רצף וארבע משפחות תקלה</td><td class="n">10</td></tr>
+    <tr><td class="k">סגירה</td><td>שרשרת התלות</td><td class="n">3</td></tr>
+  </table>
+
+  <div class="note green"><h3>פתיחה מומלצת</h3>
+    <p>כיצד שעון שגוי יכול לגרום לכניסה להיכשל גם כשהסיסמה נכונה והרשת זמינה?</p>
+  </div>
+</div>
+
+<!-- 3 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">01 · Domain, DNS והצטרפות</div>
+  <h1>Domain מחבר זהויות ומדיניות; DNS מאפשר לתחנה לאתר אותו</h1><hr class="rule">
+  <p>Active Directory מחזיק משתמשים, מחשבים, קבוצות ומדיניות. Domain Controller מספק שירותי זהות, ו-DNS מאתר אותו. Domain Join יוצר חשבון מחשב וערוץ מאובטח.</p>
+
+  <table>
+    <tr><th>ישות</th><th>תפקיד ב-Domain</th></tr>
+    <tr><td class="k">Domain Controller</td><td>DNS · זהות · מדיניות</td></tr>
+    <tr><td class="k">משתמש</td><td>חשבון Domain</td></tr>
+    <tr><td class="k">תחנה</td><td>חשבון מחשב</td></tr>
+    <tr><td class="k">קבוצה</td><td>הרשאות</td></tr>
+    <tr><td class="k">שרת</td><td>שירות מוגן</td></tr>
+  </table>
+
+  <div class="band sm">Domain הוא גבול זהות ואמון, <span class="w">לא Subnet ולא VLAN.</span></div>
+
+  <div class="note teal"><h3>לא גבול רשת</h3>
+    <p>הגבול הוא ניהולי ואמוני, לא Subnet או VLAN. DNS ציבורי יכול לאפשר גלישה ועדיין להפיל Domain.</p>
+  </div>
+
+  <div class="note amber"><h3>רצף</h3>
+    <p>DNS מתאים ← איתור DC ← חשבון מחשב ← ערוץ מאובטח ← קבלת מדיניות.</p>
+  </div>
+
+  <div class="note teal"><h3>מה הטכנאי בפועל בודק</h3>
+    <p>הטכנאי אינו מתכנן מבנה ארגוני או מנהל הרשאות; עליו לזהות מהו אובייקט מחשב, ומדוע מחיקתו או חוסר התאמה פוגעים בתחנה. DNS שגוי הוא אחת הסיבות המרכזיות לכך שכתובת ה-IP עובדת אך הכניסה ל-Domain נכשלת.</p>
+  </div>
+</div>
+
+<!-- 4 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">02 · אימות, זמן ומדיניות</div>
+  <h1>זהות מאומתת עדיין אינה הבטחה לגישה</h1><hr class="rule">
+  <p>אימות עונה "מי אתה"; הרשאה מחליטה מה מותר. Kerberos משתמש בכרטיסים המוגבלים בזמן. פער שעון משמעותי גורם לדחייה, ו-Group Policy יכולה לשנות שירותים, חומת אש, תעודות והרשאות.</p>
+
+  <table>
+    <tr><th>שלב</th><th>תפקיד</th></tr>
+    <tr><td class="k">DNS</td><td>איתור DC</td></tr>
+    <tr><td class="k">זמן</td><td>תוקף כרטיס</td></tr>
+    <tr><td class="k">Kerberos</td><td>אימות</td></tr>
+    <tr><td class="k">הרשאה</td><td>קבוצות</td></tr>
+  </table>
+
+  <div class="band sm">DNS וזמן קודמים לאימות; <span class="w">תעודה ושרשרת אמון קודמות ל-TLS.</span></div>
+
+  <div class="note teal"><h3>בדיקת התעודה</h3>
+    <p>Certificate: שם · תוקף · מנפיק · שרשרת. TLS מתחיל באימות השרת ורק אחר כך בהצפנת התעבורה.</p>
+  </div>
+
+  <div class="note red"><h3>טעות אבחון נפוצה</h3>
+    <p>אל תבלבלו בין אימות להרשאה בזמן אבחון: תקלה בהרשאה, כמו משתמש שלא רואה תיקייה משותפת, אינה בהכרח תקלה בסיסמה או בקשר ל-DC. גם ב-Group Policy הטכנאי אינו מנהל GPO, אבל צריך לדעת לאסוף gpresult ולבדוק אם המדיניות התקבלה.</p>
+  </div>
+
+  <div class="note green"><h3>שאלת ביניים</h3>
+    <p>משתמש נכנס לתחנה אך אינו פותח תיקייה: האם זו בהכרח בעיית סיסמה?</p>
+  </div>
+</div>
+
+<!-- 5 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">03 · שני סוגי הצפנה</div>
+  <h1>אסימטרית מקימה אמון ומפתחות; סימטרית מגינה על המידע</h1><hr class="rule">
+  <p>מפתח ציבורי ניתן להפצה והמפתח הפרטי נשאר אצל בעליו. במהלך ה-Handshake הצדדים מאמתים זהות וגוזרים סוד משותף; לאחר מכן אותו מפתח Session זמני משמש להצפנה סימטרית מהירה.</p>
+
+  <div class="cards">
+    <div class="pc teal"><h3>אסימטרית</h3>
+      <p>מפתח Public להפצה, מפתח Private נשאר אצל הבעלים.</p>
+      <p>משמשים לזהות ולהסכמה על סוד משותף.</p>
+    </div>
+    <div class="pc teal"><h3>סימטרית</h3>
+      <p>אותו מפתח Session לשני הצדדים.</p>
+      <p>מהיר לתעבורה, ולכן משמש להצפנת המידע עצמו.</p>
+    </div>
+  </div>
+
+  <div class="band sm">ה-Handshake מקים אמון ומפתחות; <span class="w">המידע עובר בהצפנה סימטרית.</span></div>
+
+  <div class="note amber"><h3>מלכודת ניסוח</h3>
+    <p>אין לתאר את מפתח ה-Session כקובץ שנשלח לצד השני; שני הצדדים גוזרים אותו בלי לחשוף אותו ברשת.</p>
+  </div>
+
+  <div class="note teal"><h3>שלושת היעדים</h3>
+    <p>TLS נותן סודיות, שלמות ואימות זהות. הצפנה לבדה אינה מוכיחה שהגענו לשרת הנכון.</p>
+  </div>
+</div>
+
+<!-- 6 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">04 · תעודה ומשא ומתן</div>
+  <h1>התעודה מוכיחה זהות; ה-Cipher Suite קובע כיצד תוגן התעבורה</h1><hr class="rule">
+  <p>הלקוח בודק שם, תוקף, מנפיק ושרשרת עד Root מהימן. במקביל הלקוח מציע אפשרויות, והשרת בוחר Cipher Suite ששניהם תומכים בו. ב-TLS 1.3 הבחירה מתארת את הצפנת התעבורה ואת ה-Hash.</p>
+
+  <table>
+    <tr><th>רכיב</th><th>ערך</th><th>תפקיד</th></tr>
+    <tr><td class="k">הצעת הלקוח</td><td><span class="ltr">TLS_AES_128_GCM_SHA256 · TLS_AES_256_GCM_SHA384 · TLS_CHACHA20_POLY1305_SHA256</span></td><td>ClientHello מציע את האפשרויות הנתמכות</td></tr>
+    <tr><td class="k">בחירת השרת</td><td><span class="ltr">TLS_AES_128_GCM_SHA256</span></td><td>ה-Cipher Suite ששני הצדדים תומכים בו</td></tr>
+    <tr><td class="k">הצפנה</td><td><span class="ltr">AES_128_GCM</span></td><td>הצפנה סימטרית + שלמות</td></tr>
+    <tr><td class="k">Hash</td><td><span class="ltr">SHA256</span></td><td>גזירת מפתחות</td></tr>
+  </table>
+
+  <div class="band sm">ב-TLS 1.3, גרסה, Key Exchange וחתימה מוסכמים <span class="w">לצד ה-Cipher Suite.</span></div>
+
+  <div class="note amber"><h3>היקף השיעור</h3>
+    <p>אין צורך לזכור שמות אלגוריתמים. המטרה היא לזהות שכשל התאמה יכול להפיל את החיבור לפני שעובר מידע יישומי.</p>
+  </div>
+
+  <div class="note teal"><h3>שרשרת האמון</h3>
+    <p>אמון נבנה מהתעודה דרך מנפיקים עד Root המותקן מראש במאגר האמון של המכשיר. חוליה חסרה, כמו Intermediate שלא הותקן, או Root שאינו מהימן, שוברים את השרשרת.</p>
+  </div>
+</div>
+
+<!-- 7 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">TLS Handshake · 05</div>
+  <h1>רק אחרי Hello, תעודה, גזירת מפתחות ו-Finished עובר מידע</h1><hr class="rule">
+  <p>ClientHello ו-ServerHello מסכימים על פרמטרים ומחליפים חומר לגזירת מפתחות. השרת מציג תעודה ומוכיח בעלות על המפתח הפרטי; שני הצדדים גוזרים מפתחות Session ומאשרים Finished.</p>
+
+  <table>
+    <tr><th class="n">שלב</th><th>כיוון</th><th>מה עובר</th></tr>
+    <tr><td class="n">1</td><td>מהלקוח</td><td>ClientHello: גרסה, Cipher Suites, key share</td></tr>
+    <tr><td class="n">2</td><td>מהשרת</td><td>ServerHello: ההצעה שנבחרה, key share</td></tr>
+    <tr><td class="n">3</td><td>מהשרת</td><td>Certificate, CertificateVerify</td></tr>
+    <tr><td class="n">4</td><td>משותף</td><td>אימות וגזירת מפתחות Session, בלי לשלוח אותם ברשת</td></tr>
+    <tr><td class="n">5</td><td>מהשרת</td><td>Finished</td></tr>
+    <tr><td class="n">6</td><td>דו-כיווני</td><td>Application Data מוצפנת סימטרית</td></tr>
+  </table>
+
+  <div class="note teal"><h3>מינוח</h3>
+    <p>SSL הוא שם ישן שנשאר בשפה; הפרוטוקול המודרני הוא TLS.</p>
+  </div>
+
+  <div class="band sm">תקלת TLS נופלת כמעט תמיד לאחת מארבע משפחות: <span class="w">זמן, שם, שרשרת אמון, או משא ומתן.</span></div>
+
+  <table>
+    <tr><th>משפחת תקלה</th><th>דוגמה אופיינית</th></tr>
+    <tr><td class="k">זמן או תוקף</td><td>שעון או תאריך מערכת שגוי</td></tr>
+    <tr><td class="k">שם לא תואם</td><td>הפנייה נעשית בשם שונה מזה שרשום בתעודה</td></tr>
+    <tr><td class="k">שרשרת אמון חסרה</td><td>Intermediate או Root שאינם מותקנים או אינם מהימנים</td></tr>
+    <tr><td class="k">חוסר התאמה במשא ומתן</td><td>גרסת TLS או Cipher Suite שאינם משותפים לשני הצדדים</td></tr>
+  </table>
+</div>
+
+<!-- 8 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">סיום · מפת השיעור</div>
+  <h1>מהלך המצגת ודגשים למדריך</h1><hr class="rule">
+
+  <table>
+    <tr><th class="n">#</th><th>נושא ותמצית</th><th class="n">#</th><th>נושא ותמצית</th></tr>
+    <tr><td class="n">1</td><td><b>שער.</b> זהות ו-TLS נשענים על תשתית</td>
+        <td class="n">2</td><td><b>Domain ו-DC.</b> גבול זהות ואמון</td></tr>
+    <tr><td class="n">3</td><td><b>אובייקטים.</b> משתמשים, מחשבים, קבוצות ומדיניות</td>
+        <td class="n">4</td><td><b>DNS של Domain.</b> איתור DC באמצעות רשומות</td></tr>
+    <tr><td class="n">5</td><td><b>Domain Join.</b> נוצר חשבון מחשב ואמון</td>
+        <td class="n">6</td><td><b>אימות והרשאה.</b> מי אתה מול מה מותר</td></tr>
+    <tr><td class="n">7</td><td><b>Kerberos.</b> כרטיס לשירות</td>
+        <td class="n">8</td><td><b>זמן.</b> פער שעון מפיל כרטיסים ותעודות</td></tr>
+    <tr><td class="n">9</td><td><b>Group Policy.</b> מדיניות יכולה לשנות התנהגות</td>
+        <td class="n">10</td><td><b>יעדי אבטחה.</b> סודיות, שלמות ואימות</td></tr>
+    <tr><td class="n">11</td><td><b>סימטרית ואסימטרית.</b> אמון ומפתחות מול תעבורה</td>
+        <td class="n">12</td><td><b>תעודה.</b> שם, מפתח, מנפיק ותוקף</td></tr>
+    <tr><td class="n">13</td><td><b>שרשרת אמון.</b> Server עד Root</td>
+        <td class="n">14</td><td><b>Cipher Suite.</b> הצעה ובחירה משותפת</td></tr>
+    <tr><td class="n">15</td><td><b>TLS Handshake.</b> Hello, תעודה, מפתחות ו-Finished</td>
+        <td class="n">16</td><td><b>תקלות TLS.</b> זמן, שם, אמון ומשא ומתן</td></tr>
+    <tr><td class="n">17</td><td><b>תלות מערכתית.</b> רשת, DNS, זמן, זהות ו-TLS</td>
+        <td class="n"></td><td></td></tr>
+  </table>
+
+  <h2>מילון קצר למדריך</h2>
+  <table>
+    <tr><td class="k" style="width:22%">Domain</td><td style="width:28%">גבול ניהולי של זהות ואמון</td>
+        <td class="k" style="width:22%">CA</td><td>גורם שחותם על תעודה</td></tr>
+    <tr><td class="k">Kerberos</td><td>אימות מבוסס כרטיסים</td>
+        <td class="k">Certificate</td><td>קישור זהות למפתח ציבורי</td></tr>
+    <tr><td class="k">אסימטרית</td><td>זוג מפתחות ציבורי ופרטי</td>
+        <td class="k">Handshake</td><td>הסכמה ואימות לפני מידע יישומי</td></tr>
+    <tr><td class="k">סימטרית</td><td>אותו מפתח זמני לשני הצדדים</td>
+        <td class="k">Cipher Suite</td><td>שילוב הצפנה ו-Hash שנבחר</td></tr>
+  </table>
+
+  <div class="cards">
+    <div class="note green"><h3>שאלת סיום</h3>
+      <p>השרת נגיש ב-IP ובפורט אך TLS נכשל. אילו ארבע משפחות תבדוק לפני שתאשים את היישום?</p>
+    </div>
+    <div class="note red"><h3>טעות נפוצה</h3>
+      <p>לא לומר שהתעודה מצפינה את כל התעבורה, שהמפתח הפרטי נשלח ברשת, או שאימות זהות שווה הרשאה למשאב.</p>
+    </div>
+  </div>
+</div>
+
+</body></html>

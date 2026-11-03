@@ -1,0 +1,23 @@
+{
+  "id": "golan",
+  "name": "רמת הגולן",
+  "nameEn": "Golan Heights",
+  "blurb": "רמה הררית, ערוצים עמוקים וקו רכס — קלאסיקה לאתגרי קו-ראייה וממסרים.",
+  "gridSize": 384,
+  "bounds": {
+    "west": 35.5078125,
+    "east": 35.947265625,
+    "north": 33.28461996888768,
+    "south": 32.9164853473144
+  },
+  "elevation": {
+    "min": -198,
+    "max": 1605
+  },
+  "spanMeters": {
+    "x": 40981,
+    "y": 40912
+  },
+  "source": "AWS Terrain Tiles (terrarium / SRTM)",
+  "zoom": 12
+}

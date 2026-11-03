@@ -1,0 +1,303 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>תהליך איתור תקלות רשת</title><style>
+@page{size:A4;margin:52pt 54pt 46pt 54pt;
+  @bottom-right{content:"מחלקת תקשוב · איתור תקלות · שיעור 5";
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:right;vertical-align:top;padding-top:10pt;direction:rtl}
+  @bottom-left{content:counter(page) " / " counter(pages);
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:left;vertical-align:top;padding-top:10pt;direction:ltr}}
+@page:first{@bottom-right{content:""}@bottom-left{content:""}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Liberation Sans",Arial,sans-serif;color:#1b2a38;font-size:10pt;line-height:1.55;direction:rtl}
+.pg{page-break-after:always}
+.pg:last-child{page-break-after:auto}
+.eyebrow{font-size:9pt;font-weight:bold;color:#0f2740;margin-bottom:9pt}
+h1{font-size:20pt;font-weight:bold;margin:0 0 14pt;color:#0f2740;line-height:1.24;text-align:center}
+h2{font-size:13pt;margin:16pt 0 8pt;color:#0f2740;font-weight:bold}
+.rule{border:0;border-top:1px solid #dbe3ea;margin:0 0 16pt}
+p{margin:0 0 7pt}
+ul{margin:0 0 7pt;padding-right:15pt}
+li{margin-bottom:4pt}
+
+/* stat chips */
+.chips{display:flex;gap:11pt;margin:0 0 16pt}
+.chip{flex:1;background:#0f2740;border-radius:6pt;padding:11pt 8pt;text-align:center}
+.chip b{display:block;font-size:14pt;color:#3fd0e0;line-height:1.15}
+.chip span{display:block;font-size:8.5pt;color:#b6c6d4;margin-top:3pt}
+
+/* two rounded cards with a coloured inner edge */
+.cards{display:flex;gap:11pt;margin:0 0 14pt}
+.cards.three>*{flex:1}
+.cards>*{flex:1;min-width:0}
+.pc{border-radius:7pt;padding:10pt 13pt;position:relative;overflow:hidden}
+.pc::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.pc h3{margin:0 0 5pt;font-size:10pt;font-weight:bold}
+.pc p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.pc p:last-child{margin-bottom:0}
+.pc.teal{background:#e9f4f7}.pc.teal::after{background:#0f8793}.pc.teal h3{color:#0f6f7a}
+.pc.amber{background:#fdf4e6}.pc.amber::after{background:#e0a038}.pc.amber h3{color:#a8701a}
+.pc.red{background:#fdeef0}.pc.red::after{background:#d9556a}.pc.red h3{color:#a83a4c}
+.pc.green{background:#eef7f0}.pc.green::after{background:#4a9c62}.pc.green h3{color:#2f7546}
+
+/* full-width note block, same visual family */
+.note{border-radius:7pt;padding:9pt 13pt;margin:0 0 10pt;position:relative;overflow:hidden}
+.note::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.note h3{margin:0 0 4pt;font-size:9pt;font-weight:bold;letter-spacing:.02em}
+.note p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.note p:last-child{margin-bottom:0}
+.note.teal{background:#e9f4f7}.note.teal::after{background:#0f8793}.note.teal h3{color:#0f6f7a}
+.note.amber{background:#fdf4e6}.note.amber::after{background:#e0a038}.note.amber h3{color:#a8701a}
+.note.red{background:#fdeef0}.note.red::after{background:#d9556a}.note.red h3{color:#a83a4c}
+.note.green{background:#eef7f0}.note.green::after{background:#4a9c62}.note.green h3{color:#2f7546}
+
+/* dark headline band (used for the formula / the one-line rule of a page) */
+.band{background:#0f2740;border-radius:8pt;padding:14pt 18pt;margin:0 0 14pt;text-align:center;
+  color:#3fd0e0;font-size:16pt;font-weight:bold}
+.band.sm{font-size:12.5pt;padding:11pt 16pt}
+.band .w{color:#fff}
+
+table{width:100%;border-collapse:collapse;font-size:9pt;margin:0 0 11pt}
+th,td{border:1px solid #dbe3ea;padding:5pt 8pt;text-align:right;vertical-align:top}
+th{background:#eef4f8;color:#0f6f7a;font-weight:bold}
+td.k{font-weight:bold;color:#0f2740}
+td.n,th.n{text-align:center;width:52pt;white-space:nowrap;direction:ltr;unicode-bidi:embed}
+.ltr{direction:ltr;unicode-bidi:embed;display:inline-block}
+
+.title-pg{height:660pt;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.title-pg .kick{font-size:10pt;color:#0f8793;font-weight:bold;margin-bottom:20pt}
+.title-pg h1{font-size:27pt;margin-bottom:12pt}
+.title-pg .sub{font-size:12pt;color:#5b7186;margin:0 auto 26pt;max-width:400pt;line-height:1.55}
+.title-pg .meta{font-size:9.5pt;color:#5b7186}
+</style></head><body>
+
+<!-- 1 ─────────────────────────── -->
+<div class="pg title-pg">
+  <div class="kick">מחלקת תקשוב · שבוע רשתות · דף הנחיה למדריך</div>
+  <div style="color:#e0a038;font-weight:bold;font-size:12pt;margin-bottom:10pt">שיעור 5</div>
+  <h1>תהליך איתור תקלות רשת</h1>
+  <div class="sub">מהסימפטום וההיקף, דרך Link, VLAN, IP, DNS ושירות, ועד שינוי מבוקר ותיעוד.</div>
+  <div class="chips" style="max-width:400pt;margin:0 auto">
+    <div class="chip"><b>55&nbsp;דקות</b><span>משך מומלץ</span></div>
+    <div class="chip"><b>15</b><span>שקופיות</span></div>
+    <div class="chip"><b>שטח</b><span>רמת המיקוד</span></div>
+  </div>
+  <div class="meta" style="margin-top:20pt">מותאם לטכנאי שטח · סביבת Windows מנוהלת</div>
+</div>
+
+<!-- 2 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">00 · בריף למדריך</div>
+  <h1>לפני שמתחילים</h1><hr class="rule">
+  <div class="chips">
+    <div class="chip"><b>שטח</b><span>רמת המיקוד</span></div>
+    <div class="chip"><b>15</b><span>שקופיות כולל שער</span></div>
+    <div class="chip"><b>55 דקות</b><span>משך מומלץ</span></div>
+  </div>
+
+  <div class="cards">
+    <div style="flex:1">
+      <h2 style="margin-top:0">מטרת השיעור</h2>
+      <p>להפוך את המושגים והכלים לתהליך עקבי שמבודד את החוליה הראשונה שאינה תואמת לציפייה.</p>
+      <div class="note teal"><h3>תוצר נדרש</h3>
+        <p>בסיום החניך יגדיר סימפטום והיקף, ישווה לייחוס, יתקדם לפי שכבות, וישנה משתנה אחד תוך אימות ותיעוד.</p>
+      </div>
+    </div>
+    <div style="flex:1">
+      <h2 style="margin-top:0">הכנה מראש</h2>
+      <ul>
+        <li>לבחור תרחיש תקלה אחד מוכר לכל אורך ההסבר.</li>
+        <li>להכין תכנון או ייחוס תקין סכמטי להשוואה.</li>
+        <li>להזכיר שהעברת תקלה טובה כוללת ראיות, שעה והיקף.</li>
+      </ul>
+      <div class="note amber"><h3>גבול ההעמקה</h3>
+        <p>אין שלב תרגול ואין ניסיון ״לתקן הכול״. לא משנים VLAN, שרתים או מדיניות ללא סמכות; מבודדים ומעבירים.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>חלוקת זמן מוצעת</h2>
+  <table>
+    <tr><th>חלק</th><th>מה מעבירים</th><th class="n">דקות</th></tr>
+    <tr><td class="k">פתיחה</td><td>סימפטום, היקף וציפייה</td><td class="n">7</td></tr>
+    <tr><td class="k">ייחוס</td><td>השוואה למערכת תקינה או לתכנון</td><td class="n">7</td></tr>
+    <tr><td class="k">Link ו-VLAN</td><td>החוליה הפיזית והתחום המקומי</td><td class="n">9</td></tr>
+    <tr><td class="k">IP, ARP וניתוב</td><td>כתובת, שכן ודרך</td><td class="n">11</td></tr>
+    <tr><td class="k">DNS ושירות</td><td>שם, פורט ויישום</td><td class="n">8</td></tr>
+    <tr><td class="k">Domain ואמון</td><td>DNS, זמן, כרטיס ותעודה</td><td class="n">7</td></tr>
+    <tr><td class="k">סגירה</td><td>שינוי אחד, אימות ותיעוד</td><td class="n">6</td></tr>
+  </table>
+
+  <div class="note green"><h3>פתיחה מומלצת</h3>
+    <p>מה חסר במשפט ״הרשת לא עובדת״ כדי שאפשר יהיה לבחור בדיקה ראשונה?</p>
+  </div>
+</div>
+
+<!-- 3 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">01 · הגדרת הבעיה</div>
+  <h1>מגדירים סימפטום, היקף וציפייה לפני שנוגעים במערכת</h1><hr class="rule">
+  <p>״לא עובד״ אינו תיאור. צריך לדעת מה הפעולה, מה התוצאה, מתי התחיל, מי עוד מושפע, ומה היה אמור לקרות.</p>
+
+  <div class="cards">
+    <div class="pc red"><h3>סימפטום</h3><p>מה נכשל?</p></div>
+    <div class="pc amber"><h3>היקף</h3><p>מי מושפע?</p></div>
+    <div class="pc teal"><h3>ציפייה</h3><p>מה אמור לקרות?</p></div>
+    <div class="pc green"><h3>ראיה</h3><p>מה נמדד?</p></div>
+  </div>
+
+  <div class="note amber"><h3>שינוי, רק בסוף</h3>
+    <p>השינוי מגיע רק לאחר שיש שאלה וראיה, לא בתחילת האירוע, ותמיד אחד בלבד. לאחר מכן: בדיקה חוזרת מול אותו קריטריון, ואז תיעוד והעברה.</p>
+  </div>
+
+  <div class="note teal"><h3>איך להעביר</h3>
+    <p>הפוך כל תלונה למשפט שניתן להפריך: ״תחנה A אינה פותחת server.unit בפורט 443 מאז 10:15; תחנה B כן״.</p>
+  </div>
+</div>
+
+<!-- 4 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">02 · היקף וייחוס</div>
+  <h1>הפער מול מערכת תקינה מקצר את רשימת החשודים</h1><hr class="rule">
+
+  <div class="cards">
+    <div class="pc teal"><h3>היקף</h3>
+      <p>תחנה אחת, VLAN או מקטע, שירות אחד, או אתר שלם. כל היקף מכוון לחשודים אחרים.</p>
+    </div>
+    <div class="pc green"><h3>ייחוס</h3>
+      <p>משווים מתאם, כתובת, Prefix, Gateway, DNS, Route ותוצאה לאותה מערכת תקינה או לתכנון.</p>
+    </div>
+  </div>
+
+  <div style="background:#0f2740;border-radius:7pt;padding:12pt 16pt;margin:0 0 8pt">
+    <p class="ltr" style="margin:0 0 8pt;font-size:9.5pt;color:#3fd0e0;font-weight:bold">ipconfig /all</p>
+    <div class="ltr" style="display:flex;justify-content:space-between;font-size:9.5pt;margin-bottom:5pt"><span style="color:#b6c6d4">IPv4 Address</span><span style="color:#e0a038;font-weight:bold">10.20.30.15</span></div>
+    <div class="ltr" style="display:flex;justify-content:space-between;font-size:9.5pt;margin-bottom:5pt"><span style="color:#b6c6d4">Default Gateway</span><span style="color:#e0a038;font-weight:bold">10.20.30.1</span></div>
+    <div class="ltr" style="display:flex;justify-content:space-between;font-size:9.5pt;margin-bottom:8pt"><span style="color:#b6c6d4">DNS Servers</span><span style="color:#e0a038;font-weight:bold">10.20.10.10</span></div>
+    <p style="margin:0;font-size:8.5pt;color:#8b9bab;text-align:center">כל שדה מקבל משמעות רק מול תכנון או ייחוס תקין</p>
+  </div>
+  <p style="text-align:center;font-style:italic;color:#5b7186;font-size:9.5pt;margin-bottom:12pt">המספר החשוב הוא הפער, לא עצם הופעתו בפלט.</p>
+
+  <div class="note red"><h3>זהירות</h3>
+    <p>אין להעתיק הגדרה מתחנה אחרת בלי לוודא שהיא אמורה להיות זהה.</p>
+  </div>
+</div>
+
+<!-- 5 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">03 · Link ו-VLAN</div>
+  <h1>הפיזי קודם, אך Link תקין אינו סוף הבדיקה</h1><hr class="rule">
+  <p>אין Link: בדוק כבל, מחבר, הזנה, מתאם ופורט. יש Link אך אין שכנות צפויה: אסוף MAC, כתובת, פורט ושעה והעבר לבדיקת VLAN.</p>
+
+  <table>
+    <tr><th>VLAN</th><th>תחנות</th></tr>
+    <tr><td class="k">VLAN 10</td><td class="ltr">A, B</td></tr>
+    <tr><td class="k">VLAN 20</td><td class="ltr">C, D</td></tr>
+  </table>
+
+  <div class="note teal"><h3>Link תקין אינו מוכיח מעבר בין רשתות</h3>
+    <p>המתג מחבר את שתי הרשתות ברמה הפיזית, ולכן Link יכול להיות תקין משני הצדדים. מעבר תעבורה בפועל בין VLAN 10 ל-VLAN 20 דורש ניתוב; בלעדיו התקשורת נעצרת בגבול הזה. מדדי הקישור הבודד (Throughput) יכולים להיראות תקינים, בעוד המעבר בפועל בין הרשתות (Goodput) חסום כל עוד אין ניתוב.</p>
+    <p>הטכנאי אינו משנה VLAN, הוא מוכיח את הגבול שבו התקשורת מפסיקה.</p>
+  </div>
+
+  <div class="note amber"><h3>ראיה טובה להסלמה</h3>
+    <p>Link Up, פורט פיזי מזוהה, כתובת ומסכה תואמות, אין ARP ל-Gateway, מערכת ייחוס באותו מקטע עובדת.</p>
+  </div>
+</div>
+
+<!-- 6 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">04 · כתובת, שכן ודרך</div>
+  <h1>IP, ARP וניתוב נבדקים בסדר הזה</h1><hr class="rule">
+  <p>כתובת או Prefix שגויים משנים את ההחלטה מקומי/מרוחק. ARP חסר ל-Gateway מצביע על בעיה לפני הניתוב. Route שגוי מפנה תעבורה לכיוון אחר.</p>
+
+  <div class="cards">
+    <div class="pc teal"><h3>תחנה</h3><p>IP יעד. שולחת ARP ל-MAC של השער.</p></div>
+    <div class="pc amber"><h3>נתב</h3><p>טבלת ניתוב. בונה מסגרת Ethernet חדשה להמשך הדרך.</p></div>
+    <div class="pc green"><h3>שרת</h3><p>IP יעד, הכתובת הסופית של המסלול.</p></div>
+  </div>
+
+  <p style="text-align:center;color:#5b7186;font-size:9.5pt;margin-bottom:4pt">כתובות IP נשארות מקצה לקצה; כתובות MAC מתחלפות בכל קישור.</p>
+  <p style="text-align:center;font-style:italic;color:#5b7186;font-size:9.5pt;margin-bottom:14pt">הפרד בין ״אין שכן״ לבין ״יש שכן אך אין דרך״.</p>
+
+  <table>
+    <tr><td class="n">1</td><td>השווה כתובת, Prefix, Gateway ו-DNS מול תכנון.</td></tr>
+    <tr><td class="n">2</td><td>צור תעבורה ואז בדוק ARP; השווה MAC לציפייה.</td></tr>
+    <tr><td class="n">3</td><td>בדוק את הנתיב הספציפי שנבחר, לא רק Default Gateway.</td></tr>
+  </table>
+</div>
+
+<!-- 7 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">05 · שירות, זהות וסגירה</div>
+  <h1>מפרידים DNS מפורט, ואז בודקים זמן ואמון</h1><hr class="rule">
+  <p>גישה לפי IP מול שם מבודדת DNS. פתיחת TCP מול Ping מבודדת שירות. ב-Domain בודקים DNS, זמן, איתור DC, כרטיס ותעודה (Kerberos) לפני סיסמה.</p>
+
+  <div class="chips">
+    <div class="chip"><b class="ltr">Domain</b><span>זהות ואמון</span></div>
+    <div class="chip"><b class="ltr" style="font-size:11.5pt">DNS /<br>Service</b><span>שם ופורט</span></div>
+    <div class="chip"><b class="ltr" style="font-size:12.5pt">IP / Route</b><span>כתובת ודרך</span></div>
+    <div class="chip"><b class="ltr">Ethernet</b><span>VLAN ושכנות</span></div>
+    <div class="chip"><b class="ltr">Link</b><span>כבל ומתאם</span></div>
+  </div>
+
+  <p style="text-align:center;color:#5b7186;font-size:9.5pt;margin-bottom:4pt">עוצרים בשלב הראשון שבו הראיה אינה תואמת לציפייה.</p>
+  <p style="text-align:center;font-style:italic;color:#5b7186;font-size:9.5pt;margin-bottom:14pt">התהליך עובר מהחוליה הפשוטה והקרובה אל התלות הגבוהה יותר.</p>
+
+  <div class="note teal"><h3>סגירת תקלה</h3>
+    <p>שנה דבר אחד, חזור על אותה בדיקה, השווה לייחוס, ותעד סימפטום, היקף, שעה, ראיות, שינוי ותוצאה.</p>
+  </div>
+
+  <div class="note amber"><h3>תקלה לסירוגין</h3>
+    <p>אסוף מדדים לאורך זמן וקשר אותם לשעה ולאירועים; מדידה יחידה יכולה לפספס קפיצות Loss או Latency.</p>
+  </div>
+</div>
+
+<!-- 8 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">סיום · מפת העברה</div>
+  <h1>מהלך המצגת ונקודות אימות</h1><hr class="rule">
+
+  <table>
+    <tr><td class="n">1</td><td>שער<br><span style="font-weight:400;color:#5b7186;font-size:8.5pt">צמצום שיטתי, לא החלפת ציוד.</span></td>
+        <td class="n">2</td><td>לפני הכלים<br><span style="font-weight:400;color:#5b7186;font-size:8.5pt">סימפטום, היקף, ציפייה וראיה.</span></td></tr>
+    <tr><td class="n">3</td><td>היקף<br><span style="font-weight:400;color:#5b7186;font-size:8.5pt">תחנה, מקטע, שירות או אתר.</span></td>
+        <td class="n">4</td><td>ייחוס<br><span style="font-weight:400;color:#5b7186;font-size:8.5pt">הפער מול תקין הוא מידע.</span></td></tr>
+    <tr><td class="n">5</td><td>שכבה פיזית<br><span style="font-weight:400;color:#5b7186;font-size:8.5pt">כבל, מחבר, הזנה ופורט.</span></td>
+        <td class="n">6</td><td>Ethernet ו-VLAN<br><span style="font-weight:400;color:#5b7186;font-size:8.5pt">Link תקין אך שכנות חסרה.</span></td></tr>
+    <tr><td class="n">7</td><td>כתובת ומסכה<br><span style="font-weight:400;color:#5b7186;font-size:8.5pt">הגדרה שגויה משנה מקומי/מרוחק.</span></td>
+        <td class="n">8</td><td>שכנות ARP<br><span style="font-weight:400;color:#5b7186;font-size:8.5pt">אין MAC לשער לפני ניתוב.</span></td></tr>
+    <tr><td class="n">9</td><td>ניתוב<br><span style="font-weight:400;color:#5b7186;font-size:8.5pt">Gateway או Route שגוי.</span></td>
+        <td class="n">10</td><td>DNS<br><span style="font-weight:400;color:#5b7186;font-size:8.5pt">IP עובד ושם נכשל.</span></td></tr>
+    <tr><td class="n">11</td><td>פורט ושירות<br><span style="font-weight:400;color:#5b7186;font-size:8.5pt">דרך תקינה אך Listener חסר.</span></td>
+        <td class="n">12</td><td>Domain ואמון<br><span style="font-weight:400;color:#5b7186;font-size:8.5pt">DNS, זמן, Kerberos ותעודה.</span></td></tr>
+    <tr><td class="n">13</td><td>תקלה לסירוגין<br><span style="font-weight:400;color:#5b7186;font-size:8.5pt">אוספים מדידה לאורך זמן.</span></td>
+        <td class="n">14</td><td>סגירת תקלה<br><span style="font-weight:400;color:#5b7186;font-size:8.5pt">שינוי אחד, בדיקה, השוואה ותיעוד.</span></td></tr>
+    <tr><td class="n">15</td><td colspan="3">התהליך השלם<br><span style="font-weight:400;color:#5b7186;font-size:8.5pt">Link עד Domain לפי הראיה.</span></td></tr>
+  </table>
+
+  <h2>מילון קצר למדריך</h2>
+  <div style="display:flex;gap:24pt;margin-bottom:12pt">
+    <div style="flex:1">
+      <p><b>היקף:</b> מי עוד מושפע.</p>
+      <p><b>ראיה:</b> תוצאה מדידה.</p>
+      <p><b>בידוד:</b> צמצום התקלה לחוליה.</p>
+      <p><b>הסלמה:</b> העברה עם ראיות לצוות מוסמך.</p>
+    </div>
+    <div style="flex:1">
+      <p><b>סימפטום:</b> מה בדיוק נכשל.</p>
+      <p><b>ציפייה:</b> המצב שאמור להתקיים.</p>
+      <p><b>ייחוס:</b> מערכת תקינה להשוואה.</p>
+      <p><b>אימות תיקון:</b> בדיקה חוזרת לאותו קריטריון.</p>
+    </div>
+  </div>
+
+  <div class="note green"><h3>שאלת סיום</h3>
+    <p>איזו ראיה קצרה ביותר תבודד את השלב התקול בתרחיש שהצגת, ומה תתעד להעברה?</p>
+  </div>
+
+  <div class="note red"><h3>טעות שאסור להשאיר</h3>
+    <p>לא לבצע כמה שינויים יחד, לא להתחיל בהחלפת ציוד, ולא לדלג על בדיקת תוצאה מול אותו קריטריון.</p>
+  </div>
+</div>
+
+</body></html>

@@ -1,0 +1,442 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><title>יסודות חשמל ואלקטרוניקה לרדיו</title></head><body><style>
+:root{--deep:#04070d;--panel:#0b1220;--panel2:#101b30;--card:rgba(255,255,255,.052);--border:rgba(255,255,255,.105);--cyan:#22d3ee;--cyan2:#0891b2;--amber:#fbbf24;--red:#fb7185;--green:#4ade80;--ink:#f1f5f9;--muted:#a7b7c9;--dim:#8ba0b5}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;font-family:"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased}button{font:inherit}.deck-root{position:fixed;inset:0;background:radial-gradient(circle at 50% 24%,#0c1a2b 0,#000 76%);direction:rtl}.stage-shell{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}.stage{width:1280px;height:720px;position:relative;transform-origin:center;background:linear-gradient(155deg,#08111e 0%,#0a1829 58%,#07101c 100%);border-radius:16px;box-shadow:0 42px 110px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.06);overflow:hidden}.stage::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(34,211,238,.035) 1px,transparent 1px);background-size:100% 56px}.slide{position:absolute;inset:0;padding:43px 62px 66px;display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateX(-14px);transition:opacity .28s ease,transform .28s ease}.slide.active{opacity:1;pointer-events:auto;transform:none}.eyebrow{display:flex;align-items:center;gap:10px;padding-right:122px;color:var(--cyan);font-size:15px;font-weight:700;margin-bottom:8px}.eyebrow .num{display:inline-flex;align-items:center;justify-content:center;width:29px;height:29px;border-radius:8px;background:rgba(34,211,238,.11);border:1px solid rgba(34,211,238,.35);font-size:12px}.title{font-size:42px;line-height:1.13;color:var(--ink);font-weight:800;margin:0 0 7px}.subtitle{font-size:19px;line-height:1.5;color:var(--muted);margin:0 0 15px;max-width:1080px}.body{flex:1;min-height:0;display:flex;flex-direction:column}.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.34fr);gap:34px;flex:1;min-height:0;align-items:stretch}.split.text-wide{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}.stack{display:flex;flex-direction:column;gap:13px;min-width:0}.copy{font-size:19px;line-height:1.58;color:var(--muted);margin:0}.copy strong{color:var(--ink)}.key{background:rgba(34,211,238,.065);border-right:4px solid var(--cyan);border-radius:12px;padding:14px 17px;color:var(--ink);font-size:18px;line-height:1.5}.key.amber{background:rgba(251,191,36,.07);border-color:var(--amber)}.key.red{background:rgba(251,113,133,.07);border-color:var(--red)}.visual{position:relative;min-height:0;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:16px;background:radial-gradient(circle at 50% 40%,rgba(34,211,238,.075),transparent 67%),var(--panel);overflow:hidden;padding:16px}.visual.flat{border:0;background:transparent;padding:0}.visual svg{width:100%;height:100%;max-height:500px;overflow:visible}.visual-label{position:absolute;inset:auto 18px 12px;font-size:14px;color:var(--dim);text-align:center}.formula{direction:ltr;unicode-bidi:isolate;display:flex;align-items:center;justify-content:center;gap:15px;border:1px solid var(--border);background:var(--panel2);border-radius:14px;padding:15px 22px;color:var(--ink);font-size:31px;font-weight:800}.formula .accent{color:var(--cyan)}.formula .amber{color:var(--amber)}.grid2,.grid3,.grid4{display:grid;gap:16px;flex:1;align-content:stretch}.grid2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid4{grid-template-columns:repeat(4,minmax(0,1fr))}.card{border:1px solid var(--border);border-radius:15px;background:var(--card);padding:17px 19px;min-width:0}.card h3{margin:0 0 7px;color:var(--ink);font-size:22px}.card p{margin:0;color:var(--muted);font-size:16.5px;line-height:1.48}.card .tag{font-size:13px;font-weight:800;color:var(--cyan);margin-bottom:7px}.card.amber .tag{color:var(--amber)}.card.red .tag{color:var(--red)}.card.green .tag{color:var(--green)}.steps{display:flex;align-items:stretch;gap:0;direction:rtl;flex:1}.step{flex:1 1 0;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:22px 16px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(255,255,255,.025)}.step:first-child{border-right:1px solid var(--border);border-radius:0 14px 14px 0}.step:last-child{border-left:1px solid var(--border);border-radius:14px 0 0 14px}.step:not(:last-child)::after{content:"←";position:absolute;left:-13px;top:50%;transform:translateY(-50%);z-index:2;width:26px;height:26px;display:grid;place-items:center;border-radius:50%;background:var(--panel2);border:1px solid var(--border);color:var(--cyan)}.step strong{font-size:19px;color:var(--ink);margin-bottom:6px}.step span{font-size:15px;color:var(--muted);line-height:1.4}.metric{display:flex;align-items:baseline;gap:10px;direction:ltr;justify-content:center}.metric .value{font-size:58px;color:var(--cyan);font-weight:800}.metric .unit{font-size:20px;color:var(--muted)}.ltr{direction:ltr;unicode-bidi:isolate}span.ltr,b.ltr,i.ltr,em.ltr{display:inline;white-space:nowrap}.table{width:100%;border-collapse:collapse;font-size:16px}.table th,.table td{padding:11px 14px;border:1px solid var(--border);text-align:center}.table th{background:var(--panel2);color:var(--cyan)}.table td{background:rgba(255,255,255,.025);color:var(--muted)}.table td:first-child{color:var(--ink);font-weight:700}.checklist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}.checklist li{display:block;position:relative;padding-right:36px;min-height:24px;color:var(--muted);font-size:18px;line-height:1.45}.checklist li::before{content:"•";flex:0 0 25px;width:25px;height:25px;border-radius:7px;display:grid;place-items:center;background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.3);color:var(--green);font-weight:800}.question{font-size:28px;color:var(--ink);font-weight:800;line-height:1.35}.answer-row{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:20px}.answer{border:1px solid var(--border);border-radius:14px;padding:18px;background:rgba(255,255,255,.035);color:var(--muted);font-size:17px;line-height:1.45}.answer strong{display:block;color:var(--cyan);font-size:20px;margin-bottom:5px}.sources{font-size:13px;color:var(--dim);line-height:1.45;margin-top:8px}.sources a{color:var(--dim)}.footer{position:absolute;right:62px;left:62px;bottom:24px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--dim)}.title-slide{align-items:center;justify-content:center;text-align:center}.title-slide .badge{display:inline-flex;align-items:center;padding:8px 20px;border-radius:999px;border:1px solid rgba(34,211,238,.36);background:rgba(34,211,238,.09);color:var(--cyan);font-size:16px;font-weight:700;margin-bottom:25px}.title-slide h1{font-size:70px;line-height:1.08;margin:0 0 16px;color:var(--ink)}.title-slide p{font-size:24px;color:var(--muted);line-height:1.55;max-width:900px;margin:0 auto 28px}.hero-wave{width:650px;height:88px;max-width:72%}.nav{position:absolute;z-index:20;right:0;left:0;bottom:0;display:flex;align-items:center;gap:12px;padding:10px 25px;background:linear-gradient(0deg,rgba(0,0,0,.72),transparent)}.nav button{border:1px solid var(--border);background:rgba(255,255,255,.065);color:var(--ink);padding:7px 13px;border-radius:9px;cursor:pointer}.nav button:hover:not(:disabled){background:rgba(34,211,238,.14)}.nav button:disabled{opacity:.28;cursor:default}.progress{flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden}.progress>span{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--amber));transition:width .25s}.counter{direction:ltr;color:var(--dim);font-size:14px;min-width:58px;text-align:center}.notes-panel{position:absolute;z-index:30;left:24px;bottom:58px;width:390px;max-height:220px;overflow:auto;border:1px solid rgba(251,191,36,.36);border-radius:13px;background:rgba(6,10,18,.96);padding:14px 16px;color:var(--muted);font-size:15px;line-height:1.5;box-shadow:0 18px 60px rgba(0,0,0,.5)}.notes-panel[hidden]{display:none}.notes-panel strong{color:var(--amber);display:block;margin-bottom:5px}.speaker-note{display:none}.kbd-hint{position:absolute;left:21px;top:18px;color:var(--dim);font-size:11px}svg text{paint-order:stroke;stroke:#071019;stroke-width:2.4px;stroke-linejoin:round}.visual svg text,.card svg text{font-family:"Segoe UI",Arial,sans-serif}.flow{stroke-dasharray:8 10;animation:dash 2s linear infinite}.pulse{animation:pulse 1.7s ease-in-out infinite}.float{animation:float 3s ease-in-out infinite}.rotate{transform-origin:center;animation:spin 8s linear infinite}@keyframes dash{to{stroke-dashoffset:-72}}@keyframes pulse{50%{opacity:.35}}@keyframes float{50%{transform:translateY(-7px)}}@keyframes spin{to{transform:rotate(360deg)}}.flow.rev{animation-direction:reverse}.flow.slow{animation-duration:3.6s}.flow.fast{animation-duration:1.1s}.wave{transform-box:fill-box;animation:travel 2.6s linear infinite}.wave.rev{animation-direction:reverse}.wave.slow{animation-duration:4.2s}@keyframes travel{to{transform:translateX(var(--period,120px))}}.pkt{transform-box:fill-box;animation:pkt 2.8s ease-in-out infinite}@keyframes pkt{0%{opacity:0}8%{opacity:1}92%{opacity:1}100%{opacity:0;transform:translateX(var(--run,220px))}}.pkt.rev{animation-name:pktr}@keyframes pktr{0%{opacity:0}8%{opacity:1}92%{opacity:1}100%{opacity:0;transform:translateX(calc(-1*var(--run,220px)))}}.pkt.d1{animation-delay:.35s}.pkt.d2{animation-delay:.7s}.pkt.d3{animation-delay:1.05s}.blink{animation:blink 1.8s steps(1,end) infinite}@keyframes blink{0%,55%{opacity:1}56%,100%{opacity:.2}}.breathe{transform-box:fill-box;transform-origin:center;animation:breathe 2.4s ease-in-out infinite}@keyframes breathe{50%{transform:scale(1.12)}}.fade-cycle{animation:fadecyc 3.2s ease-in-out infinite}@keyframes fadecyc{0%,100%{opacity:.15}45%,55%{opacity:1}}@media(prefers-reduced-motion:reduce){.deck-root:not(.motion-on) *{animation:none!important;transition:none!important}}.motion-badge{position:absolute;left:21px;top:38px;z-index:6;font-size:11px;color:var(--cyan);background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.35);border-radius:6px;padding:2px 7px;pointer-events:none}.motion-badge[hidden]{display:none}
+@media print{html,body{height:auto;overflow:visible;background:#fff}.deck-root{position:static;background:#fff}.stage-shell{position:static;display:block;overflow:visible}.stage{width:1280px;height:auto;transform:none!important;border-radius:0;box-shadow:none;overflow:visible;background:#08111e}.slide{position:relative;width:1280px;height:720px;opacity:1!important;transform:none!important;pointer-events:auto;page-break-after:always}.nav,.notes-panel,.kbd-hint{display:none!important}}
+svg text.ltrtx,svg tspan.ltrtx{direction:ltr;unicode-bidi:isolate}svg text.nohalo{stroke:none;paint-order:normal}.table td,.table th,.rt td,.rt th{unicode-bidi:plaintext}.table td.fx,.rt td.fx{unicode-bidi:isolate}.crest{background-image:url(data:image/png;base64,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);background-size:contain;background-position:center;background-repeat:no-repeat;display:inline-block;flex:0 0 auto}.crest-lg{width:76px;height:107px}.crest-sm{width:27px;height:38px}.brand{display:flex;align-items:center;gap:15px;margin-bottom:22px;direction:rtl}.brand-txt{display:flex;flex-direction:column;align-items:flex-start;line-height:1.18;text-align:right}.brand-txt b{font-size:25px;font-weight:800;color:var(--ink);letter-spacing:.01em}.brand-txt i{font-size:16px;font-style:normal;color:var(--cyan);font-weight:600}.slide-mark{position:absolute;top:28px;right:62px;z-index:4;display:flex;align-items:flex-end;gap:9px;font-size:13px;font-weight:600;color:var(--dim);letter-spacing:.01em;pointer-events:none}.slide-mark>span:last-child{padding-bottom:3px}.foot-brand{display:inline-flex;align-items:center;gap:7px;color:var(--dim);white-space:nowrap}</style><style>/* nav bar covers the slide footer on screen; the counter is in the nav */@media screen{.stage .footer{display:none}}/* A pauses CSS animations too, not only SVG ones */.deck-root:not(.motion-on) *,.deck-root:not(.motion-on) *::before,.deck-root:not(.motion-on) *::after{animation-play-state:paused!important}</style><style>.r01-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;min-width:0}.r01-lbl{font-size:14px;font-weight:700;color:var(--dim);white-space:nowrap}.r01-btn{appearance:none;cursor:pointer;border:1px solid var(--border);background:rgba(255,255,255,.06);color:var(--ink);border-radius:9px;padding:6px 12px;font-size:15px;line-height:1.2;white-space:nowrap;transition:background .15s,border-color .15s}.r01-btn:hover{background:rgba(34,211,238,.13);border-color:rgba(34,211,238,.5)}.r01-btn.on{background:rgba(34,211,238,.2);border-color:var(--cyan);color:#e6fbff}.r01-btn.tx{background:rgba(251,113,133,.24);border-color:var(--red);color:#fff}.r01-btn[hidden]{display:none}.r01-btn:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}.r01-rng{width:100%;accent-color:var(--cyan);margin:0}.r01-panel{border:1px solid var(--border);border-radius:14px;background:var(--panel);padding:11px 15px;min-width:0;display:flex;flex-direction:column;gap:7px}.r01-big{font-size:30px;font-weight:800;color:var(--cyan);direction:ltr;unicode-bidi:isolate;white-space:nowrap}.r01-val{color:var(--ink);font-weight:800;font-size:16px;direction:ltr;unicode-bidi:isolate;white-space:nowrap}.r01-sm{font-size:14.5px;color:var(--dim);line-height:1.45}.r01-en{display:block;font-size:12.5px;font-weight:400;color:var(--dim)}.r01-tbl{font-size:15px}.r01-tbl th,.r01-tbl td{padding:6px 10px}.r01-q p{margin:0 0 6px;font-size:15.5px;line-height:1.45;color:var(--muted)}.r01-q p:last-child{margin-bottom:0}.r01-hit{cursor:pointer}.r01-hit:focus{outline:none}.r01-hit:focus-visible .r01-hl{stroke:#fff;stroke-opacity:.6}.r01-legend{position:absolute;top:10px;right:18px;left:18px;display:flex;gap:18px;justify-content:flex-start;font-size:14px;color:var(--muted);pointer-events:none}.r01-legend i{display:inline-block;width:20px;height:5px;border-radius:3px;vertical-align:middle;margin-left:6px}.r01-cv{width:100%;height:auto;max-height:100%;display:block}.r01-msg{min-height:50px}.r01-tbl td.fx{direction:ltr}</style><div class="deck-root motion-on" id="radio-lesson-01-electricity" dir="rtl"><div class="stage-shell"><main class="stage" aria-label="יסודות חשמל ואלקטרוניקה לרדיו"><div class="motion-badge" hidden>אנימציות כבויות</div><div class="kbd-hint">← → ניווט · N הערות · F מסך מלא · A כיבוי אנימציות</div><section class="slide title-slide active" aria-hidden="false"><div class="brand"><span class="crest crest-lg" role="img" aria-label="סמל היחידה"></span><span class="brand-txt"><b>גדס״ם 5059</b><i>מחלקת תקשוב</i></span></div><div class="badge">VHF</div><h1>יסודות חשמל ואלקטרוניקה לרדיו</h1><p>מתח, זרם, התנגדות, AC/DC, הספק והשראות, עד לגל אלקטרומגנטי.</p><svg class="hero-wave" viewBox="0 0 650 88" role="img" aria-label="גל רדיו"><path d="M0 44 C42 3 84 85 126 44 S210 3 252 44 S336 85 378 44 S462 3 504 44 S588 85 650 44" fill="none" stroke="#22d3ee" stroke-width="4" stroke-linecap="round"/><path d="M0 44 C42 17 84 71 126 44 S210 17 252 44 S336 71 378 44 S462 17 504 44 S588 71 650 44" fill="none" stroke="#fbbf24" stroke-width="1.5" opacity=".55"/></svg><aside class="speaker-note">פתחו בשאלה: מה זז בתוך הכבל כשלוחצים PTT? מתמקדים במושגים הדרושים לאבחון בשטח. מהלך השיעור: שקופיות 2 עד 6 עוסקות במעגל, בחוק אוהם, בזרם חילופין, בהספק ובמקור תחת עומס, ושקופית 7 היא תרגול מדידה לאורך מסלול ההזנה. שקופיות 8 עד 10 עוברות מהשראות לזרם באנטנה ולגל, ושקופית 11 מפרטת מה ההדגמות מפשטות. בשקופיות 2, 6, 7, 8 ו-9 יש הדגמה חיה. לפני כל שינוי כדאי לבקש מהחניכים ניחוש.</aside></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">01</span>מתח וזרם</div><h1 class="title">מעגל פתוח ומעגל סגור</h1><p class="subtitle">במעגל פתוח יכול להיות מתח בלי זרם רציף דרך העומס. כדי שאנרגיה תגיע לעומס דרך מוליך, הזרם צריך גם דרך חזרה אל המקור.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,1fr) minmax(0,1.45fr)"><div class="stack" style="gap:11px"><div class="r01-panel"><div class="r01-row"><span class="r01-lbl" style="min-width:104px">מתג</span><button class="r01-btn" type="button" data-oc-sw="0">פתוח</button><button class="r01-btn" type="button" data-oc-sw="1">סגור</button></div><div class="r01-row"><span class="r01-lbl" style="min-width:104px">חיבור החזרה</span><button class="r01-btn" type="button" data-oc-ret="1">תקין</button><button class="r01-btn" type="button" data-oc-ret="0">מנותק</button></div><div class="r01-lbl" style="margin-top:3px">מד המתח מחובר על</div><div class="r01-row"><button class="r01-btn" type="button" data-oc-m="src">המקור</button><button class="r01-btn" type="button" data-oc-m="sw">המתג</button><button class="r01-btn" type="button" data-oc-m="load">העומס</button><button class="r01-btn" type="button" data-oc-m="ret">חיבור החזרה</button></div></div><div class="r01-panel"><div class="r01-row" style="justify-content:space-between"><span class="r01-lbl">זרם במעגל</span><span class="r01-big" id="oc-i">0.00 A</span></div></div><div class="key r01-msg" id="oc-msg"></div></div><div class="visual"><svg id="oc-svg" viewBox="0 0 640 430" role="img" aria-label="מעגל עם מקור, מתג, עומס וחיבור חזרה, ומד מתח שמחובר על אחד מהם"><defs><filter id="ocGlow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="9"/></filter></defs><g id="oc-dots" fill="#4ade80"></g><g fill="none" stroke="#8ba0b5" stroke-width="6" stroke-linejoin="round"><path d="M80 165 V70 H250"/><path d="M330 70 H560 V179"/><path d="M560 251 V360 H360"/><path d="M300 360 H80 V265"/></g><text x="200" y="52" fill="#f1f5f9" text-anchor="middle" font-size="18">מתג</text><g id="oc-sw" class="r01-hit" tabindex="0" role="button" aria-label="מתג: פתיחה וסגירה"><rect x="236" y="14" width="110" height="74" fill="transparent"/><line id="oc-blade" x1="250" y1="70" x2="318" y2="28" stroke="#fbbf24" stroke-width="6" stroke-linecap="round"/><circle cx="250" cy="70" r="7" fill="#fbbf24"/><circle cx="330" cy="70" r="7" fill="#fbbf24"/></g><g id="oc-ret" class="r01-hit" tabindex="0" role="button" aria-label="חיבור החזרה: חיבור וניתוק"><rect x="286" y="336" width="88" height="48" fill="transparent"/><g id="oc-ret-ok"><line x1="300" y1="360" x2="360" y2="360" stroke="#8ba0b5" stroke-width="6"/><rect x="316" y="349" width="28" height="22" rx="5" fill="#101b30" stroke="#8ba0b5" stroke-width="2"/></g><g id="oc-ret-bad" style="display:none"><text x="330" y="347" fill="#fb7185" text-anchor="middle" font-size="16">נתק</text></g><circle cx="300" cy="360" r="6" fill="#8ba0b5"/><circle cx="360" cy="360" r="6" fill="#8ba0b5"/></g><text x="330" y="404" fill="#f1f5f9" text-anchor="middle" font-size="18">חיבור חזרה</text><rect x="40" y="165" width="80" height="100" rx="14" fill="#101b30" stroke="#22d3ee" stroke-width="3"/><text x="80" y="207" fill="#f1f5f9" text-anchor="middle" font-size="18">מקור</text><text class="ltrtx" x="80" y="238" fill="#22d3ee" text-anchor="middle" font-size="19">12 V</text><text class="ltrtx" x="104" y="186" fill="#fb7185" text-anchor="middle" font-size="17">+</text><text class="ltrtx" x="104" y="258" fill="#8ba0b5" text-anchor="middle" font-size="17">−</text><circle id="oc-glow" cx="560" cy="215" r="44" fill="#fbbf24" opacity="0" filter="url(#ocGlow)"/><circle id="oc-lamp" cx="560" cy="215" r="36" fill="#101b30" stroke="#fbbf24" stroke-width="3"/><path d="M535 190 L585 240 M585 190 L535 240" stroke="#fbbf24" stroke-width="3"/><text x="482" y="205" fill="#f1f5f9" text-anchor="middle" font-size="18">עומס</text><text class="ltrtx" x="482" y="232" fill="#fbbf24" text-anchor="middle" font-size="17">6 Ω</text><g id="oc-meter"><path id="oc-lead-b" fill="none" stroke="#cbd5e1" stroke-width="3"/><path id="oc-lead-r" fill="none" stroke="#fb7185" stroke-width="3"/><circle id="oc-pb" r="7" fill="#cbd5e1"/><circle id="oc-pr" r="7" fill="#fb7185"/><rect x="245" y="170" width="150" height="90" rx="12" fill="#06101c" stroke="#22d3ee" stroke-width="2"/><text x="320" y="196" fill="#8ba0b5" text-anchor="middle" font-size="15">מד מתח</text><text id="oc-mv" class="ltrtx" x="320" y="239" fill="#22d3ee" text-anchor="middle" font-size="30" font-weight="800">12.0 V</text></g></svg></div></div></div><aside class="speaker-note">ברירת המחדל: מקור של <span class="ltr">12 V</span>, עומס של <span class="ltr">6 Ω</span>, המתג פתוח ומד המתח מחובר על המתג. המד מראה <span class="ltr">12.0 V</span> והזרם <span class="ltr">0.00 A</span>: יש מתח ואין זרם. סגרו את המתג: על המתג <span class="ltr">0.0 V</span>, הזרם <span class="ltr">2.00 A</span> והעומס נדלק. העבירו את המד לעומס (<span class="ltr">12.0 V</span>) ונתקו את חיבור החזרה: הזרם נעלם, על העומס <span class="ltr">0.0 V</span>, וכשמעבירים את המד לחיבור החזרה כל <span class="ltr">12 V</span> נמצאים על הנתק. הכלל לאבחון: על מתג סגור, נתיך תקין או מגע טוב כמעט אין מתח, ועל נתק נמצא כל מתח המקור. אם פותחים גם את המתג וגם את החזרה, המד על כל נתק לבד מראה כמעט אפס, כי הנתק השני מפריד בינו לבין המקור. החניכים פוגשים כאן מתח וזרם עוד לפני חוק אוהם והספק, ולכן לא מחשבים. הטעות הנפוצה היא לבדוק רק את החוט החיובי: חזרה מנותקת עוצרת את הזרם כמו מתג פתוח.</aside><div class="footer"><span>שיעור 1 · חשמל ואלקטרוניקה</span><span class="ltr">02 / 11</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">02</span>חוק אוהם</div><h1 class="title">מתח, זרם והתנגדות</h1><p class="subtitle">חוק אוהם קושר בין שלושתם. ההתנגדות קובעת כמה זרם יעבור במתח נתון.</p><div class="body"><div class="split text-wide"><div class="stack"><div class="formula"><span class="accent">I</span><span>=</span><span class="amber">V</span><span>/</span><span>R</span></div><table class="table r01-tbl"><tr><th>גודל</th><th>סימן</th><th>יחידה</th><th>משמעות</th></tr><tr><td>מתח<span class="r01-en">Voltage</span></td><td class="fx">V</td><td>וולט <span class="ltr">(V)</span></td><td>הפרש הפוטנציאלים שמניע את המעגל.</td></tr><tr><td>זרם<span class="r01-en">Current</span></td><td class="fx">I</td><td>אמפר <span class="ltr">(A)</span></td><td>כמה מטען עובר בכל שנייה.</td></tr><tr><td>התנגדות<span class="r01-en">Resistance</span></td><td class="fx">R</td><td>אוהם <span class="ltr">(Ω)</span></td><td>כמה המעגל מתנגד לזרימה.</td></tr></table><div class="key amber">יותר מתח על אותו עומס נותן יותר זרם. הגדלת ההתנגדות, כשהמתח קבוע, מקטינה אותו.</div></div><div class="visual"><svg viewBox="0 0 480 360" role="img" aria-label="השוואת זרם דרך התנגדויות שונות"><text x="240" y="37" fill="#f1f5f9" text-anchor="middle" font-size="22">אותו מתח: שתי התנגדויות</text><path d="M55 112 H420" stroke="#8ba0b5" stroke-width="6"/><rect x="190" y="78" width="100" height="68" rx="12" fill="#101b30" stroke="#4ade80" stroke-width="3"/><text x="240" y="120" fill="#4ade80" text-anchor="middle" font-size="18">R נמוך</text><g fill="#4ade80"><circle r="7"><animateMotion dur="1.4s" repeatCount="indefinite" path="M55 112 H420"/></circle><circle r="7"><animateMotion begin="-.45s" dur="1.4s" repeatCount="indefinite" path="M55 112 H420"/></circle><circle r="7"><animateMotion begin="-.9s" dur="1.4s" repeatCount="indefinite" path="M55 112 H420"/></circle></g><path d="M55 245 H420" stroke="#8ba0b5" stroke-width="6"/><rect x="190" y="211" width="100" height="68" rx="12" fill="#101b30" stroke="#fb7185" stroke-width="3"/><text x="240" y="253" fill="#fb7185" text-anchor="middle" font-size="18">R גבוה</text><circle r="7" fill="#fb7185"><animateMotion dur="3.3s" repeatCount="indefinite" path="M55 245 H420"/></circle><text x="240" y="331" fill="#9fb0c3" text-anchor="middle" font-size="18">יותר התנגדות → פחות זרם</text></svg></div></div></div><aside class="speaker-note">אין צורך לחשב. שאלו: מה יקרה לזרם אם ההתנגדות תוכפל? בטבלה הסימן שבנוסחה מופיע ליד היחידה: הזרם מסומן I ונמדד באמפר (A), ההתנגדות מסומנת R ונמדדת באוהם (Ω). רק במתח הסימן והיחידה הם אותה אות, V, ולכן חניכים מתבלבלים וכותבים <span class="ltr">I = A / Ω</span>.</aside><div class="footer"><span>שיעור 1 · חשמל ואלקטרוניקה</span><span class="ltr">03 / 11</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">03</span>AC / DC</div><h1 class="title">זרם ישר וזרם חילופין</h1><p class="subtitle">ברדיו חשובים דווקא השינויים המהירים. אות שמשתנה מהר נושא מידע, ואותו מסננים ומקרינים מהאנטנה.</p><div class="body"><div class="split"><div class="stack"><p class="copy">בזרם ישר (DC) הכיוון והקוטביות קבועים, כמו בסוללה או בהזנת המכשיר. המתח יכול לזוז קצת, אבל הקוטביות לא מתהפכת.</p><div class="card amber"><div class="tag">AC · זרם חילופין</div><h3>הכיוון מתהפך במחזוריות</h3><p>גל סינוס הוא ייצוג בסיסי. בתדר רדיו ההיפוך מתרחש מיליוני פעמים בשנייה.</p></div></div><div class="visual"><svg viewBox="0 0 680 380" role="img" aria-label="השוואת DC ו-AC"><line x1="54" y1="110" x2="630" y2="110" stroke="#31445a" stroke-width="2"/><path d="M60 72 H624" stroke="#22d3ee" stroke-width="5"/><text class="ltrtx" x="60" y="47" fill="#22d3ee" font-size="18">DC</text><line x1="54" y1="265" x2="630" y2="265" stroke="#31445a" stroke-width="2"/><path d="M60 265 C96 175 132 175 168 265 S240 355 276 265 S348 175 384 265 S456 355 492 265 S564 175 624 265" fill="none" stroke="#fbbf24" stroke-width="5"/><text class="ltrtx" x="60" y="208" fill="#fbbf24" font-size="18">AC</text><path d="M580 92 h35 l-12 -12 m12 12 -12 12" fill="none" stroke="#22d3ee" stroke-width="3"/><path d="M570 324 h42 m-42 0 12 -12 m-12 12 12 12" fill="none" stroke="#fbbf24" stroke-width="3"/><text x="340" y="361" fill="#8ba0b5" text-anchor="middle" font-size="16">זמן →</text></svg></div></div></div><aside class="speaker-note">הבהירו ש-AC אינו רק חשמל רשת. גם אות שמע ו-RF הם אותות משתנים בזמן, אך בתדרים שונים מאוד.</aside><div class="footer"><span>שיעור 1 · חשמל ואלקטרוניקה</span><span class="ltr">04 / 11</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">04</span>הספק</div><h1 class="title">הספק מתאר כמה אנרגיה מועברת בכל שנייה</h1><p class="subtitle">המתח לבדו לא אומר כמה אנרגיה מגיעה בפועל לעומס.</p><div class="body"><div class="split text-wide"><div class="stack"><div class="formula"><span class="accent">P</span><span>=</span><span class="amber">V</span><span>×</span><span>I</span></div><p class="copy">הספק נמדד בוואט. אותו הספק יכול להגיע משילובים שונים של מתח וזרם, אך כבלים, מחברים ורכיבים צריכים לעמוד בזרם ובחום שנוצרים.</p><div class="key red">הפסד חשמלי הופך לעיתים קרובות לחום. התנגדות מיותרת במחבר או בכבל גוזלת אנרגיה לפני שהיא מגיעה לאנטנה.</div></div><div class="visual"><svg viewBox="0 0 500 380" role="img" aria-label="זרימת הספק ממקור לעומס"><rect x="46" y="118" width="116" height="116" rx="18" fill="#101b30" stroke="#22d3ee" stroke-width="3"/><text x="104" y="169" fill="#f1f5f9" text-anchor="middle" font-size="21">מקור</text><text class="ltrtx" x="104" y="202" fill="#22d3ee" text-anchor="middle" font-size="18">V × I</text><path d="M162 176 H337" stroke="#fbbf24" stroke-width="12" stroke-linecap="round"/><path d="M304 151 L344 176 304 201" fill="none" stroke="#fbbf24" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/><rect x="346" y="118" width="108" height="116" rx="18" fill="#101b30" stroke="#4ade80" stroke-width="3"/><text x="400" y="169" fill="#f1f5f9" text-anchor="middle" font-size="21">עומס</text><text class="ltrtx" x="400" y="202" fill="#4ade80" text-anchor="middle" font-size="18">P</text><g class="pulse"><path d="M224 253 C202 286 251 292 225 326" fill="none" stroke="#fb7185" stroke-width="6" stroke-linecap="round"/><path d="M271 251 C249 284 298 292 272 326" fill="none" stroke="#fb7185" stroke-width="6" stroke-linecap="round"/></g><text x="250" y="355" fill="#fb7185" text-anchor="middle" font-size="17">הפסד → חום</text></svg></div></div></div><aside class="speaker-note">הדגישו שהספק המשדר אינו שווה להספק שמוקרן; בדרך יש הפסדי התאמה וכבל.</aside><div class="footer"><span>שיעור 1 · חשמל ואלקטרוניקה</span><span class="ltr">05 / 11</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">05</span>מקור תחת עומס</div><h1 class="title">מקור חלש נראה תקין במנוחה ונופל כשהמשדר דורש זרם</h1><p class="subtitle">לכן מודדים את מתח ההזנה בזמן הפעולה שבה התקלה מופיעה.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,1fr) minmax(0,1.42fr)"><div class="stack" style="gap:10px"><div class="r01-panel"><div class="r01-row" style="justify-content:space-between"><span class="r01-lbl">התנגדות במסלול</span><span class="r01-val" id="ld-rv">0.20 Ω</span></div><input type="range" class="r01-rng" id="ld-r" min="0.02" max="0.6" step="0.01" value="0.2" aria-label="התנגדות במסלול"><div class="r01-sm" style="margin-top:-3px">התנגדות פנימית של המקור, כבל, נתיך ומגעים, יחד</div><div class="r01-row" style="justify-content:space-between;margin-top:3px"><span class="r01-lbl">זרם בשידור</span><span class="r01-val" id="ld-iv">10.0 A</span></div><input type="range" class="r01-rng" id="ld-i" min="2" max="12" step="0.5" value="10" aria-label="זרם בשידור"><div class="r01-sm">מתח המקור בלי עומס <span class="ltr">12.0 V</span>, זרם בקליטה <span class="ltr">1 A</span></div><div class="r01-row"><button class="r01-btn" type="button" id="ld-ptt">PTT</button><button class="r01-btn on" type="button" id="ld-auto">לחיצה אוטומטית</button></div></div><div class="r01-panel"><div class="r01-row" style="justify-content:space-between"><span class="r01-lbl" id="ld-state">מתח במכשיר עכשיו</span><span class="r01-big" id="ld-now">11.80 V</span></div><table class="table r01-tbl"><tr><th></th><th>קליטה</th><th>שידור</th></tr><tr><td>מתח במכשיר</td><td class="fx" id="ld-v0"></td><td class="fx" id="ld-v1"></td></tr><tr><td>ירידה במסלול</td><td class="fx" id="ld-d0"></td><td class="fx" id="ld-d1"></td></tr><tr><td>חום במסלול</td><td class="fx" id="ld-p0"></td><td class="fx" id="ld-p1"></td></tr></table></div></div><div class="visual" style="padding:40px 14px 30px"><div class="r01-legend"><span><i style="background:#4ade80"></i>מקור תקין, <span class="ltr">0.03 Ω</span></span><span><i style="background:#fb7185"></i>המסלול שנבחר</span><span><i style="background:rgba(251,191,36,.45)"></i>PTT לחוץ</span></div><canvas class="r01-cv" id="ld-cv" width="1400" height="860" role="img" aria-label="גרף מתח ההזנה במכשיר לאורך זמן, עם ובלי PTT"></canvas><div class="visual-label">זמן, כעשר שניות אחרונות</div></div></div></div><aside class="speaker-note">ברירת המחדל: מקור של <span class="ltr">12 V</span> בלי עומס, <span class="ltr">0.20 Ω</span> במסלול, <span class="ltr">1 A</span> בקליטה ו-<span class="ltr">10 A</span> בשידור. בקליטה המכשיר מקבל <span class="ltr">11.80 V</span>, בשידור <span class="ltr">10.00 V</span>: ירידה של <span class="ltr">2.00 V</span>, ו-<span class="ltr">20 W</span> הופכים לחום במסלול. הקו הירוק הוא מקור תקין עם <span class="ltr">0.03 Ω</span>, שיורד בשידור רק ל-<span class="ltr">11.70 V</span>. הלחיצה האוטומטית מדמה PTT כל כמה שניות. לחיצה על PTT עוברת לשליטה ידנית. הזיזו את ההתנגדות ל-<span class="ltr">0.50 Ω</span>: בקליטה עדיין <span class="ltr">11.50 V</span>, ובשידור <span class="ltr">7.00 V</span>. זה המקרה שבו מודד בלי עומס מראה מתח תקין והשידור נופל. קשרו את הגרף לתקלה שבה מכשיר נדלק אך השידור נופל. המספרים להמחשה ואינם של מערכת מסוימת; את מתח העבודה המינימלי של המכשיר לוקחים ממסמכי המערכת.</aside><div class="footer"><span>שיעור 1 · חשמל ואלקטרוניקה</span><span class="ltr">06 / 11</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">06</span>תרגול</div><h1 class="title">מדידת מפל מתח לאורך מסלול ההזנה</h1><p class="subtitle">המכשיר נדלק ומראה מתח תקין, אבל השידור נופל. הוא מושך מהמקור של <span class="ltr">12 V</span> זרם של <span class="ltr">1 A</span> בקליטה ו-<span class="ltr">10 A</span> בשידור.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,1fr) minmax(0,1.12fr)"><div class="stack" style="gap:10px"><div class="r01-row"><span class="r01-lbl">תרחיש</span><button class="r01-btn on" type="button" data-fx-s="0">1</button><button class="r01-btn" type="button" data-fx-s="1">2</button><button class="r01-btn" type="button" data-fx-s="2">3</button><span style="flex:1"></span><button class="r01-btn" type="button" id="fx-ptt">PTT</button></div><div class="r01-panel"><div class="r01-row" style="justify-content:space-between;flex-wrap:nowrap"><span class="r01-lbl" id="fx-where" style="white-space:normal">כניסת המכשיר · קליטה</span><span class="r01-big" id="fx-v">11.66 V</span></div></div><div class="card r01-q" style="padding:12px 15px"><div class="tag">שאלות</div><p>1. בתרחיש 1, על איזה קטע נופל רוב המתח בזמן PTT? מה ההתנגדות שלו?</p><p>2. בלי PTT המכשיר מקבל <span class="ltr">11.66 V</span>. למה המדידה הזו לא גילתה את התקלה?</p><p>3. כמה הספק הופך לחום בקטע התקול בזמן שידור, ואיך זה נראה בשטח?</p><p>4. מה התקלה בתרחישים 2 ו-3, ואיזו מדידה מבדילה ביניהם?</p></div></div><div class="visual" style="padding:10px 14px 30px"><svg id="fx-svg" viewBox="0 0 620 420" role="img" aria-label="מסלול ההזנה: מקור, נתיך, כבל, מחבר, מכשיר וכבל חזרה, עם מד מתח"><g fill="none" stroke="#8ba0b5" stroke-width="5" stroke-linejoin="round"><path d="M80 150 V60 H550 V150"/><path d="M550 270 V360 H80 V270"/></g><g class="r01-hit" data-fx-m="fuse" tabindex="0" role="button" aria-label="נתיך"><rect x="160" y="22" width="80" height="62" fill="transparent"/><rect class="r01-hl" x="170" y="48" width="60" height="24" rx="6" fill="#101b30" stroke="#8ba0b5" stroke-width="2"/><line x1="176" y1="60" x2="224" y2="60" stroke="#fbbf24" stroke-width="2.5"/><text x="200" y="36" fill="#f1f5f9" text-anchor="middle" font-size="16">נתיך</text></g><g class="r01-hit" data-fx-m="cab" tabindex="0" role="button" aria-label="כבל פלוס"><rect x="262" y="22" width="136" height="62" fill="transparent"/><line class="r01-hl" x1="270" y1="60" x2="390" y2="60" stroke="#fb7185" stroke-width="9" stroke-linecap="round"/><text x="330" y="36" fill="#f1f5f9" text-anchor="middle" font-size="16">כבל +</text></g><g class="r01-hit" data-fx-m="conn" tabindex="0" role="button" aria-label="מחבר"><rect x="414" y="22" width="62" height="62" fill="transparent"/><rect class="r01-hl" x="425" y="47" width="40" height="26" rx="5" fill="#101b30" stroke="#8ba0b5" stroke-width="2"/><line x1="440" y1="47" x2="440" y2="73" stroke="#8ba0b5" stroke-width="2"/><line x1="450" y1="47" x2="450" y2="73" stroke="#8ba0b5" stroke-width="2"/><text x="445" y="36" fill="#f1f5f9" text-anchor="middle" font-size="16">מחבר</text></g><g class="r01-hit" data-fx-m="ret" tabindex="0" role="button" aria-label="כבל חזרה"><rect x="172" y="336" width="296" height="70" fill="transparent"/><line class="r01-hl" x1="180" y1="360" x2="460" y2="360" stroke="#94a3b8" stroke-width="9" stroke-linecap="round"/><text x="320" y="392" fill="#f1f5f9" text-anchor="middle" font-size="16">כבל חזרה (−)</text></g><g class="r01-hit" data-fx-m="src" tabindex="0" role="button" aria-label="הדקי המקור"><rect class="r01-hl" x="30" y="150" width="100" height="120" rx="14" fill="#101b30" stroke="#22d3ee" stroke-width="3"/><text x="80" y="204" fill="#f1f5f9" text-anchor="middle" font-size="18">מקור</text><text class="ltrtx" x="80" y="233" fill="#22d3ee" text-anchor="middle" font-size="17">12 V</text></g><g class="r01-hit" data-fx-m="radio" tabindex="0" role="button" aria-label="כניסת המכשיר"><rect class="r01-hl" id="fx-radio" x="500" y="150" width="100" height="120" rx="14" fill="#101b30" stroke="#4ade80" stroke-width="3"/><text x="550" y="204" fill="#f1f5f9" text-anchor="middle" font-size="18">מכשיר</text><text id="fx-mode" x="550" y="233" fill="#4ade80" text-anchor="middle" font-size="16">קליטה</text></g><g id="fx-meter" pointer-events="none"><path id="fx-lead-b" fill="none" stroke="#cbd5e1" stroke-width="3"/><path id="fx-lead-r" fill="none" stroke="#fb7185" stroke-width="3"/><circle id="fx-pb" r="6.5" fill="#cbd5e1"/><circle id="fx-pr" r="6.5" fill="#fb7185"/><rect x="240" y="170" width="150" height="80" rx="12" fill="#06101c" stroke="#22d3ee" stroke-width="2"/><text x="315" y="194" fill="#8ba0b5" text-anchor="middle" font-size="14">מד מתח</text><text id="fx-mv" class="ltrtx" x="315" y="233" fill="#22d3ee" text-anchor="middle" font-size="28" font-weight="800">11.66 V</text></g></svg><div class="visual-label">מד המתח עובר לקטע שלוחצים עליו. מודדים בלי PTT ועם PTT.</div></div></div></div><aside class="speaker-note">ברירת המחדל: תרחיש 1, בלי PTT, מד המתח על כניסת המכשיר: <span class="ltr">11.66 V</span>. מקור של <span class="ltr">12 V</span>, המכשיר מושך <span class="ltr">1 A</span> בקליטה ו-<span class="ltr">10 A</span> בשידור. תנו לחניכים לבחור קטעים ולענות לפני שמגלים. תשובות: 1. המחבר. בשידור נופלים עליו <span class="ltr">2.50 V</span> מתוך <span class="ltr">3.40 V</span> שהולכים בכל המסלול (המכשיר מקבל <span class="ltr">8.60 V</span>), ועל כל קטע אחר <span class="ltr">0.10-0.30 V</span>. ההתנגדות שלו <span class="ltr">2.5 V / 10 A = 0.25 Ω</span>. 2. בקליטה הזרם <span class="ltr">1 A</span>, ולכן המחבר מוריד רק <span class="ltr">0.25 V</span>. מפל מתח הוא זרם כפול התנגדות, ובלי זרם גדול התקלה לא נראית. 3. <span class="ltr">P = I²R = 10² × 0.25 = 25 W</span>, או <span class="ltr">2.5 V × 10 A</span>. מחבר שמתחמם, מושחר או מריח שרוף. 4. בתרחיש 2 הדקי המקור עצמם יורדים בשידור ל-<span class="ltr">9.00 V</span>: מקור חלש עם התנגדות פנימית של <span class="ltr">0.30 Ω</span>, והמכשיר מקבל <span class="ltr">8.20 V</span>. בתרחיש 3 הדקי המקור מחזיקים <span class="ltr">11.80 V</span> ועל כבל החזרה נופלים <span class="ltr">2.50 V</span>, והמכשיר מקבל <span class="ltr">8.80 V</span>. המדידה שמבדילה היא על הדקי המקור תחת עומס, ואחריה מודדים גם את החזרה. הטעות הנפוצה: למדוד רק את הצד החיובי. בודקים גם את המינוס.</aside><div class="footer"><span>שיעור 1 · חשמל ואלקטרוניקה</span><span class="ltr">07 / 11</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">07</span>השראות</div><h1 class="title">כל שינוי בזרם משנה את השדה המגנטי סביב המוליך</h1><p class="subtitle">השראות: כל מוליך מתנגד לשינוי מהיר בזרם שעובר בו.</p><div class="body" style="gap:10px"><div class="r01-row"><button class="r01-btn on" type="button" id="in-ac">זרם חילופין</button><button class="r01-btn" type="button" id="in-dc">זרם ישר</button><button class="r01-btn" type="button" id="in-sw" hidden>כיבוי</button><span class="r01-sm" id="in-msg" style="flex:1;font-size:16px;color:var(--muted)"></span></div><div class="visual" style="flex:1;padding:8px 16px 30px"><svg id="in-svg" viewBox="0 0 1080 400" role="img" aria-label="זרם במוליך, השדה המגנטי סביבו והמתח המושרה שמתנגד לשינוי, וגרף של הזרם ושל המתח המושרה בזמן"><g id="in-rings" fill="none" stroke="#fbbf24" stroke-width="3"></g><path d="M110 150 H970" stroke="#f1f5f9" stroke-width="12" stroke-linecap="round"/><g id="in-dots" fill="#22d3ee"></g><g id="in-syms"></g><text x="250" y="88" fill="#22d3ee" text-anchor="middle" font-size="19">זרם</text><g id="in-iarr"></g><text x="845" y="70" fill="#fb7185" text-anchor="middle" font-size="18">מתח מושרה, נגד השינוי</text><g id="in-earr"></g><text x="540" y="266" fill="#fbbf24" text-anchor="middle" font-size="18">שדה מגנטי</text><line x1="110" y1="340" x2="970" y2="340" stroke="#31445a" stroke-width="2"/><path id="in-gi" fill="none" stroke="#22d3ee" stroke-width="3"/><path id="in-ge" fill="none" stroke="#fb7185" stroke-width="3"/><line x1="970" y1="290" x2="970" y2="390" stroke="#8ba0b5" stroke-width="1.5" stroke-dasharray="4 4"/><text x="60" y="318" fill="#22d3ee" text-anchor="middle" font-size="15">זרם</text><text x="60" y="342" fill="#fb7185" text-anchor="middle" font-size="15">מתח מושרה</text></svg><div class="visual-label">התנועה מואטת מאוד. ⊙ שדה שיוצא מהמסך, ⊗ שדה שנכנס אליו.</div></div></div><aside class="speaker-note">ההדגמה נפתחת בזרם חילופין: הנקודות והחץ התכול מראים זרם שמתהפך, הטבעות והסימנים ⊙ ו-⊗ מראים שדה שמתחזק, נחלש ומתהפך יחד איתו, והחץ האדום הוא המתח המושרה. הוא תמיד בכיוון שמנוגד לשינוי: בשיא כשהזרם עובר דרך אפס, ואפס כשהזרם בשיא. בגרף למטה הקו האדום בשיא בדיוק כשהקו התכול חוצה את האפס. לחצו ״זרם ישר״: הזרם עולה בהדרגה והחץ האדום מנוגד לו, וכשהזרם מתייצב החץ נעלם. לחצו ״כיבוי״: החץ מתהפך ומנסה להחזיק את הזרם. אין צורך להציג סליל כרכיב. הדגישו שלכל כבל ולכל מסלול זרם יש השראות, ושינוי מהיר בזרם יוצר שדה משתנה. הטעות הנפוצה: לחשוב שזרם גדול יוצר מתח מושרה גדול. המתח המושרה נקבע לפי כמה מהר הזרם משתנה.</aside><div class="footer"><span>שיעור 1 · חשמל ואלקטרוניקה</span><span class="ltr">08 / 11</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">08</span>זרם באנטנה</div><h1 class="title">זרם RF נע הלוך ושוב גם באנטנה שקצותיה פתוחים</h1><p class="subtitle">המקור מחליף כיוון מיליוני פעמים בשנייה. המטען בקצוות מגיע לשיא רבע מחזור אחרי הזרם, ברגע שהזרם עובר דרך אפס.</p><div class="body" style="gap:10px"><div class="r01-row"><button class="r01-btn" type="button" id="an-play">עצירה</button><button class="r01-btn" type="button" id="an-step">רבע מחזור קדימה</button><span class="r01-lbl" style="margin-right:8px">שלב במחזור</span><input type="range" class="r01-rng" id="an-ph" min="0" max="360" step="5" value="90" style="width:230px" aria-label="שלב במחזור במעלות"><span class="r01-val" id="an-pv" style="min-width:44px">90°</span><span class="r01-sm" id="an-msg" style="flex:1;font-size:16px;color:var(--muted)"></span></div><div class="visual" style="flex:1;padding:8px 16px 14px"><svg id="an-svg" viewBox="0 0 1080 400" role="img" aria-label="דיפול: זרם לאורך הזרועות, מטען בקצוות ושדה חשמלי ביניהם, וגרף של הזרם בהזנה ושל המטען בקצה לאורך מחזור"><path id="an-arc" d="M200 104 C380 24 700 24 880 104" fill="none" stroke="#fbbf24" stroke-width="3"/><path id="an-arh" d="M-9 -8 L9 0 L-9 8 Z" fill="#fbbf24"/><text id="an-arct" x="540" y="30" fill="#fbbf24" text-anchor="middle" font-size="17">שדה חשמלי בין הקצוות</text><path d="M205 125 H525 M555 125 H875" fill="none" stroke="#f1f5f9" stroke-width="12" stroke-linecap="round"/><rect x="522" y="89" width="36" height="72" rx="10" fill="#101b30" stroke="#fbbf24" stroke-width="3"/><path d="M529 125 C534 106 540 144 546 125 S552 106 555 125" fill="none" stroke="#fbbf24" stroke-width="3"/><g id="an-arrows" fill="#22d3ee" stroke="#22d3ee"></g><g id="an-qL"><circle r="20"/><text class="ltrtx nohalo" y="9" text-anchor="middle" font-size="28" font-weight="800" fill="#fff">+</text></g><g id="an-qR"><circle r="20"/><text class="ltrtx nohalo" y="9" text-anchor="middle" font-size="28" font-weight="800" fill="#fff">−</text></g><text x="540" y="186" fill="#fbbf24" text-anchor="middle" font-size="15">נקודת הזנה</text><text x="540" y="212" fill="#9fb0c3" text-anchor="middle" font-size="16">הזרם גדול ליד נקודת ההזנה, ויורד לאפס בקצוות הפתוחים</text><line x1="200" y1="318" x2="880" y2="318" stroke="#31445a" stroke-width="2"/><g id="an-ticks"></g><path id="an-gi" fill="none" stroke="#22d3ee" stroke-width="3"/><path id="an-gq" fill="none" stroke="#fbbf24" stroke-width="3"/><line id="an-cur" y1="262" y2="374" stroke="#f1f5f9" stroke-width="2"/><circle id="an-di" r="6" fill="#22d3ee"/><circle id="an-dq" r="6" fill="#fbbf24"/><text x="120" y="300" fill="#22d3ee" text-anchor="middle" font-size="15">זרם בהזנה</text><text x="120" y="324" fill="#fbbf24" text-anchor="middle" font-size="15">מטען בקצה הימני</text></svg></div></div><aside class="speaker-note">ברירת המחדל: שלב <span class="ltr">90°</span>, והאנימציה מריצה מחזור בשש שניות. עצרו והזיזו את השלב: ב-<span class="ltr">90°</span> הזרם בהזנה בשיא ובקצוות אין מטען; ב-<span class="ltr">180°</span> הזרם אפס, הקצה הימני בשיא חיובי והשדה בין הקצוות בשיא; ב-<span class="ltr">270°</span> הזרם בשיא בכיוון ההפוך והקצוות שוב ריקים; ב-<span class="ltr">0°</span> הקצה הימני בשיא שלילי. כמו בקבל, המטען מגיע לשיא רבע מחזור אחרי הזרם. אל תגידו שהאלקטרונים קופצים דרך האוויר. זרם הולכה זורם לאורך שתי זרועות האנטנה, מגיע לאפס בקצוות ומחליף כיוון בכל חצי מחזור. הצטברות המטען בקצוות יוצרת שדה חשמלי משתנה, ומקסוול קרא לו זרם תזוזה. בדיפול הזרוע השנייה היא דרך החזרה, ובמונופול את מקומה תופס מישור ההארקה או ה־Counterpoise.</aside><div class="footer"><span>שיעור 1 · חשמל ואלקטרוניקה</span><span class="ltr">09 / 11</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">09</span>אלקטרומגנטיות</div><h1 class="title">מזרם במוליך לקרינת רדיו במרחב</h1><p class="subtitle">זרם משתנה יוצר שדה משתנה, ושדה משתנה יכול להתפשט כגל.</p><div class="body"><div class="split"><div class="stack"><p class="copy">זרם חילופין במוליך יוצר סביבו שדה מגנטי משתנה. הפרדת מטענים יוצרת שדה חשמלי משתנה. בתנאים המתאימים, השדות מזינים זה את זה ומתרחקים מהמקור.</p><div class="key">גל רדיו מורכב משדה חשמלי E ומשדה מגנטי B, ניצבים זה לזה ולכיוון ההתקדמות.</div></div><div class="visual"><svg viewBox="0 0 680 390" role="img" aria-label="שדות חשמלי ומגנטי המתפשטים כגל"><defs><marker id="arrow1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#f1f5f9"/></marker></defs><line x1="84" y1="196" x2="616" y2="196" stroke="#f1f5f9" stroke-width="2" marker-end="url(#arrow1)"/><path d="M100 196 C138 92 176 92 214 196 S290 300 328 196 S404 92 442 196 S518 300 588 196" fill="none" stroke="#22d3ee" stroke-width="5"/><path d="M100 196 C138 246 176 246 214 196 S290 146 328 196 S404 246 442 196 S518 146 588 196" fill="none" stroke="#fbbf24" stroke-width="5"/><text x="195" y="70" fill="#22d3ee" font-size="20">שדה חשמלי E</text><text x="422" y="329" fill="#fbbf24" font-size="20">שדה מגנטי B</text><text x="530" y="240" text-anchor="middle" fill="#f1f5f9" font-size="17">כיוון התקדמות</text></svg></div></div></div><aside class="speaker-note">אין צורך להוכיח את משוואות מקסוול. הדגישו את שרשרת ההיגיון: מטען → זרם משתנה → שדות משתנים → גל.</aside><div class="footer"><span>שיעור 1 · חשמל ואלקטרוניקה</span><span class="ltr">10 / 11</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">10</span>גבולות ההדגמות</div><h1 class="title">מגבלות ההדגמות</h1><p class="subtitle">המספרים בהדגמות נבחרו כדי שהתופעה תיראה בבירור, וכל הדגמה מפשטת משהו.</p><div class="body"><table class="table" style="font-size:16px"><tr><th style="width:19%">הדגמה</th><th style="width:40%">מה הופשט</th><th>מה יש בפועל</th></tr><tr><td>מעגל, מקור תחת עומס ותרגול <span class="ltr">(2, 6, 7)</span></td><td>מקור עם מתח קבוע והתנגדות קבועה, ומכשיר שמושך זרם קבוע בקליטה ובשידור. כל המספרים להמחשה.</td><td>ההתנגדות הפנימית של סוללה גדלה כשהיא מתרוקנת, מתקררת או מזדקנת, והזרם של המכשיר משתנה עם המתח, עם הספק השידור ועם ההתאמה לאנטנה. ערכי הציוד לפי מסמכי המערכת ונוהל היחידה.</td></tr><tr><td>השראות <span class="ltr">(8)</span></td><td>תנועה מואטת מאוד ובלי ערכים. ההיפוך והעלייה בהדלקה נמשכים שניות כדי שיהיה אפשר לראות אותם.</td><td>ב-<span class="ltr">150 MHz</span> הזרם מתהפך 300 מיליון פעמים בשנייה. בכיבוי של מעגל עם השראות גדולה המתח המושרה יכול לייצר ניצוץ במגע.</td></tr><tr><td>זרם באנטנה <span class="ltr">(9)</span></td><td>דיפול חצי גל דק ומושלם: הזרם בצורת קוסינוס לאורכו, בלי הפסדים ובלי הגל שיוצא ממנו.</td><td>התפלגות הזרם תלויה באורך ובעובי, האנטנה מוסרת אנרגיה לקרינה ולהפסדים, ובמונופול חלק מהמבנה הוא מישור ההארקה.</td></tr></table><div class="key" style="margin-top:14px">היחסים עצמם נכונים: המכשיר מקבל את מתח המקור פחות הזרם כפול ההתנגדות במסלול, החום במסלול הוא הזרם בריבוע כפול ההתנגדות, המתח המושרה תלוי בקצב השינוי בזרם, והמטען בקצות האנטנה מגיע לשיא רבע מחזור אחרי הזרם.</div></div><aside class="speaker-note">לא לדלג. הדגישו שהמספרים נבחרו כדי שהתופעה תהיה ברורה, ושאת הערכים של הציוד ביחידה לוקחים ממסמכי המערכת ולפי נוהל היחידה. אם חניך שואל למה מכשיר אמיתי לא מתנהג בדיוק כמו בגרף של שקופית 6: הזרם שלו לא קבוע, וההתנגדות הפנימית של סוללה משתנה עם הטעינה והטמפרטורה.</aside><div class="footer"><span>שיעור 1 · חשמל ואלקטרוניקה</span><span class="ltr">11 / 11</span></div></section><div class="nav"><button type="button" data-prev aria-label="שקופית קודמת">הקודם</button><button type="button" data-next aria-label="שקופית הבאה">הבא</button><div class="progress" aria-hidden="true"><span></span></div><div class="counter"></div><button type="button" data-notes>הערות</button></div><div class="notes-panel" hidden></div></main></div></div><script>
+(() => {
+  const root = document.querySelector('.deck-root');
+  const stage = root.querySelector('.stage');
+  const slides = [...root.querySelectorAll('.slide')];
+  const prev = root.querySelector('[data-prev]');
+  const next = root.querySelector('[data-next]');
+  const counter = root.querySelector('.counter');
+  const progress = root.querySelector('.progress span');
+  const notesButton = root.querySelector('[data-notes]');
+  const notesPanel = root.querySelector('.notes-panel');
+  let index = 0;
+  function scaleStage(){
+    const s = Math.min((innerWidth-20)/1280,(innerHeight-20)/720);
+    stage.style.transform = 'scale('+Math.max(.2,s)+')';
+  }
+  function show(i){
+    index = Math.max(0,Math.min(slides.length-1,i));
+    slides.forEach((s,n)=>{const active=n===index;s.classList.toggle('active',active);s.setAttribute('aria-hidden',String(!active));});
+    prev.disabled=index===0; next.disabled=index===slides.length-1;
+    counter.textContent=(index+1)+' / '+slides.length;
+    progress.style.width=((index+1)/slides.length*100)+'%';
+    notesPanel.hidden=true;
+  }
+  prev.addEventListener('click',()=>show(index-1));
+  next.addEventListener('click',()=>show(index+1));
+  notesButton.addEventListener('click',()=>{
+    const note=slides[index].querySelector('.speaker-note');
+    notesPanel.innerHTML='<strong>הערות למעביר</strong>'+(note?note.innerHTML:'אין הערות לשקופית זו.');
+    notesPanel.hidden=!notesPanel.hidden;
+  });
+  addEventListener('keydown',(e)=>{
+    if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(index+1)}
+    else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(index-1)}
+    else if(e.key==='Home')show(0);else if(e.key==='End')show(slides.length-1);
+    else if(e.key.toLowerCase()==='n')notesButton.click();
+    else if(e.key.toLowerCase()==='a'){root.classList.toggle('motion-on');var mb=root.querySelector('.motion-badge');if(mb)mb.hidden=root.classList.contains('motion-on');root.querySelectorAll('svg').forEach(function(v){if(v.pauseAnimations){root.classList.contains('motion-on')?v.unpauseAnimations():v.pauseAnimations();}});}else if(e.key.toLowerCase()==='f'){if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()}
+  });
+  
+  addEventListener('resize',scaleStage);scaleStage();show(0);
+})();
+</script><script>
+(function () {
+  'use strict';
+  var root = document.querySelector('.deck-root');
+  var NS = 'http://www.w3.org/2000/svg';
+  function $(id) { return document.getElementById(id); }
+  function el(tag, attrs, text) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function motionOK() { return !!(root && root.classList.contains('motion-on')); }
+  function activeSlideOf(node) { var s = node && node.closest('.slide'); return !!(s && s.classList.contains('active')); }
+  function onInput(node, fn) { node.addEventListener('input', fn); }
+  function safe(name, fn) { try { fn(); } catch (err) { if (window.console) console.error('[r01] ' + name, err); } }
+  function fx(v, d) { var m = Math.pow(10, d); v = Math.round((v + (v > 0 ? 1e-9 : -1e-9)) * m) / m; if (v === 0) v = 0; return v.toFixed(d); }
+  function each(list, fn) { Array.prototype.forEach.call(list, fn); }
+  /* runs fn(dt) on animation frames while animations are on and the slide is shown */
+  function loop(node, fn) {
+    var last = 0;
+    function f(ts) {
+      var dt = last ? Math.min(0.1, (ts - last) / 1000) : 0; last = ts;
+      if (motionOK() && activeSlideOf(node)) fn(dt);
+      requestAnimationFrame(f);
+    }
+    requestAnimationFrame(f);
+  }
+  /* curved meter lead from (sx,sy) to (px,py) */
+  function lead(sx, sy, px, py) {
+    var dx = px - sx, dy = py - sy, cx = (sx + px) / 2 - dy * 0.18, cy = (sy + py) / 2 + dx * 0.18;
+    return 'M' + sx + ' ' + sy + ' Q' + cx.toFixed(1) + ' ' + cy.toFixed(1) + ' ' + px + ' ' + py;
+  }
+  function activate(node, fn) {
+    node.addEventListener('click', fn);
+    node.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); fn(); } });
+  }
+
+  /* typing inside a field must not drive the deck (space, n, a, f, arrows) */
+  document.querySelectorAll('.deck-root input:not([type=range]), .deck-root textarea, .deck-root select').forEach(function (f) {
+    f.addEventListener('keydown', function (e) { e.stopPropagation(); if (e.key === 'Escape') f.blur(); });
+  });
+
+  /* a slider keeps focus after dragging; release it so the arrows go back to the deck */
+  document.querySelectorAll('.deck-root input[type=range]').forEach(function (r) { r.addEventListener('change', function () { r.blur(); }); });
+
+  /* ================= slide 2: open and closed circuit, voltmeter on any element ================= */
+  safe('circuit', function () {
+    var svg = $('oc-svg'); if (!svg) return;
+    var E = 12, RL = 6, RM = 1e7, ROPEN = 1e12;
+    var st = { sw: false, ret: true, m: 'sw' };
+    /* [red probe, black probe, red lead start, black lead start] */
+    var T = {
+      src: [[80, 165], [80, 265], [245, 195], [245, 235]],
+      sw: [[250, 70], [330, 70], [300, 170], [340, 170]],
+      load: [[560, 179], [560, 251], [395, 195], [395, 235]],
+      ret: [[360, 360], [300, 360], [340, 260], [300, 260]]
+    };
+    function par(a, b) { return a === 0 ? 0 : a * b / (a + b); }
+    function solve() {
+      var R = { sw: st.sw ? 0 : ROPEN, load: RL, ret: st.ret ? 0 : ROPEN };
+      if (st.m !== 'src') R[st.m] = par(R[st.m], RM);
+      var I = E / (R.sw + R.load + R.ret);
+      return { I: I, V: st.m === 'src' ? E : I * R[st.m] };
+    }
+    var MSG = {
+      '00': 'המתג פתוח וגם החזרה מנותקת. אין זרם, ומד מתח על נתק אחד לבד מראה כמעט אפס, כי הנתק השני מפריד בינו לבין המקור.',
+      '01': 'המתג פתוח: כל מתח המקור נמצא בין שני צדי המתג, ובעומס אין זרם.',
+      '10': 'המתג סגור, אבל דרך החזרה מנותקת. המתח כולו נמצא על הנתק, והעומס לא מקבל זרם.',
+      '11': 'המעגל סגור: אותו זרם עובר במקור, במתג, בעומס ובחזרה. על מתג סגור ועל חיבור תקין כמעט אין מתח.'
+    };
+    /* current path for the moving dots (closed loop through the source) */
+    var P = [[80, 165], [80, 70], [560, 70], [560, 360], [80, 360], [80, 165]], segs = [], per = 0;
+    for (var k = 0; k < P.length - 1; k++) { var d = Math.abs(P[k + 1][0] - P[k][0]) + Math.abs(P[k + 1][1] - P[k][1]); segs.push(d); per += d; }
+    function at(s) {
+      s = ((s % per) + per) % per;
+      for (var j = 0; j < segs.length; j++) {
+        if (s <= segs[j]) { var f = s / segs[j]; return [P[j][0] + (P[j + 1][0] - P[j][0]) * f, P[j][1] + (P[j + 1][1] - P[j][1]) * f]; }
+        s -= segs[j];
+      }
+      return P[0];
+    }
+    var dotsG = $('oc-dots'), dots = [], N = 22, off = 0;
+    for (var q = 0; q < N; q++) dots.push(dotsG.appendChild(el('circle', { r: 6.5 })));
+    function placeDots() { for (var q = 0; q < N; q++) { var p = at(off + q * per / N); dots[q].setAttribute('cx', p[0].toFixed(1)); dots[q].setAttribute('cy', p[1].toFixed(1)); } }
+    placeDots();
+    function render() {
+      var r = solve(), on = r.I > 0.01;
+      $('oc-mv').textContent = fx(r.V, 1) + ' V';
+      $('oc-i').textContent = fx(r.I, 2) + ' A';
+      $('oc-i').style.color = on ? 'var(--green)' : 'var(--red)';
+      var b = $('oc-blade');
+      if (st.sw) { b.setAttribute('x2', 330); b.setAttribute('y2', 70); } else { b.setAttribute('x2', 318); b.setAttribute('y2', 28); }
+      $('oc-ret-ok').style.display = st.ret ? '' : 'none';
+      $('oc-ret-bad').style.display = st.ret ? 'none' : '';
+      $('oc-glow').setAttribute('opacity', on ? '0.75' : '0');
+      $('oc-lamp').setAttribute('fill', on ? '#fde68a' : '#101b30');
+      dotsG.style.display = on ? '' : 'none';
+      var t = T[st.m];
+      $('oc-lead-r').setAttribute('d', lead(t[2][0], t[2][1], t[0][0], t[0][1]));
+      $('oc-lead-b').setAttribute('d', lead(t[3][0], t[3][1], t[1][0], t[1][1]));
+      $('oc-pr').setAttribute('cx', t[0][0]); $('oc-pr').setAttribute('cy', t[0][1]);
+      $('oc-pb').setAttribute('cx', t[1][0]); $('oc-pb').setAttribute('cy', t[1][1]);
+      $('oc-msg').textContent = MSG[(st.sw ? '1' : '0') + (st.ret ? '1' : '0')];
+      each(document.querySelectorAll('[data-oc-sw]'), function (x) { x.classList.toggle('on', (x.getAttribute('data-oc-sw') === '1') === st.sw); });
+      each(document.querySelectorAll('[data-oc-ret]'), function (x) { x.classList.toggle('on', (x.getAttribute('data-oc-ret') === '1') === st.ret); });
+      each(document.querySelectorAll('[data-oc-m]'), function (x) { x.classList.toggle('on', x.getAttribute('data-oc-m') === st.m); });
+    }
+    each(document.querySelectorAll('[data-oc-sw]'), function (x) { x.addEventListener('click', function () { st.sw = x.getAttribute('data-oc-sw') === '1'; render(); }); });
+    each(document.querySelectorAll('[data-oc-ret]'), function (x) { x.addEventListener('click', function () { st.ret = x.getAttribute('data-oc-ret') === '1'; render(); }); });
+    each(document.querySelectorAll('[data-oc-m]'), function (x) { x.addEventListener('click', function () { st.m = x.getAttribute('data-oc-m'); render(); }); });
+    activate($('oc-sw'), function () { st.sw = !st.sw; render(); });
+    activate($('oc-ret'), function () { st.ret = !st.ret; render(); });
+    render();
+    loop(svg, function (dt) { if (solve().I > 0.01) { off += 60 * dt; placeDots(); } });
+  });
+
+  /* ================= slide 6: supply voltage under load ================= */
+  safe('load', function () {
+    var cv = $('ld-cv'); if (!cv) return;
+    var E = 12, IRX = 1, R0 = 0.03, N = 250, HZ = 25, VMAX = 13;
+    var rIn = $('ld-r'), iIn = $('ld-i'), pttB = $('ld-ptt'), autoB = $('ld-auto');
+    var buf = [], i;
+    for (i = 0; i < N; i++) buf.push(i >= 107 && i < 170);
+    var ptt = false, auto = true, autoT = 3.2, acc = 0;
+    function R() { return parseFloat(rIn.value); }
+    function Itx() { return parseFloat(iIn.value); }
+    function volt(r, on) { return E - (on ? Itx() : IRX) * r; }
+    var ctx = cv.getContext('2d'), W = 700, H = 430, X0 = 56, X1 = 690, YT = 16, YB = 410;
+    function y(v) { return YB - v / VMAX * (YB - YT); }
+    function draw() {
+      ctx.setTransform(cv.width / W, 0, 0, cv.height / H, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+      var dx = (X1 - X0) / (N - 1), a = -1, k, v;
+      ctx.fillStyle = 'rgba(251,191,36,.12)';
+      for (k = 0; k <= N; k++) {
+        var on = k < N && buf[k];
+        if (on && a < 0) a = k;
+        if (!on && a >= 0) {
+          ctx.fillRect(X0 + a * dx, YT, (k - a) * dx, YB - YT);
+          ctx.fillStyle = '#fbbf24'; ctx.font = '700 14px "Segoe UI",Arial,sans-serif'; ctx.textAlign = 'center';
+          if ((k - a) * dx > 40) ctx.fillText('PTT', X0 + (a + k) / 2 * dx, YT + 16);
+          ctx.fillStyle = 'rgba(251,191,36,.12)'; a = -1;
+        }
+      }
+      ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(255,255,255,.09)'; ctx.fillStyle = '#8ba0b5';
+      ctx.font = '14px "Segoe UI",Arial,sans-serif'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+      for (v = 0; v <= 12; v += 2) { ctx.beginPath(); ctx.moveTo(X0, y(v)); ctx.lineTo(X1, y(v)); ctx.stroke(); ctx.fillText(String(v), X0 - 8, y(v)); }
+      ctx.textAlign = 'left'; ctx.fillText('V', 8, YT + 2); ctx.textBaseline = 'alphabetic';
+      ctx.strokeStyle = '#8ba0b5'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(X0, YT); ctx.lineTo(X0, YB); ctx.lineTo(X1, YB); ctx.stroke();
+      [[R0, '#4ade80'], [R(), '#fb7185']].forEach(function (s) {
+        ctx.strokeStyle = s[1]; ctx.lineWidth = 4; ctx.lineJoin = 'round'; ctx.beginPath();
+        for (k = 0; k < N; k++) {
+          var yy = y(volt(s[0], buf[k])), xx = X0 + k * dx;
+          if (k === 0) ctx.moveTo(xx, yy); else { if (buf[k] !== buf[k - 1]) ctx.lineTo(xx, y(volt(s[0], buf[k - 1]))); ctx.lineTo(xx, yy); }
+        }
+        ctx.stroke();
+      });
+    }
+    function W2(v) { return fx(v, 1) + ' W'; }
+    function V2(v) { return fx(v, 2) + ' V'; }
+    function readouts() {
+      var r = R(), it = Itx();
+      $('ld-rv').textContent = fx(r, 2) + ' Ω';
+      $('ld-iv').textContent = fx(it, 1) + ' A';
+      $('ld-v0').textContent = V2(E - IRX * r); $('ld-v1').textContent = V2(E - it * r);
+      $('ld-d0').textContent = V2(IRX * r); $('ld-d1').textContent = V2(it * r);
+      $('ld-p0').textContent = W2(IRX * IRX * r); $('ld-p1').textContent = W2(it * it * r);
+      $('ld-now').textContent = V2(volt(r, ptt));
+      $('ld-now').style.color = ptt ? 'var(--red)' : 'var(--cyan)';
+      $('ld-state').textContent = 'מתח במכשיר עכשיו · ' + (ptt ? 'שידור' : 'קליטה');
+      pttB.classList.toggle('tx', ptt);
+      autoB.classList.toggle('on', auto);
+    }
+    function all() { readouts(); draw(); }
+    onInput(rIn, all); onInput(iIn, all);
+    pttB.addEventListener('click', function () { auto = false; ptt = !ptt; all(); });
+    autoB.addEventListener('click', function () { auto = !auto; if (auto) { autoT = 0; ptt = false; } all(); });
+    all();
+    loop(cv, function (dt) {
+      if (auto) { autoT = (autoT + dt) % 6; ptt = autoT >= 3.5; }
+      acc += dt; var n = 0;
+      while (acc >= 1 / HZ) { acc -= 1 / HZ; buf.shift(); buf.push(ptt); n++; }
+      if (n) draw();
+      readouts();
+    });
+  });
+
+  /* ================= slide 7: exercise, voltage drop along the supply path ================= */
+  safe('fault', function () {
+    var svg = $('fx-svg'); if (!svg) return;
+    var E = 12, IRX = 1, ITX = 10;
+    var BASE = { src: 0.02, fuse: 0.01, cab: 0.03, conn: 0.01, ret: 0.03 };
+    var SCN = [{ conn: 0.25 }, { src: 0.30 }, { ret: 0.25 }];
+    var NAME = { src: 'הדקי המקור', fuse: 'הנתיך', cab: 'כבל +', conn: 'המחבר', radio: 'כניסת המכשיר', ret: 'כבל החזרה' };
+    var T = {
+      src: [[80, 150], [80, 270], [240, 195], [240, 225]],
+      fuse: [[170, 60], [230, 60], [295, 170], [335, 170]],
+      cab: [[270, 60], [390, 60], [295, 170], [335, 170]],
+      conn: [[425, 60], [465, 60], [295, 170], [335, 170]],
+      radio: [[550, 150], [550, 270], [390, 195], [390, 225]],
+      ret: [[460, 360], [180, 360], [340, 250], [290, 250]]
+    };
+    var st = { s: 0, ptt: false, m: 'radio' };
+    function res() { var r = {}, k; for (k in BASE) r[k] = SCN[st.s].hasOwnProperty(k) ? SCN[st.s][k] : BASE[k]; return r; }
+    function reading() {
+      var r = res(), I = st.ptt ? ITX : IRX, tot = r.src + r.fuse + r.cab + r.conn + r.ret;
+      if (st.m === 'src') return E - I * r.src;
+      if (st.m === 'radio') return E - I * tot;
+      return I * r[st.m];
+    }
+    var groups = svg.querySelectorAll('[data-fx-m]');
+    each(groups, function (g) {
+      var hl = g.querySelector('.r01-hl'); hl.setAttribute('data-s', hl.getAttribute('stroke'));
+      activate(g, function () { st.m = g.getAttribute('data-fx-m'); render(); });
+    });
+    function render() {
+      var v = reading(), t = T[st.m];
+      $('fx-v').textContent = fx(v, 2) + ' V';
+      $('fx-mv').textContent = fx(v, 2) + ' V';
+      $('fx-where').textContent = NAME[st.m] + ' · ' + (st.ptt ? 'שידור' : 'קליטה');
+      $('fx-lead-r').setAttribute('d', lead(t[2][0], t[2][1], t[0][0], t[0][1]));
+      $('fx-lead-b').setAttribute('d', lead(t[3][0], t[3][1], t[1][0], t[1][1]));
+      $('fx-pr').setAttribute('cx', t[0][0]); $('fx-pr').setAttribute('cy', t[0][1]);
+      $('fx-pb').setAttribute('cx', t[1][0]); $('fx-pb').setAttribute('cy', t[1][1]);
+      each(groups, function (g) {
+        var hl = g.querySelector('.r01-hl'), sel = g.getAttribute('data-fx-m') === st.m;
+        hl.setAttribute('stroke', sel ? '#22d3ee' : hl.getAttribute('data-s'));
+        if (hl.tagName === 'rect') hl.setAttribute('stroke-width', sel ? 4 : (g.getAttribute('data-fx-m') === 'src' || g.getAttribute('data-fx-m') === 'radio' ? 3 : 2));
+      });
+      $('fx-radio').setAttribute('stroke', st.m === 'radio' ? '#22d3ee' : (st.ptt ? '#fb7185' : '#4ade80'));
+      $('fx-mode').textContent = st.ptt ? 'שידור' : 'קליטה';
+      $('fx-mode').setAttribute('fill', st.ptt ? '#fb7185' : '#4ade80');
+      $('fx-ptt').classList.toggle('tx', st.ptt);
+      each(document.querySelectorAll('[data-fx-s]'), function (x) { x.classList.toggle('on', +x.getAttribute('data-fx-s') === st.s); });
+    }
+    each(document.querySelectorAll('[data-fx-s]'), function (x) { x.addEventListener('click', function () { st.s = +x.getAttribute('data-fx-s'); render(); }); });
+    $('fx-ptt').addEventListener('click', function () { st.ptt = !st.ptt; render(); });
+    render();
+  });
+
+  /* ================= slide 8: inductance, AC and DC switching ================= */
+  safe('induct', function () {
+    var svg = $('in-svg'); if (!svg) return;
+    var W = 2 * Math.PI / 4, TAU = 0.8, K = 45 * W, HZ = 30, NH = 240;
+    var t = 0, mode = 'ac', tA = 0, offA = 0, dc = null, hist = [], tS = 0, j;
+    for (j = NH - 1; j >= 0; j--) { var tt = -j / HZ; hist.push([Math.sin(W * tt), -Math.cos(W * tt)]); }
+    function state(tt) {
+      if (tt == null) tt = t;
+      if (mode === 'ac') { var u = tt - tA; return { i: Math.sin(W * u), e: -Math.cos(W * u), off: offA + 45 * (1 - Math.cos(W * u)) }; }
+      var v = tt - dc.ts, x = Math.exp(-v / TAU);
+      return { i: dc.L + (dc.i0 - dc.L) * x, e: (dc.i0 - dc.L) * x / (TAU * W), off: dc.off0 + K * (dc.L * v + (dc.i0 - dc.L) * TAU * (1 - x)) };
+    }
+    var ringsG = $('in-rings'), symsG = $('in-syms'), dotsG = $('in-dots'), XR = [430, 540, 650], rings = [], syms = [], dots = [];
+    XR.forEach(function (x) {
+      rings.push(ringsG.appendChild(el('ellipse', { cx: x, cy: 150, rx: 16, ry: 62 })));
+      [88, 212].forEach(function (yy) {
+        var g = symsG.appendChild(el('g', { transform: 'translate(' + x + ' ' + yy + ')' }));
+        g.appendChild(el('circle', { r: 11, fill: '#0b1220', stroke: '#fbbf24', 'stroke-width': 2.5 }));
+        var dot = g.appendChild(el('circle', { r: 3.5, fill: '#fbbf24' }));
+        var cross = g.appendChild(el('path', { d: 'M-6 -6 L6 6 M6 -6 L-6 6', stroke: '#fbbf24', 'stroke-width': 2.5 }));
+        syms.push({ g: g, dot: dot, cross: cross, top: yy < 150 });
+      });
+    });
+    for (j = 0; j < 11; j++) dots.push(dotsG.appendChild(el('circle', { r: 8, cy: 150 })));
+    function arrow(g, cx, cy, len, color) {
+      while (g.firstChild) g.removeChild(g.firstChild);
+      if (Math.abs(len) < 6) return;
+      var s = len > 0 ? 1 : -1, x0 = cx - len / 2, x1 = cx + len / 2;
+      g.appendChild(el('line', { x1: x0, y1: cy, x2: x1 - s * 12, y2: cy, stroke: color, 'stroke-width': 6, 'stroke-linecap': 'round' }));
+      g.appendChild(el('path', { d: 'M' + x1 + ' ' + cy + ' L' + (x1 - s * 18) + ' ' + (cy - 11) + ' L' + (x1 - s * 18) + ' ' + (cy + 11) + ' Z', fill: color }));
+    }
+    function path(k) {
+      var d = '', n = hist.length;
+      for (var q = 0; q < n; q++) d += (q ? ' L' : 'M') + (110 + q * 860 / (n - 1)).toFixed(1) + ' ' + (340 - 40 * hist[q][k]).toFixed(1);
+      return d;
+    }
+    function msg(s) {
+      if (mode === 'ac') return 'הזרם מתהפך, ולכן השדה משתנה כל הזמן והמתח המושרה לא נעלם.';
+      if (dc.L === 1) return Math.abs(s.e) > 0.04 ? 'הדלקה: הזרם עולה, והמתח המושרה מעכב את העלייה.' : 'הזרם קבוע: השדה קבוע ואין מתח מושרה.';
+      return Math.abs(s.e) > 0.04 ? 'כיבוי: הזרם יורד, והמתח המושרה מנסה להחזיק אותו.' : 'אין זרם ואין שדה.';
+    }
+    function render() {
+      var s = state(), a = Math.abs(s.i);
+      rings.forEach(function (r) { r.setAttribute('stroke-opacity', (0.1 + 0.9 * a).toFixed(2)); });
+      syms.forEach(function (o) {
+        var out = (s.i > 0) === o.top;
+        o.dot.style.display = out ? '' : 'none'; o.cross.style.display = out ? 'none' : '';
+        o.g.setAttribute('opacity', a < 0.03 ? 0 : (0.25 + 0.75 * a).toFixed(2));
+      });
+      dots.forEach(function (d, q) {
+        var x = 110 + (((q * 80 + s.off) % 880) + 880) % 880;
+        d.setAttribute('cx', x.toFixed(1)); d.style.display = x > 966 ? 'none' : '';
+      });
+      arrow($('in-iarr'), 250, 118, 120 * s.i, '#22d3ee');
+      arrow($('in-earr'), 845, 100, 120 * s.e, '#fb7185');
+      $('in-gi').setAttribute('d', path(0)); $('in-ge').setAttribute('d', path(1));
+      $('in-msg').textContent = msg(s);
+      $('in-ac').classList.toggle('on', mode === 'ac'); $('in-dc').classList.toggle('on', mode === 'dc');
+      $('in-sw').hidden = mode !== 'dc';
+      if (dc) $('in-sw').textContent = dc.L === 1 ? 'כיבוי' : 'הדלקה';
+    }
+    $('in-ac').addEventListener('click', function () { if (mode === 'ac') return; offA = state().off; tA = t; mode = 'ac'; render(); });
+    /* the DC button switches on from rest; the on/off button continues from the present current */
+    function startDC(L, fromRest) { var s = state(); dc = { ts: t, i0: fromRest ? 0 : s.i, L: L, off0: s.off }; mode = 'dc'; render(); }
+    $('in-dc').addEventListener('click', function () { startDC(1, true); });
+    $('in-sw').addEventListener('click', function () { startDC(dc && dc.L === 1 ? 0 : 1); });
+    render();
+    loop(svg, function (dt) {
+      t += dt;
+      while (tS + 1 / HZ <= t) { tS += 1 / HZ; var s = state(tS); hist.shift(); hist.push([s.i, s.e]); }
+      render();
+    });
+  });
+
+  /* ================= slide 9: current and end charge on a half-wave dipole ================= */
+  safe('antenna', function () {
+    var svg = $('an-svg'); if (!svg) return;
+    var ph = 90, playing = true, XC = 540, HALF = 340;
+    var rng = $('an-ph'), playB = $('an-play'), arrG = $('an-arrows'), XS = [270, 350, 430, 495, 585, 650, 730, 810];
+    var ticks = $('an-ticks');
+    [0, 90, 180, 270, 360].forEach(function (d) {
+      var x = 200 + d / 360 * 680;
+      ticks.appendChild(el('line', { x1: x, y1: 312, x2: x, y2: 324, stroke: '#8ba0b5', 'stroke-width': 1.5 }));
+      ticks.appendChild(el('text', { x: x, y: 394, fill: '#8ba0b5', 'text-anchor': 'middle', 'font-size': 14, 'class': 'ltrtx' }, d + '°'));
+    });
+    function gx(d) { return 200 + d / 360 * 680; }
+    var di = '', dq = '', d;
+    for (d = 0; d <= 360; d += 4) {
+      var r = d * Math.PI / 180;
+      di += (d ? ' L' : 'M') + gx(d).toFixed(1) + ' ' + (318 - 44 * Math.sin(r)).toFixed(1);
+      dq += (d ? ' L' : 'M') + gx(d).toFixed(1) + ' ' + (318 + 44 * Math.cos(r)).toFixed(1);
+    }
+    $('an-gi').setAttribute('d', di); $('an-gq').setAttribute('d', dq);
+    function charge(g, x, q) {
+      var a = Math.abs(q), c = g.querySelector('circle'), tx = g.querySelector('text');
+      g.setAttribute('transform', 'translate(' + x + ' 125)');
+      g.style.display = a < 0.06 ? 'none' : '';
+      c.setAttribute('r', (8 + 18 * a).toFixed(1));
+      c.setAttribute('fill', q > 0 ? '#e11d48' : '#2563eb');
+      tx.textContent = q > 0 ? '+' : '−';
+      tx.setAttribute('font-size', (16 + 16 * a).toFixed(0)); tx.setAttribute('y', (5 + 6 * a).toFixed(1));
+    }
+    function msg(s, c) {
+      if (Math.abs(s) > 0.97) return 'הזרם בהזנה בשיא, ובקצוות כמעט אין מטען.';
+      if (Math.abs(c) > 0.97) return 'הזרם כמעט אפס ועומד להתהפך. המטען בקצוות בשיא.';
+      return s * c < 0 ? 'הזרם נחלש, והמטען בקצוות גדל.' : 'המטען זורם חזרה מהקצוות, והזרם מתחזק.';
+    }
+    function render() {
+      var r = ph * Math.PI / 180, s = Math.sin(r), c = Math.cos(r), qL = c, qR = -c;
+      while (arrG.firstChild) arrG.removeChild(arrG.firstChild);
+      XS.forEach(function (x) {
+        var len = 78 * Math.cos(Math.PI / 2 * (x - XC) / HALF) * s;
+        if (Math.abs(len) < 7) return;
+        var sg = len > 0 ? 1 : -1, x0 = x - len / 2, x1 = x + len / 2;
+        arrG.appendChild(el('line', { x1: x0, y1: 125, x2: x1 - sg * 9, y2: 125, 'stroke-width': 6 }));
+        arrG.appendChild(el('path', { d: 'M' + x1.toFixed(1) + ' 125 L' + (x1 - sg * 15).toFixed(1) + ' 115 L' + (x1 - sg * 15).toFixed(1) + ' 135 Z', stroke: 'none' }));
+      });
+      charge($('an-qL'), 180, qL); charge($('an-qR'), 900, qR);
+      var a = Math.abs(qL);
+      $('an-arc').setAttribute('stroke-opacity', a.toFixed(2));
+      $('an-arct').setAttribute('opacity', (0.35 + 0.65 * a).toFixed(2));
+      $('an-arh').setAttribute('opacity', a < 0.06 ? 0 : a.toFixed(2));
+      $('an-arh').setAttribute('transform', 'translate(540 44) scale(' + (qL >= 0 ? 1 : -1) + ' 1)');
+      var x = gx(ph);
+      $('an-cur').setAttribute('x1', x.toFixed(1)); $('an-cur').setAttribute('x2', x.toFixed(1));
+      $('an-di').setAttribute('cx', x.toFixed(1)); $('an-di').setAttribute('cy', (318 - 44 * s).toFixed(1));
+      $('an-dq').setAttribute('cx', x.toFixed(1)); $('an-dq').setAttribute('cy', (318 + 44 * c).toFixed(1));
+      $('an-pv').textContent = Math.round(ph) + '°';
+      $('an-msg').textContent = msg(s, c);
+      playB.textContent = playing ? 'עצירה' : 'הפעלה';
+      playB.classList.toggle('on', playing);
+    }
+    onInput(rng, function () { playing = false; ph = parseFloat(rng.value); render(); });
+    playB.addEventListener('click', function () { playing = !playing; render(); });
+    $('an-step').addEventListener('click', function () {
+      playing = false; ph = (Math.floor(ph / 90 + 1e-6) + 1) * 90 % 360; rng.value = ph; render();
+    });
+    render();
+    loop(svg, function (dt) {
+      if (!playing) return;
+      ph = (ph + 60 * dt) % 360; rng.value = Math.round(ph / 5) * 5 % 360; render();
+    });
+  });
+})();
+</script></body></html>

@@ -1,0 +1,593 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><title>שיעור 1 · מק 710</title></head><body><style>
+:root{--deep:#04070d;--panel:#0b1220;--panel2:#101b30;--card:rgba(255,255,255,.052);--border:rgba(255,255,255,.105);--cyan:#22d3ee;--cyan2:#0891b2;--amber:#fbbf24;--red:#fb7185;--green:#4ade80;--ink:#f1f5f9;--muted:#a7b7c9;--dim:#8ba0b5}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;font-family:"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased}button{font:inherit}.deck-root{position:fixed;inset:0;background:radial-gradient(circle at 50% 24%,#0c1a2b 0,#000 76%);direction:rtl}.stage-shell{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}.stage{width:1280px;height:720px;position:relative;transform-origin:center;background:linear-gradient(155deg,#08111e 0%,#0a1829 58%,#07101c 100%);border-radius:16px;box-shadow:0 42px 110px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.06);overflow:hidden}.stage::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(34,211,238,.035) 1px,transparent 1px);background-size:100% 56px}.slide{position:absolute;inset:0;padding:43px 62px 66px;display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateX(-14px);transition:opacity .28s ease,transform .28s ease}.slide.active{opacity:1;pointer-events:auto;transform:none}.eyebrow{display:flex;align-items:center;gap:10px;padding-right:122px;color:var(--cyan);font-size:15px;font-weight:700;margin-bottom:8px}.eyebrow .num{display:inline-flex;align-items:center;justify-content:center;width:29px;height:29px;border-radius:8px;background:rgba(34,211,238,.11);border:1px solid rgba(34,211,238,.35);font-size:12px}.title{font-size:42px;line-height:1.13;color:var(--ink);font-weight:800;margin:0 0 7px}.subtitle{font-size:19px;line-height:1.5;color:var(--muted);margin:0 0 15px;max-width:1080px}.body{flex:1;min-height:0;display:flex;flex-direction:column}.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.34fr);gap:34px;flex:1;min-height:0;align-items:stretch}.split.text-wide{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}.stack{display:flex;flex-direction:column;gap:13px;min-width:0}.copy{font-size:19px;line-height:1.58;color:var(--muted);margin:0}.copy strong{color:var(--ink)}.key{background:rgba(34,211,238,.065);border-right:4px solid var(--cyan);border-radius:12px;padding:14px 17px;color:var(--ink);font-size:18px;line-height:1.5}.key.amber{background:rgba(251,191,36,.07);border-color:var(--amber)}.key.red{background:rgba(251,113,133,.07);border-color:var(--red)}.visual{position:relative;min-height:0;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:16px;background:radial-gradient(circle at 50% 40%,rgba(34,211,238,.075),transparent 67%),var(--panel);overflow:hidden;padding:16px}.visual.flat{border:0;background:transparent;padding:0}.visual svg{width:100%;height:100%;max-height:500px;overflow:visible}.visual-label{position:absolute;inset:auto 18px 12px;font-size:14px;color:var(--dim);text-align:center}.formula{direction:ltr;unicode-bidi:isolate;display:flex;align-items:center;justify-content:center;gap:15px;border:1px solid var(--border);background:var(--panel2);border-radius:14px;padding:15px 22px;color:var(--ink);font-size:31px;font-weight:800}.formula .accent{color:var(--cyan)}.formula .amber{color:var(--amber)}.grid2,.grid3,.grid4{display:grid;gap:16px;flex:1;align-content:stretch}.grid2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid4{grid-template-columns:repeat(4,minmax(0,1fr))}.card{border:1px solid var(--border);border-radius:15px;background:var(--card);padding:17px 19px;min-width:0}.card h3{margin:0 0 7px;color:var(--ink);font-size:22px}.card p{margin:0;color:var(--muted);font-size:16.5px;line-height:1.48}.card .tag{font-size:13px;font-weight:800;color:var(--cyan);margin-bottom:7px}.card.amber .tag{color:var(--amber)}.card.red .tag{color:var(--red)}.card.green .tag{color:var(--green)}.steps{display:flex;align-items:stretch;gap:26px;direction:rtl;flex:1}.step{flex:1 1 0;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:22px 22px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.025);overflow-wrap:anywhere;word-break:break-word}.step:not(:last-child)::after{content:"←";position:absolute;left:-26px;top:50%;transform:translateY(-50%);z-index:2;width:26px;height:26px;display:grid;place-items:center;border-radius:50%;background:var(--panel2);border:1px solid var(--border);color:var(--cyan)}.step strong{font-size:19px;color:var(--ink);margin-bottom:6px}.step span{font-size:15px;color:var(--muted);line-height:1.4}.metric{display:flex;align-items:baseline;gap:10px;direction:ltr;justify-content:center}.metric .value{font-size:58px;color:var(--cyan);font-weight:800}.metric .unit{font-size:20px;color:var(--muted)}.ltr{direction:ltr;unicode-bidi:isolate}span.ltr,b.ltr,i.ltr,em.ltr{display:inline;white-space:nowrap}.table{width:100%;border-collapse:collapse;font-size:16px}.table th,.table td{padding:11px 14px;border:1px solid var(--border);text-align:center}.table th{background:var(--panel2);color:var(--cyan)}.table td{background:rgba(255,255,255,.025);color:var(--muted)}.table td:first-child{color:var(--ink);font-weight:700}.checklist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}.checklist li{display:block;position:relative;padding-right:36px;min-height:24px;color:var(--muted);font-size:18px;line-height:1.45}.checklist li::before{content:"•";flex:0 0 25px;width:25px;height:25px;border-radius:7px;display:grid;place-items:center;background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.3);color:var(--green);font-weight:800}.question{font-size:28px;color:var(--ink);font-weight:800;line-height:1.35}.answer-row{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:20px}.answer{border:1px solid var(--border);border-radius:14px;padding:18px;background:rgba(255,255,255,.035);color:var(--muted);font-size:17px;line-height:1.45}.answer strong{display:block;color:var(--cyan);font-size:20px;margin-bottom:5px}.sources{font-size:13px;color:var(--dim);line-height:1.45;margin-top:8px}.sources a{color:var(--dim)}.footer{position:absolute;right:62px;left:62px;bottom:24px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--dim)}.title-slide{align-items:center;justify-content:center;text-align:center}.title-slide .badge{display:inline-flex;align-items:center;padding:8px 20px;border-radius:999px;border:1px solid rgba(34,211,238,.36);background:rgba(34,211,238,.09);color:var(--cyan);font-size:16px;font-weight:700;margin-bottom:25px}.title-slide h1{font-size:70px;line-height:1.08;margin:0 0 16px;color:var(--ink)}.title-slide p{font-size:24px;color:var(--muted);line-height:1.55;max-width:900px;margin:0 auto 28px}.hero-wave{width:650px;height:88px;max-width:72%}.nav{position:absolute;z-index:20;right:0;left:0;bottom:0;display:flex;align-items:center;gap:12px;padding:10px 25px;background:linear-gradient(0deg,rgba(0,0,0,.72),transparent)}.nav button{border:1px solid var(--border);background:rgba(255,255,255,.065);color:var(--ink);padding:7px 13px;border-radius:9px;cursor:pointer}.nav button:hover:not(:disabled){background:rgba(34,211,238,.14)}.nav button:disabled{opacity:.28;cursor:default}.progress{flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden}.progress>span{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--amber));transition:width .25s}.counter{direction:ltr;color:var(--dim);font-size:14px;min-width:58px;text-align:center}.notes-panel{position:absolute;z-index:30;left:24px;bottom:58px;width:390px;max-height:220px;overflow:auto;border:1px solid rgba(251,191,36,.36);border-radius:13px;background:rgba(6,10,18,.96);padding:14px 16px;color:var(--muted);font-size:15px;line-height:1.5;box-shadow:0 18px 60px rgba(0,0,0,.5)}.notes-panel[hidden]{display:none}.notes-panel strong{color:var(--amber);display:block;margin-bottom:5px}.speaker-note{display:none}.kbd-hint{position:absolute;left:21px;top:18px;color:var(--dim);font-size:11px}svg text{paint-order:stroke;stroke:#071019;stroke-width:2.4px;stroke-linejoin:round}.visual svg text,.card svg text{font-family:"Segoe UI",Arial,sans-serif}.flow{stroke-dasharray:8 10;animation:dash 2s linear infinite}.pulse{animation:pulse 1.7s ease-in-out infinite}.float{animation:float 3s ease-in-out infinite}.rotate{transform-origin:center;animation:spin 8s linear infinite}@keyframes dash{to{stroke-dashoffset:-72}}@keyframes pulse{50%{opacity:.35}}@keyframes float{50%{transform:translateY(-7px)}}@keyframes spin{to{transform:rotate(360deg)}}.flow.rev{animation-direction:reverse}.flow.slow{animation-duration:3.6s}.flow.fast{animation-duration:1.1s}.wave{transform-box:fill-box;animation:travel 2.6s linear infinite}.wave.rev{animation-direction:reverse}.wave.slow{animation-duration:4.2s}@keyframes travel{to{transform:translateX(var(--period,120px))}}.pkt{transform-box:fill-box;animation:pkt 2.8s ease-in-out infinite}@keyframes pkt{0%{opacity:0}8%{opacity:1}92%{opacity:1}100%{opacity:0;transform:translateX(var(--run,220px))}}.pkt.rev{animation-name:pktr}@keyframes pktr{0%{opacity:0}8%{opacity:1}92%{opacity:1}100%{opacity:0;transform:translateX(calc(-1*var(--run,220px)))}}.pkt.d1{animation-delay:.35s}.pkt.d2{animation-delay:.7s}.pkt.d3{animation-delay:1.05s}.blink{animation:blink 1.8s steps(1,end) infinite}@keyframes blink{0%,55%{opacity:1}56%,100%{opacity:.2}}.breathe{transform-box:fill-box;transform-origin:center;animation:breathe 2.4s ease-in-out infinite}@keyframes breathe{50%{transform:scale(1.12)}}.fade-cycle{animation:fadecyc 3.2s ease-in-out infinite}@keyframes fadecyc{0%,100%{opacity:.15}45%,55%{opacity:1}}@media(prefers-reduced-motion:reduce){.deck-root:not(.motion-on) *{animation:none!important;transition:none!important}}.motion-badge{position:absolute;left:21px;top:38px;z-index:6;font-size:11px;color:var(--cyan);background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.35);border-radius:6px;padding:2px 7px;pointer-events:none}.motion-badge[hidden]{display:none}
+@media print{html,body{height:auto;overflow:visible;background:#fff}.deck-root{position:static;background:#fff}.stage-shell{position:static;display:block;overflow:visible}.stage{width:1280px;height:auto;transform:none!important;border-radius:0;box-shadow:none;overflow:visible;background:#08111e}.slide{position:relative;width:1280px;height:720px;opacity:1!important;transform:none!important;pointer-events:auto;page-break-after:always}.nav,.notes-panel,.kbd-hint{display:none!important}}
+.tsim{display:flex;gap:20px;flex:1;min-height:0}.tsim-guide{flex:0 0 400px;display:flex;flex-direction:column;gap:11px;min-height:0;overflow:auto;padding-left:6px}.tsim-guide>.tsim-why{flex:0 0 auto}.tsim-spacer{flex:1 1 auto;min-height:0}.tsim-term{flex:1;min-width:0;display:flex;flex-direction:column;background:#05080f;border:1px solid var(--border);border-radius:14px;overflow:hidden}.tsim-bar{display:flex;align-items:center;gap:7px;padding:9px 13px;background:#0d1626;border-bottom:1px solid var(--border);flex:0 0 auto;direction:ltr}.tsim-bar i{width:11px;height:11px;border-radius:50%;display:block}.tsim-bar b{color:#8ba0b5;font-size:12.5px;font-weight:600;margin-left:10px;letter-spacing:.02em;direction:ltr;unicode-bidi:isolate}.tsim-out{flex:1;min-height:0;overflow:auto;direction:ltr;text-align:left;padding:12px 15px;font-family:Consolas,'Courier New',monospace;font-size:13.5px;line-height:1.52;color:#c3d7e8;white-space:pre-wrap;word-break:break-word}.tsim-out .tsim-boot{color:#5b7086;margin-bottom:2px}.tsim-out .caret{color:#4ade80;animation:tscar 1.1s steps(1,end) infinite}@keyframes tscar{0%,50%{opacity:1}51%,100%{opacity:0}}.tsim-out .p{color:#4ade80}.tsim-out .c{color:#f1f5f9;font-weight:700}.tsim-out .e{color:#fb7185}.tsim-out .h{color:#fbbf24}.tsim-out .cur{color:#4ade80}.tsim-hd{display:flex;align-items:baseline;gap:9px;flex:0 0 auto}.tsim-hd span{color:var(--cyan);font-size:13.5px;font-weight:800;letter-spacing:.02em}.tsim-hd b{color:var(--ink);font-size:19.5px;font-weight:800;line-height:1.25}.tsim-why{color:var(--muted);font-size:15.5px;line-height:1.46;margin:0}.tsim-cmd{direction:ltr;unicode-bidi:isolate;text-align:left;font-family:Consolas,'Courier New',monospace;font-size:13.5px;color:#fde68a;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.32);border-radius:9px;padding:8px 11px;word-break:break-all}.tsim-btn{appearance:none;cursor:pointer;font-family:inherit;text-align:right;border-radius:10px;padding:9px 13px;font-size:15.5px;line-height:1.35;border:1px solid var(--border);background:var(--card);color:var(--ink);transition:border-color .15s,background .15s}.tsim-btn:hover{border-color:var(--cyan);background:rgba(34,211,238,.11)}.tsim-btn:disabled{opacity:.45;cursor:default}.tsim-go{background:rgba(34,211,238,.16);border-color:rgba(34,211,238,.65);color:#e6fbff;font-weight:800;font-size:16px;text-align:center}.tsim-read{color:var(--ink);font-size:15.5px;line-height:1.45;background:rgba(34,211,238,.065);border-right:4px solid var(--cyan);border-radius:10px;padding:10px 13px}.tsim-read.win{background:rgba(74,222,128,.09);border-right-color:var(--green)}.tsim-fb{font-size:15px;line-height:1.4;border-radius:9px;padding:9px 12px;color:#fecdd3;background:rgba(251,113,133,.1);border-right:3px solid var(--red)}.tsim-ask{color:var(--muted);font-size:14px;font-weight:700;margin:2px 0 -3px}.tsim-ch{display:flex;flex-direction:column;gap:7px}.tsim-warn{color:#fde68a;font-size:15px;line-height:1.45;background:rgba(251,191,36,.09);border-right:4px solid var(--amber);border-radius:10px;padding:10px 13px}svg text.ltrtx,svg tspan.ltrtx{direction:ltr;unicode-bidi:isolate}svg text.nohalo{stroke:none;paint-order:normal}.table td,.table th,.rt td,.rt th{unicode-bidi:plaintext}.table td.fx,.rt td.fx{unicode-bidi:isolate}.crest{background-image:url(data:image/png;base64,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);background-size:contain;background-position:center;background-repeat:no-repeat;display:inline-block;flex:0 0 auto}.crest-lg{width:76px;height:107px}.crest-sm{width:27px;height:38px}.brand{display:flex;align-items:center;gap:15px;margin-bottom:22px;direction:rtl}.brand-txt{display:flex;flex-direction:column;align-items:flex-start;line-height:1.18;text-align:right}.brand-txt b{font-size:25px;font-weight:800;color:var(--ink);letter-spacing:.01em}.brand-txt i{font-size:16px;font-style:normal;color:var(--cyan);font-weight:600}.slide-mark{position:absolute;top:28px;right:62px;z-index:4;display:flex;align-items:flex-end;gap:9px;font-size:13px;font-weight:600;color:var(--dim);letter-spacing:.01em;pointer-events:none}.slide-mark>span:last-child{padding-bottom:3px}.foot-brand{display:inline-flex;align-items:center;gap:7px;color:var(--dim);white-space:nowrap}</style><style>@page{size:13.333in 7.5in;margin:0}svg text[font-family*="Consolas"],svg text[font-family*="monospace"]{direction:ltr;unicode-bidi:bidi-override}</style><style>/* nav bar covers the slide footer on screen; the counter is in the nav */@media screen{.stage .footer{display:none}}/* A pauses CSS animations too, not only SVG ones */.deck-root:not(.motion-on) *,.deck-root:not(.motion-on) *::before,.deck-root:not(.motion-on) *::after{animation-play-state:paused!important}</style><style>/* lesson d01: מק 710 (drawn display, keypad, key-sequence players, diagnosis, battery check, exercise) */
+.d01-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:24px;flex:1;min-height:0}
+.d01-grid.wide-r{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
+.d01-col{display:flex;flex-direction:column;gap:10px;min-width:0;min-height:0}
+.d01-dev{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;padding:14px 16px;border:1px solid var(--border);border-radius:16px;background:radial-gradient(circle at 50% 28%,rgba(34,211,238,.07),transparent 70%),var(--panel);min-width:0}
+.d01-lcd{direction:ltr;unicode-bidi:isolate;font-family:Consolas,"Courier New",monospace;color:#16211a;background:linear-gradient(170deg,#cbd6b9,#a8b795);border:7px solid #1b222b;border-radius:14px;box-shadow:inset 0 3px 10px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.09);padding:5px 14px 7px;width:322px;position:relative;user-select:none;text-align:left}
+.d01-top{display:flex;align-items:center;gap:9px;height:25px}
+.d01-top .d01-sp{flex:1}
+.d01-ln{display:flex;justify-content:space-between;align-items:center;font-size:31px;line-height:1.16;font-weight:700;letter-spacing:.03em;min-height:37px;white-space:nowrap}
+.d01-ln.nk{justify-content:center}
+.d01-f{border-radius:5px;padding:0 3px;display:inline-flex;align-items:center;outline:none;transition:opacity .2s,background .15s,box-shadow .15s}
+.d01-f svg{display:block}
+.d01-f.ghost{opacity:.13}
+.d01-r{background:#16211a;color:#c6d2b4;font:800 15px "Segoe UI",Arial,sans-serif;width:20px;height:20px;justify-content:center;border-radius:3px;padding:0}
+.d01-q{display:inline-flex;align-items:center;justify-content:center;min-width:44px;height:29px;border:2px dashed rgba(22,33,26,.5);border-radius:6px;color:rgba(22,33,26,.62);font-size:21px;font-style:normal}
+.d01-lcd.ex .d01-f[tabindex]{cursor:pointer}
+.d01-lcd.ex .d01-f[tabindex]:hover,.d01-lcd .d01-f.sel{box-shadow:0 0 0 2px #0e7490;background:rgba(14,116,144,.2)}
+.d01-lcd .d01-f.chg{box-shadow:0 0 0 2px #b45309;background:rgba(251,191,36,.42)}
+.d01-lcd.busy>*{opacity:.16}
+.d01-lcd.busy::after{content:"· · ·";position:absolute;inset:0;display:grid;place-items:center;font-size:34px;color:#16211a;opacity:.5}
+.d01-lcd.sm{width:206px;padding:3px 9px 5px;border-width:5px;border-radius:11px}
+.d01-lcd.sm .d01-ln{font-size:19px;min-height:24px}
+.d01-lcd.sm .d01-top{height:18px;gap:6px}
+.d01-lcd.sm .d01-r{width:15px;height:15px;font-size:11px}
+.d01-lcd.sm .d01-q{min-width:28px;height:19px;font-size:14px;border-width:1.5px}
+.d01-lcd.sm svg{transform:scale(.72);transform-origin:left center}
+.d01-kp{direction:ltr;display:grid;grid-template-columns:repeat(4,58px);gap:10px 14px;padding:13px 18px;background:linear-gradient(#272d34,#14181d);border-radius:22px;border:1px solid rgba(255,255,255,.09);box-shadow:0 10px 24px rgba(0,0,0,.4)}
+.d01-k{width:58px;height:58px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 40% 35%,#4b535d,#22282e 70%);border:2px solid #0c0f12;color:#eef2f6;font:800 13px "Segoe UI",Arial,sans-serif;line-height:1.12;box-shadow:inset 0 2px 3px rgba(255,255,255,.12),0 3px 0 #08090b;padding:0;transition:background .15s,box-shadow .15s,color .15s}
+.d01-k i{font-style:normal;font-size:12px;color:#cbd5e1}
+button.d01-k{cursor:pointer}
+button.d01-k:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.d01-k.on{background:radial-gradient(circle at 40% 35%,#fde68a,#f59e0b 75%);color:#1a1205;box-shadow:0 0 18px rgba(251,191,36,.75),0 3px 0 #7c4a03}
+.d01-k.on i{color:#3b2a05}
+.d01-k.sel{box-shadow:0 0 0 3px var(--cyan),0 3px 0 #08090b}
+.slide.active .d01-k.hit{animation:d01hit .34s ease-out}
+@keyframes d01hit{40%{transform:translateY(2px) scale(.92)}}
+.d01-kp.sm{grid-template-columns:repeat(4,44px);gap:7px 10px;padding:9px 12px;border-radius:16px}
+.d01-kp.sm .d01-k{width:44px;height:44px;font-size:10.5px}
+.d01-kp.sm .d01-k i{font-size:10px}
+.d01-lamps{display:flex;align-items:center;gap:16px;color:var(--muted);font-size:14px;direction:rtl}
+.d01-lamp{display:inline-flex;align-items:center;gap:6px;direction:ltr}
+.d01-lamp i{width:16px;height:16px;border-radius:50%;background:#3a3f45;border:1px solid rgba(255,255,255,.2);display:inline-block}
+.d01-lamp.red.on i{background:#ef4444;box-shadow:0 0 12px #ef4444}
+.d01-lamp.yel.on i{background:#facc15;box-shadow:0 0 12px #facc15}
+.d01-beep{color:var(--amber);font-weight:800;font-size:15px;visibility:hidden}
+.d01-beep.on{visibility:visible}
+.d01-seq{direction:ltr;unicode-bidi:isolate;display:inline-flex;flex-wrap:wrap;align-items:center;gap:5px 4px;vertical-align:middle}
+.d01-seq b{font:700 14.5px Consolas,"Courier New",monospace;color:var(--ink);padding:3px 8px;border:1px solid rgba(34,211,238,.45);border-radius:7px;background:rgba(34,211,238,.08);white-space:nowrap;transition:background .15s,border-color .15s,color .15s}
+.d01-seq i{font-style:normal;color:var(--dim);font-size:13px}
+.d01-seq b.done{border-color:rgba(74,222,128,.55);background:rgba(74,222,128,.12);color:#bbf7d0}
+.d01-seq b.cur{border-color:var(--amber);background:rgba(251,191,36,.25);color:#fff7d6}
+.d01-seq.lg b{font-size:17px;padding:5px 11px}
+.d01-btn{appearance:none;cursor:pointer;font-family:inherit;text-align:right;border-radius:10px;padding:8px 12px;font-size:15.5px;line-height:1.3;border:1px solid var(--border);background:var(--card);color:var(--ink);transition:border-color .15s,background .15s}
+.d01-btn:hover{border-color:var(--cyan);background:rgba(34,211,238,.11)}
+.d01-btn.on,.d01-btn[aria-pressed="true"]{background:rgba(34,211,238,.18);border-color:rgba(34,211,238,.7);color:#e6fbff;font-weight:700}
+.d01-btn:disabled{opacity:.4;cursor:default}
+.d01-btn.go{text-align:center;font-weight:800}
+.d01-btns{display:flex;flex-wrap:wrap;gap:7px}
+.d01-btns.col{flex-direction:column;flex-wrap:nowrap}
+.d01-say{color:var(--ink);font-size:16px;line-height:1.45;background:rgba(34,211,238,.065);border-right:4px solid var(--cyan);border-radius:10px;padding:9px 13px;min-height:48px}
+.d01-say.ok{background:rgba(74,222,128,.09);border-right-color:var(--green)}
+.d01-say.warn{background:rgba(251,191,36,.08);border-right-color:var(--amber)}
+.d01-say b{color:#fff}
+.d01-ctl{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.d01-ctl .d01-btn{text-align:center;padding:7px 12px;font-size:15px}
+.d01-lbl{color:var(--dim);font-size:14px;font-weight:700}
+.d01-info{border:1px solid var(--border);border-radius:12px;background:var(--card);padding:11px 14px;min-height:96px}
+.d01-info h3{margin:0 0 5px;color:var(--cyan);font-size:17px}
+.d01-info p{margin:0;color:var(--muted);font-size:15.5px;line-height:1.46}
+.d01-steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px;counter-reset:d01s}
+.d01-steps li{counter-increment:d01s;position:relative;padding:6px 40px 6px 10px;border-radius:9px;border:1px solid transparent;color:var(--muted);font-size:15.5px;line-height:1.38}
+.d01-steps li::before{content:counter(d01s);position:absolute;right:8px;top:6px;width:23px;height:23px;border-radius:7px;display:grid;place-items:center;background:rgba(34,211,238,.11);border:1px solid rgba(34,211,238,.35);color:var(--cyan);font-size:12.5px;font-weight:800}
+.d01-steps li.cur{border-color:rgba(251,191,36,.6);background:rgba(251,191,36,.09);color:var(--ink)}
+.d01-steps li.done{color:#9fb3c6}
+.d01-steps li.done::before{background:rgba(74,222,128,.14);border-color:rgba(74,222,128,.45);color:var(--green)}
+.d01-steps li.skip{opacity:.42}
+.d01-in{font-family:Consolas,"Courier New",monospace;font-size:17px;color:var(--ink);background:#05080f;border:1px solid var(--border);border-radius:9px;padding:5px 10px;width:110px;direction:ltr;text-align:center}
+.d01-in:focus{outline:none;border-color:var(--cyan)}
+.d01-in.bad{border-color:var(--red)}
+.d01-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.d01-chk{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-size:15px;cursor:pointer}
+.d01-chk input{width:17px;height:17px;accent-color:#22d3ee}
+.d01-err{color:var(--red);font-size:14px}
+.d01-ex{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.d01-card{border:1px solid var(--border);border-radius:14px;background:var(--card);padding:12px 12px 11px;display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0}
+.d01-card h3{margin:0;align-self:flex-start;color:var(--cyan);font-size:17px}
+.d01-card p{margin:0;align-self:stretch;color:var(--muted);font-size:15px;line-height:1.4;min-height:42px}
+.d01-ans{align-self:stretch;border-top:1px dashed var(--border);padding-top:8px;color:var(--ink);font-size:15px;line-height:1.4;display:flex;flex-direction:column;gap:6px}
+.d01-ans[hidden]{display:none}
+.d01-ans .d01-seq b{font-size:12.5px;padding:2px 6px}
+.d01-batt{display:flex;gap:18px;align-items:center}
+.d01-batt svg{width:250px;height:auto;flex:0 0 auto}
+.d01-tbl td,.d01-tbl th{padding:8px 12px}
+.d01-tbl td.ltd{direction:ltr;unicode-bidi:isolate}
+.d01-tbl tr.sel td{background:rgba(251,191,36,.12);color:var(--ink)}
+.d01-hero{display:flex;align-items:center;gap:18px;justify-content:center}
+.d01-hero .d01-lcd{width:300px}
+.d01-hero .d01-ln{font-size:28px;min-height:34px}
+.d01-txrx{position:relative}
+.d01-txrx .d01-tx{position:absolute;right:3px;opacity:0}
+.slide.active .d01-hero .d01-txrx .d01-rx{animation:d01rx 5s steps(1,end) infinite}
+.slide.active .d01-hero .d01-txrx .d01-tx{animation:d01tx 5s steps(1,end) infinite}
+.slide.active .d01-hero .d01-lamp.red i{animation:d01lamp 5s steps(1,end) infinite}
+@keyframes d01rx{0%,59%{opacity:1}60%,100%{opacity:0}}
+@keyframes d01tx{0%,59%{opacity:0}60%,100%{opacity:1}}
+@keyframes d01lamp{0%,59%{background:#3a3f45;box-shadow:none}60%,100%{background:#ef4444;box-shadow:0 0 12px #ef4444}}
+.checklist.d01-cl li::before{position:absolute;right:0;top:1px}
+</style><div class="deck-root motion-on" id="devices-lesson-1" dir="rtl"><div class="stage-shell"><main class="stage" aria-label="שיעור 1 · מק 710"><div class="motion-badge" hidden>אנימציות כבויות</div><div class="kbd-hint">← → ניווט · N הערות · F מסך מלא · A כיבוי אנימציות</div><section class="slide title-slide active" aria-hidden="false"><div class="brand"><span class="crest crest-lg" role="img" aria-label="סמל היחידה"></span><span class="brand-txt"><b>גדס״ם 5059</b><i>מחלקת תקשוב</i></span></div><div class="badge">מכשירים · VHF</div><h1>מק 710</h1><p>הפעלה ברמת המפעיל: קריאת המסך, כיוון תדר ומפתח, בדיקת סוללה ותקלות נפוצות.</p><div class="d01-hero" aria-hidden="true"><div id="d01-hero-lcd"></div><div class="d01-lamps" id="d01-hero-lamp"></div></div><aside class="speaker-note">השיעור הראשון במסלול המכשירים, לפי עלון המידע ועלון התקלות של היחידה למק 710. שקופית 2 מלמדת לקרוא את המסך; 3 עד 5 המכשיר, המקשים ומצב מוצפן; 6 ו-7 כיוון תדר ובדיקת סוללה; 8 עד 10 התקלות לפי מה שהמפעיל מרגיש; 11 תרגול; 12 ו-13 מה לא נלמד וכרטיס המפעיל. אם יש מכשיר אמיתי, העבירו אותו בכיתה כבר עכשיו, ובתרגול חניך מקיש עליו את הרצפים. במסך שבשער מתחלפים <span class="ltr">RX</span> ו-<span class="ltr">TX</span>, והנורית האדומה נדלקת בשידור. הערכים (<span class="ltr">46.250</span>, <span class="ltr">CH03</span>, מפתח 3) הם דוגמה.</aside></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">01</span>המסך</div><h1 class="title">קריאת מסך המכשיר</h1><p class="subtitle">כל שדה במסך מראה מצב אחר של המכשיר. את רוב התקלות של המפעיל מזהים כאן, עוד לפני שנוגעים במקשים.</p><div class="body"><div class="d01-grid" style="grid-template-columns:minmax(0,1fr) minmax(0,1.04fr)"><div class="d01-col"><span class="d01-lbl">מצב המכשיר</span><div class="d01-btns" id="op-states"><button class="d01-btn on" type="button" data-st="ok" aria-pressed="true">תקין</button><button class="d01-btn" type="button" data-st="r" aria-pressed="false">קליטה בלבד</button><button class="d01-btn" type="button" data-st="md" aria-pressed="false">הספק נמוך</button><button class="d01-btn" type="button" data-st="clr" aria-pressed="false">מצב גלוי</button><button class="d01-btn" type="button" data-st="nk" aria-pressed="false">ערוץ בלי מפתח</button></div><div class="d01-row"><button class="d01-btn go" type="button" id="op-ptt" aria-pressed="false">לחיצה על PTT</button><span class="d01-beep" id="op-beep">♪ צפצוף</span></div><div class="d01-say" id="op-state"></div><div class="d01-info" id="op-info"></div></div><div class="d01-dev"><div id="op-lcd"></div><div class="d01-lamps" id="op-lamps"></div><div id="op-kp"></div></div></div></div><aside class="speaker-note">ברירת המחדל: מצב תקין, <span class="ltr">46.250</span> באפיק <span class="ltr">CH03</span>, <span class="ltr">SEC</span> עם מפתח 3, <span class="ltr">HI</span> ו-<span class="ltr">RX</span>. עברו על השדות עם העכבר או בלחיצה, והסבר כל שדה מופיע מימין. אחר כך עברו בין המצבים: השדה ששונה מהמצב התקין מסומן בצהוב. שאלו לפני כל לחיצה מה ישתנה. לחיצה על <span class="ltr">PTT</span> מראה שידור: במצב גלוי נדלקת הנורית הצהובה, ובערוץ בלי מפתח מופיע <span class="ltr">NO KEYS</span> עם צפצוף. בשדה המפתח, במצב גלוי ובערוץ בלי מפתח, מופיע סימן שאלה, כי עלון היחידה לא מראה מה מוצג שם. אם יש מכשיר אמיתי, הראו עליו. הטעות הנפוצה: לחפש את <span class="ltr">R</span> ואת <span class="ltr">MD</span> באותה פינה. <span class="ltr">R</span> למעלה משמאל, <span class="ltr">MD</span> למטה משמאל. הערכים במסך הם דוגמה.</aside><div class="footer"><span>שיעור 1 · מק 710</span><span class="ltr">02 / 13</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">02</span>המכשיר</div><h1 class="title">מכשיר קשר תג״ם נישא</h1><p class="subtitle">מק 710 (<span class="ltr">PRC-710</span>) הוא מכשיר הקשר הידני והנישא של משפחת <span class="ltr">CNR-710</span> של אלביט מערכות (תדיראן), בתחום <span class="ltr">VHF</span>.</p><div class="body" style="gap:14px"><table class="table d01-tbl" style="font-size:16.5px"><tr><th>נתון</th><th>ערך</th><th>נתון</th><th>ערך</th></tr><tr><td>תחום תדרים</td><td><span class="ltr">30-87.975 MHz</span></td><td>הספק שידור</td><td><span class="ltr">2</span> או <span class="ltr">5 W</span></td></tr><tr><td>אפנון</td><td><span class="ltr">FM</span></td><td>טווח</td><td>כ-4 ק״מ, ותלוי מאוד בשטח</td></tr><tr><td>מרווח בין ערוצים</td><td><span class="ltr">25 kHz</span></td><td>אנטנה</td><td>סרט קצרה <span class="ltr">AN-892</span> עם צוואר גמיש</td></tr><tr><td>ערוצים קבועים</td><td>10</td><td>סוללה</td><td><span class="ltr">BU-6625</span>, או <span class="ltr">MR-2716</span> הנטענת</td></tr><tr><td>מצבי עבודה</td><td>גלוי ומוצפן</td><td>משקל בלי סוללה</td><td><span class="ltr">0.76</span> ק״ג בערך</td></tr><tr><td>בשימוש בצה״ל</td><td>מאז 2012 בערך</td><td>אוזניות</td><td><span class="ltr">ABDS-624</span> או <span class="ltr">MJD-250</span></td></tr></table><div class="key">הערכים במצגת (<span class="ltr">46.250 MHz</span>, <span class="ltr">CH03</span>, מפתח 3) הם דוגמאות. התדרים והמפתחות של הרשת נמסרים לפי נוהל היחידה.</div></div><aside class="speaker-note">רקע בלבד, לא לשינון. אם יש מכשיר בכיתה, הראו את האנטנה הקצרה והגמישה ואת הסוללה. הטווח של כ-4 ק״מ הוא הערכה כללית לפי מוזיאון חיל הקשר; בוואדי או מאחורי רכס הוא קטן בהרבה, ונחזור לזה בתקלת הקליטה. העלון לא אומר איזה הספק מתאים ל-<span class="ltr">HI</span> ול-<span class="ltr">MD</span>, אז לא מחברים בין השורות. המקורות: מוזיאון חיל הקשר הווירטואלי ופרסומי היצרן על משפחת <span class="ltr">CNR-710</span>.</aside><div class="footer"><span>שיעור 1 · מק 710</span><span class="ltr">03 / 13</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">03</span>מקשים</div><h1 class="title">לוח המקשים</h1><p class="subtitle"><span class="ltr">CLR</span>, <span class="ltr">SEC</span> ו-<span class="ltr">AJ</span> משמשים גם כחיצים ▼ ▲ ► בכיוון התדר והמפתח.</p><div class="body"><div class="split text-wide" style="gap:28px"><table class="table d01-tbl" id="kp-tbl" style="font-size:16px;align-self:start"><tr><th style="width:22%">מקש</th><th>בשיעור הזה</th></tr><tr data-k="FREQ"><td class="ltd">FREQ</td><td style="text-align:right">פותח את כיוון התדר. פותח גם את הרצף ששייך מפתח לערוץ.</td></tr><tr data-k="ENT"><td class="ltd">ENT</td><td style="text-align:right">אישור. מסיים שלב בכיוון התדר ואת כל רצפי התיקון.</td></tr><tr data-k="FNC"><td class="ltd">FNC / RST</td><td style="text-align:right"><span class="ltr">FNC</span> מחזיר לתפריט הראשי, ופותח את הרצפים לביטול קליטה בלבד ולהספק נמוך.</td></tr><tr data-k="CLR"><td class="ltd">CLR ▼</td><td style="text-align:right">חץ למטה. מופיע ברצפים של קליטה בלבד ושל שיוך מפתח.</td></tr><tr data-k="SEC"><td class="ltd">SEC ▲</td><td style="text-align:right">חץ למעלה. <span class="ltr">SEC</span> ואז <span class="ltr">ENT</span> מעבירים למצב מוצפן.</td></tr><tr data-k="AJ"><td class="ltd">AJ ►</td><td style="text-align:right">חץ ימינה בכיוון התדר.</td></tr><tr data-k="LITE TEST"><td class="ltd">LITE, TEST</td><td style="text-align:right">לא נלמדים כאן. לפי נוהל היחידה, וכך גם <span class="ltr">RST</span> והתפקיד של <span class="ltr">AJ</span> מעבר לחץ.</td></tr></table><div class="stack" style="align-items:center;justify-content:center;gap:18px"><div id="kp-kp"></div><p class="copy" style="font-size:17px">לחצן השידור (<span class="ltr">PTT</span>) אינו חלק מלוח המקשים. ברצפים מקישים כל מקש בתורו, בדיוק בסדר שבעלון.</p></div></div></div><aside class="speaker-note">לחצו על מקש בשרטוט והשורה שלו בטבלה תסומן. הסידור הוא כמו בעלון היחידה: למעלה <span class="ltr">LITE, FREQ, TEST, FNC/RST</span>, למטה <span class="ltr">CLR, SEC, AJ, ENT</span>. הדגישו שאותו מקש עושה דבר אחר לפי המקום בתפריט, ולכן מקישים רצף כמו שהוא, בלי לדלג ובלי להוסיף. על <span class="ltr">LITE</span>, <span class="ltr">TEST</span>, <span class="ltr">RST</span> ו-<span class="ltr">AJ</span> (מעבר לחץ ►) אין עדיין הסבר מהיחידה. אם שואלים, עונים שזה לפי נוהל היחידה ולא מנחשים. הראו על המכשיר איפה לחצן השידור.</aside><div class="footer"><span>שיעור 1 · מק 710</span><span class="ltr">04 / 13</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">04</span>הצפנה</div><h1 class="title">מצב מוצפן ומצב גלוי</h1><p class="subtitle">המצב מופיע בשורה השנייה של המסך, ובזמן שידור נדלקת נורית בצבע של המצב.</p><div class="body" style="gap:14px"><div class="key" style="font-size:21px;font-weight:700">כלל היחידה: כל התקשורת היא במצב מוצפן בלבד.</div><table class="table d01-tbl" style="font-size:16.5px"><tr><th style="width:22%"></th><th><span class="ltr">SEC</span> · מוצפן</th><th><span class="ltr">CLR</span> · גלוי</th></tr><tr><td>במסך, שורה 2</td><td><span class="ltr">SEC</span> ומספר המפתח</td><td><span class="ltr">CLR</span></td></tr><tr><td>נורית בזמן שידור</td><td>אדומה</td><td>צהובה</td></tr><tr><td>מה קורה ברשת</td><td>השידור מוצפן במפתח שבמסך</td><td>השידור יוצא גלוי. שומעים אותך, אבל אתה לא תשמע את התשובה.</td></tr></table><div class="d01-row" style="font-size:19px;color:var(--ink)">חזרה למצב מוצפן: <span class="d01-seq lg"><b>SEC</b><i>→</i><b>ENT</b></span></div></div><aside class="speaker-note">הכלל מעלון היחידה. הבדיקה המהירה בשטח: לוחצים <span class="ltr">PTT</span> ומסתכלים על הנורית. אדומה זה <span class="ltr">SEC</span>, צהובה זה <span class="ltr">CLR</span>. הדגישו את התוצאה: במצב גלוי בצד השני שומעים את המפעיל, אבל את התשובות הוא לא שומע, ומבחינתו נראה שפשוט לא עונים. התיקון <span class="ltr">SEC → ENT</span> מופיע גם בשלב 7 של כיוון התדר. את מיקום הנוריות על גוף המכשיר הראו על מכשיר אמיתי; הוא לא מופיע בעלון.</aside><div class="footer"><span>שיעור 1 · מק 710</span><span class="ltr">05 / 13</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">05</span>כיוון תדר</div><h1 class="title">כיוון תדר ומפתח</h1><p class="subtitle">הנוהל מעלון היחידה, לחיצה אחרי לחיצה. התדר החדש והמפתח מופיעים במסך בסיום.</p><div class="body"><div class="d01-grid" style="grid-template-columns:minmax(0,1.12fr) minmax(0,1fr)"><div class="d01-col"><ol class="d01-steps" id="tu-steps"><li>לחץ על <span class="ltr">FREQ</span>.</li><li>כשהסימון מצביע על <span class="ltr">FREQ</span>, לחץ על <span class="ltr">ENT</span>.</li><li>כוון את התדר באמצעות החיצים <span class="ltr">►▲▼</span>, ובסיום לחץ על <span class="ltr">ENT</span>.</li><li>עבור למאפיין <span class="ltr">KEY</span> באמצעות לחיצה על ▼.</li><li>בחר את המפתח הנוכחי באמצעות החיצים, ובסיום לחץ על <span class="ltr">ENT</span>. אם אינך יודע מה המפתח הנוכחי, בחר את המספר הגבוה ביותר.</li><li>חזור לתפריט הראשי באמצעות לחיצה על <span class="ltr">FNC</span>.</li><li>אם מופיע מצב <span class="ltr">CLR</span>, עבור למצב <span class="ltr">SEC</span> באמצעות לחיצה על <span class="ltr">SEC</span> ואז על <span class="ltr">ENT</span>.</li></ol><div class="d01-say" id="tu-say"></div><div class="d01-row"><span class="d01-lbl">תדר יעד</span><input class="d01-in" id="tu-f" value="46.250" maxlength="6" inputmode="decimal" autocomplete="off" spellcheck="false" aria-label="תדר יעד במגה-הרץ"><span class="d01-lbl"><span class="ltr">MHz</span></span><label class="d01-chk"><input type="checkbox" id="tu-clr" checked>בסיום מופיע <span class="ltr">CLR</span></label><span class="d01-err" id="tu-err"></span></div></div><div class="d01-col" style="align-items:stretch"><div class="d01-dev"><div id="tu-lcd"></div><div id="tu-kp" data-sm></div></div><div id="tu-seq"></div><div class="d01-ctl"><button class="d01-btn" type="button" id="tu-reset">התחלה</button><button class="d01-btn" type="button" id="tu-prev">→ הקודם</button><button class="d01-btn go" type="button" id="tu-next">הבא ←</button><button class="d01-btn go" type="button" id="tu-play">▶ נגן</button></div></div></div></div><aside class="speaker-note">ברירת המחדל: לפני הנוהל <span class="ltr">51.150</span> באפיק <span class="ltr">CH03</span> ומפתח 1; היעד <span class="ltr">46.250</span> ומפתח 3, ובסיום מופיע <span class="ltr">CLR</span> כדי ששלב 7 ייראה. לחצו "הבא" לחיצה אחרי לחיצה, או "נגן". המקש שלוחצים מואר, והשלב שלו מסומן ברשימה. החיצים בשלבים 3 ו-5 מוארים יחד, כי מספר הלחיצות תלוי בתדר ובמפתח. המסך מראה רק את המצב לפני הנוהל ואחרי שלב 6 ושלב 7. מסכי התפריט שבין הלחיצות לא מופיעים בעלון ולכן לא מוצגים (המסך מעומעם); הראו אותם על מכשיר אמיתי. אפשר להקליד תדר יעד אחר בתחום <span class="ltr">30.000-87.975</span> בקפיצות של <span class="ltr">0.025</span>. בלי הסימון של <span class="ltr">CLR</span> הנוהל נגמר בשלב 6. הדגישו את כלל היחידה בשלב 5: מי שלא יודע מה המפתח הנוכחי בוחר את המספר הגבוה ביותר. הטעות הנפוצה: לשכוח את שלב 7 ולצאת לרשת במצב גלוי.</aside><div class="footer"><span>שיעור 1 · מק 710</span><span class="ltr">06 / 13</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">06</span>סוללה</div><h1 class="title">בדיקת מצב סוללה</h1><p class="subtitle">בודקים בלחצן הבדיקה שעל הסוללה עצמה. נוריות מד הקיבול מראות כמה נשאר.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:30px"><div class="stack"><p class="copy">לוחצים על לחצן בדיקת הסוללה וסופרים את הנוריות שנדלקו. אם לא נדלקות נורות, או שנדלקת רק נורה אחת, מחליפים סוללה.</p><span class="d01-lbl">כמה נוריות נדלקו?</span><div class="d01-btns" id="bt-btns"><button class="d01-btn" type="button" data-n="0">אף נורה</button><button class="d01-btn" type="button" data-n="1">נורה אחת</button><button class="d01-btn" type="button" data-n="2">יותר מנורה אחת</button></div><div class="d01-say" id="bt-say"></div><table class="table d01-tbl" style="font-size:15.5px"><tr><td>סוגי סוללה</td><td style="text-align:right"><span class="ltr">BU-6625</span>, או <span class="ltr">MR-2716</span> הנטענת</td></tr><tr><td>במסך</td><td style="text-align:right">חיווי סוללה חלשה בפינה הימנית העליונה</td></tr><tr><td>הכנסה והדלקה</td><td style="text-align:right">לפי נוהל היחידה</td></tr></table></div><div class="visual"><svg id="bt-svg" viewBox="0 0 250 300" role="img" aria-label="סוללה עם לחצן בדיקה ומד קיבול"><rect x="20" y="10" width="210" height="280" rx="14" fill="#14181d" stroke="#3a4350" stroke-width="2"/><circle cx="180" cy="58" r="17" fill="#2b323b" stroke="#8ba0b5" stroke-width="2"/><circle cx="180" cy="58" r="9" fill="#5b6876"/><text x="180" y="30" text-anchor="middle" fill="#e2e8f0" font-size="14" class="nohalo">לחץ לבדיקה</text><text x="82" y="38" text-anchor="middle" fill="#e2e8f0" font-size="14" class="nohalo">מד קיבול נותר</text><rect x="40" y="48" width="84" height="26" rx="6" fill="#0b0e12" stroke="#3a4350"/><circle data-lit="1" cx="56" cy="61" r="7" fill="#fde68a" style="filter:drop-shadow(0 0 5px #fbbf24)"/><circle data-lit="2" cx="76" cy="61" r="7" fill="#fde68a" style="filter:drop-shadow(0 0 5px #fbbf24)"/><text data-lit="2" x="100" y="66" text-anchor="middle" fill="#fde68a" font-size="14" class="nohalo">…</text><text x="125" y="150" text-anchor="middle" fill="#fbbf24" font-size="17" font-weight="700" class="nohalo">אזהרה</text><text x="125" y="175" text-anchor="middle" fill="#a7b7c9" font-size="13" class="nohalo">אחסון בטמפרטורה גבוהה</text><text x="125" y="250" text-anchor="middle" fill="#8ba0b5" font-size="13" class="nohalo">סוללת המכשיר</text></svg></div></div></div><aside class="speaker-note">ברירת המחדל: נורה אחת, ולכן מחליפים. עברו על שלוש האפשרויות. בעלון אין מספר הנוריות במד, ולכן בשרטוט מוצגות רק הנוריות שנדלקו; על סוללה אמיתית ספרו כמה נוריות יש. הטעות הנפוצה היא להסתפק בכך שהמכשיר נדלק. מה שקובע הוא הבדיקה בלחצן. על הסוללה יש תווית אזהרה על אחסון בטמפרטורה גבוהה; הקריאו אותה מסוללה אמיתית. הכנסת הסוללה והדלקת המכשיר לא נלמדות כאן, לפי נוהל היחידה.</aside><div class="footer"><span>שיעור 1 · מק 710</span><span class="ltr">07 / 13</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">07</span>תקלות</div><h1 class="title">לא שומעים אותי</h1><p class="subtitle">מתחילים מהמסך. כל סימן מוביל לסיבה אחרת ולרצף מקשים משלו.</p><div class="body"><div class="d01-grid" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"><div class="d01-col"><span class="d01-lbl">מה המסך מראה?</span><div class="d01-btns col" id="dx-opts"><button class="d01-btn" type="button" data-dx="r"><span class="ltr">R</span> בפינה השמאלית העליונה</button><button class="d01-btn" type="button" data-dx="md"><span class="ltr">MD</span> בפינה השמאלית התחתונה</button><button class="d01-btn" type="button" data-dx="nk">צפצוף ו-<span class="ltr">NO KEYS</span> בלחיצה על <span class="ltr">PTT</span></button><button class="d01-btn" type="button" data-dx="ter">המסך תקין: <span class="ltr">SEC</span>, <span class="ltr">HI</span>, בלי <span class="ltr">R</span></button></div><div class="d01-info" id="dx-cause"></div><div class="d01-say" id="dx-say"></div></div><div class="d01-col"><div class="d01-dev"><div id="dx-lcd"></div><span class="d01-beep" id="dx-beep">♪ צפצוף</span><div id="dx-kp" data-sm></div></div><div id="dx-seq"></div><div class="d01-ctl"><button class="d01-btn" type="button" id="dx-reset">התחלה</button><button class="d01-btn" type="button" id="dx-prev">→ הקודם</button><button class="d01-btn go" type="button" id="dx-next">הבא ←</button><button class="d01-btn go" type="button" id="dx-play">▶ נגן</button></div><div class="sources" style="font-size:15px;color:var(--muted)">אם אף אחד מהפתרונות לא עוזר, פונים למחלקת התקשוב.</div></div></div></div><aside class="speaker-note">ברירת המחדל: <span class="ltr">R</span> למעלה משמאל. בחרו סימן, והרצף שלו מופיע על לוח המקשים; "הבא" לוחץ מקש אחד, "נגן" מריץ את כל הרצף. המסך מראה רק את המצב לפני הרצף ואחריו. הרצפים מעלון התקלות: קליטה בלבד <span class="ltr">FNC → ENT → CLR → CLR → CLR → ENT → SEC → ENT</span>; הספק נמוך <span class="ltr">FNC → ENT → ENT → SEC → ENT</span>; <span class="ltr">NO KEYS</span> <span class="ltr">FREQ → CLR → ENT → CLR → ENT</span>. כשהמסך תקין והנורית האדומה דולקת בשידור, החשוד הוא השטח: במקום נמוך או בוואדי עולים למקום גבוה או מישורי יותר, כמו שלמדנו במסלול הרדיו על קו ראייה. מצב גלוי מופיע בעלון תחת אותה בעיה, אבל התסמין שלו שונה, ולכן הוא בשקופית נפרדת. הטעות הנפוצה: להקיש רצף בלי לבדוק קודם מה המסך מראה.</aside><div class="footer"><span>שיעור 1 · מק 710 · תקלות נפוצות</span><span class="ltr">08 / 13</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">08</span>תקלות</div><h1 class="title">אני לא שומע את התשובה</h1><p class="subtitle">במצב גלוי שומעים אותך, אבל אתה לא תשמע את התשובה. בשידור נדלקת הנורית הצהובה <span class="ltr">CLR</span> ולא האדומה <span class="ltr">SEC</span>.</p><div class="body"><div class="d01-grid" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"><div class="d01-col" style="gap:14px"><p class="copy">המפעיל משדר כרגיל, ובצד השני שומעים אותו. התשובות שלהם יוצאות מוצפנות, והמכשיר שלו במצב גלוי לא מפענח אותן. מבחינתו נראה שפשוט לא עונים.</p><p class="copy">בודקים בלחיצה על <span class="ltr">PTT</span>: הנורית הצהובה דולקת, ובשורה השנייה של המסך מופיע <span class="ltr">CLR</span>. לתיקון לוחצים <span class="ltr">SEC</span> ואז <span class="ltr">ENT</span>.</p><div class="d01-say" id="cl-say"></div><div class="key amber" style="font-size:16.5px">גם בסוף כיוון תדר בודקים את המצב. אם מופיע <span class="ltr">CLR</span>, זה שלב 7 בנוהל.</div></div><div class="d01-col"><div class="d01-dev"><div id="cl-lcd"></div><div class="d01-lamps" id="cl-lamps"></div><div id="cl-kp" data-sm></div></div><div id="cl-seq"></div><div class="d01-ctl"><button class="d01-btn" type="button" id="cl-reset">התחלה</button><button class="d01-btn" type="button" id="cl-prev">→ הקודם</button><button class="d01-btn go" type="button" id="cl-next">הבא ←</button><button class="d01-btn go" type="button" id="cl-play">▶ נגן</button><span style="flex:1"></span><button class="d01-btn go" type="button" id="cl-ptt" aria-pressed="false">PTT</button></div></div></div></div><aside class="speaker-note">ברירת המחדל: המסך מראה <span class="ltr">CLR</span>. לחצו <span class="ltr">PTT</span> ותראו את הנורית הצהובה, ואז "נגן" או "הבא" פעמיים: <span class="ltr">SEC → ENT</span>. בסוף לחצו שוב <span class="ltr">PTT</span>: הנורית האדומה. בעלון התקלות המצב הזה מופיע תחת "לא שומעים אותי"; כאן הוא לפי התסמין שהמפעיל מרגיש. הסבירו את הסכנה: מה ששודר במצב גלוי יצא בלי הצפנה, וזה בניגוד לכלל של היחידה. אם מצב גלוי חוזר שוב ושוב בלי סיבה ברורה, פונים למחלקת התקשוב.</aside><div class="footer"><span>שיעור 1 · מק 710 · תקלות נפוצות</span><span class="ltr">09 / 13</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">09</span>תקלות</div><h1 class="title">צפצוף ו-<span class="ltr">NO KEYS</span> בלחיצה על <span class="ltr">PTT</span></h1><p class="subtitle">המכשיר מצפצף ולא משדר, כי לערוץ לא משויך מפתח הצפנה. משייכים מפתח ברצף מקשים.</p><div class="body"><div class="d01-grid" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)"><div class="d01-col" style="gap:14px"><p class="copy">כשמנסים לצאת לשידור נשמע צפצוף, והמילים <span class="ltr">NO KEYS</span> מופיעות בתחתית המסך. לפני הלחיצה המסך נראה רגיל.</p><p class="copy">משייכים מפתח לערוץ ברצף <span class="ltr">FREQ → CLR → ENT → CLR → ENT</span>.</p><div class="d01-say" id="nk-say"></div><table class="table d01-tbl" style="font-size:15.5px"><tr><th style="width:30%"></th><th>מתי רואים</th></tr><tr><td><span class="ltr">NO KEYS</span></td><td style="text-align:right">רק בלחיצה על <span class="ltr">PTT</span>, עם צפצוף</td></tr><tr><td>קליטה בלבד (<span class="ltr">R</span>)</td><td style="text-align:right">במסך כל הזמן, למעלה משמאל</td></tr></table></div><div class="d01-col"><div class="d01-dev"><div id="nk-lcd"></div><span class="d01-beep" id="nk-beep">♪ צפצוף</span><div class="d01-lamps" id="nk-lamps"></div><div id="nk-kp" data-sm></div></div><div id="nk-seq"></div><div class="d01-ctl"><button class="d01-btn" type="button" id="nk-reset">התחלה</button><button class="d01-btn" type="button" id="nk-prev">→ הקודם</button><button class="d01-btn go" type="button" id="nk-next">הבא ←</button><button class="d01-btn go" type="button" id="nk-play">▶ נגן</button><span style="flex:1"></span><button class="d01-btn go" type="button" id="nk-ptt" aria-pressed="false">PTT</button></div></div></div></div><aside class="speaker-note">ברירת המחדל: ערוץ בלי מפתח, והמסך נראה רגיל. לחצו <span class="ltr">PTT</span>: צפצוף ו-<span class="ltr">NO KEYS</span>. אחר כך "נגן": <span class="ltr">FREQ → CLR → ENT → CLR → ENT</span>, ושוב <span class="ltr">PTT</span>: המכשיר משדר והנורית האדומה דולקת. איזה מפתח הרצף משייך ומה מופיע אז בשדה המפתח לא כתוב בעלון, ולכן בשדה מופיע סימן שאלה. בדקו על מכשיר אמיתי, ואת המפתח הנכון של הרשת מקבלים לפי נוהל היחידה. ההבדל מקליטה בלבד: שם הסימן <span class="ltr">R</span> נראה במסך גם בלי ללחוץ <span class="ltr">PTT</span>. הטעות הנפוצה: לבלבל עם כיוון התדר. שני הרצפים מתחילים ב-<span class="ltr">FREQ</span>, אבל הם שונים, ולא מחליפים אחד בשני.</aside><div class="footer"><span>שיעור 1 · מק 710 · תקלות נפוצות</span><span class="ltr">10 / 13</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">10</span>תרגול</div><h1 class="title">זיהוי תקלה לפי המסך והנוריות</h1><p class="subtitle">מה התקלה בכל מכשיר, ומה מקישים כדי לתקן? עונים לפני שפותחים את התשובה.</p><div class="body" style="gap:12px"><div class="d01-ex"><div class="d01-card"><h3>א</h3><p>מדווחים לך ברשת שלא שומעים אותך.</p><div class="d01-exlcd" data-st="md"></div><button class="d01-btn go" type="button" data-ans="ex-a1" aria-expanded="false" style="padding:5px 16px">תשובה</button><div class="d01-ans" id="ex-a1" hidden><b>הספק נמוך</b><span class="d01-seq"><b>FNC</b><i>→</i><b>ENT</b><i>→</i><b>ENT</b><i>→</i><b>SEC</b><i>→</i><b>ENT</b></span></div></div><div class="d01-card"><h3>ב</h3><p>אתה משדר. ההודעה יוצאת, ואף תשובה לא מגיעה אליך.</p><div class="d01-exlcd" data-st="clrtx"></div><div class="d01-lamps d01-exlamps" style="font-size:13px"></div><button class="d01-btn go" type="button" data-ans="ex-a2" aria-expanded="false" style="padding:5px 16px">תשובה</button><div class="d01-ans" id="ex-a2" hidden><b>מצב גלוי</b><span class="d01-seq"><b>SEC</b><i>→</i><b>ENT</b></span></div></div><div class="d01-card"><h3>ג</h3><p>לוחצים <span class="ltr">PTT</span>, ואף אחד לא עונה.</p><div class="d01-exlcd" data-st="r"></div><button class="d01-btn go" type="button" data-ans="ex-a3" aria-expanded="false" style="padding:5px 16px">תשובה</button><div class="d01-ans" id="ex-a3" hidden><b>קליטה בלבד</b><span class="d01-seq"><b>FNC</b><i>→</i><b>ENT</b><i>→</i><b>CLR</b><i>→</i><b>CLR</b><i>→</i><b>CLR</b><i>→</i><b>ENT</b><i>→</i><b>SEC</b><i>→</i><b>ENT</b></span></div></div><div class="d01-card"><h3>ד</h3><p>בלחיצה על <span class="ltr">PTT</span>:</p><div class="d01-exlcd" data-st="nkptt"></div><span class="d01-beep on">♪ צפצוף</span><button class="d01-btn go" type="button" data-ans="ex-a4" aria-expanded="false" style="padding:5px 16px">תשובה</button><div class="d01-ans" id="ex-a4" hidden><b>אין מפתח לערוץ</b><span class="d01-seq"><b>FREQ</b><i>→</i><b>CLR</b><i>→</i><b>ENT</b><i>→</i><b>CLR</b><i>→</i><b>ENT</b></span></div></div></div><div class="d01-row" style="font-size:17px;color:var(--muted)"><b style="color:var(--cyan)">ה</b> המסך תקין, הנורית האדומה דולקת בשידור, ואתה בוואדי. אין תשובה. <button class="d01-btn go" type="button" data-ans="ex-a5" aria-expanded="false" style="padding:5px 16px">תשובה</button><span class="d01-ans" id="ex-a5" hidden style="border:0;padding:0;color:var(--ink)">בעיית קליטה: עולים למקום גבוה או מישורי יותר.</span></div></div><aside class="speaker-note">תנו לחניכים לענות, בזוגות אם אפשר, לפני שפותחים תשובה. אם יש מכשיר אמיתי, חניך מקיש את הרצף עליו. א: <span class="ltr">MD</span> למטה משמאל, הספק נמוך: <span class="ltr">FNC → ENT → ENT → SEC → ENT</span>. ב: <span class="ltr">CLR</span> במסך והנורית הצהובה דולקת, מצב גלוי: <span class="ltr">SEC → ENT</span>. ג: <span class="ltr">R</span> למעלה משמאל, קליטה בלבד: <span class="ltr">FNC → ENT → CLR → CLR → CLR → ENT → SEC → ENT</span>. ד: צפצוף ו-<span class="ltr">NO KEYS</span>, אין מפתח לערוץ: <span class="ltr">FREQ → CLR → ENT → CLR → ENT</span>. ה: המסך תקין, בעיית קליטה: עולים למקום גבוה או מישורי יותר; אם לא עוזר, פונים למחלקת התקשוב. הטעות הנפוצה במקרה ב: לענות "לא שומעים אותי". שומעים אותו, והוא לא שומע את התשובה. במקרה ג רבים מחפשים את <span class="ltr">R</span> למטה.</aside><div class="footer"><span>שיעור 1 · מק 710 · תקלות נפוצות</span><span class="ltr">11 / 13</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">11</span>גבולות</div><h1 class="title">גבולות השיעור ופנייה למחלקת התקשוב</h1><p class="subtitle">השיעור מלמד את מה שמופיע בעלוני היחידה. כל השאר נלמד לפי נוהל היחידה או על המכשיר עצמו.</p><div class="body"><div class="split text-wide" style="gap:30px"><ul class="checklist d01-cl"><li>הכנסת הסוללה והדלקת המכשיר: לפי נוהל היחידה.</li><li>המקשים <span class="ltr">LITE</span> ו-<span class="ltr">TEST</span>, <span class="ltr">RST</span>, ותפקיד <span class="ltr">AJ</span> מעבר לחץ ►: לפי נוהל היחידה.</li><li>קפיצות תדר ושאר היכולות של המשפחה לא נלמדות כאן.</li><li>מסכי התפריט שבין הלחיצות, מספר הנוריות במד הסוללה ומיקום נוריות <span class="ltr">SEC</span> ו-<span class="ltr">CLR</span>: רואים על המכשיר.</li><li>מה מופיע בשדה המפתח במצב גלוי ובערוץ בלי מפתח (סימן שאלה במסך המשורטט): בודקים על המכשיר.</li><li>התדרים והמפתחות במצגת הם דוגמאות.</li></ul><div class="stack" style="justify-content:center"><div class="key amber" style="font-size:20px">אם נתקלת בבעיה אחרת, או שאף אחד מהפתרונות לא עוזר, פנה למחלקת התקשוב.</div><p class="copy" style="font-size:16.5px">המשפט מעלון התקלות של היחידה.</p></div></div></div><aside class="speaker-note">לא לדלג. חניכים נוטים "להשלים" מקשים ומסכים שלא נלמדו. מה שלא בעלון, לא מנחשים: בודקים על המכשיר או שואלים את מחלקת התקשוב. כשפונים, כדאי למסור מה המסך מראה ואילו רצפים כבר הוקשו. השלמות מהיחידה (הכנסת סוללה, הדלקה, <span class="ltr">TEST</span>, <span class="ltr">LITE</span>, <span class="ltr">AJ</span>) יתווספו לשיעור כשיגיעו.</aside><div class="footer"><span>שיעור 1 · מק 710</span><span class="ltr">12 / 13</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">12</span>סיכום</div><h1 class="title">כרטיס המפעיל</h1><p class="subtitle">מה רואים, מה התקלה ומה עושים. אותם רצפים כמו בעלון התקלות.</p><div class="body"><table class="table d01-tbl" style="font-size:15.5px"><tr><th style="width:30%">מה רואים</th><th style="width:20%">התקלה</th><th>מה עושים</th></tr><tr><td><span class="ltr">R</span> בפינה השמאלית העליונה</td><td>קליטה בלבד</td><td><span class="d01-seq"><b>FNC</b><i>→</i><b>ENT</b><i>→</i><b>CLR</b><i>→</i><b>CLR</b><i>→</i><b>CLR</b><i>→</i><b>ENT</b><i>→</i><b>SEC</b><i>→</i><b>ENT</b></span></td></tr><tr><td><span class="ltr">MD</span> בפינה השמאלית התחתונה</td><td>הספק נמוך</td><td><span class="d01-seq"><b>FNC</b><i>→</i><b>ENT</b><i>→</i><b>ENT</b><i>→</i><b>SEC</b><i>→</i><b>ENT</b></span></td></tr><tr><td><span class="ltr">CLR</span> במסך, נורית צהובה בשידור</td><td>מצב גלוי</td><td><span class="d01-seq"><b>SEC</b><i>→</i><b>ENT</b></span></td></tr><tr><td>צפצוף ו-<span class="ltr">NO KEYS</span> בלחיצה על <span class="ltr">PTT</span></td><td>אין מפתח לערוץ</td><td><span class="d01-seq"><b>FREQ</b><i>→</i><b>CLR</b><i>→</i><b>ENT</b><i>→</i><b>CLR</b><i>→</i><b>ENT</b></span></td></tr><tr><td>המסך תקין, מקום נמוך או ואדי</td><td>בעיית קליטה</td><td style="text-align:right">עולים למקום גבוה או מישורי יותר</td></tr><tr><td>בבדיקת סוללה: אף נורה או נורה אחת</td><td>סוללה חלשה</td><td style="text-align:right">מחליפים סוללה</td></tr><tr><td>בעיה אחרת, או שאף פתרון לא עזר</td><td></td><td style="text-align:right">פונים למחלקת התקשוב</td></tr></table></div><aside class="speaker-note">לסגירה: הצביעו על שורה ובקשו מחניך להגיד את הרצף בעל פה, ואם יש מכשיר, להקיש אותו. השקופית מתאימה להדפסה ככרטיס כיס; אותה טבלה נמצאת בנספח של מדריך המדריך.</aside><div class="footer"><span>שיעור 1 · מק 710</span><span class="ltr">13 / 13</span></div></section>
+<div class="nav"><button type="button" data-prev aria-label="שקופית קודמת">הקודם</button><button type="button" data-next aria-label="שקופית הבאה">הבא</button><div class="progress" aria-hidden="true"><span></span></div><div class="counter"></div><button type="button" data-notes>הערות</button></div><div class="notes-panel" hidden></div></main></div></div><script>
+(() => {
+  const root = document.querySelector('.deck-root');
+  const stage = root.querySelector('.stage');
+  const slides = [...root.querySelectorAll('.slide')];
+  const prev = root.querySelector('[data-prev]');
+  const next = root.querySelector('[data-next]');
+  const counter = root.querySelector('.counter');
+  const progress = root.querySelector('.progress span');
+  const notesButton = root.querySelector('[data-notes]');
+  const notesPanel = root.querySelector('.notes-panel');
+  let index = 0;
+  function scaleStage(){
+    const s = Math.min((innerWidth-20)/1280,(innerHeight-20)/720);
+    stage.style.transform = 'scale('+Math.max(.2,s)+')';
+  }
+  function show(i){
+    index = Math.max(0,Math.min(slides.length-1,i));
+    slides.forEach((s,n)=>{const active=n===index;s.classList.toggle('active',active);s.setAttribute('aria-hidden',String(!active));});
+    prev.disabled=index===0; next.disabled=index===slides.length-1;
+    counter.textContent=(index+1)+' / '+slides.length;
+    progress.style.width=((index+1)/slides.length*100)+'%';
+    notesPanel.hidden=true;
+  }
+  prev.addEventListener('click',()=>show(index-1));
+  next.addEventListener('click',()=>show(index+1));
+  notesButton.addEventListener('click',()=>{
+    const note=slides[index].querySelector('.speaker-note');
+    notesPanel.innerHTML='<strong>הערות למעביר</strong>'+(note?note.innerHTML:'אין הערות לשקופית זו.');
+    notesPanel.hidden=!notesPanel.hidden;
+  });
+  addEventListener('keydown',(e)=>{
+    if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(index+1)}
+    else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(index-1)}
+    else if(e.key==='Home')show(0);else if(e.key==='End')show(slides.length-1);
+    else if(e.key.toLowerCase()==='n')notesButton.click();
+    else if(e.key.toLowerCase()==='a'){root.classList.toggle('motion-on');var mb=root.querySelector('.motion-badge');if(mb)mb.hidden=root.classList.contains('motion-on');root.querySelectorAll('svg').forEach(function(v){if(v.pauseAnimations){root.classList.contains('motion-on')?v.unpauseAnimations():v.pauseAnimations();}});}else if(e.key.toLowerCase()==='f'){if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()}
+  });
+  
+  addEventListener('resize',scaleStage);scaleStage();show(0);
+})();
+</script>
+<script>
+(function () {
+  'use strict';
+  var root = document.querySelector('.deck-root');
+  function $(id) { return document.getElementById(id); }
+  /* animations and auto-play run only while the deck is in motion mode (key A) */
+  function motionOK() { return !!(root && root.classList.contains('motion-on')); }
+  function activeSlideOf(node) { var s = node && node.closest('.slide'); return !!(s && s.classList.contains('active')); }
+  function onInput(node, fn) { node.addEventListener('input', fn); }
+  function L(s) { return '<span class="ltr">' + s + '</span>'; }
+  function safe(name, fn) { try { fn(); } catch (err) { if (window.console) console.error('[d01] ' + name, err); } }
+  function each(list, fn) { Array.prototype.forEach.call(list, fn); }
+
+  /* typing inside a field must not drive the deck (space, n, a, f, arrows) */
+  document.querySelectorAll('.deck-root input:not([type=range]), .deck-root textarea, .deck-root select').forEach(function (f) {
+    f.addEventListener('keydown', function (e) { e.stopPropagation(); if (e.key === 'Escape') f.blur(); });
+  });
+
+  /* ================= the drawn radio: keypad, display, lamps ================= */
+  /* keypad as on the unit sheet: LITE FREQ TEST FNC/RST over CLR▼ SEC▲ AJ► ENT */
+  var KEYS = [['LITE', ''], ['FREQ', ''], ['TEST', ''], ['FNC', 'RST'], ['CLR', '▼'], ['SEC', '▲'], ['AJ', '►'], ['ENT', '']];
+  function keypad(box, clickable, small) {
+    if (!box) return;
+    box.className = 'd01-kp' + (small ? ' sm' : '');
+    box.setAttribute('dir', 'ltr');
+    box.innerHTML = KEYS.map(function (k) {
+      var tag = clickable ? 'button' : 'span';
+      return '<' + tag + (clickable ? ' type="button"' : '') + ' class="d01-k" data-k="' + k[0] + '"><b>' + k[0] + '</b>' + (k[1] ? '<i>' + k[1] + '</i>' : '') + '</' + tag + '>';
+    }).join('');
+  }
+  function lightKeys(box, keys) {
+    each(box.querySelectorAll('.d01-k'), function (k) {
+      var on = keys.indexOf(k.getAttribute('data-k')) >= 0;
+      k.classList.toggle('on', on);
+      k.classList.remove('hit');
+      if (on && motionOK()) { void k.offsetWidth; k.classList.add('hit'); }
+    });
+  }
+
+  function st(over) {
+    var s = { freq: '46.250', ch: 'CH03', mode: 'SEC', key: '3', pwr: 'HI', tx: false, r: false, batt: false, keyless: false, nokeys: false };
+    for (var k in over) s[k] = over[k];
+    return s;
+  }
+  /* what PTT does to a state, as far as the unit sheets describe it */
+  function withPTT(s) {
+    if (s.r) return s;
+    if (s.keyless) return st(Object.assign({}, s, { nokeys: true }));
+    return st(Object.assign({}, s, { tx: true }));
+  }
+  function bars(n) {
+    var h = '<svg width="34" height="20" viewBox="0 0 34 20" aria-hidden="true"><path d="M2 2 L6.5 8 L11 2 M6.5 8 V19" fill="none" stroke="currentColor" stroke-width="2.2"/>';
+    for (var i = 0; i < n; i++) h += '<rect x="' + (14 + 5 * i) + '" y="' + (16 - 4 * i) + '" width="3" height="' + (3 + 4 * i) + '" fill="currentColor"/>';
+    return h + '</svg>';
+  }
+  var BATT = '<svg width="30" height="16" viewBox="0 0 30 16" aria-hidden="true"><rect x="1.5" y="2" width="24" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="26" y="5.5" width="3" height="5" fill="currentColor"/><rect x="4" y="4.5" width="5" height="7" fill="currentColor"/></svg>';
+  function fields(s) {
+    return { bars: s.pwr, r: s.r ? 1 : 0, batt: s.batt ? 1 : 0, freq: s.freq, ch: s.ch, mode: s.mode, key: s.key || '?',
+      pwr: s.nokeys ? '' : s.pwr, txrx: s.nokeys ? '' : (s.tx ? 'TX' : 'RX'), nokeys: s.nokeys ? 1 : 0 };
+  }
+  function lcdHTML(s, o) {
+    o = o || {};
+    function F(name, inner, cls) {
+      return '<span class="d01-f' + (cls ? ' ' + cls : '') + '" data-f="' + name + '"' + (o.explain ? ' tabindex="0"' : '') + '>' + inner + '</span>';
+    }
+    var h = '<div class="d01-top">' + F('bars', bars(s.pwr === 'HI' ? 4 : 3)) + F('r', 'R', 'd01-r' + (s.r ? '' : ' ghost')) +
+      '<span class="d01-sp"></span>' + F('batt', BATT, s.batt ? '' : 'ghost') + '</div>';
+    h += '<div class="d01-ln">' + F('freq', s.freq) + F('ch', s.ch) + '</div>';
+    h += '<div class="d01-ln">' + F('mode', s.mode) + F('key', s.key ? s.key : '<i class="d01-q">?</i>') + '</div>';
+    if (s.nokeys) h += '<div class="d01-ln nk">' + F('nokeys', 'NO KEYS') + '</div>';
+    else if (o.hero) h += '<div class="d01-ln">' + F('pwr', s.pwr) + F('txrx', '<span class="d01-rx">RX</span><span class="d01-tx">TX</span>', 'd01-txrx') + '</div>';
+    else h += '<div class="d01-ln">' + F('pwr', s.pwr) + F('txrx', s.tx ? 'TX' : 'RX') + '</div>';
+    return h;
+  }
+  function renderLCD(box, s, o, ref) {
+    o = o || {};
+    box.className = 'd01-lcd' + (o.sm ? ' sm' : '') + (o.explain ? ' ex' : '') + (o.busy ? ' busy' : '');
+    box.setAttribute('dir', 'ltr');
+    box.innerHTML = lcdHTML(s, o);
+    if (ref && !o.busy) {
+      var a = fields(s), b = fields(ref);
+      each(box.querySelectorAll('.d01-f'), function (f) {
+        var n = f.getAttribute('data-f');
+        if (n === 'txrx' && s.nokeys) return;
+        if (a[n] !== b[n]) f.classList.add('chg');
+      });
+    }
+  }
+  function lampsHTML() {
+    return '<span class="d01-lbl">נוריות בשידור</span><span class="d01-lamp red" data-l="SEC"><i></i>SEC</span><span class="d01-lamp yel" data-l="CLR"><i></i>CLR</span>';
+  }
+  function setLamps(box, s, busy) {
+    if (!box) return;
+    if (!box.firstChild) box.innerHTML = lampsHTML();
+    var tx = !busy && s.tx && !s.nokeys && !s.r;
+    box.querySelector('[data-l=SEC]').classList.toggle('on', tx && s.mode === 'SEC');
+    box.querySelector('[data-l=CLR]').classList.toggle('on', tx && s.mode === 'CLR');
+  }
+  function setBeep(box, s, busy) { if (box) box.classList.toggle('on', !busy && !!s.nokeys); }
+
+  var FINFO = {
+    bars: ['חיווי רמת קליטה/שידור', 'לפי עלון היחידה, לכל רמת שידור יש סמל משלו: ל-' + L('HI') + ' יותר פסים מאשר ל-' + L('MD') + '.'],
+    r: ['מצב קליטה בלבד', 'כשהסימן ' + L('R') + ' מופיע בפינה השמאלית העליונה, המכשיר לא יכול לשדר. כשהוא כבוי, רואים כאן רק את מקומו.'],
+    batt: ['חיווי סוללה חלשה', 'מופיע כשהסוללה נחלשת. בודקים אותה בלחצן הבדיקה שעל הסוללה, ומחליפים לפי מה שהמד מראה.'],
+    freq: ['תדר', 'התדר במגה-הרץ (מה״צ). בדוגמה ' + L('46.250') + '. את התדרים של הרשת מקבלים לפי נוהל היחידה.'],
+    ch: ['מספר אפיק', 'האפיק (הערוץ) שהמכשיר עובד בו. בדוגמה ' + L('CH03') + '.'],
+    mode: ['מצב: SEC או CLR', L('SEC') + ' הוא מצב מוצפן ו-' + L('CLR') + ' מצב גלוי. ביחידה כל התקשורת היא במצב מוצפן בלבד.'],
+    key: ['מפתח הצפנה', 'מספר המפתח שהערוץ עובד בו, בדוגמה 3. סימן שאלה: עלון היחידה לא מראה מה מופיע כאן במצב הזה, ובודקים על המכשיר.'],
+    pwr: ['מצב הספק', L('HI') + ' הספק גבוה, ' + L('MD') + ' הספק נמוך. ' + L('MD') + ' בפינה השמאלית התחתונה היא סיבה לכך שלא שומעים אותך.'],
+    txrx: ['שידור או קליטה', L('TX') + ' בזמן שידור, ' + L('RX') + ' בקליטה.'],
+    nokeys: ['NO KEYS', 'מופיע בתחתית המסך, יחד עם צפצוף, כשמנסים לשדר ולערוץ לא משויך מפתח. המכשיר לא משדר.']
+  };
+  var KINFO = {
+    LITE: 'לא נלמד בשיעור הזה. לפי נוהל היחידה.',
+    FREQ: 'פותח את כיוון התדר (שלב 1 בנוהל). פותח גם את הרצף ששייך מפתח לערוץ.',
+    TEST: 'לא נלמד בשיעור הזה. לפי נוהל היחידה.',
+    FNC: L('FNC') + ' מחזיר לתפריט הראשי (שלב 6), ופותח את הרצפים לביטול קליטה בלבד ולהספק נמוך. ' + L('RST') + ' לא נלמד.',
+    CLR: 'חץ למטה ▼ בתפריט. מופיע ברצפים לביטול קליטה בלבד ולשיוך מפתח.',
+    SEC: 'חץ למעלה ▲ בתפריט. ' + L('SEC') + ' ואז ' + L('ENT') + ' מעבירים למצב מוצפן.',
+    AJ: 'חץ ימינה ► בכיוון התדר. מה עושה ' + L('AJ') + ' מעבר לזה: לפי נוהל היחידה.',
+    ENT: 'אישור. מסיים שלב בכיוון התדר ואת כל רצפי התיקון.'
+  };
+  var KNAME = { LITE: 'LITE', FREQ: 'FREQ', TEST: 'TEST', FNC: 'FNC / RST', CLR: 'CLR ▼', SEC: 'SEC ▲', AJ: 'AJ ►', ENT: 'ENT' };
+
+  function seqHTML(chips, cls) {
+    return '<span class="d01-seq' + (cls ? ' ' + cls : '') + '">' + chips.map(function (c, i) { return (i ? '<i>→</i>' : '') + '<b>' + c + '</b>'; }).join('') + '</span>';
+  }
+  /* key sequences exactly as on the unit faults sheet, in the order pressed */
+  var SEQ = {
+    r: ['FNC', 'ENT', 'CLR', 'CLR', 'CLR', 'ENT', 'SEC', 'ENT'],
+    md: ['FNC', 'ENT', 'ENT', 'SEC', 'ENT'],
+    clr: ['SEC', 'ENT'],
+    nk: ['FREQ', 'CLR', 'ENT', 'CLR', 'ENT']
+  };
+
+  /* ================= key-sequence player (shared) ================= */
+  function Player(p) {
+    var lcd = $(p + '-lcd'), kp = $(p + '-kp'), seqBox = $(p + '-seq'), say = $(p + '-say'), lamps = $(p + '-lamps'), beep = $(p + '-beep'), ptt = $(p + '-ptt');
+    var bReset = $(p + '-reset'), bPrev = $(p + '-prev'), bNext = $(p + '-next'), bPlay = $(p + '-play');
+    keypad(kp, false, kp.hasAttribute('data-sm'));
+    var cfg = null, pos = 0, timer = null, tx = false, api = {};
+    function cur() {
+      if (pos === 0) return { s: cfg.start, busy: false };
+      var pr = cfg.presses[pos - 1];
+      if (pr.show) return { s: pr.show, busy: false };
+      for (var j = pos - 2; j >= 0; j--) if (cfg.presses[j].show) return { s: cfg.presses[j].show, busy: true };
+      return { s: cfg.start, busy: true };
+    }
+    function paint() {
+      var c = cur(), s = c.s;
+      var showTx = tx && !c.busy;
+      var shown = showTx ? withPTT(s) : s;
+      renderLCD(lcd, shown, { busy: c.busy }, (pos === cfg.presses.length && !c.busy) ? cfg.start : null);
+      setLamps(lamps, shown, c.busy); setBeep(beep, shown, c.busy);
+      if (ptt) { ptt.disabled = c.busy; ptt.setAttribute('aria-pressed', String(showTx)); }
+    }
+    function show(n) {
+      if (!cfg) return;
+      pos = Math.max(0, Math.min(cfg.presses.length, n));
+      tx = false;
+      var pr = pos ? cfg.presses[pos - 1] : null;
+      lightKeys(kp, pr ? pr.keys : []);
+      each(seqBox.querySelectorAll('b'), function (b, i) { b.className = i < pos - 1 ? 'done' : (i === pos - 1 ? 'cur' : ''); if (pos === cfg.presses.length && i === pos - 1) b.className = 'done'; });
+      say.innerHTML = pos === 0 ? cfg.intro : (pr.say || ('לחיצה ' + pos + ' מתוך ' + cfg.presses.length + ': ' + L(pr.chip)));
+      say.className = 'd01-say' + (pos === cfg.presses.length && cfg.presses.length ? ' ok' : '');
+      if (bPrev) bPrev.disabled = pos === 0;
+      bNext.disabled = pos >= cfg.presses.length;
+      paint();
+      if (cfg.onShow) cfg.onShow(pos, pr);
+    }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } if (bPlay) bPlay.textContent = '▶ נגן'; }
+    api.load = function (c) {
+      stop(); cfg = c;
+      seqBox.innerHTML = c.presses.length ? seqHTML(c.presses.map(function (x) { return x.chip; })) : '';
+      var off = !c.presses.length || !!c.blocked;
+      [bReset, bPrev, bNext, bPlay].forEach(function (b) { if (b) b.disabled = off; });
+      show(0);
+      if (off) [bReset, bPrev, bNext, bPlay].forEach(function (b) { if (b) b.disabled = true; });
+    };
+    api.stop = stop;
+    api.pos = function () { return pos; };
+    if (bReset) bReset.addEventListener('click', function () { stop(); show(0); });
+    if (bPrev) bPrev.addEventListener('click', function () { stop(); show(pos - 1); });
+    bNext.addEventListener('click', function () { stop(); show(pos + 1); });
+    if (bPlay) bPlay.addEventListener('click', function () {
+      if (timer) { stop(); return; }
+      if (!cfg || !cfg.presses.length) return;
+      if (pos >= cfg.presses.length) show(0);
+      bPlay.textContent = '⏸ עצור';
+      timer = setInterval(function () {
+        if (!activeSlideOf(lcd)) { stop(); return; }
+        if (!motionOK()) return; /* paused while animations are off */
+        if (pos >= cfg.presses.length) { stop(); return; }
+        show(pos + 1);
+        if (pos >= cfg.presses.length) stop();
+      }, 1150);
+    });
+    if (ptt) ptt.addEventListener('click', function () { if (ptt.disabled) return; tx = !tx; paint(); });
+    return api;
+  }
+  function faultCfg(id, start, end, intro, done) {
+    var keys = SEQ[id];
+    return {
+      start: start, intro: intro,
+      presses: keys.map(function (k, i) {
+        return { keys: [k], chip: k, show: i === keys.length - 1 ? end : null,
+          say: i === keys.length - 1 ? done : 'לחיצה ' + (i + 1) + ' מתוך ' + keys.length + ': ' + L(k) };
+      })
+    };
+  }
+
+  /* ================= title hero ================= */
+  safe('hero', function () {
+    var box = $('d01-hero-lcd'); if (!box) return;
+    renderLCD(box, st({}), { hero: true });
+    $('d01-hero-lamp').innerHTML = '<span class="d01-lamp red"><i></i>SEC</span>';
+  });
+
+  /* ================= opening: read the display ================= */
+  safe('open', function () {
+    var lcd = $('op-lcd'); if (!lcd) return;
+    var STATES = {
+      ok: { s: st({}), t: 'מצב עבודה רגיל: מוצפן (' + L('SEC') + '), מפתח 3, הספק גבוה (' + L('HI') + '), קליטה (' + L('RX') + ').' },
+      r: { s: st({ r: true }), t: 'הסימן ' + L('R') + ' למעלה משמאל: המכשיר במצב קליטה בלבד ולא יכול לשדר.' },
+      md: { s: st({ pwr: 'MD' }), t: L('MD') + ' למטה משמאל: המכשיר משדר בהספק נמוך.' },
+      clr: { s: st({ mode: 'CLR', key: null }), t: L('CLR') + ' בשורה השנייה: מצב גלוי. בשידור נדלקת הנורית הצהובה.' },
+      nk: { s: st({ keyless: true, key: null }), t: 'לערוץ לא משויך מפתח. המסך נראה רגיל עד שלוחצים ' + L('PTT') + '.' }
+    };
+    var PTTT = {
+      ok: 'בשידור: ' + L('TX') + ' בפינה הימנית התחתונה, והנורית האדומה (' + L('SEC') + ') דולקת.',
+      r: 'במצב קליטה בלבד המכשיר לא יוצא לשידור. מה המסך מראה בניסיון כזה, בודקים על המכשיר עצמו.',
+      md: 'בשידור: ' + L('TX') + ', והנורית האדומה דולקת. השידור יוצא, אבל בהספק נמוך.',
+      clr: 'בשידור נדלקת הנורית הצהובה (' + L('CLR') + '): השידור יוצא גלוי. שומעים אותך, אבל אתה לא תשמע את התשובה.',
+      nk: 'צפצוף, ו-' + L('NO KEYS') + ' בתחתית המסך. המכשיר לא משדר.'
+    };
+    var cur = 'ok', tx = false, sel = null;
+    var kp = $('op-kp'); keypad(kp, true);
+    function info(title, text) { $('op-info').innerHTML = '<h3>' + title + '</h3><p>' + text + '</p>'; }
+    function draw() {
+      var s = tx ? withPTT(STATES[cur].s) : STATES[cur].s;
+      renderLCD(lcd, s, { explain: true }, st({}));
+      setLamps($('op-lamps'), s); setBeep($('op-beep'), s);
+      $('op-state').innerHTML = tx ? PTTT[cur] : STATES[cur].t;
+      $('op-state').className = 'd01-say' + (cur === 'ok' ? ' ok' : ' warn');
+      $('op-ptt').setAttribute('aria-pressed', String(tx));
+      if (sel) { var f = lcd.querySelector('[data-f="' + sel + '"]'); if (f) f.classList.add('sel'); }
+    }
+    function pickField(n) {
+      if (!FINFO[n]) return;
+      sel = n;
+      each(lcd.querySelectorAll('.d01-f'), function (f) { f.classList.toggle('sel', f.getAttribute('data-f') === n); });
+      each(kp.querySelectorAll('.d01-k'), function (k) { k.classList.remove('sel'); });
+      info(FINFO[n][0], FINFO[n][1]);
+    }
+    each($('op-states').querySelectorAll('[data-st]'), function (b) {
+      b.addEventListener('click', function () {
+        cur = b.getAttribute('data-st'); tx = false;
+        each($('op-states').querySelectorAll('[data-st]'), function (x) { x.classList.toggle('on', x === b); x.setAttribute('aria-pressed', String(x === b)); });
+        draw();
+      });
+    });
+    $('op-ptt').addEventListener('click', function () { tx = !tx; draw(); });
+    lcd.addEventListener('click', function (e) { var f = e.target.closest('.d01-f'); if (f) pickField(f.getAttribute('data-f')); });
+    lcd.addEventListener('mouseover', function (e) { var f = e.target.closest('.d01-f'); if (f) pickField(f.getAttribute('data-f')); });
+    lcd.addEventListener('focusin', function (e) { var f = e.target.closest('.d01-f'); if (f) pickField(f.getAttribute('data-f')); });
+    kp.addEventListener('click', function (e) {
+      var k = e.target.closest('.d01-k'); if (!k) return;
+      var n = k.getAttribute('data-k'); sel = null;
+      each(lcd.querySelectorAll('.d01-f'), function (f) { f.classList.remove('sel'); });
+      each(kp.querySelectorAll('.d01-k'), function (x) { x.classList.toggle('sel', x === k); });
+      info('מקש ' + L(KNAME[n]), KINFO[n]);
+    });
+    draw();
+    info('לחצו על שדה במסך', 'כל שדה במסך המשורטט מוסבר כאן: תדר, אפיק, מצב, מפתח, הספק, שידור או קליטה, והסימנים שבשורה העליונה.');
+  });
+
+  /* ================= keypad table ================= */
+  safe('keys', function () {
+    var kp = $('kp-kp'); if (!kp) return;
+    keypad(kp, true);
+    var tbl = $('kp-tbl');
+    kp.addEventListener('click', function (e) {
+      var k = e.target.closest('.d01-k'); if (!k) return;
+      var n = k.getAttribute('data-k');
+      each(kp.querySelectorAll('.d01-k'), function (x) { x.classList.toggle('sel', x === k); });
+      each(tbl.querySelectorAll('tr[data-k]'), function (r) { r.classList.toggle('sel', r.getAttribute('data-k').split(' ').indexOf(n) >= 0); });
+    });
+  });
+
+  /* ================= tuning procedure player ================= */
+  safe('tune', function () {
+    var lcd = $('tu-lcd'); if (!lcd) return;
+    var pl = Player('tu'), F = '46.250';
+    var steps = $('tu-steps').querySelectorAll('li');
+    function build() {
+      var clr = $('tu-clr').checked;
+      var start = st({ freq: '51.150', key: '1' });
+      var fin = st({ freq: F, key: '3' });
+      var afterFnc = clr ? st({ freq: F, mode: 'CLR', key: null }) : fin;
+      var P = [
+        { keys: ['FREQ'], chip: 'FREQ', step: 1, say: 'שלב 1: לוחצים ' + L('FREQ') + '.' },
+        { keys: ['ENT'], chip: 'ENT', step: 2, say: 'שלב 2: כשהסימון מצביע על ' + L('FREQ') + ', לוחצים ' + L('ENT') + '.' },
+        { keys: ['AJ', 'SEC', 'CLR'], chip: '►▲▼', step: 3, say: 'שלב 3: מכוונים את התדר בחיצים ' + L('►▲▼') + ' ל-' + L(F) + '.' },
+        { keys: ['ENT'], chip: 'ENT', step: 3, say: 'שלב 3: בסיום הכיוון לוחצים ' + L('ENT') + '.' },
+        { keys: ['CLR'], chip: '▼', step: 4, say: 'שלב 4: ▼ עובר למאפיין ' + L('KEY') + '.' },
+        { keys: ['AJ', 'SEC', 'CLR'], chip: '►▲▼', step: 5, say: 'שלב 5: בוחרים בחיצים את המפתח הנוכחי, כאן 3. מי שלא יודע מה המפתח הנוכחי בוחר את המספר הגבוה ביותר.' },
+        { keys: ['ENT'], chip: 'ENT', step: 5, say: 'שלב 5: ' + L('ENT') + ' מאשר את המפתח.' },
+        { keys: ['FNC'], chip: 'FNC', step: 6, show: afterFnc, say: clr ? 'שלב 6: ' + L('FNC') + ' מחזיר לתפריט הראשי. במסך התדר החדש, ובשורה השנייה מופיע ' + L('CLR') + '.' : 'שלב 6: ' + L('FNC') + ' מחזיר לתפריט הראשי. במסך התדר החדש, ' + L('SEC') + ' ומפתח 3. שלב 7 לא נדרש.' }
+      ];
+      if (clr) {
+        P.push({ keys: ['SEC'], chip: 'SEC', step: 7, say: 'שלב 7: מופיע ' + L('CLR') + ', ולכן לוחצים ' + L('SEC') + '...' });
+        P.push({ keys: ['ENT'], chip: 'ENT', step: 7, show: fin, say: '...ואז ' + L('ENT') + '. במסך ' + L(F) + ', ' + L('SEC') + ' ומפתח 3. הנוהל הסתיים.' });
+      }
+      pl.load({
+        start: start, presses: P,
+        intro: 'לפני הנוהל: ' + L('51.150') + ' באפיק ' + L('CH03') + ', מפתח 1. היעד: ' + L(F) + ' ומפתח 3.',
+        onShow: function (pos, pr) {
+          var cs = pr ? pr.step : 0, end = pos === P.length;
+          each(steps, function (li, i) {
+            var n = i + 1;
+            li.className = (n === 7 && !clr) ? 'skip' : (end || n < cs ? 'done' : (n === cs ? 'cur' : ''));
+          });
+        }
+      });
+    }
+    function parse(v) {
+      v = String(v).trim().replace(',', '.');
+      if (!/^\d{2}(\.\d{1,3})?$/.test(v)) return null;
+      var k = Math.round(parseFloat(v) * 1000);
+      if (k < 30000 || k > 87975 || k % 25) return null;
+      return (k / 1000).toFixed(3);
+    }
+    onInput($('tu-f'), function () {
+      var v = parse($('tu-f').value);
+      $('tu-f').classList.toggle('bad', !v);
+      $('tu-err').textContent = v ? '' : 'תדר בתחום ' + '30.000-87.975' + ' בקפיצות של 0.025';
+      if (v) { F = v; build(); }
+      else { pl.stop(); $('tu-next').disabled = true; $('tu-play').disabled = true; }
+    });
+    $('tu-f').addEventListener('change', function () { var v = parse($('tu-f').value); if (v) $('tu-f').value = v; });
+    $('tu-clr').addEventListener('change', build);
+    build();
+  });
+
+  /* ================= battery check ================= */
+  safe('batt', function () {
+    var box = $('bt-btns'); if (!box) return;
+    var T = {
+      0: ['d01-say warn', 'אף נורה לא נדלקה: מחליפים סוללה.'],
+      1: ['d01-say warn', 'נדלקה נורה אחת בלבד: מחליפים סוללה.'],
+      2: ['d01-say ok', 'נדלקה יותר מנורה אחת: לפי העלון אין צורך להחליף.']
+    };
+    function pick(n) {
+      each(box.querySelectorAll('[data-n]'), function (b) { var on = +b.getAttribute('data-n') === n; b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); });
+      each(document.querySelectorAll('#bt-svg [data-lit]'), function (c) { c.style.display = +c.getAttribute('data-lit') <= n ? '' : 'none'; });
+      $('bt-say').className = T[n][0]; $('bt-say').textContent = T[n][1];
+    }
+    each(box.querySelectorAll('[data-n]'), function (b) { b.addEventListener('click', function () { pick(+b.getAttribute('data-n')); }); });
+    pick(1);
+  });
+
+  /* ================= "they cannot hear me": diagnosis by what the display shows ================= */
+  safe('diag', function () {
+    var opts = $('dx-opts'); if (!opts) return;
+    var pl = Player('dx');
+    var DX = {
+      r: { h: 'מצב קליטה בלבד', p: 'הסימן ' + L('R') + ' בפינה השמאלית העליונה: המכשיר לא יכול לשדר. מבטלים בצירוף המקשים שמתחת.',
+        cfg: faultCfg('r', st({ r: true }), st({}), 'המסך מראה ' + L('R') + ' למעלה משמאל. הצירוף מבטל את מצב קליטה בלבד.', 'הצירוף הסתיים: הסימן ' + L('R') + ' נעלם, והמכשיר יכול לשדר.') },
+      md: { h: 'הספק שידור נמוך', p: L('MD') + ' בפינה השמאלית התחתונה: המכשיר משדר בהספק נמוך. משנים ברצף המקשים שמתחת.',
+        cfg: faultCfg('md', st({ pwr: 'MD' }), st({}), 'המסך מראה ' + L('MD') + ' למטה משמאל. הרצף מעביר להספק גבוה.', 'הרצף הסתיים: במקום ' + L('MD') + ' מופיע ' + L('HI') + '.') },
+      nk: { h: 'אין מפתח לערוץ', p: 'בלחיצה על ' + L('PTT') + ' נשמע צפצוף ומופיע ' + L('NO KEYS') + ' בתחתית המסך. משייכים מפתח לערוץ ברצף שמתחת.',
+        cfg: faultCfg('nk', st({ keyless: true, key: null, nokeys: true }), st({ key: null }), 'בלחיצה על ' + L('PTT') + ': צפצוף ו-' + L('NO KEYS') + '. הרצף משייך מפתח לערוץ.', 'הרצף הסתיים: לערוץ משויך מפתח, ובלחיצה על ' + L('PTT') + ' המכשיר משדר.') },
+      ter: { h: 'בעיית קליטה', p: 'המסך תקין: ' + L('SEC') + ', ' + L('HI') + ', בלי ' + L('R') + '. קשר רדיו מוגבל על ידי תוואי השטח. אם אתה במקום נמוך או בוואדי, עלה למקום גבוה או מישורי יותר.',
+        cfg: { start: st({}), presses: [], intro: 'אין כאן רצף מקשים. משנים מקום, לא הגדרה.' } }
+    };
+    function pick(id) {
+      each(opts.querySelectorAll('[data-dx]'), function (b) { var on = b.getAttribute('data-dx') === id; b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); });
+      $('dx-cause').innerHTML = '<h3>' + DX[id].h + '</h3><p>' + DX[id].p + '</p>';
+      pl.load(DX[id].cfg);
+    }
+    each(opts.querySelectorAll('[data-dx]'), function (b) { b.addEventListener('click', function () { pick(b.getAttribute('data-dx')); }); });
+    pick('r');
+  });
+
+  /* ================= clear mode: "I cannot hear the answer" ================= */
+  safe('clear', function () {
+    if (!$('cl-lcd')) return;
+    var pl = Player('cl');
+    pl.load(faultCfg('clr', st({ mode: 'CLR', key: null }), st({}),
+      'במסך ' + L('CLR') + '. לחצו ' + L('PTT') + ': נדלקת הנורית הצהובה.',
+      'הרצף הסתיים: במסך ' + L('SEC') + ', ובשידור נדלקת הנורית האדומה.'));
+  });
+
+  /* ================= NO KEYS ================= */
+  safe('nokeys', function () {
+    if (!$('nk-lcd')) return;
+    var pl = Player('nk');
+    pl.load(faultCfg('nk', st({ keyless: true, key: null }), st({ key: null }),
+      'לחצו ' + L('PTT') + ': צפצוף, ו-' + L('NO KEYS') + ' בתחתית המסך.',
+      'הרצף הסתיים: לערוץ משויך מפתח. לחצו ' + L('PTT') + ': המכשיר משדר.'));
+  });
+
+  /* ================= exercise ================= */
+  safe('exercise', function () {
+    var EX = {
+      md: st({ pwr: 'MD' }),
+      clrtx: st({ mode: 'CLR', key: null, tx: true }),
+      r: st({ r: true }),
+      nkptt: st({ keyless: true, key: null, nokeys: true })
+    };
+    each(document.querySelectorAll('.d01-exlcd'), function (box) {
+      var s = EX[box.getAttribute('data-st')];
+      var lcd = document.createElement('div'); box.appendChild(lcd);
+      renderLCD(lcd, s, { sm: true });
+      var lm = box.parentNode.querySelector('.d01-exlamps');
+      if (lm) setLamps(lm, s);
+    });
+    each(document.querySelectorAll('[data-ans]'), function (b) {
+      b.addEventListener('click', function () {
+        var a = $(b.getAttribute('data-ans')); a.hidden = !a.hidden;
+        b.textContent = a.hidden ? 'תשובה' : 'הסתר';
+        b.setAttribute('aria-expanded', String(!a.hidden));
+      });
+    });
+  });
+})();
+</script></body></html>

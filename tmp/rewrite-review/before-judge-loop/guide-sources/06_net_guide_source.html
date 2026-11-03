@@ -1,0 +1,293 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>DHCP ואתחול תחנה</title><style>
+@page{size:A4;margin:52pt 54pt 46pt 54pt;
+  @bottom-right{content:"מחלקת תקשוב · DHCP ואתחול תחנה · שיעור 6";
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:right;vertical-align:top;padding-top:10pt;direction:rtl}
+  @bottom-left{content:counter(page) " / " counter(pages);
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:left;vertical-align:top;padding-top:10pt;direction:ltr}}
+@page:first{@bottom-right{content:""}@bottom-left{content:""}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Liberation Sans",Arial,sans-serif;color:#1b2a38;font-size:10pt;line-height:1.55;direction:rtl}
+.pg{page-break-after:always}
+.pg:last-child{page-break-after:auto}
+.eyebrow{font-size:9pt;font-weight:bold;color:#0f2740;margin-bottom:9pt}
+h1{font-size:20pt;font-weight:bold;margin:0 0 14pt;color:#0f2740;line-height:1.24;text-align:center}
+h2{font-size:13pt;margin:16pt 0 8pt;color:#0f2740;font-weight:bold}
+.rule{border:0;border-top:1px solid #dbe3ea;margin:0 0 16pt}
+p{margin:0 0 7pt}
+ul{margin:0 0 7pt;padding-right:15pt}
+li{margin-bottom:4pt}
+.chips{display:flex;gap:11pt;margin:0 0 16pt}
+.chip{flex:1;background:#0f2740;border-radius:6pt;padding:11pt 8pt;text-align:center}
+.chip b{display:block;font-size:14pt;color:#3fd0e0;line-height:1.15}
+.chip span{display:block;font-size:8.5pt;color:#b6c6d4;margin-top:3pt}
+.cards{display:flex;gap:11pt;margin:0 0 14pt}
+.cards.three>*{flex:1}
+.cards>*{flex:1;min-width:0}
+.pc{border-radius:7pt;padding:10pt 13pt;position:relative;overflow:hidden}
+.pc::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.pc h3{margin:0 0 5pt;font-size:10pt;font-weight:bold}
+.pc p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.pc p:last-child{margin-bottom:0}
+.pc.teal{background:#e9f4f7}.pc.teal::after{background:#0f8793}.pc.teal h3{color:#0f6f7a}
+.pc.amber{background:#fdf4e6}.pc.amber::after{background:#e0a038}.pc.amber h3{color:#a8701a}
+.pc.red{background:#fdeef0}.pc.red::after{background:#d9556a}.pc.red h3{color:#a83a4c}
+.pc.green{background:#eef7f0}.pc.green::after{background:#4a9c62}.pc.green h3{color:#2f7546}
+.note{border-radius:7pt;padding:9pt 13pt;margin:0 0 10pt;position:relative;overflow:hidden}
+.note::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.note h3{margin:0 0 4pt;font-size:9pt;font-weight:bold;letter-spacing:.02em}
+.note p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.note p:last-child{margin-bottom:0}
+.note.teal{background:#e9f4f7}.note.teal::after{background:#0f8793}.note.teal h3{color:#0f6f7a}
+.note.amber{background:#fdf4e6}.note.amber::after{background:#e0a038}.note.amber h3{color:#a8701a}
+.note.red{background:#fdeef0}.note.red::after{background:#d9556a}.note.red h3{color:#a83a4c}
+.note.green{background:#eef7f0}.note.green::after{background:#4a9c62}.note.green h3{color:#2f7546}
+.band{background:#0f2740;border-radius:8pt;padding:14pt 18pt;margin:0 0 14pt;text-align:center;
+  color:#3fd0e0;font-size:16pt;font-weight:bold}
+.band.sm{font-size:12.5pt;padding:11pt 16pt}
+.band .w{color:#fff}
+table{width:100%;border-collapse:collapse;font-size:9pt;margin:0 0 11pt}
+th,td{border:1px solid #dbe3ea;padding:5pt 8pt;text-align:right;vertical-align:top}
+th{background:#eef4f8;color:#0f6f7a;font-weight:bold}
+td.k{font-weight:bold;color:#0f2740}
+td.n,th.n{text-align:center;width:52pt;white-space:nowrap;direction:ltr;unicode-bidi:embed}
+.ltr{direction:ltr;unicode-bidi:embed;display:inline-block}
+.title-pg{height:660pt;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.title-pg .kick{font-size:10pt;color:#0f8793;font-weight:bold;margin-bottom:20pt}
+.title-pg h1{font-size:27pt;margin-bottom:12pt}
+.title-pg .sub{font-size:12pt;color:#5b7186;margin:0 auto 26pt;max-width:400pt;line-height:1.55}
+.title-pg .meta{font-size:9.5pt;color:#5b7186}
+</style></head><body>
+
+<!-- 1 ─────────────────────────── -->
+<div class="pg title-pg">
+  <div class="kick">מחלקת תקשוב · רשתות · דף הנחיה למדריך</div>
+  <h1>DHCP ואתחול תחנה</h1>
+  <div class="sub">מאיפה מגיעים כתובת, מסכה, שער ו-DNS: תהליך ההקצאה, חכירה, כתובת <span class="ltr">169.254</span> ותחקור תקלות הקצאה בסדר קבוע.</div>
+  <div class="chips" style="max-width:400pt;margin:0 auto">
+    <div class="chip"><b>שטח</b><span>רמת המיקוד</span></div>
+    <div class="chip"><b>13</b><span>שקופיות</span></div>
+    <div class="chip"><b>50 דקות</b><span>משך מומלץ</span></div>
+  </div>
+  <div class="meta" style="margin-top:20pt">מותאם לטכנאי שטח · סביבת Windows מנוהלת</div>
+</div>
+
+<!-- 2 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">00 · הכנת המדריך</div>
+  <h1>מה מכינים ומה מלמדים</h1><hr class="rule">
+  <div class="chips">
+    <div class="chip"><b>שטח</b><span>רמת המיקוד</span></div>
+    <div class="chip"><b>13</b><span>שקופיות כולל שער</span></div>
+    <div class="chip"><b>50 דקות</b><span>משך מומלץ</span></div>
+  </div>
+
+  <div class="cards">
+    <div style="flex:1">
+      <h2 style="margin-top:0">מטרת השיעור</h2>
+      <p>להסביר מאיפה מגיעות הגדרות ה-IP ומה בודקים כשההקצאה נכשלת.</p>
+      <div class="note teal"><h3>תוצאה צפויה</h3>
+        <p>החניך מסביר איך תחנה מקבלת כתובת משרת ומבחין בין כתובת סטטית, דינמית ושמורה. כשבפלט מופיעה כתובת <span class="ltr">169.254</span>, הוא יודע שההקצאה נכשלה ועובר על סדר הבדיקה לתחנה בלי כתובת.</p>
+      </div>
+    </div>
+    <div style="flex:1">
+      <h2 style="margin-top:0">הכנה מראש</h2>
+      <ul>
+        <li>ודאו שיש תחנה עם DHCP פעיל להדגמה חיה של <span class="ltr">ipconfig /all</span>.</li>
+        <li>עברו שוב על פלט ipconfig משיעור 4; השיעור נשען עליו.</li>
+        <li>בררו מה מדיניות ההקצאה בפועל ברשתות היחידה: מה סטטי, מה דינמי ומה שמור.</li>
+      </ul>
+      <div class="note amber"><h3>היקף השיעור</h3>
+        <p>השיעור עוסק בצד התחנה: מאיפה מגיעים הערכים ומה רואים כשההקצאה נכשלת. מה שלא נכלל (IPv6, הגנות מתג, ניהול המאגרים) מפורט בשקופית 12. את T1/T2 מלמדים כעיקרון בלי השמות: חידוש מול השרת באמצע, שידור רחב לקראת הסוף.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>חלוקת זמן מוצעת</h2>
+  <table>
+    <tr><th>חלק</th><th>מה מעבירים</th><th class="n">דקות</th></tr>
+    <tr><td class="k">פתיחה</td><td>סטטי מול דינמי, ולמה זה קודם לכל אבחון</td><td class="n">6</td></tr>
+    <tr><td class="k">התהליך</td><td>שלבי ההקצאה ותוכן ה-ACK</td><td class="n">10</td></tr>
+    <tr><td class="k">חכירה ו-APIPA</td><td>חידוש, פקיעה, וכתובת <span class="ltr">169.254</span> כהודעת כישלון</td><td class="n">10</td></tr>
+    <tr><td class="k">מיקום השרת</td><td>שידור, Relay, והיקף התקלה כראיה</td><td class="n">7</td></tr>
+    <tr><td class="k">שמורה וכפילות</td><td>Reservation מול סטטית; כפילות כתובות ותסמיניה</td><td class="n">8</td></tr>
+    <tr><td class="k">תחקור וסגירה</td><td>release/renew, סדר בדיקה, גבולות השיעור</td><td class="n">9</td></tr>
+  </table>
+
+  <div class="note green"><h3>פתיחה מומלצת</h3>
+    <p>הקרינו את פלט ipconfig משיעור 4 ושאלו: מי כתב את הערכים האלה לתוך התחנה? בקשו להבחין בין הגדרה ידנית להקצאה משרת.</p>
+  </div>
+</div>
+
+<!-- 3 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">01 · מקור ההגדרות</div>
+  <h1>קודם מבררים איך התחנה אמורה לקבל כתובת</h1><hr class="rule">
+  <p>כתובת, מסכה, שער ו-DNS מגיעים מהקלדה ידנית או משרת. התסמין ״אין כתובת הגיונית״ נראה אותו דבר בשתי השיטות, אבל האבחון שונה לגמרי.</p>
+  <p>בהגדרה סטטית הערכים קבועים בתחנה. יש שליטה מלאה, אבל כל טעות הקלדה וכל שינוי תכנון דורשים גישה פיזית לתחנה. כך מוגדרות התחנות בסביבה הסטטית שלנו.</p>
+  <p>בהקצאה דינמית התחנה מבקשת בשידור ושרת DHCP עונה. ההקצאה מרוכזת, זמנית ומתועדת, והערכים מגיעים מהשרת, כך שטעות בו יכולה להשפיע על תחנות רבות.</p>
+
+  <div class="note amber"><h3>נקודת הוראה</h3>
+    <p>‏DHCP Enabled: No בפלט אומר שהתחנה הוגדרה ידנית, בכוונה. צריך לדעת מה הציפייה (סטטית או דינמית) לפני שקוראים את הפלט, אחרת אי אפשר לדעת אם מה שרואים תקין.</p>
+  </div>
+
+  <div class="note green"><h3>איך להעביר</h3>
+    <p>שאלו מתי כל שיטה עדיפה. מול ״דינמי תמיד נוח יותר״ הביאו שרת שחייב כתובת קבועה, ורשת עם כתובות סטטיות שפועלת גם בלי שרת הקצאה.</p>
+  </div>
+</div>
+
+<!-- 4 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">02 · תהליך ההקצאה</div>
+  <h1>שלבי ההקצאה ותוכן ה-ACK</h1><hr class="rule">
+  <p>התחנה משדרת בקשה לכל הרשת (אין לה עדיין כתובת), שרת מציע, התחנה מבקשת בשידור, והשרת מאשר. ה-ACK מביא את כל מה שתחנה סטטית מקבלת בהקלדה - בתוספת זמן חכירה.</p>
+
+  <div style="display:flex;align-items:center;justify-content:center;gap:8pt;flex-wrap:wrap;margin:0 0 12pt">
+    <span class="ltr" style="border:1.5px solid #e0a038;background:#fdf4e6;border-radius:6pt;padding:6pt 12pt;font-weight:bold;font-size:9.5pt;color:#a8701a">Discover</span>
+    <span style="font-size:12pt;color:#8b9bab">&larr;</span>
+    <span class="ltr" style="border:1.5px solid #0f8793;background:#e9f4f7;border-radius:6pt;padding:6pt 12pt;font-weight:bold;font-size:9.5pt;color:#0f6f7a">Offer</span>
+    <span style="font-size:12pt;color:#8b9bab">&larr;</span>
+    <span class="ltr" style="border:1.5px solid #e0a038;background:#fdf4e6;border-radius:6pt;padding:6pt 12pt;font-weight:bold;font-size:9.5pt;color:#a8701a">Request</span>
+    <span style="font-size:12pt;color:#8b9bab">&larr;</span>
+    <span class="ltr" style="border:1.5px solid #4a9c62;background:#eef7f0;border-radius:6pt;padding:6pt 12pt;font-weight:bold;font-size:9.5pt;color:#2f7546">ACK</span>
+  </div>
+  <p style="font-size:9pt;font-style:italic;color:#5b7186;text-align:center;margin-bottom:12pt">שלבים 1 ו-3 משודרים לכל הרשת; שלבים 2 ו-4 חוזרים לתחנה עצמה.</p>
+
+  <div class="cards">
+    <div class="pc teal"><h3>מה יש ב-ACK</h3>
+      <p>כתובת ומסכה, שער, שרתי DNS, שם השרת המקצה וזמן חכירה. שלוש השורות התחתונות בפלט (<span class="ltr">DHCP Server</span>, ‏<span class="ltr">Lease Obtained/Expires</span>) קיימות רק בהקצאה דינמית.</p>
+    </div>
+    <div class="pc red"><h3>ערך שגוי בשרת</h3>
+      <p>‏DNS שגוי שמוגדר בשרת ההקצאה מגיע לכל התחנות באותו טווח. תקלה שמופיעה ״אצל כולם באותו אזור״ עשויה לנבוע מערך שגוי שהשרת חילק.</p>
+    </div>
+  </div>
+
+  <div class="note teal"><h3>שאלת ביניים</h3>
+    <p>למה גם Request משודר לכולם ולא רק לשרת שהציע? (כדי ששרתים אחרים שהציעו ידעו שהצעתם נדחתה ויחזירו את הכתובת למאגר.)</p>
+  </div>
+</div>
+
+<!-- 5 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">03 · חכירה וכישלון</div>
+  <h1>חידוש חכירה וכתובת <span class="ltr">169.254</span></h1><hr class="rule">
+
+  <div class="cards">
+    <div class="pc teal"><h3>מנגנון החכירה</h3>
+      <p>באמצע החכירה התחנה מחדשת מול השרת שהקצה, בפנייה ישירה. אם אין תשובה, לקראת הסוף היא חוזרת לשידור רחב. רק בפקיעה הכתובת משוחררת.</p>
+      <p>לכן שרת שנפל לא מפיל את הרשת מיד: תחנות פעילות ממשיכות, ורק מי שאותחל או התחבר עכשיו נשאר בלי כתובת.</p>
+    </div>
+    <div class="pc red"><h3>‏<span class="ltr">169.254.x.x</span> ‏(APIPA)</h3>
+      <p>כשאף שרת לא ענה, Windows מקצה לעצמו כתובת מקומית בלי שער. כתובת כזו אומרת שהתחנה מוגדרת דינמית, שידרה ולא נענתה, אבל לא אומרת איפה הבעיה.</p>
+      <p>שרת מושבת, כבל שמעביר Link אך לא רשת, יציאה ב-VLAN שגוי או Relay חסר מייצרים בדיוק את אותה כתובת.</p>
+    </div>
+  </div>
+
+  <div class="band sm">תלונה כמו ״רק המחשבים שהודלקו הבוקר לא עובדים״ <span class="w">מכוונת לבדיקת שרת ההקצאה</span></div>
+
+  <div class="note amber"><h3>מה עושים עם <span class="ltr">169.254</span></h3>
+    <p>הכתובת הזו מראה שהבקשה לא נענתה; אין מה לתקן בה עצמה. הצעד הבא הוא לבדוק היקף: האם תחנות שכנות מקבלות כתובת?</p>
+  </div>
+
+  <div class="note green"><h3>איך להעביר</h3>
+    <p>הדגישו את השער הריק בפלט ה-APIPA. תחנות עם APIPA יכולות לדבר זו עם זו, אבל אין להן יציאה מהרשת המקומית.</p>
+  </div>
+</div>
+
+<!-- 6 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">04 · מיקום השרת והיקף</div>
+  <h1>השידור נעצר בנתב; היקף התקלה מצביע על החשוד</h1><hr class="rule">
+  <p>שלבי השידור חיים רק בתוך תחום הקישור המקומי. כששרת ההקצאה יושב ברשת אחרת, הנתב המקומי חייב להריץ Relay שמוסר את הבקשות אליו ישירות.</p>
+
+  <p>אם רשת אחת בלי כתובות ושאר הרשתות מקבלות כרגיל, החשוד הראשון הוא ה-Relay של אותה רשת או הקטע שבינה לשרת. הגדרת Relay היא של צוות התשתית; הטכנאי מזהה את התבנית ומסלים עם ראיות. אם כל הרשתות בלי כתובות, החשוד מרכזי: השרת עצמו, השירות שעליו, או מאגר כתובות שהתרוקן. בשני המקרים הראיה הטובה ביותר היא ההיקף המדויק ושעת ההתחלה.</p>
+
+  <h2>כתובת סטטית או שמורה בפלט</h2>
+  <table>
+    <tr><th></th><th>סטטית בתחנה</th><th>שמורה בשרת (Reservation)</th></tr>
+    <tr><td class="k">איפה מוגדר</td><td>בתחנה, ידנית</td><td>בשרת, לפי MAC</td></tr>
+    <tr><td class="k">שינוי מרכזי</td><td>עדכון בכל תחנה</td><td>עדכון אחד בשרת</td></tr>
+    <tr><td class="k">שרת נפל</td><td>לא מושפעת</td><td>מושפעת ככל תחנה דינמית</td></tr>
+    <tr><td class="k">בפלט</td><td class="ltr">DHCP Enabled: No</td><td class="ltr">DHCP Enabled: Yes</td></tr>
+  </table>
+
+  <div class="note red"><h3>מלכודת אבחון</h3>
+    <p>כתובת שיציבה שנים אינה מוכיחה הגדרה סטטית. תחנה עם Reservation מתנהגת ״סטטית״ עד שהשרת נופל, ואז היא עלולה להיכשל בחידוש ההקצאה. קוראים את שורת <span class="ltr">DHCP Enabled</span>, לא מסיקים מהתנהגות.</p>
+  </div>
+</div>
+
+<!-- 7 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">05 · כפילות ותחקור</div>
+  <h1>כפילות כתובת, ‏release/renew וסדר הבדיקה</h1><hr class="rule">
+
+  <div class="cards">
+    <div class="pc red"><h3>כפילות כתובות</h3>
+      <p>הדרך הנפוצה: כתובת סטטית שהוקלדה בתוך הטווח שהשרת מחלק. לשתי תחנות עם אותה כתובת יש ניתוקים לסירוגין, תלוי מי ענתה אחרונה ל-ARP.</p>
+      <p>ההוכחה: <span class="ltr">arp -a</span> משתי תחנות בזמנים שונים - אותה כתובת עם שני MAC שונים.</p>
+    </div>
+    <div class="pc teal"><h3>‏release ואז renew</h3>
+      <p>מריצים את כל תהליך ההקצאה מחדש ורואים איפה הוא נעצר ברגע הבדיקה. גם הצלחה אחרי תקלה היא ממצא שנכנס לתיעוד.</p>
+    </div>
+  </div>
+
+  <div class="note amber"><h3>אזהרת הפעלה</h3>
+    <p>לא מריצים <span class="ltr">ipconfig /release</span> דרך חיבור מרוחק: משחררים את הכתובת שיושבים עליה ומאבדים את החיבור.</p>
+  </div>
+
+  <h2>סדר בדיקה לתחנה בלי כתובת</h2>
+  <table>
+    <tr><th class="n">שלב</th><th>שאלה</th><th>מה התשובה מוכיחה</th></tr>
+    <tr><td class="n">1</td><td class="k">מה הציפייה?</td><td>סטטית או דינמית; בלי זה אין קריאה נכונה של הפלט</td></tr>
+    <tr><td class="n">2</td><td class="k">יש Link?</td><td>הפיזי קודם; בלי Link אין בכלל למי לשדר</td></tr>
+    <tr><td class="n">3</td><td class="k">מה הכתובת?</td><td><span class="ltr">169.254</span> = הבקשה לא נענתה; מהמאגר = הקצאה עבדה</td></tr>
+    <tr><td class="n">4</td><td class="k">רק אני?</td><td>תחנה שכנה מגדירה היקף: מקומי מול מרכזי</td></tr>
+    <tr><td class="n">5</td><td class="k">ניסוי מבוקר</td><td>‏release/renew מאפשר לבדוק שוב ולתעד את התוצאה</td></tr>
+  </table>
+
+  <div class="note green"><h3>איך להעביר</h3>
+    <p>הדגישו את בדיקת ההיקף: האם גם תחנות שכנות נפגעו?</p>
+  </div>
+</div>
+
+<!-- 8 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">סיום · מפת השיעור</div>
+  <h1>מהלך המצגת ודגשים למדריך</h1><hr class="rule">
+
+  <table>
+    <tr><th class="n">מס׳</th><th>שלב</th><th>תוכן</th></tr>
+    <tr><td class="n">1</td><td class="k">שער</td><td>איך התחנה מקבלת כתובת IP</td></tr>
+    <tr><td class="n">2</td><td class="k">מקור ההגדרות</td><td>מי הגדיר את הכתובת בתחנה; הציפייה קודמת לאבחון.</td></tr>
+    <tr><td class="n">3</td><td class="k">DORA</td><td>בקשה, הצעה, בחירה ואישור; שידור מול פנייה ישירה.</td></tr>
+    <tr><td class="n">4</td><td class="k">תוכן ההקצאה</td><td>ה-ACK כולל כתובת, הגדרות רשת וזמן חכירה; DHCP Server ו-Lease רק בדינמית.</td></tr>
+    <tr><td class="n">5</td><td class="k">חכירה</td><td>הכתובת מושאלת לזמן קצוב; לכן תקלת שרת מתגלה באיחור.</td></tr>
+    <tr><td class="n">6</td><td class="k">APIPA</td><td>כתובת <span class="ltr">169.254</span> מצביעה על כשל בהקצאה, לא על מקום הבעיה.</td></tr>
+    <tr><td class="n">7</td><td class="k">Relay</td><td>השידור נעצר בנתב, ו-Relay מעביר את הבקשה לשרת.</td></tr>
+    <tr><td class="n">8</td><td class="k">כתובת שמורה</td><td>כתובת קבועה בתחנה או שמורה בשרת; קוראים את DHCP Enabled.</td></tr>
+    <tr><td class="n">9</td><td class="k">כפילות</td><td>כפילות כתובת עלולה לגרום לניתוקים לסירוגין; <span class="ltr">arp -a</span> משתי תחנות.</td></tr>
+    <tr><td class="n">10</td><td class="k">release/renew</td><td>release ו-renew מריצים את ההקצאה מחדש; לא דרך חיבור מרוחק.</td></tr>
+    <tr><td class="n">11</td><td class="k">סדר בדיקה</td><td>סדר בדיקה לתחנה בלי כתובת; ההיקף נבדק לפני השרת.</td></tr>
+    <tr><td class="n">12</td><td class="k">גבולות</td><td>מה השיעור הזה לא אומר; הקצאה מוצלחת עם ערכים שגויים.</td></tr>
+    <tr><td class="n">13</td><td class="k">סיכום</td><td>מקום הכתובת בשרשרת הבדיקה; מאיפה הגיע כל ערך ב-ipconfig.</td></tr>
+  </table>
+
+  <h2>מילון קצר למדריך</h2>
+  <table>
+    <tr><th>מונח</th><th>הגדרה</th><th>מונח</th><th>הגדרה</th></tr>
+    <tr><td class="k">DHCP</td><td>שירות הקצאת כתובות מרכזי.</td><td class="k">Scope / מאגר</td><td>טווח הכתובות שהשרת מחלק.</td></tr>
+    <tr><td class="k">חכירה (Lease)</td><td>הקצאה לזמן קצוב עם חידוש.</td><td class="k">APIPA</td><td>כתובת <span class="ltr">169.254</span> שהתחנה מקצה לעצמה כשאין מענה.</td></tr>
+    <tr><td class="k">Reservation</td><td>הקצאה קבועה בשרת לפי MAC.</td><td class="k">Relay</td><td>מסירת בקשות שידור לשרת ברשת אחרת.</td></tr>
+  </table>
+
+  <div class="note teal"><h3>שאלת סיום</h3>
+    <p>תחנה עם <span class="ltr">169.254</span>, תחנה שכנה מקבלת כתובת כרגיל. מה זה כבר מוכיח, ומה שני הצעדים הבאים?</p>
+  </div>
+
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>טכנאי רואה <span class="ltr">169.254</span>, מקליד לתחנה כתובת ידנית והקשר חוזר. התקלה בשרת או ב-Relay נשארת, והכתובת שהוקלדה עלולה להתנגש בכתובת שהשרת יחלק.</p>
+  </div>
+</div>
+
+</body></html>

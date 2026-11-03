@@ -1,0 +1,23 @@
+{
+  "id": "arava",
+  "name": "הערבה / אילת",
+  "nameEn": "Arava / Eilat",
+  "blurb": "הרי מדבר תלולים מול בקעה — צל-שטח חריף ואתגרי ממסר.",
+  "gridSize": 384,
+  "bounds": {
+    "west": 34.716796875,
+    "east": 35.15625,
+    "north": 29.916852233070156,
+    "south": 29.535229562948455
+  },
+  "elevation": {
+    "min": -1,
+    "max": 1560
+  },
+  "spanMeters": {
+    "x": 42482,
+    "y": 42410
+  },
+  "source": "AWS Terrain Tiles (terrarium / SRTM)",
+  "zoom": 12
+}

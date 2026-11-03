@@ -1,0 +1,348 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>Domain, אימות, הצפנה ותעודות</title><style>
+@page{size:A4;margin:52pt 54pt 46pt 54pt;
+  @bottom-right{content:"מחלקת תקשוב · Domain ואימות · שיעור 3";
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:right;vertical-align:top;padding-top:10pt;direction:rtl}
+  @bottom-left{content:counter(page) " / " counter(pages);
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:left;vertical-align:top;padding-top:10pt;direction:ltr}}
+@page:first{@bottom-right{content:""}@bottom-left{content:""}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Liberation Sans",Arial,sans-serif;color:#1b2a38;font-size:10pt;line-height:1.55;direction:rtl}
+.pg{page-break-after:always}
+.pg:last-child{page-break-after:auto}
+.eyebrow{font-size:9pt;font-weight:bold;color:#0f2740;margin-bottom:9pt}
+h1{font-size:20pt;font-weight:bold;margin:0 0 14pt;color:#0f2740;line-height:1.24;text-align:center}
+h2{font-size:13pt;margin:16pt 0 8pt;color:#0f2740;font-weight:bold}
+.rule{border:0;border-top:1px solid #dbe3ea;margin:0 0 16pt}
+p{margin:0 0 7pt}
+ul{margin:0 0 7pt;padding-right:15pt}
+li{margin-bottom:4pt}
+
+/* stat chips */
+.chips{display:flex;gap:11pt;margin:0 0 16pt}
+.chip{flex:1;background:#0f2740;border-radius:6pt;padding:11pt 8pt;text-align:center}
+.chip b{display:block;font-size:14pt;color:#3fd0e0;line-height:1.15}
+.chip span{display:block;font-size:8.5pt;color:#b6c6d4;margin-top:3pt}
+
+/* two rounded cards with a coloured inner edge */
+.cards{display:flex;gap:11pt;margin:0 0 14pt}
+.cards.three>*{flex:1}
+.cards>*{flex:1;min-width:0}
+.pc{border-radius:7pt;padding:10pt 13pt;position:relative;overflow:hidden}
+.pc::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.pc h3{margin:0 0 5pt;font-size:10pt;font-weight:bold}
+.pc p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.pc p:last-child{margin-bottom:0}
+.pc.teal{background:#e9f4f7}.pc.teal::after{background:#0f8793}.pc.teal h3{color:#0f6f7a}
+.pc.amber{background:#fdf4e6}.pc.amber::after{background:#e0a038}.pc.amber h3{color:#a8701a}
+.pc.red{background:#fdeef0}.pc.red::after{background:#d9556a}.pc.red h3{color:#a83a4c}
+.pc.green{background:#eef7f0}.pc.green::after{background:#4a9c62}.pc.green h3{color:#2f7546}
+
+/* full-width note block, same visual family */
+.note{border-radius:7pt;padding:9pt 13pt;margin:0 0 10pt;position:relative;overflow:hidden}
+.note::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.note h3{margin:0 0 4pt;font-size:9pt;font-weight:bold;letter-spacing:.02em}
+.note p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.note p:last-child{margin-bottom:0}
+.note.teal{background:#e9f4f7}.note.teal::after{background:#0f8793}.note.teal h3{color:#0f6f7a}
+.note.amber{background:#fdf4e6}.note.amber::after{background:#e0a038}.note.amber h3{color:#a8701a}
+.note.red{background:#fdeef0}.note.red::after{background:#d9556a}.note.red h3{color:#a83a4c}
+.note.green{background:#eef7f0}.note.green::after{background:#4a9c62}.note.green h3{color:#2f7546}
+
+/* dark headline band (used for the formula / the one-line rule of a page) */
+.band{background:#0f2740;border-radius:8pt;padding:14pt 18pt;margin:0 0 14pt;text-align:center;
+  color:#3fd0e0;font-size:16pt;font-weight:bold}
+.band.sm{font-size:12.5pt;padding:11pt 16pt}
+.band .w{color:#fff}
+
+table{width:100%;border-collapse:collapse;font-size:9pt;margin:0 0 11pt}
+th,td{border:1px solid #dbe3ea;padding:5pt 8pt;text-align:right;vertical-align:top}
+th{background:#eef4f8;color:#0f6f7a;font-weight:bold}
+td.k{font-weight:bold;color:#0f2740}
+td.n,th.n{text-align:center;width:52pt;white-space:nowrap;direction:ltr;unicode-bidi:embed}
+.ltr{direction:ltr;unicode-bidi:embed;display:inline-block}
+
+.title-pg{height:660pt;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.title-pg .kick{font-size:10pt;color:#0f8793;font-weight:bold;margin-bottom:20pt}
+.title-pg h1{font-size:27pt;margin-bottom:12pt}
+.title-pg .sub{font-size:12pt;color:#5b7186;margin:0 auto 26pt;max-width:400pt;line-height:1.55}
+.title-pg .meta{font-size:9.5pt;color:#5b7186}
+</style></head><body>
+<!-- שער -->
+<div class="pg title-pg">
+  <div class="kick">מחלקת תקשוב · רשתות · מדריך למעביר השיעור</div>
+  <h1>Domain, אימות, הצפנה ותעודות</h1>
+  <div class="sub">הסבר לכל שקופית: מה מראים, מה צריך להבין כדי להסביר את זה, אילו שאלות יעלו ואיפה חניכים נוטים לטעות.</div>
+  <div class="chips" style="width:400pt;margin:0 auto">
+    <div class="chip"><b>17</b><span>שקופיות</span></div>
+    <div class="chip"><b>כ-55 דקות</b><span>משך מומלץ</span></div>
+    <div class="chip"><b>5 דקות</b><span>פער שעון שמעליו Kerberos דוחה בקשה</span></div>
+  </div>
+  <div class="meta" style="margin-top:20pt">לטכנאי שטח בסביבת Windows מנוהלת · ההרחבה בהצפנה ובתעודות נמצאת בשיעור 8</div>
+</div>
+
+<!-- הכנה -->
+<div class="pg">
+  <div class="eyebrow">00 · לפני השיעור</div>
+  <h1>מטרה, הכנה וחלוקת זמן</h1><hr class="rule">
+  <h2>למי המדריך ומה המטרה</h2>
+  <p>המדריך כתוב למי שמעביר את השיעור ולא בהכרח ניהל Domain. הרקע בכל שקופית רחב ממה שעל המסך, כדי שתוכלו לענות כשחניך שואל ״למה״.</p>
+  <p>לעקוב עם הכיתה אחרי כניסת משתמש לתחנה ב-Domain ואחרי חיבור לשירות מאובטח ב-TLS, ולשאול בכל שלב מה חייב לעבוד כדי שהוא יצליח. בסוף השיעור חניך אמור להסביר איך תחנה מוצאת Domain Controller, להפריד בין אימות להרשאה, להסביר למה שעון שגוי מפיל כניסה, להבחין בין הצפנה סימטרית לאסימטרית, לקרוא תעודה ולשייך שגיאת TLS למשפחה שלה: זמן, שם, אמון או משא ומתן. שמות של אלגוריתמים והודעות לא צריך לזכור.</p>
+
+  <h2>הכנה</h2>
+  <ul>
+    <li>פתחו את המצגת ב-Chrome או ב-Edge במחשב המקרן ועברו על כל השקופיות. אין בה הדגמות ואין צורך ברשת.</li>
+    <li>הניווט: חצים או רווח, <span class="ltr">N</span> הערות המדריך, <span class="ltr">F</span> מסך מלא, <span class="ltr">A</span> אנימציות. אין במצגת תיבות טקסט, ולכן המקשים תמיד מנווטים.</li>
+    <li>מספרי השקופיות במדריך הם המספרים שבמונה בתחתית המסך (״2 / 17״). המספר הקטן שליד הכותרת נמוך באחד, כי שקופית השער לא ממוספרת.</li>
+    <li>ודאו שהקבוצה מכירה DNS, כתובת IP ו-Gateway מהשיעור הקודם, והכינו דוגמה להודעת שגיאה של תעודה או של כניסה ל-Domain, בלי פרטים רגישים.</li>
+    <li>עברו מראש על רצף ה-Handshake בשקופית 15. בכיתה מסבירים את סדר השלבים ואת התקלות, בלי לפרק כל הודעה. אם יש תחנה שמחוברת ל-Domain, אפשר להריץ עליה את הפקודות מסעיפי ״בשטח״ (רשימה בנספח).</li>
+  </ul>
+  <div class="note amber"><h3>מה לא מלמדים בשיעור הזה</h3>
+    <p>ניהול Active Directory, כתיבת GPO והקמת CA לא נכללים. מי מתקן ערוץ מאובטח, מצרף תחנה מחדש או משנה מדיניות נקבע בנוהל היחידה.</p>
+  </div>
+
+  <h2>חלוקת זמן מוצעת (55 דקות)</h2>
+  <table>
+    <tr><th>חלק</th><th>שקופיות</th><th>מה מעבירים</th><th class="n">דקות</th></tr>
+    <tr><td class="k">פתיחה</td><td class="n"><span class="ltr">1-2</span></td><td>Domain כגבול זהות</td><td class="n">5</td></tr>
+    <tr><td class="k">AD, DNS והצטרפות</td><td class="n"><span class="ltr">3-5</span></td><td>אובייקטים, איתור DC וחשבון מחשב</td><td class="n">9</td></tr>
+    <tr><td class="k">אימות והרשאה</td><td class="n"><span class="ltr">6-9</span></td><td>הרשאות, Kerberos, כרטיסים, זמן ו-Group Policy</td><td class="n">10</td></tr>
+    <tr><td class="k">סוגי הצפנה</td><td class="n"><span class="ltr">10-11</span></td><td>יעדי האבטחה, תפקיד ההצפנה האסימטרית והסימטרית</td><td class="n">8</td></tr>
+    <tr><td class="k">תעודות ומשא ומתן</td><td class="n"><span class="ltr">12-14</span></td><td>תעודה, שרשרת אמון ו-Cipher Suite</td><td class="n">10</td></tr>
+    <tr><td class="k">TLS Handshake</td><td class="n"><span class="ltr">15-16</span></td><td>רצף ההודעות ומשפחות תקלה</td><td class="n">10</td></tr>
+    <tr><td class="k">סגירה</td><td class="n">17</td><td>שרשרת התלות</td><td class="n">3</td></tr>
+  </table>
+</div>
+
+<!-- 1-2 -->
+<div class="pg">
+  <div class="eyebrow">01 · שקופיות <span class="ltr">1-2</span></div>
+  <h1>פתיחה: Domain וה-DC</h1><hr class="rule">
+
+  <h2>שקופית 1 · בסביבת Windows, זהות ו-TLS נשענים על DNS, זמן ושרשרת אמון</h2>
+  <p>הציגו את שני התהליכים שהשיעור עוקב אחריהם, כניסה לתחנה וחיבור לשירות מאובטח, ושאלו את שאלת הפתיחה: <strong>איך שעון שגוי יכול לגרום לכניסה להיכשל גם כשהסיסמה נכונה והרשת זמינה?</strong> אל תענו עכשיו. התשובה בשקופית 8. ניהול Domain נשאר מחוץ לשיעור.</p>
+
+  <h2>שקופית 2 · ב-Domain מנוהלים משתמשים, מחשבים ומדיניות, וה-DC נותן את השירותים</h2>
+  <p><strong>על המסך:</strong> Domain Controller במרכז (זהות, DNS, מדיניות), ומסביבו משתמש, תחנה, קבוצה ושרת. כולם נשענים על אותו DC.</p>
+  <p><strong>רקע.</strong> בלי Domain, כל מחשב Windows מחזיק רשימת משתמשים משלו, ומי שעובד על עשר תחנות צריך עשרה חשבונות. ב-Domain יש מאגר זהויות אחד, Active Directory, והמחשבים סומכים עליו: משתמש נכנס לכל תחנה בחשבון אחד, וההרשאות והמדיניות מוגדרות במקום אחד.</p>
+  <p>Domain Controller הוא שרת שמחזיק עותק של המאגר ומספק את השירותים: אימות (Kerberos), שאילתות על המאגר (LDAP), ובדרך כלל גם DNS. ברוב הרשתות יש יותר מ-DC אחד, והם משכפלים ביניהם שינויים, כך שנפילה של אחד לא עוצרת כניסות.</p>
+  <p>ההערות מבקשות שתי הבחנות. <strong>Domain ו-DNS Domain:</strong> ל-Domain של AD יש שם DNS (למשל <span class="ltr">unit.local</span>), אבל שם DNS לבדו, כמו כתובת של אתר, הוא רק מרחב שמות, בלי משתמשים, סיסמאות או מדיניות. <strong>Domain ו-Subnet:</strong> Subnet ו-VLAN הם חלוקה של הרשת, ו-Domain הוא חלוקה ניהולית. שתי תחנות באותו Subnet יכולות להיות ב-Domain שונה, ותחנה שעוברת ל-VLAN אחר נשארת חברה ב-Domain שלה. השייכות נקבעת בניהול וביחסי האמון.</p>
+  <p><strong>בשטח.</strong> <span class="ltr">whoami</span> מראה בשם מי מחוברים: <span class="ltr">UNIT\user</span> הוא חשבון Domain, ושם התחנה לפני הלוכסן מסמן חשבון מקומי. <span class="ltr">echo %LOGONSERVER%</span> מראה איזה DC אימת את הכניסה.</p>
+  <table>
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">אם מעבירים תחנה ל-VLAN אחר, היא יוצאת מה-Domain?</td><td>היא נשארת חברה. אבל אם מה-VLAN החדש אין דרך ל-DC או ל-DNS שלו, היא לא תוכל להשתמש בשירותים שלו.</td></tr>
+  </table>
+</div>
+
+<!-- 3-5 -->
+<div class="pg">
+  <div class="eyebrow">02 · שקופיות <span class="ltr">3-5</span></div>
+  <h1>אובייקטים, DNS והצטרפות ל-Domain</h1><hr class="rule">
+
+  <h2>שקופית 3 · ב-Active Directory יש חשבון גם למשתמש וגם למחשב</h2>
+  <p><strong>על המסך:</strong> Active Directory כספריית אובייקטים: משתמשים, מחשבים, קבוצות ומדיניות.</p>
+  <p><strong>רקע.</strong> כל מה שה-Domain מכיר הוא אובייקט במאגר, ולכל אובייקט יש מזהה ייחודי (SID). ההרשאות על קבצים נשמרות לפי ה-SID, ולכן משתמש שנמחק ונוצר מחדש באותו שם מקבל SID חדש, וההרשאות הישנות לא חוזרות אליו. קבוצות מחברות בין זהות לגישה: נותנים הרשאה לקבוצה ומוסיפים אליה משתמשים. מדיניות (GPO) היא אובייקט שמקושר לחלק מעץ ה-AD (שקופית 9).</p>
+  <p>מה שהחניך צריך להכיר הוא <strong>אובייקט המחשב</strong>. תחנה שהצטרפה ל-Domain מחזיקה חשבון משלה (בשם התחנה, עם <span class="ltr">$</span> בסוף) וסיסמה שהיא וה-DC מכירים. את הסיסמה הזו התחנה מחליפה בעצמה, בברירת מחדל פעם ב-30 יום. אם החשבון נמחק, או שהסוד שבתחנה כבר לא תואם את ה-DC, התחנה נתקלת בבעיות מול ה-Domain. מקרה אופייני: תחנה ששוחזרה מגיבוי או מתמונה ישנה חוזרת עם סיסמה שכבר הוחלפה. ההודעה בכניסה היא בדרך כלל <span class="ltr">The trust relationship between this workstation and the primary domain failed</span>.</p>
+  <p>תכנון OU וניהול הרשאות לא נכנסים כאן.</p>
+
+  <h2>שקופית 4 · תחנה מאתרת Domain Controller באמצעות DNS</h2>
+  <p><strong>על המסך:</strong> התחנה שואלת את ה-DNS מי מספק Kerberos, מקבלת <span class="ltr">DC01.domain</span> מרשומות SRV ופונה ל-DC.</p>
+  <p><strong>רקע.</strong> רשומת A מתרגמת שם לכתובת. רשומת SRV עונה על שאלה אחרת: איזה שרת נותן שירות מסוים ובאיזה פורט. כל DC רושם ב-DNS רשומות כאלה על עצמו, למשל <span class="ltr">_ldap._tcp.dc._msdcs.unit.local</span>. תחנה שצריכה DC שואלת עליהן, מקבלת רשימת DC-ים ופונה לאחד מהם, בדרך כלל לקרוב אליה.</p>
+  <p>הרשומות נמצאות רק ב-DNS של ה-Domain. לכן תחנה עם DNS ציבורי יכולה לגלוש באינטרנט ועדיין להפיל את ה-Domain, כי דרכו היא לא מאתרת את ה-DC. מבלבל יותר: DNS ראשי פנימי ומשני חיצוני. כשהראשי לא עונה בזמן, התחנה פונה למשני, מקבלת ״אין רשומה כזו״, והתקלה מופיעה ונעלמת. מההערות: כשיש IP אבל הכניסה ל-Domain נכשלת, אחד החשודים הראשונים הוא DNS שגוי.</p>
+  <p><strong>בשטח.</strong> <span class="ltr">ipconfig /all</span> מראה אילו שרתי DNS התחנה מקבלת. <span class="ltr">nltest /dsgetdc:unit.local</span> (עם שם ה-Domain האמיתי) מריץ את תהליך האיתור ומחזיר את ה-DC שנמצא.</p>
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>״יש ping ל-DC, אז DNS תקין״. Ping לכתובת IP בודק רק את הנתיב ברשת, ולא את השאלה אם ה-DNS של התחנה מכיר את רשומות ה-SRV.</p>
+  </div>
+
+  <h2>שקופית 5 · Domain Join יוצר למחשב חשבון וערוץ מאובטח</h2>
+  <p><strong>על המסך:</strong> תחנה חדשה עם זהות מקומית שולחת בקשת הצטרפות, ה-DC יוצר חשבון מחשב וסוד משותף, והתוצאה היא תחנת Domain עם ערוץ מאובטח.</p>
+  <p><strong>רקע.</strong> בהצטרפות התחנה מאתרת DC דרך DNS, מי שמבצע את ההצטרפות מזדהה בחשבון שמותר לו לצרף מחשבים, ונוצר אובייקט מחשב. התחנה וה-DC קובעים לו סיסמה, וזה הסוד המשותף שבתרשים. אחרי אתחול התחנה פותחת בעזרתו ערוץ מאובטח (Secure Channel) מול DC, ומעכשיו היא עצמה יכולה להזדהות: היא מקבלת מדיניות מחשב עוד לפני שמשתמש נכנס, ומאמתת מול ה-DC משתמשים שמקלידים סיסמה.</p>
+  <p>הרצף כולו: DNS מתאים ← איתור DC ← חשבון מחשב ← ערוץ מאובטח ← קבלת מדיניות. כשמשהו נשבר, הולכים עליו מההתחלה.</p>
+  <p><strong>כניסה מה-Cache.</strong> Windows שומר נתוני אימות של הכניסות האחרונות (בברירת מחדל עשר), כדי שמשתמש במחשב נייד יוכל להיכנס גם בלי חיבור ל-DC. לכן, כמו שכתוב בהערות, אם הערוץ המאובטח נשבר, המשתמש עשוי להיכנס עם Cache, אבל פעולות Domain אחרות ייכשלו: כוננים ממופים, מדיניות, גישה לשרתים.</p>
+  <p><strong>בשטח.</strong> <span class="ltr">Test-ComputerSecureChannel</span> ב-PowerShell בודק את הערוץ ומחזיר True או False. תיקון או הצטרפות מחדש דורשים הרשאות ב-Domain, ומי מבצע אותם נקבע בנוהל היחידה.</p>
+</div>
+
+<!-- 6-9 -->
+<div class="pg">
+  <div class="eyebrow">03 · שקופיות <span class="ltr">6-9</span></div>
+  <h1>אימות, Kerberos, זמן ומדיניות</h1><hr class="rule">
+
+  <h2>שקופית 6 · אימות בודק מי המשתמש, והרשאה קובעת מה מותר לו</h2>
+  <p><strong>על המסך:</strong> אימות שואל ״מי אתה?״ ומוציא זהות מאומתת. הרשאה שואלת ״מה מותר לך?״ לפי קבוצות, ACL ומדיניות.</p>
+  <p><strong>רקע.</strong> אימות מסתיים כשהמערכת יודעת מי המשתמש. הרשאה נבדקת בכל גישה למשאב. בכניסה Windows בונה למשתמש ״אסימון גישה״ עם ה-SID שלו ושל כל הקבוצות שלו, ובכל פתיחה של תיקייה משווה אותו לרשימת ההרשאות (ACL) שלה. בתיקייה משותפת יש שתי רשימות, הרשאות השיתוף והרשאות NTFS, והגישה בפועל היא המחמירה מביניהן.</p>
+  <p>מכאן תקלה נפוצה: מוסיפים משתמש לקבוצה, והוא עדיין לא נכנס לתיקייה. האסימון נבנה בכניסה, ולכן הקבוצה החדשה נכנסת לתוקף בדרך כלל רק אחרי יציאה וכניסה מחדש. <span class="ltr">whoami /groups</span> מציג את הקבוצות שבאסימון הנוכחי.</p>
+  <div class="note green"><h3>שאלת ביניים</h3>
+    <p>משתמש נכנס לתחנה אך אינו פותח תיקייה. האם זו בהכרח בעיית סיסמה? הכניסה הצליחה, כלומר האימות עבר. התקלה בהרשאה, ואינה בהכרח קשורה לסיסמה או לקשר ל-DC.</p>
+  </div>
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>לאפס סיסמה כדי לפתור בעיית גישה לתיקייה. איפוס סיסמה לא נוגע בהרשאות, והמשתמש נכנס עם סיסמה חדשה ועדיין לא פותח את התיקייה.</p>
+  </div>
+
+  <h2>שקופית 7 · Kerberos משתמש בכרטיסים כדי להוכיח זהות לשירותים</h2>
+  <p><strong>על המסך:</strong> המשתמש מבקש כרטיס מה-KDC שב-DC, מקבל Ticket ומציג אותו לשרת השירות. הסיסמה לא נשלחת לשרת.</p>
+  <p><strong>רקע.</strong> Kerberos היא שיטת האימות של Domain ב-Windows מאז <span class="ltr">Windows 2000</span>. הרעיון דומה לאישור כניסה לבסיס: מזדהים פעם אחת, מקבלים אישור מוגבל בזמן, ומציגים אותו בכל שער. השירות שמנפיק את הכרטיסים, KDC, רץ על כל DC. בפועל יש שני שלבים, והתרשים מאחד אותם:</p>
+  <ul>
+    <li>בכניסה התחנה מוכיחה שהמשתמש יודע את הסיסמה בלי לשלוח אותה: היא מצפינה את השעה הנוכחית במפתח שנגזר מהסיסמה, וה-KDC בודק שהוא מצליח לפענח. בתמורה היא מקבלת כרטיס ראשי (TGT), בברירת מחדל לעשר שעות.</li>
+    <li>כשניגשים לשירות, למשל לשרת קבצים, התחנה מציגה את הכרטיס הראשי ומקבלת כרטיס לשירות המסוים. אותו היא מציגה לשרת, והשרת בודק אותו בעצמו בלי לפנות ל-DC.</li>
+  </ul>
+  <p>הסיסמה לא נשלחת לשרת וגם לא ל-DC. בכרטיס יש גם את קבוצות המשתמש, שעליהן מבוססת ההרשאה. כרטיס שירות מונפק לשם של השירות, ולכן Kerberos צריך שמות תקינים. בגישה לפי כתובת IP, למשל <span class="ltr">\\10.0.0.5\share</span>, Windows בדרך כלל עובר לשיטה הישנה, NTLM, ואם היא חסומה, הגישה נכשלת. בהערות: אין צורך בשמות כל הכרטיסים. הדגישו ש-DNS וזמן נדרשים לפני שהכרטיס יכול לעבוד.</p>
+  <p>כניסה בכרטיס חכם עוברת גם היא ב-Kerberos, בגרסה מבוססת תעודות שנקראת PKINIT (שיעור 8, שקופית 13).</p>
+  <p><strong>בשטח.</strong> <span class="ltr">klist</span> מציג את הכרטיסים שיש למשתמש, למי הונפקו ועד מתי הם תקפים. <span class="ltr">klist purge</span> מוחק אותם, והתחנה מבקשת חדשים בגישה הבאה.</p>
+
+  <h2>שקופית 8 · שעון שגוי נראה כמו תקלה באימות</h2>
+  <p><strong>על המסך:</strong> שעון התחנה ושעון ה-DC מראים שעות שונות, וביניהם ״פער זמן: Ticket עלול להידחות״.</p>
+  <p><strong>רקע.</strong> זו התשובה לשאלת הפתיחה. ב-Kerberos ההוכחה שהתחנה שולחת בכניסה היא השעה המוצפנת, וכל כרטיס תקף בין שתי שעות. כדי שהקלטה ישנה לא תתקבל, ה-DC דוחה בקשות כשהפער בין השעונים גדול מחמש דקות (ברירת המחדל). הסיסמה נכונה והרשת זמינה, והכניסה נכשלת. Windows מציג לפעמים הודעה על הפרש שעה ותאריך בין הלקוח לשרת, ולפעמים רק שגיאת אימות כללית.</p>
+  <p>ההשוואה נעשית בזמן אוניברסלי (UTC). אזור זמן שגוי לבדו לא מפיל את Kerberos. הבעיה מתחילה כשמשתמש ״מתקן״ ידנית את השעה המוצגת בתחנה עם אזור זמן שגוי, והשעון האמיתי זז בשעות.</p>
+  <p>ב-Domain השעה מגיעה בהיררכיה: התחנות מסתנכרנות מול ה-DC, וה-DC-ים מסתנכרנים בסופו של דבר מול DC אחד, שמחזיק תפקיד שנקרא PDC Emulator ומקבל שעה ממקור שנקבע לרשת. מהו המקור ביחידה נקבע בנוהל היחידה.</p>
+  <p>מההערות: זמן מערכת שגוי יכול לגרום גם לתעודה להיראות ״טרם בתוקף״ או ״פגה״, כי הדפדפן משווה את תאריכי התעודה לשעון המקומי (שקופית 16).</p>
+  <p><strong>בשטח.</strong> <span class="ltr">w32tm /query /status</span> מראה מתי התחנה הסתנכרנה לאחרונה, ו-<span class="ltr">w32tm /query /source</span> ממי היא מקבלת שעה. ״Local CMOS Clock״ כמקור אומר שהיא לא מסתנכרנת בכלל. סוללת שעון מרוקנת בלוח האם מחזירה את התאריך אחורה אחרי ניתוק מהחשמל.</p>
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>לשנות ידנית את השעה ב-DC כדי ״ליישר״ תחנה אחת. שינוי כזה מזיז את כל ה-Domain ביחס למקור הזמן. התיקון הוא בתחנה שסוטה, בסנכרון מול ה-Domain.</p>
+  </div>
+
+  <h2>שקופית 9 · מדיניות Domain יכולה לשנות שירותים, חומת אש ואמון בתחנה</h2>
+  <p><strong>על המסך:</strong> ה-DC מפיץ Group Policy עם הגדרות שירות, חומת אש ותעודות ואמון, והתחנה מקבלת אותה בעדכון ובריענון.</p>
+  <p><strong>רקע.</strong> GPO יכול להפעיל או לבטל שירותים, לפתוח או לחסום פורטים בחומת האש, למפות כוננים, להתקין תעודות שורש פנימיות (שקופית 13) ולנעול הגדרות. מדיניות המחשב נטענת בעליית התחנה, מדיניות המשתמש בכניסה, ושתיהן מתרעננות ברקע, בברירת מחדל כל 90 דקות בערך. לכן, כמו בכותרת המשנה, הגדרה שרואים בתחנה לא בהכרח שונתה בה ידנית. הגדרה כזו מופיעה לרוב באפור, עם הודעה שחלק מההגדרות מנוהלות על ידי הארגון, ומי שמשנה אותה ידנית יגלה שהיא חוזרת בריענון הבא.</p>
+  <p><strong>בשטח.</strong> מהטכנאי מצופה לאסוף <span class="ltr">gpresult</span> ולבדוק אם המדיניות התקבלה בתחנה. <span class="ltr">gpresult /r</span> מציג אילו GPO הוחלו (את חלק המחשב רואים רק בחלון עם הרשאות מנהל), ו-<span class="ltr">gpresult /h report.html</span> מפיק דוח מלא שאפשר להעביר הלאה. <span class="ltr">gpupdate /force</span> מושך את המדיניות מיד. כשמדיניות לא מגיעה, בדרך כלל התחנה לא מגיעה ל-DC (חוזרים לשקופיות <span class="ltr">4-5</span>). ניהול ה-GPO עצמו אינו בתחום של הטכנאי.</p>
+</div>
+
+<!-- 10-11 -->
+<div class="pg">
+  <div class="eyebrow">04 · שקופיות <span class="ltr">10-11</span></div>
+  <h1>יעדי האבטחה וסוגי הצפנה</h1><hr class="rule">
+
+  <h2>שקופית 10 · חיבור מאובטח צריך סודיות, שלמות ואימות זהות</h2>
+  <p><strong>על המסך:</strong> סודיות (מי שאין לו מפתח אינו קורא), שלמות (שינוי בתעבורה מתגלה), אימות (הלקוח בודק את זהות השרת). TLS מספק את שלושתם.</p>
+  <p><strong>רקע.</strong> ההערות מבקשות להציג את היעדים לפני האלגוריתמים, כי כל רכיב ב-TLS קיים בשביל אחד מהם. שלמות פחות מובנת לחניכים: בלי בדיקת שלמות, תוקף שלא יודע לקרוא את התעבורה עדיין יכול לשנות בה ביטים, והצד השני יקבל מידע משובש בלי לדעת. לכן TLS מצרף לכל רשומה תג שמגלה שינוי.</p>
+  <p>הדגישו את האימות, כי בשבילו TLS צריך תעודה. אם מישהו ברשת מתחזה לשרת והלקוח רק מצפין, הלקוח יקים חיבור מוצפן מצוין עם המתחזה. הצפנה לבדה אינה מוכיחה שהצד השני הוא השרת הנכון. את זה מוכיחות התעודה וחתימת השרת (שקופיות <span class="ltr">12-15</span>). Kerberos עונה על אותה דרישה ב-Domain, בכרטיסים במקום תעודות.</p>
+  <p>מה הסמל בשורת הכתובת של הדפדפן מבטיח ומה לא מוסבר בשיעור 8, שקופית 9.</p>
+
+  <h2>שקופית 11 · הצפנה אסימטרית ב-Handshake, סימטרית לתעבורה</h2>
+  <p><strong>על המסך:</strong> אסימטרית: מפתח ציבורי ומפתח פרטי שנשאר אצל הבעלים, לזהות ולהסכמה על סוד משותף. סימטרית: אותו מפתח זמני בשני הצדדים, מהיר לתעבורה.</p>
+  <p><strong>רקע.</strong> בהצפנה <strong>סימטרית</strong> אותו מפתח מצפין ומפענח. היא מהירה, ולכן מצפינים בה את המידע עצמו, בדרך כלל ב-AES. הבעיה שלה היא איך שני הצדדים מגיעים לאותו מפתח. בהצפנה <strong>אסימטרית</strong> לכל צד יש זוג מפתחות: הציבורי מתפרסם, והפרטי נשאר אצל בעליו. מה שנחתם במפתח הפרטי, כל אחד בודק במפתח הציבורי. היא איטית בסדרי גודל, ולכן משמשת רק בתחילת החיבור.</p>
+  <p>ב-Handshake של TLS 1.3 שני הצדדים מחליפים חצאים ציבוריים בשיטת דיפי-הלמן (ECDHE), וכל אחד מחשב מהם את אותו סוד. מי שמאזין רואה את שני החצאים ולא יכול לחשב את הסוד. בנוסף השרת חותם במפתח הפרטי של התעודה שלו, וכך מוכיח שהוא בעליה. מהסוד המשותף כל צד גוזר אצלו את מפתחות ה-Session, זמניים לחיבור אחד, ומשם התעבורה סימטרית.</p>
+  <p>ההערות מבקשות: אל תגידו שמפתח ה-Session פשוט נשלח ברשת. שני הצדדים גוזרים סוד משותף בלי לחשוף אותו. אם חניך מכיר את השיטה הישנה של TLS 1.2, שבה הלקוח הצפין סוד במפתח הציבורי של השרת ושלח אותו, ספרו לו שב-TLS 1.3 היא בוטלה: מי שהקליט תעבורה והשיג אחר כך את המפתח הפרטי של השרת יכול היה לפענח את ההקלטות. להרחבה: שיעור 8, שקופיות <span class="ltr">6-8</span> ו-25.</p>
+</div>
+
+<!-- 12-14 -->
+<div class="pg">
+  <div class="eyebrow">05 · שקופיות <span class="ltr">12-14</span></div>
+  <h1>תעודה, שרשרת אמון ו-Cipher Suite</h1><hr class="rule">
+
+  <h2>שקופית 12 · תעודה קושרת שם למפתח ציבורי, והמנפיק חותם עליה</h2>
+  <p><strong>על המסך:</strong> תעודה לדוגמה: השם <span class="ltr">server.unit</span>, מפתח ציבורי, המנפיק <span class="ltr">Unit-CA</span>, תוקף <span class="ltr">2026-2027</span> וחתימת המנפיק.</p>
+  <p><strong>רקע.</strong> מפתח ציבורי לבדו הוא רצף מספרים בלי בעלים. התעודה קובעת ״המפתח הזה שייך ל-<span class="ltr">server.unit</span>״, ורשות תעודות (CA) חותמת על הקביעה. הלקוח סומך על החתימה של ה-CA, ודרכה על השם שבתעודה.</p>
+  <p>בחלון התעודה של Windows רואים את השמות שהתעודה תקפה להם (Subject, ובעיקר <span class="ltr">Subject Alternative Name</span>, הרשימה היחידה שדפדפנים מודרניים בודקים), את המפתח הציבורי, את המנפיק ואת תאריכי התוקף. תעודות של אתרים ציבוריים מונפקות היום לתקופה קצרה משנה (מאז מרץ 2026 עד 200 יום, והתקופה ממשיכה להתקצר), ותעודות של CA פנימי לפי מדיניות הארגון. המפתח הפרטי נשאר בשרת ואינו חלק מהתעודה.</p>
+  <p>הלקוח בודק שם, תוקף, מנפיק וחתימה לפני שהוא סומך על השירות. ההערות מבקשות להפריד בין התעודה, שהיא ציבורית, לבין המפתח הפרטי שנשאר אצל בעל הזהות, ולבין שרשרת האמון. אל תיכנסו למתמטיקה.</p>
+  <p><strong>בשטח.</strong> בדפדפן פותחים את התעודה מהסמל שבתחילת שורת הכתובת: מנעול ב-Edge, וב-Chrome, מאז 2023, סמל הגדרות במקום המנעול. ב-Windows מאגר התעודות של המחשב נפתח ב-<span class="ltr">certlm.msc</span>.</p>
+  <table>
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">אם התעודה ציבורית, מה מונע ממני להעתיק אותה לשרת שלי?</td><td>כלום, אבל בלי המפתח הפרטי השרת לא יוכל להוכיח שהיא שלו, וה-Handshake ייכשל (שקופית 15).</td></tr>
+  </table>
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>חניך מסביר שהתעודה ״מצפינה את התעבורה״. התעודה קושרת שם למפתח ציבורי. את התעבורה מצפין מפתח Session סימטרי שנגזר ב-Handshake.</p>
+  </div>
+
+  <h2>שקופית 13 · אמון נבנה מהתעודה דרך מנפיקים עד Root מוכר</h2>
+  <p><strong>על המסך:</strong> Root CA (עוגן אמון מקומי), Intermediate CA חתום על ידי ה-Root, ותעודת שרת חתומה על ידי ה-CA. הלקוח בונה שרשרת עד לעוגן שהוא כבר סומך עליו.</p>
+  <p><strong>רקע.</strong> הלקוח בודק מי חתם על תעודת השרת, ואז מי חתם על החותם, עד תעודת Root. ה-Root חתום בידי עצמו, וסומכים עליו רק כי הוא מותקן מראש במאגר האמון (<span class="ltr">Trusted Root Certification Authorities</span>). שורשים ציבוריים מגיעים עם Windows ועם העדכונים שלו. שורש פנימי מגיע לתחנות ה-Domain בדרך כלל דרך מדיניות (שקופית 9), ולכן תחנה שהמדיניות לא הגיעה אליה לא תסמוך על אתרים פנימיים.</p>
+  <p>שכבת ה-Intermediate קיימת כדי שהמפתח של ה-Root יישמר מנותק ומוגן. כמו בהערות, Intermediate יכול להגיע עם השירות, כשהשרת שולח אותו יחד עם התעודה שלו, או להיות מותקן בנפרד. כשהשרת לא שולח אותו, חלק מהלקוחות מורידים אותו לבד מכתובת שרשומה בתעודה, וחלק לא, וברשת סגורה ההורדה נכשלת. זו תקלה ש״עובדת אצלי״ ולא אצל אחר. חוליה חסרה או Root שאינו מהימן שוברים את השרשרת.</p>
+  <p><strong>בשטח.</strong> הלשונית <span class="ltr">Certification Path</span> בחלון התעודה מציגה את השרשרת ומסמנת חוליה בעייתית. <span class="ltr">certutil -verify -urlfetch server.cer</span> בודק את כל השרשרת ואת זמינות כתובות הביטול. בשיעור 8, שקופית 11, יש בודק שרשרת עם תרחישי תקלה.</p>
+
+  <h2>שקופית 14 · הלקוח מציע אפשרויות, והשרת בוחר שילוב ששניהם תומכים בו</h2>
+  <p><strong>על המסך:</strong> ה-ClientHello מציע שלושה Cipher Suites, והשרת בוחר <span class="ltr">TLS_AES_128_GCM_SHA256</span>, שמתפרק ל-<span class="ltr">AES_128_GCM</span> (הצפנה סימטרית ושלמות) ול-<span class="ltr">SHA256</span> (Hash וגזירת מפתחות).</p>
+  <p><strong>רקע.</strong> כל חיבור מתחיל במשא ומתן: הלקוח שולח רשימה של מה שהוא יודע, והשרת בוחר אפשרות אחת שגם הוא תומך בה. ב-TLS 1.3 שם ה-Cipher Suite מתאר רק את הצפנת התעבורה, שמוסיפה לכל רשומה גם תג שלמות, ואת ה-Hash. <span class="ltr">CHACHA20_POLY1305</span> מיועד בעיקר למכשירים בלי האצת AES בחומרה. חוץ מה-Cipher Suite מסכמים בנפרד על גרסה, על Key Exchange ועל אלגוריתם החתימה. ב-TLS 1.2 הכול היה בשם אחד ארוך, למשל <span class="ltr">TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256</span>, וכאלה עדיין מופיעים בהגדרות של ציוד ישן.</p>
+  <p>את שמות האלגוריתמים לא צריך לזכור. החניך צריך להבין שאם אין התאמה, החיבור נופל עוד לפני שעובר מידע: השרת שולח הודעת שגיאה וסוגר, ו-Chrome ו-Edge מציגים <span class="ltr">ERR_SSL_VERSION_OR_CIPHER_MISMATCH</span>.</p>
+  <p><strong>בשטח.</strong> המקרה הנפוץ הוא ממשק ניהול של ציוד ישן (מדפסת, UPS, מתג) שתומך רק ב-TLS 1.0 או 1.1, שהדפדפנים כבר לא מסכימים להשתמש בהם. המקרה ההפוך הוא שרת שהוקשח ומסרב ללקוח ישן. ב-Windows כשלים של רכיבים שמשתמשים ב-TLS של מערכת ההפעלה (למשל שרת <span class="ltr">IIS</span>, <span class="ltr">RDP</span> או <span class="ltr">LDAPS</span>) נרשמים ביומן System, במקור Schannel. Chrome ו-Edge משתמשים ברכיב TLS משלהם, והכשלים שלהם לא נרשמים שם.</p>
+</div>
+
+<!-- 15-17 -->
+<div class="pg">
+  <div class="eyebrow">06 · שקופיות <span class="ltr">15-17</span></div>
+  <h1>TLS Handshake, תקלות ושרשרת התלות</h1><hr class="rule">
+
+  <h2>שקופית 15 · ה-Handshake מאמת את השרת וגוזר מפתחות לפני שעובר מידע יישומי</h2>
+  <p><strong>על המסך:</strong> תרשים הודעות בין לקוח לשרת, מה-ClientHello ועד Application Data מוצפנת סימטרית. בתחתית: ״SSL״ הוא השם הישן, הפרוטוקול הוא TLS.</p>
+  <p><strong>רקע.</strong> כאן מתחבר כל מה שנלמד עד עכשיו. עברו על הרצף לפי הסדר:</p>
+  <table>
+    <tr><th class="n">שלב</th><th>כיוון</th><th>מה עובר ולמה</th></tr>
+    <tr><td class="n">1</td><td>מהלקוח</td><td>ClientHello: גרסאות, Cipher Suites, החצי הציבורי של דיפי-הלמן (key share) ושם השרת המבוקש.</td></tr>
+    <tr><td class="n">2</td><td>מהשרת</td><td>ServerHello: מה שנבחר והחצי של השרת. מעכשיו שני הצדדים יכולים לחשב את הסוד המשותף.</td></tr>
+    <tr><td class="n">3</td><td>מהשרת</td><td>Certificate: התעודה והשרשרת. CertificateVerify: חתימה במפתח הפרטי על ההודעות עד כה, שמוכיחה שהשרת מחזיק את המפתח של התעודה.</td></tr>
+    <tr><td class="n">4</td><td>בלקוח</td><td>אימות שם, תוקף, שרשרת וחתימה. כאן נולדות שגיאות התעודה.</td></tr>
+    <tr><td class="n">5</td><td>בשני הכיוונים</td><td>Finished: כל צד מוכיח שראה את אותן הודעות והגיע לאותם מפתחות. תוקף ששינה הודעה בדרך נתפס כאן.</td></tr>
+    <tr><td class="n">6</td><td>דו-כיווני</td><td>Application Data מוצפנת סימטרית במפתחות ה-Session.</td></tr>
+  </table>
+  <p>התרשים מפשט נקודה אחת: ב-TLS 1.3 הצדדים גוזרים מפתחות ראשונים כבר אחרי ה-ServerHello, וכל מה שהשרת שולח מהתעודה והלאה עובר מוצפן. מפתחות התעבורה עצמה נגזרים בסוף ה-Handshake. לכיתה מספיק הסדר שבתרשים: הסכמה, הוכחת זהות, ואז מידע.</p>
+  <p><strong>SSL ו-TLS.</strong> אם חניך אומר SSL, זה השם הישן שנשאר בדיבור. כל גרסאות SSL משנות ה-90 נשברו ובוטלו, ובשימוש היום TLS 1.2, שפורסם ב-2008, ו-TLS 1.3, שפורסם ב-2018. TLS נמצא גם ב-LDAPS מול ה-DC, ב-RDP וב-VPN, עם אותן תקלות. אין צורך להעמיק במתמטיקה או בכל הודעת משנה. התמונה המלאה בשיעור 8, שקופיות <span class="ltr">27-28</span>.</p>
+
+  <h2>שקופית 16 · בתקלת TLS בודקים זמן, שם, אמון ומשא ומתן</h2>
+  <p><strong>על המסך:</strong> ארבע משפחות: זמן או תוקף (שעון או תאריך שגוי), שם לא תואם (פנו בשם אחר), שרשרת לא מהימנה (Intermediate או Root), אין התאמה (גרסה או Cipher Suite).</p>
+  <p><strong>רקע.</strong> כל משפחה נשברת בשלב אחר, ולכן הודעת השגיאה והשעה מצביעות על השלב שנשבר. שלוש הראשונות הן כשל באימות התעודה (שלב 4 בטבלה הקודמת). הרביעית היא כשל במשא ומתן, בשלבים <span class="ltr">1-2</span>, עוד לפני שהתעודה נשלחה. ההערות מבקשות להפריד בין שני הסוגים.</p>
+  <table>
+    <tr><th style="width:22%">משפחה</th><th style="width:36%">שגיאה אופיינית ב-Chrome וב-Edge</th><th>מה בודקים</th></tr>
+    <tr><td class="k">זמן או תוקף</td><td><span class="ltr">ERR_CERT_DATE_INVALID</span></td><td>תאריכי התעודה מול שעון התחנה. אם רק תחנה אחת נכשלת, החשוד הוא השעון שלה.</td></tr>
+    <tr><td class="k">שם לא תואם</td><td><span class="ltr">ERR_CERT_COMMON_NAME_INVALID</span></td><td>מה הוקלד מול רשימת ה-SAN. בדרך כלל נכנסו בכתובת IP או בשם קצר.</td></tr>
+    <tr><td class="k">שרשרת לא מהימנה</td><td><span class="ltr">ERR_CERT_AUTHORITY_INVALID</span></td><td>הלשונית Certification Path, וה-Root הפנימי ב-<span class="ltr">certlm.msc</span>.</td></tr>
+    <tr><td class="k">אין התאמה</td><td><span class="ltr">ERR_SSL_VERSION_OR_CIPHER_MISMATCH</span></td><td>גרסת TLS ו-Cipher Suites בשני הצדדים, אירועי Schannel.</td></tr>
+  </table>
+  <p>לפני כל אלה מוודאים שהבעיה באמת ב-TLS: <span class="ltr">Test-NetConnection server -Port 443</span> ב-PowerShell. אם <span class="ltr">TcpTestSucceeded</span> הוא True, הרשת והפורט תקינים והתקלה בשכבה שמעל.</p>
+  <p><strong>בשטח.</strong> הודעת שגיאה מדויקת ותאריך המערכת חשובים יותר מצילום מסך חלקי. כשמעבירים תקלה הלאה, רושמים את נוסח השגיאה המלא, את השם שהוקלד, את התאריך והשעה בתחנה, ובכמה תחנות היא מופיעה. למי מעבירים נקבע בנוהל היחידה. פירוט לכל שגיאה בשיעור 8, שקופית 12.</p>
+  <div class="note red"><h3>לא לוחצים ״המשך בכל זאת״</h3>
+    <p>אזהרת התעודה היא בדיוק המצב שהבדיקה נועדה לעצור: ייתכן שהצד השני אינו השרת. מתעדים את השגיאה ומתקנים את החוליה שנכשלה.</p>
+  </div>
+
+  <h2>שקופית 17 · בלי רשת, DNS, זמן וזהות תקינים, Domain ו-TLS לא יעבדו</h2>
+  <p><strong>על המסך:</strong> חמש עמודות: רשת (Link, IP ונתיב), DNS (איתור DC ושירות), זמן (תוקף כרטיס ותעודה), זהות (משתמש ומחשב), TLS (אמון ומשא ומתן).</p>
+  <p>סיימו בתלות בין התשתיות, בלי לחזור על כל המושגים. כל עמודה נשענת על אלה שלפניה: בלי רשת אין DNS, בלי DNS לא מוצאים DC, בלי שעון נכון כרטיסים ותעודות נדחים, ובלי זהות תקינה אין אימות. לכן תקלה באימות מתחילה הרבה פעמים בתשתית אחרת, ובודקים מלמטה למעלה. אפשר לבקש מחניך לענות עכשיו על שאלת הפתיחה בעזרת העמודות.</p>
+  <div class="note green"><h3>שאלת סיום</h3>
+    <p>השרת נגיש ב-IP ובפורט, אבל TLS נכשל. מה בודקים לפני שמאשימים את היישום? תשובה טובה עוברת על המשפחות משקופית 16: שעון התחנה ותוקף התעודה, השם שבו פנו מול השמות שבתעודה, השרשרת עד Root מהימן, והתאמה של גרסה ו-Cipher Suite.</p>
+  </div>
+</div>
+
+<!-- נספחים -->
+<div class="pg">
+  <div class="eyebrow">נספחים</div>
+  <h1>מפת המצגת, פקודות ומילון</h1><hr class="rule">
+  <h2>מפת המצגת</h2>
+  <table>
+    <tr><th class="n">מס׳</th><th>כותרת השקופית</th><th class="n">מס׳</th><th>כותרת השקופית</th></tr>
+    <tr><td class="n">1</td><td>בסביבת Windows, זהות ו-TLS נשענים על DNS, זמן ושרשרת אמון</td><td class="n">10</td><td>חיבור מאובטח צריך סודיות, שלמות ואימות זהות</td></tr>
+    <tr><td class="n">2</td><td>ב-Domain מנוהלים משתמשים, מחשבים ומדיניות, וה-DC נותן את השירותים</td><td class="n">11</td><td>הצפנה אסימטרית ב-Handshake, סימטרית לתעבורה</td></tr>
+    <tr><td class="n">3</td><td>ב-Active Directory יש חשבון גם למשתמש וגם למחשב</td><td class="n">12</td><td>תעודה קושרת שם למפתח ציבורי, והמנפיק חותם עליה</td></tr>
+    <tr><td class="n">4</td><td>תחנה מאתרת Domain Controller באמצעות DNS</td><td class="n">13</td><td>אמון נבנה מהתעודה דרך מנפיקים עד Root מוכר</td></tr>
+    <tr><td class="n">5</td><td>Domain Join יוצר למחשב חשבון וערוץ מאובטח</td><td class="n">14</td><td>הלקוח מציע אפשרויות, והשרת בוחר שילוב ששניהם תומכים בו</td></tr>
+    <tr><td class="n">6</td><td>אימות בודק מי המשתמש, והרשאה קובעת מה מותר לו</td><td class="n">15</td><td>ה-Handshake מאמת את השרת וגוזר מפתחות לפני שעובר מידע יישומי</td></tr>
+    <tr><td class="n">7</td><td>Kerberos משתמש בכרטיסים כדי להוכיח זהות לשירותים</td><td class="n">16</td><td>בתקלת TLS בודקים זמן, שם, אמון ומשא ומתן</td></tr>
+    <tr><td class="n">8</td><td>שעון שגוי נראה כמו תקלה באימות</td><td class="n">17</td><td>בלי רשת, DNS, זמן וזהות תקינים, Domain ו-TLS לא יעבדו</td></tr>
+    <tr><td class="n">9</td><td>מדיניות Domain יכולה לשנות שירותים, חומת אש ואמון בתחנה</td><td class="n"></td><td></td></tr>
+  </table>
+
+  <h2>פקודות שמוזכרות במדריך</h2>
+  <p>במצגת אין הדגמות עם תוצאה קבועה. אם מריצים פקודות על תחנה בכיתה, אלה הפקודות שהמדריך מזכיר. כולן קוראות מידע בלבד, חוץ מ-<span class="ltr">gpupdate</span> ו-<span class="ltr">klist purge</span>, שמרעננים מדיניות וכרטיסים.</p>
+  <table>
+    <tr><th style="width:42%">פקודה</th><th>מה היא מראה</th><th class="n">שקופית</th></tr>
+    <tr><td class="k"><span class="ltr">whoami</span> · <span class="ltr">echo %LOGONSERVER%</span></td><td>בשם מי מחוברים, ואיזה DC אימת</td><td class="n">2</td></tr>
+    <tr><td class="k"><span class="ltr">ipconfig /all</span> · <span class="ltr">nltest /dsgetdc:&lt;domain&gt;</span></td><td>שרתי ה-DNS של התחנה, ואיתור DC</td><td class="n">4</td></tr>
+    <tr><td class="k"><span class="ltr">Test-ComputerSecureChannel</span></td><td>מצב הערוץ המאובטח</td><td class="n">5</td></tr>
+    <tr><td class="k"><span class="ltr">whoami /groups</span></td><td>הקבוצות באסימון הנוכחי</td><td class="n">6</td></tr>
+    <tr><td class="k"><span class="ltr">klist</span> · <span class="ltr">klist purge</span></td><td>כרטיסי Kerberos ותוקפם, ומחיקתם</td><td class="n">7</td></tr>
+    <tr><td class="k"><span class="ltr">w32tm /query /status</span> · <span class="ltr">w32tm /query /source</span></td><td>הסנכרון האחרון ומקור הזמן</td><td class="n">8</td></tr>
+    <tr><td class="k"><span class="ltr">gpresult /r</span> · <span class="ltr">gpresult /h</span> · <span class="ltr">gpupdate /force</span></td><td>אילו GPO הוחלו, דוח מלא, ריענון</td><td class="n">9</td></tr>
+    <tr><td class="k"><span class="ltr">certlm.msc</span> · <span class="ltr">certutil -verify -urlfetch</span></td><td>מאגר התעודות של המחשב, ובדיקת שרשרת</td><td class="n"><span class="ltr">12-13</span></td></tr>
+    <tr><td class="k"><span class="ltr">Test-NetConnection -Port 443</span></td><td>האם הפורט פתוח, לפני שחושדים ב-TLS</td><td class="n">16</td></tr>
+  </table>
+
+  <h2>מילון קצר</h2>
+  <table>
+    <tr><th>מונח</th><th>הסבר</th><th>מונח</th><th>הסבר</th></tr>
+    <tr><td class="k">Domain</td><td>גבול ניהולי של זהות, אמון ומדיניות.</td><td class="k">CA</td><td>רשות שחותמת על תעודות.</td></tr>
+    <tr><td class="k">SRV</td><td>רשומת DNS שמצביעה על שרת של שירות ועל הפורט שלו.</td><td class="k">SAN</td><td>רשימת השמות שהתעודה תקפה להם.</td></tr>
+    <tr><td class="k">Secure Channel</td><td>הערוץ המאובטח בין התחנה ל-DC, על בסיס סיסמת חשבון המחשב.</td><td class="k">Cipher Suite</td><td>ב-TLS 1.3: הצפנת התעבורה וה-Hash שנבחרו.</td></tr>
+    <tr><td class="k">Kerberos / TGT</td><td>אימות בכרטיסים מוגבלי זמן / הכרטיס הראשי שמתקבל בכניסה.</td><td class="k">ECDHE</td><td>דיפי-הלמן זמני: הסכמה על סוד בלי לשלוח אותו.</td></tr>
+    <tr><td class="k">NTLM</td><td>שיטת אימות ישנה, שמשמשת כשאין Kerberos.</td><td class="k">מפתח Session</td><td>מפתח סימטרי זמני לחיבור אחד.</td></tr>
+    <tr><td class="k">GPO</td><td>אובייקט מדיניות שמוחל על מחשבים ומשתמשים.</td><td class="k">Handshake</td><td>הסכמה ואימות לפני מידע יישומי.</td></tr>
+  </table>
+</div>
+</body></html>

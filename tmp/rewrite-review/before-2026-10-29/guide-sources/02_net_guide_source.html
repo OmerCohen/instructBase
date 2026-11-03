@@ -1,0 +1,299 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>IP, ניתוב, DNS ו-ARP</title><style>
+@page{size:A4;margin:52pt 54pt 46pt 54pt;
+  @bottom-right{content:"מחלקת תקשוב · IP וניתוב · שיעור 2";
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:right;vertical-align:top;padding-top:10pt;direction:rtl}
+  @bottom-left{content:counter(page) " / " counter(pages);
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:left;vertical-align:top;padding-top:10pt;direction:ltr}}
+@page:first{@bottom-right{content:""}@bottom-left{content:""}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Liberation Sans",Arial,sans-serif;color:#1b2a38;font-size:10pt;line-height:1.55;direction:rtl}
+.pg{page-break-after:always}
+.pg:last-child{page-break-after:auto}
+.eyebrow{font-size:9pt;font-weight:bold;color:#0f2740;margin-bottom:9pt}
+h1{font-size:20pt;font-weight:bold;margin:0 0 14pt;color:#0f2740;line-height:1.24;text-align:center}
+h2{font-size:13pt;margin:16pt 0 8pt;color:#0f2740;font-weight:bold}
+.rule{border:0;border-top:1px solid #dbe3ea;margin:0 0 16pt}
+p{margin:0 0 7pt}
+ul{margin:0 0 7pt;padding-right:15pt}
+li{margin-bottom:4pt}
+
+/* stat chips */
+.chips{display:flex;gap:11pt;margin:0 0 16pt}
+.chip{flex:1;background:#0f2740;border-radius:6pt;padding:11pt 8pt;text-align:center}
+.chip b{display:block;font-size:14pt;color:#3fd0e0;line-height:1.15}
+.chip span{display:block;font-size:8.5pt;color:#b6c6d4;margin-top:3pt}
+
+/* two rounded cards with a coloured inner edge */
+.cards{display:flex;gap:11pt;margin:0 0 14pt}
+.cards.three>*{flex:1}
+.cards>*{flex:1;min-width:0}
+.pc{border-radius:7pt;padding:10pt 13pt;position:relative;overflow:hidden}
+.pc::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.pc h3{margin:0 0 5pt;font-size:10pt;font-weight:bold}
+.pc p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.pc p:last-child{margin-bottom:0}
+.pc.teal{background:#e9f4f7}.pc.teal::after{background:#0f8793}.pc.teal h3{color:#0f6f7a}
+.pc.amber{background:#fdf4e6}.pc.amber::after{background:#e0a038}.pc.amber h3{color:#a8701a}
+.pc.red{background:#fdeef0}.pc.red::after{background:#d9556a}.pc.red h3{color:#a83a4c}
+.pc.green{background:#eef7f0}.pc.green::after{background:#4a9c62}.pc.green h3{color:#2f7546}
+
+/* full-width note block, same visual family */
+.note{border-radius:7pt;padding:9pt 13pt;margin:0 0 10pt;position:relative;overflow:hidden}
+.note::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.note h3{margin:0 0 4pt;font-size:9pt;font-weight:bold;letter-spacing:.02em}
+.note p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.note p:last-child{margin-bottom:0}
+.note.teal{background:#e9f4f7}.note.teal::after{background:#0f8793}.note.teal h3{color:#0f6f7a}
+.note.amber{background:#fdf4e6}.note.amber::after{background:#e0a038}.note.amber h3{color:#a8701a}
+.note.red{background:#fdeef0}.note.red::after{background:#d9556a}.note.red h3{color:#a83a4c}
+.note.green{background:#eef7f0}.note.green::after{background:#4a9c62}.note.green h3{color:#2f7546}
+
+/* dark headline band (used for the formula / the one-line rule of a page) */
+.band{background:#0f2740;border-radius:8pt;padding:14pt 18pt;margin:0 0 14pt;text-align:center;
+  color:#3fd0e0;font-size:16pt;font-weight:bold}
+.band.sm{font-size:12.5pt;padding:11pt 16pt}
+.band .w{color:#fff}
+
+table{width:100%;border-collapse:collapse;font-size:9pt;margin:0 0 11pt}
+th,td{border:1px solid #dbe3ea;padding:5pt 8pt;text-align:right;vertical-align:top}
+th{background:#eef4f8;color:#0f6f7a;font-weight:bold}
+td.k{font-weight:bold;color:#0f2740}
+td.n,th.n{text-align:center;width:52pt;white-space:nowrap;direction:ltr;unicode-bidi:embed}
+.ltr{direction:ltr;unicode-bidi:embed;display:inline-block}
+
+.title-pg{height:660pt;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.title-pg .kick{font-size:10pt;color:#0f8793;font-weight:bold;margin-bottom:20pt}
+.title-pg h1{font-size:27pt;margin-bottom:12pt}
+.title-pg .sub{font-size:12pt;color:#5b7186;margin:0 auto 26pt;max-width:400pt;line-height:1.55}
+.title-pg .meta{font-size:9.5pt;color:#5b7186}
+</style></head><body>
+
+<!-- 1 ─────────────────────────── -->
+<div class="pg title-pg">
+  <div class="kick">מחלקת תקשוב · רשתות · שיעור 2 · דף הנחיה למדריך</div>
+  <h1>IP, ניתוב, DNS ו-ARP</h1>
+  <div class="sub">כיצד תחנה מחליטה אם היעד מקומי, מי השער הבא, ואיך שם הופך לכתובת.</div>
+  <div class="chips" style="max-width:400pt;margin:0 auto">
+    <div class="chip"><b>55 דקות</b><span>משך מומלץ</span></div>
+    <div class="chip"><b>14</b><span>שקופיות</span></div>
+    <div class="chip"><b>שטח</b><span>רמת המיקוד</span></div>
+  </div>
+  <div class="meta" style="margin-top:20pt">מותאם לטכנאי שטח · סביבת Windows מנוהלת</div>
+</div>
+
+<!-- 2 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">00 · בריף למדריך</div>
+  <h1>לפני שמתחילים</h1><hr class="rule">
+  <div class="chips">
+    <div class="chip"><b>55 דקות</b><span>משך מומלץ</span></div>
+    <div class="chip"><b>14</b><span>שקופיות כולל שער</span></div>
+    <div class="chip"><b>שטח</b><span>רמת המיקוד</span></div>
+  </div>
+
+  <div class="cards">
+    <div style="flex:1">
+      <h2 style="margin-top:0">מטרת השיעור</h2>
+      <p>להסביר את שרשרת ההחלטות שמתרחשת לפני שליחת מסגרת: מסכה, Gateway, ARP, טבלת ניתוב ופתרון שם.</p>
+      <div class="note teal"><h3>מה החניך צריך לדעת</h3>
+        <p>בסיום החניך יבדיל יעד מקומי ממרוחק, יסביר ARP וניתוב, ויבודד תקלה ב-DNS מתקלה בקישור או בשירות.</p>
+      </div>
+    </div>
+    <div style="flex:1">
+      <h2 style="margin-top:0">הכנה מראש</h2>
+      <ul>
+        <li>להכין תרשים כתובות פשוט עם שתי רשתות.</li>
+        <li>לבחור כתובת IP ושם שירות מוכרים לצורך דוגמה מילולית.</li>
+        <li>לזכור שהסביבה מתמקדת בכתובות קבועות; DHCP הוא היכרות בלבד.</li>
+      </ul>
+      <div class="note amber"><h3>היקף השיעור</h3>
+        <p>לא מבצעים חישובי Subnet מורכבים, לא מנהלים נתבים או DNS, ולא מעמיקים ב-DHCP.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>חלוקת זמן מוצעת</h2>
+  <table>
+    <tr><th>חלק</th><th>מה מעבירים</th><th class="n">דקות</th></tr>
+    <tr><td class="k">פתיחה</td><td>מקומי או מרוחק</td><td class="n">6</td></tr>
+    <tr><td class="k">כתובת ומסכה</td><td>Prefix והחלטת רשת</td><td class="n">9</td></tr>
+    <tr><td class="k">ARP</td><td>מיפוי IP מקומי ל-MAC</td><td class="n">9</td></tr>
+    <tr><td class="k">ניתוב</td><td>Gateway וטבלת נתיבים</td><td class="n">10</td></tr>
+    <tr><td class="k">DNS</td><td>שם, רשומה ו-Cache</td><td class="n">10</td></tr>
+    <tr><td class="k">בידוד תקלה</td><td>IP מול שם, ICMP מול שירות</td><td class="n">8</td></tr>
+    <tr><td class="k">סגירה</td><td>שרשרת החלטות מלאה</td><td class="n">3</td></tr>
+  </table>
+
+  <div class="note green"><h3>פתיחה מומלצת</h3>
+    <p>למה תחנה צריכה את כתובת ה-MAC של ה-Gateway ולא את כתובת ה-MAC של שרת מרוחק?</p>
+  </div>
+</div>
+
+<!-- 3 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">01 · החלטה מקומית</div>
+  <h1>המסכה קובעת אם שולחים ישירות או אל השער</h1><hr class="rule">
+  <div class="band sm">אותה רשת: מסגרת ישירה.<br><span class="w">רשת אחרת: דרך השער.</span></div>
+
+  <p>התחנה משווה את חלק הרשת שלה עם חלק הרשת של היעד. יעד מקומי מקבל מסגרת ישירה; יעד מרוחק נשלח אל ה-MAC של ה-Gateway.</p>
+
+  <table>
+    <tr><th>מכשיר</th><th>כתובת</th><th>מסלול מהתחנה</th></tr>
+    <tr><td class="k">תחנה (מקור)</td><td class="n"><span class="ltr">10.20.30.15/24</span></td><td>נקודת המוצא להשוואה</td></tr>
+    <tr><td class="k">שרת מקומי</td><td class="n"><span class="ltr">10.20.30.80/24</span></td><td>אותה רשת: מסגרת ישירה</td></tr>
+    <tr><td class="k">Gateway</td><td class="n"><span class="ltr">10.20.30.1</span></td><td>השער המקומי של התחנה</td></tr>
+    <tr><td class="k">שרת מרוחק</td><td class="n"><span class="ltr">10.20.40.25/24</span></td><td>רשת אחרת: דרך ה-Gateway</td></tr>
+  </table>
+
+  <div class="note teal"><h3>למה זה חשוב</h3>
+    <p>הכתובת וה-Prefix נבדקים כיחידה אחת; כתובת שנראית דומה אינה בהכרח מקומית.</p>
+  </div>
+
+  <div class="note green"><h3>איך להעביר</h3>
+    <p>השתמש בדוגמה של Prefix באורך 24 ביטים בלבד. ציין שב-Prefix אחר הגבול משתנה, בלי להיכנס לבינארי.</p>
+  </div>
+</div>
+
+<!-- 4 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">02 · שכנות ודרך</div>
+  <h1>ARP פועל מקומית; נתב בונה מסגרת חדשה</h1><hr class="rule">
+  <div class="band sm">כתובות IP נשארות מקצה לקצה.<br><span class="w">כתובות MAC מתחלפות בכל קישור.</span></div>
+
+  <p>ARP שואל בתוך תחום הקישור איזה MAC מחזיק כתובת IP מקומית. ליעד מרוחק שואלים על ה-Gateway. הנתב בוחר דרך ומחליף את מעטפת Ethernet בקישור הבא.</p>
+
+  <table>
+    <tr><th>שלב</th><th>מה קורה</th></tr>
+    <tr><td class="k">תחנה ← נתב</td><td>התחנה שולחת <span class="ltr">ARP</span> למציאת ה-MAC של השער, ולא של השרת המרוחק עצמו.</td></tr>
+    <tr><td class="k">נתב</td><td>טבלת הניתוב בנתב בוחרת את הדרך הבאה לכתובת ה-IP של היעד.</td></tr>
+    <tr><td class="k">נתב ← שרת</td><td>מסגרת <span class="ltr">Ethernet</span> חדשה נבנית לקישור הבא; כתובת ה-IP של היעד לא משתנה.</td></tr>
+  </table>
+
+  <div class="note teal"><h3>מה להפריד</h3>
+    <p>הפרד בין כתובת IP של היעד לבין MAC של הקפיצה הבאה.</p>
+  </div>
+
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>ARP אינו "מוצא שרתים באינטרנט"; הוא ממפה שכנים בתחום המקומי בלבד.</p>
+  </div>
+</div>
+
+<!-- 5 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">03 · טבלת ניתוב</div>
+  <h1>הנתיב הספציפי ביותר גובר על ברירת המחדל</h1><hr class="rule">
+
+  <p>טבלת הניתוב מכילה יעדים, Prefix, שער וממשק. כאשר כמה כללים מתאימים, הכלל עם ה-Prefix הארוך יותר נבחר לפני ברירת המחדל.</p>
+
+  <div class="band sm">כתובת יעד ← חיפוש התאמות ← הנתיב הספציפי<br><span class="w">← Gateway / ממשק ← ARP לקפיצה הבאה</span></div>
+
+  <div class="note amber"><h3>1 · לא הבטחת הגעה</h3>
+    <p>Default Gateway הוא נתיב כללי, לא הבטחה שכל יעד נגיש.</p>
+  </div>
+
+  <div class="note red"><h3>2 · כיוון שגוי בלי תלונה</h3>
+    <p>נתיב שגוי יכול לשלוח תעבורה לכיוון שגוי גם כאשר השער המקומי עונה.</p>
+  </div>
+</div>
+
+<!-- 6 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">04 · פתרון שמות</div>
+  <h1>DNS הוא שלב מקדים לשירות, לא השירות עצמו</h1><hr class="rule">
+
+  <p>התחנה שואלת שרת DNS שהוגדר לה. השרת מחזיר רשומה מאזור מקומי או מ-Cache. רק לאחר קבלת כתובת מתחילה התקשורת אל שרת היעד.</p>
+
+  <table>
+    <tr><th>שלב</th><th>מה קורה</th></tr>
+    <tr><td class="k">שאלה</td><td>התחנה (<span class="ltr">server.unit</span>) שואלת את שרת ה-DNS "מה הכתובת?".</td></tr>
+    <tr><td class="k">תשובה</td><td>ה-DNS מחזיר את הכתובת <span class="ltr">10.20.40.25</span> מאזור מקומי או מ-Cache.</td></tr>
+    <tr><td class="k">לאחר הפתרון</td><td>מתחילה התקשורת אל שרת היעד, ורק אז נבדק השירות עצמו.</td></tr>
+  </table>
+
+  <div class="note teal"><h3>מה משווים</h3>
+    <p>השווה שם שנשאל, שרת שענה, סוג רשומה והכתובת שהוחזרה.</p>
+  </div>
+
+  <div class="note amber"><h3>דגש לסביבה</h3>
+    <p>בסביבת Domain, DNS גם מאתר Domain Controllers ושירותים באמצעות רשומות SRV; אין צורך ללמד תחביר מתקדם.</p>
+  </div>
+</div>
+
+<!-- 7 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">05 · בידוד תקלות</div>
+  <h1>משווים IP מול שם, ICMP מול פורט, ותוצאה מול ייחוס</h1><hr class="rule">
+
+  <div class="cards">
+    <div class="pc amber"><h3>IP עובד, שם נכשל</h3>
+      <p>חפש DNS שגוי, רשומה ישנה, Cache או שם שונה מהצפוי.</p>
+    </div>
+    <div class="pc amber"><h3>Ping עובד, פורט נכשל</h3>
+      <p>הדרך מגיבה ל-ICMP, אך Listener, חומת אש או השירות עצמו עדיין יכולים להיכשל.</p>
+    </div>
+  </div>
+
+  <table>
+    <tr><th>שדה (<span class="ltr">ipconfig /all</span>)</th><th>ערך</th></tr>
+    <tr><td class="k"><span class="ltr">IPv4 Address</span></td><td class="n"><span class="ltr">10.20.30.15</span></td></tr>
+    <tr><td class="k"><span class="ltr">Default Gateway</span></td><td class="n"><span class="ltr">10.20.30.1</span></td></tr>
+    <tr><td class="k"><span class="ltr">DNS Servers</span></td><td class="n"><span class="ltr">10.20.10.10</span></td></tr>
+  </table>
+
+  <div class="note teal"><h3>מה הפלט מוכיח</h3>
+    <p>השוו כל שדה בפלט לתכנון או למערכת תקינה.</p>
+  </div>
+
+  <div class="note amber"><h3>היכרות בלבד</h3>
+    <p>DHCP מקצה הגדרות רשת באופן דינמי. בסביבה הסטטית מספיק לזהות אם הוא מופעל; אין צורך ללמוד את תהליך ההקצאה.</p>
+  </div>
+</div>
+
+<!-- 8 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">סיום · מפת השיעור</div>
+  <h1>מהלך המצגת ודגשים למדריך</h1><hr class="rule">
+
+  <table>
+    <tr><th class="n">#</th><th>נושא</th><th>דגש למדריך</th></tr>
+    <tr><td class="n">1</td><td class="k">שער</td><td>כתובת IP צריכה גם דרך.</td></tr>
+    <tr><td class="n">2</td><td class="k">מקומי או מרוחק</td><td>המסכה קובעת ישיר או Gateway.</td></tr>
+    <tr><td class="n">3</td><td class="k">כתובת ו-Prefix</td><td>חלק רשת וחלק תחנה.</td></tr>
+    <tr><td class="n">4</td><td class="k">השוואת רשתות</td><td>ב-Prefix 24 משווים שלוש אוקטטות.</td></tr>
+    <tr><td class="n">5</td><td class="k">Default Gateway</td><td>השער הבא לרשת אחרת.</td></tr>
+    <tr><td class="n">6</td><td class="k">ARP</td><td>שאלה מקומית: מי מחזיק IP.</td></tr>
+    <tr><td class="n">7</td><td class="k">ARP Cache</td><td>מיפוי זמני של שכנים.</td></tr>
+    <tr><td class="n">8</td><td class="k">מעבר נתב</td><td>IP נשמר; Ethernet נבנה מחדש.</td></tr>
+    <tr><td class="n">9</td><td class="k">טבלת ניתוב</td><td>הנתיב הספציפי קודם לברירת מחדל.</td></tr>
+    <tr><td class="n">10</td><td class="k">DNS</td><td>שם הופך לכתובת.</td></tr>
+    <tr><td class="n">11</td><td class="k">רשומות ו-Cache</td><td>A, CNAME ותשובה שמורה.</td></tr>
+    <tr><td class="n">12</td><td class="k">IP מול שם</td><td>הבדל תוצאה מבודד DNS.</td></tr>
+    <tr><td class="n">13</td><td class="k">Ping מול שירות</td><td>ICMP אינו בדיקת יישום.</td></tr>
+    <tr><td class="n">14</td><td class="k">הדרך המלאה</td><td>DNS, מסכה, נתיב, ARP ו-Ethernet.</td></tr>
+  </table>
+
+  <h2>מילון קצר למדריך</h2>
+  <table>
+    <tr><td class="k" style="width:16%">Subnet</td><td style="width:34%">תחום כתובות מקומי.</td>
+        <td class="k" style="width:16%">Prefix</td><td>מספר הביטים של חלק הרשת.</td></tr>
+    <tr><td class="k">ARP</td><td>מיפוי IP מקומי ל-MAC.</td>
+        <td class="k">Gateway</td><td>השער הבא ליעד מרוחק.</td></tr>
+    <tr><td class="k">DNS</td><td>פתרון שם לכתובת.</td>
+        <td class="k">Route</td><td>כלל בחירת דרך.</td></tr>
+    <tr><td class="k">ICMP</td><td>פרוטוקול בקרה שעליו נשען Ping.</td>
+        <td class="k">Cache</td><td>תשובה שמורה זמנית.</td></tr>
+  </table>
+
+  <div class="cards">
+    <div class="note teal"><h3>שאלת סיום</h3>
+      <p>אם גישה לפי IP עובדת ולפי שם נכשלת, אילו שלושה דברים ב-DNS יש להשוות לציפייה?</p>
+    </div>
+    <div class="note red"><h3>טעות נפוצה</h3>
+      <p>לא להסיק מ-Ping מוצלח שהשירות זמין, ולא להסיק מרשומת ARP חסרה שהיעד המרוחק אינו קיים.</p>
+    </div>
+  </div>
+</div>
+
+</body></html>

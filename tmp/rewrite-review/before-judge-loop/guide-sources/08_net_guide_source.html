@@ -1,0 +1,407 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>הצפנה וזהות</title><style>
+@page{size:A4;margin:52pt 54pt 46pt 54pt;
+  @bottom-right{content:"מחלקת תקשוב · הצפנה וזהות · שיעור 8";
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:right;vertical-align:top;padding-top:10pt;direction:rtl}
+  @bottom-left{content:counter(page) " / " counter(pages);
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:left;vertical-align:top;padding-top:10pt;direction:ltr}}
+@page:first{@bottom-right{content:""}@bottom-left{content:""}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Liberation Sans",Arial,sans-serif;color:#1b2a38;font-size:10pt;line-height:1.55;direction:rtl}
+.pg{page-break-after:always}
+.pg:last-child{page-break-after:auto}
+.eyebrow{font-size:9pt;font-weight:bold;color:#0f2740;margin-bottom:9pt}
+h1{font-size:20pt;font-weight:bold;margin:0 0 14pt;color:#0f2740;line-height:1.24;text-align:center}
+h2{font-size:13pt;margin:16pt 0 8pt;color:#0f2740;font-weight:bold}
+.rule{border:0;border-top:1px solid #dbe3ea;margin:0 0 16pt}
+p{margin:0 0 7pt}
+ul{margin:0 0 7pt;padding-right:15pt}
+li{margin-bottom:4pt}
+.chips{display:flex;gap:11pt;margin:0 0 16pt}
+.chip{flex:1;background:#0f2740;border-radius:6pt;padding:11pt 8pt;text-align:center}
+.chip b{display:block;font-size:14pt;color:#3fd0e0;line-height:1.15}
+.chip span{display:block;font-size:8.5pt;color:#b6c6d4;margin-top:3pt}
+.cards{display:flex;gap:11pt;margin:0 0 14pt}
+.cards.three>*{flex:1}
+.cards>*{flex:1;min-width:0}
+.pc{border-radius:7pt;padding:10pt 13pt;position:relative;overflow:hidden}
+.pc::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.pc h3{margin:0 0 5pt;font-size:10pt;font-weight:bold}
+.pc p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.pc p:last-child{margin-bottom:0}
+.pc.teal{background:#e9f4f7}.pc.teal::after{background:#0f8793}.pc.teal h3{color:#0f6f7a}
+.pc.amber{background:#fdf4e6}.pc.amber::after{background:#e0a038}.pc.amber h3{color:#a8701a}
+.pc.red{background:#fdeef0}.pc.red::after{background:#d9556a}.pc.red h3{color:#a83a4c}
+.pc.green{background:#eef7f0}.pc.green::after{background:#4a9c62}.pc.green h3{color:#2f7546}
+.note{border-radius:7pt;padding:9pt 13pt;margin:0 0 10pt;position:relative;overflow:hidden}
+.note::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.note h3{margin:0 0 4pt;font-size:9pt;font-weight:bold;letter-spacing:.02em}
+.note p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.note p:last-child{margin-bottom:0}
+.note.teal{background:#e9f4f7}.note.teal::after{background:#0f8793}.note.teal h3{color:#0f6f7a}
+.note.amber{background:#fdf4e6}.note.amber::after{background:#e0a038}.note.amber h3{color:#a8701a}
+.note.red{background:#fdeef0}.note.red::after{background:#d9556a}.note.red h3{color:#a83a4c}
+.note.green{background:#eef7f0}.note.green::after{background:#4a9c62}.note.green h3{color:#2f7546}
+.band{background:#0f2740;border-radius:8pt;padding:14pt 18pt;margin:0 0 14pt;text-align:center;
+  color:#3fd0e0;font-size:16pt;font-weight:bold}
+.band.sm{font-size:12.5pt;padding:11pt 16pt}
+.band .w{color:#fff}
+table{width:100%;border-collapse:collapse;font-size:9pt;margin:0 0 11pt}
+th,td{border:1px solid #dbe3ea;padding:5pt 8pt;text-align:right;vertical-align:top}
+th{background:#eef4f8;color:#0f6f7a;font-weight:bold}
+td.k{font-weight:bold;color:#0f2740}
+td.n,th.n{text-align:center;width:52pt;white-space:nowrap;direction:ltr;unicode-bidi:embed}
+.ltr{direction:ltr;unicode-bidi:embed;display:inline-block}
+.title-pg{height:660pt;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.title-pg .kick{font-size:10pt;color:#0f8793;font-weight:bold;margin-bottom:20pt}
+.title-pg h1{font-size:27pt;margin-bottom:12pt}
+.title-pg .sub{font-size:12pt;color:#5b7186;margin:0 auto 26pt;max-width:400pt;line-height:1.55}
+.title-pg .meta{font-size:9.5pt;color:#5b7186}
+</style></head><body>
+<!-- 1 ─────────────────────────── -->
+<div class="pg title-pg">
+  <div class="kick">מחלקת תקשוב · רשתות · דף הנחיה למדריך</div>
+  <h1>הצפנה וזהות</h1>
+  <div class="sub">מאתב״ש ועד TLS 1.3 וכרטיס חכם: מה כל כלי מבטיח ואיך הוא עובד, עם הדגמה חיה לכל אלגוריתם.</div>
+  <div class="chips" style="width:400pt;margin:0 auto">
+    <div class="chip"><b>שטח + רקע</b><span>רמת המיקוד</span></div>
+    <div class="chip"><b>30</b><span>שקופיות</span></div>
+    <div class="chip"><b>95 דקות</b><span>משך מומלץ</span></div>
+  </div>
+  <div class="meta" style="margin-top:20pt">מותאם לטכנאי שטח · סביבת Windows מנוהלת · ניתן לפיצול לשני מפגשים</div>
+</div>
+
+<!-- 2 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">00 · מבנה והכנה</div>
+  <h1>הכנה וחלוקת זמן</h1><hr class="rule">
+  <div class="chips">
+    <div class="chip"><b>שטח + רקע</b><span>רמת המיקוד</span></div>
+    <div class="chip"><b>30</b><span>שקופיות כולל שער ומעבר</span></div>
+    <div class="chip"><b>95 דקות</b><span>משך מומלץ</span></div>
+  </div>
+
+  <div class="cards">
+    <div style="flex:1">
+      <h2 style="margin-top:0">מטרת השיעור</h2>
+      <p>שהטכנאי יידע, לכל כלי הצפנה שהוא פוגש, מה הכלי מוכיח ומה לא.</p>
+      <div class="note teal"><h3>יכולות בסיום</h3>
+        <p>החניך מבדיל בין קידוד, הצפנה והסתרה, ויודע מה Hash, סימטרית, אסימטרית וחתימה נותנים. מול שגיאת תעודה הוא מצביע על החוליה שנכשלה, והוא מבין למה PIN קצר מספיק בכרטיס חכם.</p>
+      </div>
+    </div>
+    <div style="flex:1">
+      <h2 style="margin-top:0">הכנה מראש</h2>
+      <ul>
+        <li>פתחו את המצגת ב-Chrome או ב-Edge במחשב של המקרן ועברו על כל השקופיות. אין צורך ברשת: כל ההדגמות מחושבות מקומית, גם כשהקובץ מוגש מ-IIS ב-HTTP.</li>
+        <li><strong>שדות קלט לוכדים את המקלדת:</strong> כשהסמן בתוך תיבה, החצים לא מעבירים שקופית. <span class="ltr">Esc</span> או לחיצה מחוץ לשדה מחזירים את הניווט.</li>
+      </ul>
+      <div class="note amber"><h3>היקף השיעור</h3>
+        <p>השיעור עוסק במה שכל כלי נותן ובאיך הוא עובד, לא במימוש או בהגדרת PKI. מספר ניסיונות ה-PIN ותהליך השחרור נקבעים במדיניות היחידה, וההדגמה משתמשת ב-3 להמחשה בלבד.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>חלוקת זמן מוצעת</h2>
+  <table>
+    <tr><th>חלק</th><th>מה מעבירים</th><th class="n">דקות</th></tr>
+    <tr><td class="k">פתיחה</td><td>מה הצפנה נותנת, Base64, סטגנוגרפיה וצופן החלפה (שקופיות <span class="ltr">1-5</span>)</td><td class="n">15</td></tr>
+    <tr><td class="k">כלים מודרניים</td><td>Hash, סימטרית, אסימטרית, היברידית (<span class="ltr">6-10</span>)</td><td class="n">15</td></tr>
+    <tr><td class="k">תעודות</td><td>TLS בעין הטכנאי, חתימה, שרשרת ותקלות (<span class="ltr">11-14</span>)</td><td class="n">14</td></tr>
+    <tr><td class="k">כרטיס חכם</td><td>אתגר ותגובה, PIN, איתור תקלות, סיכום חלק א׳ (<span class="ltr">15-18</span>)</td><td class="n">11</td></tr>
+    <tr><td class="k">חלק ב׳</td><td>פיצוח תדירויות, SHA-256, XOR (<span class="ltr">19-22</span>)</td><td class="n">10</td></tr>
+    <tr><td class="k">אלגוריתמים</td><td>AES, RSA, דיפי-הלמן, חתימה במספרים (<span class="ltr">23-26</span>)</td><td class="n">14</td></tr>
+    <tr><td class="k">סגירה</td><td>לחיצת יד TLS 1.3, 1.2 מול 1.3, גבולות, סיכום (<span class="ltr">27-30</span>)</td><td class="n">16</td></tr>
+  </table>
+
+  <div class="note green"><h3>פיצול לשני מפגשים</h3>
+    <p>עוצרים בשקופית 18; המפגש השני נפתח ב-19. בזמן קצר מדלגים על 22 ו-26, לא על 27 ו-29.</p>
+  </div>
+</div>
+
+<!-- 3 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">01 · מה זה בכלל</div>
+  <h1>קידוד, הצפנה והסתרה</h1><hr class="rule">
+  <p>הצפנה יכולה לתת <strong>סודיות</strong> (מי שאין לו מפתח רואה רעש), <strong>שלמות</strong> (שינוי מתגלה) ו<strong>אימות</strong> (מוכח מי שלח). כמעט אף כלי לא נותן את שלושתם לבד.</p>
+
+  <div class="band sm">Base64 נראה מוצפן, <span class="w">אבל כל אחד הופך אותו בחזרה בלי מפתח</span></div>
+
+  <div class="cards">
+    <div class="pc teal"><h3>שקופית 3 · Base64 חי</h3>
+      <p>הקלידו סיסמה: הפלט נראה מוצפן, והשורה התחתונה מפענחת אותו מיד בלי מפתח. בשטח פוגשים את זה בקובצי הגדרות ובסקריפטים עם ״סיסמה מוסתרת״.</p>
+    </div>
+    <div class="pc amber"><h3>שקופית 4 · סטגנוגרפיה</h3>
+      <p>שתי התמונות נראות זהות. ״הגבר ביט אחרון״ מציג רק את הביט הנמוך: בתמונה עם המסר (השמאלית) מופיע פס רעש בראש התמונה. הצפנה לא מסתירה שיש תקשורת; סטגנוגרפיה לא מגינה על התוכן.</p>
+    </div>
+  </div>
+
+  <h2>שקופית 5 · צופן החלפה</h2>
+  <p>אתב״ש: ״בבל״ הופך ל״ששך״ (ירמיהו כה, כו). בקיסר המפתח הוא רק בכמה מקומות מסובבים את הטבעת הפנימית. החולשה שחוזרים אליה בחלק ב׳: אות נפוצה נשארת נפוצה גם אחרי ההחלפה.</p>
+
+  <div class="note green"><h3>איך להעביר</h3>
+    <p>לפני שלוחצים בהדגמה, כדאי לבקש מהחניכים לנחש מה יקרה.</p>
+  </div>
+  <div class="note teal"><h3>עקרון קרקהוף</h3>
+    <p>מניחים שהאויב יודע את השיטה, ורק המפתח סודי, ולכן לא סומכים על אלגוריתם סודי. זה גם מה שמאפשר להחליף אלגוריתם כשהוא נשבר.</p>
+  </div>
+</div>
+
+<!-- 4 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">02 · הכלים המודרניים</div>
+  <h1>Hash, סימטרית, אסימטרית וחתימה</h1><hr class="rule">
+
+  <table>
+    <tr><th>כלי</th><th>נותן</th><th>לא נותן</th><th>בשטח</th></tr>
+    <tr><td class="k">Hash</td><td>מגלה כל שינוי</td><td>לא מסתיר, לא מוכיח מי</td><td>בדיקת קובץ שהורד, שמירת סיסמאות</td></tr>
+    <tr><td class="k">סימטרית</td><td>סודיות לכמויות גדולות, מהר</td><td>פתרון להעברת המפתח</td><td>BitLocker, ארכיון מוצפן, Wi-Fi עם סיסמה</td></tr>
+    <tr><td class="k">אסימטרית</td><td>הסכמה על מפתח בלי סוד משותף</td><td>מהירות</td><td>החלפת מפתחות ב-TLS ו-VPN</td></tr>
+    <tr><td class="k">חתימה</td><td>שלמות וזהות החותם</td><td>הסתרת התוכן</td><td>עדכוני תוכנה, מנהלי התקן</td></tr>
+  </table>
+
+  <div class="cards">
+    <div class="pc teal"><h3>שקופית 7 · Hash</h3>
+      <p>שני משפטים שנבדלים בספרה אחת, וכמחצית מ-256 הביטים שונים. בשטח: <span class="ltr">Get-FileHash</span> ו-<span class="ltr">certutil -hashfile</span> מובנים ב-Windows. MD5 ו-SHA-1 רק לבדיקת תקלות.</p>
+    </div>
+    <div class="pc amber"><h3>שקופית 8 · סימטרית</h3>
+      <p>הזיזו את הסליידר מ-2 ל-40: 15 מפתחות ב-6 משתתפים, 780 ב-40. כל מפתח צריך להגיע לשני הצדדים בדרך בטוחה. זו הבעיה שהאסימטרית פותרת.</p>
+    </div>
+  </div>
+  <div class="cards">
+    <div class="pc green"><h3>שקופית 9 · אסימטרית</h3>
+      <p>מנעול פתוח עובר מדנה ליוסי, נסגר על הקופסה, ורק המפתח הפרטי של דנה פותח. מי שמעתיק את המנעול לא מרוויח כלום: עם מנעול אפשר רק לסגור.</p>
+    </div>
+    <div class="pc teal"><h3>שקופית 10 · היברידית</h3>
+      <p>פעם אחת מסכמים מפתח באסימטרית, ומשם הכול זורם בסימטרית. כך עובדים TLS, VPN ודוא״ל מוצפן.</p>
+    </div>
+  </div>
+
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>חניך שואל ״פי כמה סימטרית מהירה יותר?״ ומקבל מספר מדויק. אין מספר כזה: היחס תלוי באלגוריתם ובחומרה, ולכן אומרים ״סדרי גודל״.</p>
+  </div>
+</div>
+
+<!-- 5 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">03 · TLS, חתימה ותעודות</div>
+  <h1>מה המנעול מבטיח, חתימה ותעודות</h1><hr class="rule">
+  <p>מנעול בדפדפן מוכיח שאף אחד בדרך לא קורא ולא משנה, ושהשרת מחזיק מפתח פרטי של תעודה תקפה <strong>לשם שבשורת הכתובת</strong>. הוא לא מוכיח שהאתר הגון, ולא שזה האתר שהתכוונו אליו.</p>
+
+  <div class="cards">
+    <div class="pc teal"><h3>שקופית 12 · חתימה חיה</h3>
+      <p>חתמו. שנו 7 ל-8 ובדקו: אדום. החזירו 7: ירוק. הוסיפו רווח בסוף: אדום. חתימה לא מסתירה את המסמך, היא מוכיחה מקור ושלמות.</p>
+    </div>
+    <div class="pc amber"><h3>שקופית 13 · שרשרת תעודות</h3>
+      <p>הריצו ״תקין״ כדי לראות את סדר הבדיקות, ובכל תרחיש אחר אפשר לבקש ניחוש איזו חוליה תיכשל. הבדיקה נעצרת בחוליה הראשונה שנכשלת.</p>
+    </div>
+  </div>
+
+  <h2>שקופית 14 · שגיאות תעודה נפוצות</h2>
+  <table>
+    <tr><th>מה רואים</th><th>סיבה אופיינית</th><th>איפה בודקים</th></tr>
+    <tr><td class="k"><span class="ltr">ERR_CERT_DATE_INVALID</span></td><td>התעודה פגה, או ששעון התחנה שגוי</td><td>Certificate Viewer · <span class="ltr">w32tm /query /status</span></td></tr>
+    <tr><td class="k"><span class="ltr">ERR_CERT_COMMON_NAME_INVALID</span></td><td>נכנסו ב-IP או בשם קצר</td><td>Subject Alternative Name</td></tr>
+    <tr><td class="k"><span class="ltr">ERR_CERT_AUTHORITY_INVALID</span></td><td>שורש לא מותקן, או שהשרת לא שולח תעודת ביניים</td><td>Certification Path · <span class="ltr">certlm.msc</span></td></tr>
+    <tr><td class="k">״לא ניתן לבדוק ביטול״</td><td>אין גישה ל-CRL או ל-OCSP</td><td><span class="ltr">certutil -verify -urlfetch</span></td></tr>
+  </table>
+
+  <div class="note amber"><h3>תרחישים שכדאי להתעכב עליהם</h3>
+    <p>״שעון שגוי בתחנה״ נראה בדיוק כמו ״פג תוקף״, והתיקון בתחנה ולא בשרת. ״חסרה תעודת ביניים״ עובד בחלק מהלקוחות (שמורידים אותה בעצמם) ונכשל באחרים, ולכן זו תקלה של ״אצלי זה עובד״.</p>
+  </div>
+  <div class="note red"><h3>לא לוחצים ״המשך בכל זאת״</h3>
+    <p>זה בדיוק המצב שהתעודה נועדה לחסום. מתעדים את השגיאה ומתקנים את החוליה. ובארגון: בדיקת תעבורה מוצפנת עם שורש פנימי היא סיבה לגיטימית לכך שהמנעול לא מוכיח שאין אף אחד באמצע.</p>
+  </div>
+</div>
+
+<!-- 6 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">04 · כרטיס חכם ו-PIN</div>
+  <h1>המפתח הפרטי לא זז, וה-PIN נבדק בכרטיס</h1><hr class="rule">
+  <p>הכרטיס מחזיק מפתח פרטי שנוצר בשבב ולא ניתן לייצוא, ותעודה שקושרת אותו לשם המשתמש. בכניסה לדומיין השרת שולח אתגר אקראי, והכרטיס חותם עליו מבפנים. ב-Windows זה Kerberos מבוסס תעודות (PKINIT), ולכן גם כאן שעון מסונכרן ושרשרת תקינה הם תנאי.</p>
+
+  <div class="cards">
+    <div class="pc teal"><h3>שקופית 15 · אתגר ותגובה</h3>
+      <p>עקבו אחרי הלולאה: אתגר, חתימה בשבב, חתימה חוזרת ונבדקת. מה לא זז אף פעם: המפתח הפרטי וה-PIN. הקלטה לא עוזרת לתוקף כי האתגר שונה בכל פעם.</p>
+    </div>
+    <div class="pc amber"><h3>שקופית 16 · PIN חי</h3>
+      <p>הזינו שלושה PIN שגויים (אפשר לתת לחניך לנחש). אחרי השלישי גם ה-PIN הנכון (<span class="ltr">2580</span>) לא פותח. PIN קצר בטוח יותר מסיסמה ארוכה במצב אחד: כשהבדיקה בחומרה שסופרת ניסיונות.</p>
+    </div>
+  </div>
+
+  <h2>שקופית 17 · כשכרטיס לא עובד: מלמטה למעלה</h2>
+  <table>
+    <tr><th class="n">שלב</th><th>בודקים</th><th>איך</th></tr>
+    <tr><td class="n">1</td><td class="k">קורא מזוהה</td><td>מנהל ההתקנים, נורית, כבל וחיבור</td></tr>
+    <tr><td class="n">2</td><td class="k">השירות פועל</td><td>Smart Card (<span class="ltr">SCardSvr</span>) ב-services.msc</td></tr>
+    <tr><td class="n">3</td><td class="k">הכרטיס נקרא</td><td><span class="ltr">certutil -scinfo</span></td></tr>
+    <tr><td class="n">4</td><td class="k">תעודה תקינה</td><td>תוקף, שרשרת מלאה, לא בוטלה</td></tr>
+    <tr><td class="n">5</td><td class="k">PIN וזמן</td><td>PIN לא חסום, שעון מסונכרן לדומיין</td></tr>
+  </table>
+
+  <div class="note teal"><h3>ההיקף מצביע על החשוד</h3>
+    <p>כל התחנות - קורא או מנהל התקן. תחנה אחת - שירות או התקנה מקומית. משתמש אחד - הכרטיס או התעודה שלו.</p>
+  </div>
+  <div class="note red"><h3>מה לא להגיד</h3>
+    <p>לא מציגים מספר ניסיונות אחר כעובדה, ולא מלמדים ״איפוס״ כרטיס. כרטיס חסום משחררים לפי נוהל היחידה. מה שמעבירים הלאה: תסמין, היקף, ופלט <span class="ltr">certutil -scinfo</span>.</p>
+  </div>
+</div>
+
+<!-- 7 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">05 · חלק ב׳ · קלאסי, Hash ו-XOR</div>
+  <h1>מכאן ההדגמות מחשבות את האלגוריתמים האמיתיים</h1><hr class="rule">
+  <p>שקופית 19 היא נקודת הפיצול. SHA-256 ו-AES בהדגמות תואמים את התקנים (נבדקו מול ספריות סטנדרטיות); המספרים ב-RSA ובדיפי-הלמן קטנים בכוונה כדי שאפשר יהיה לבדוק אותם בראש.</p>
+
+  <div class="cards">
+    <div class="pc teal"><h3>שקופית 20 · ניתוח תדירויות</h3>
+      <p>גררו את הסליידר לאט: העמודות זזות כמקשה אחת, וכשהן נוחתות על הקווים המקווקווים הטקסט נקרא. ״פצח אוטומטית״ נוחת על הזזה 7. אחר כך ״טקסט קצר״, והניחוש שגוי (16). זה בכוונה: עם מעט טקסט אין מספיק סטטיסטיקה.</p>
+    </div>
+    <div class="pc amber"><h3>שקופית 21 · SHA-256 מבפנים</h3>
+      <p>הקלידו אות אחר אות: בכל הקשה כחצי מהריבועים מתהפכים. אות עברית היא שני בתים ב-UTF-8, ומ-56 בתים הקלט כבר דורש שני בלוקים.</p>
+    </div>
+  </div>
+
+  <h2>שקופית 22 · XOR</h2>
+  <p>״הרץ״ ממלא את השורות עמודה אחרי עמודה, ובשורה האחרונה הטקסט חוזר: <span class="ltr">(P ⊕ K) ⊕ K = P</span>. זה הבסיס של צפני זרם ושל AES במצב GCM.</p>
+
+  <div class="note red"><h3>מפתח זרם שחוזר על עצמו</h3>
+    <p>שימוש חוזר במפתח זרם חושף את ההודעות: <span class="ltr">C₁ ⊕ C₂ = P₁ ⊕ P₂</span>. מכאן הדרישה למספר חד-פעמי חדש בכל הודעה ב-TLS.</p>
+  </div>
+  <div class="note green"><h3>אם נשאלים ״אפשר לפצח AES כמו את קיסר?״</h3>
+    <p>לא. אפקט המפולת (שקופית 21) מוחק את צורת השפה, ולכן לניתוח תדירויות אין על מה להיתפס.</p>
+  </div>
+</div>
+
+<!-- 8 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">06 · AES, RSA ודיפי-הלמן</div>
+  <h1>הדגמות עם ערכים שאפשר לבדוק</h1><hr class="rule">
+
+  <div class="cards">
+    <div class="pc teal"><h3>שקופית 23 · AES</h3>
+      <p>נגנו את עשרת הסבבים, ואז צעדו ידנית בסבב הראשון: SubBytes משנה את כל 16 התאים, ShiftRows רק מזיז שורות, MixColumns מערבב עמודה, AddRoundKey מוסיף מפתח סבב. ״הפוך ביט אחד במפתח״ משנה כמחצית מ-128 ביטי הפלט.</p>
+    </div>
+    <div class="pc amber"><h3>שקופית 24 · RSA</h3>
+      <p>ברירת המחדל הקלאסית: <span class="ltr">p=61, q=53, e=17</span>. ״פרק את n כמו תוקף״ מוצא את p ו-q מיד ומשם את d. נסו גם <span class="ltr">e=3</span> עם <span class="ltr">q=31</span>: אין d, וזה חלק מהחשבון.</p>
+    </div>
+  </div>
+  <div class="cards">
+    <div class="pc green"><h3>שקופית 25 · דיפי-הלמן</h3>
+      <p>סיפור הצבעים: קל לערבב, כמעט בלתי אפשרי להפריד. הזיזו את a ו-b: הסוד תמיד זהה בשני הצדדים. דיפי-הלמן לבדו לא יודע מי בצד השני, ולכן ב-TLS השרת חותם על ההחלפה.</p>
+    </div>
+    <div class="pc red"><h3>שקופית 26 · חתימה במספרים</h3>
+      <p>h הוא ה-Hash של המסמך מצומצם ל-3233, <span class="ltr">s = h^d mod n</span>, והבדיקה משווה את <span class="ltr">s^e mod n</span> ל-h. בגלל הצמצום יש סיכוי של כ-1 ל-3233 ששינוי ״יעבור״ במקרה.</p>
+    </div>
+  </div>
+
+  <h2>ערכי בדיקה</h2>
+  <table>
+    <tr><th>הדגמה</th><th>קלט</th><th>תוצאה צפויה</th></tr>
+    <tr><td class="k">אתב״ש / קיסר 3</td><td>בבל</td><td>ששך / ההס</td></tr>
+    <tr><td class="k">SHA-256</td><td>שלום</td><td><span class="ltr" style="font-size:7.6pt">b7ac0398ef74193ab738b21df0912329…</span></td></tr>
+    <tr><td class="k">AES-128</td><td>FIPS-197 נספח B</td><td><span class="ltr" style="font-size:7.6pt">3925841d02dc09fbdc118597196a0b32</span></td></tr>
+    <tr><td class="k">RSA</td><td><span class="ltr">p=61, q=53, e=17, m=65</span></td><td><span class="ltr">n=3233, d=2753, c=2790</span></td></tr>
+    <tr><td class="k">דיפי-הלמן</td><td><span class="ltr">p=23, g=5, a=6, b=15</span></td><td><span class="ltr">A=8, B=19, s=2</span></td></tr>
+  </table>
+</div>
+
+<!-- 9 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">07 · לחיצת היד של TLS 1.3</div>
+  <h1>לחיצת היד בסבב הודעות אחד</h1><hr class="rule">
+  <p>בשקופית 27 צעדו ידנית, עשרה צעדים. כל הודעה צבועה לפי מה שמגן עליה: גלוי, מפתחות לחיצת יד, או מפתחות יישום.</p>
+
+  <table>
+    <tr><th class="n">צעד</th><th>הודעה</th><th>מה חשוב להגיד</th></tr>
+    <tr><td class="n"><span class="ltr">1-2</span></td><td class="k">ClientHello / ServerHello</td><td>שניהם כוללים key_share, החצי הציבורי של דיפי-הלמן. הוא עובר גלוי ולא מגלה את הסוד.</td></tr>
+    <tr><td class="n">3</td><td class="k">חישוב מקומי</td><td>שני הצדדים מגיעים לאותו סוד. שום מפתח לא נשלח.</td></tr>
+    <tr><td class="n"><span class="ltr">4-5</span></td><td class="k">EncryptedExtensions, Certificate</td><td>מכאן מוצפן, כולל התעודה, שב-TLS 1.2 עברה גלויה.</td></tr>
+    <tr><td class="n">6</td><td class="k">CertificateVerify</td><td>השרת חותם על כל ההודעות, כולל ה-key_share. זה מה שמונע מתוקף באמצע להחליף אותו.</td></tr>
+    <tr><td class="n"><span class="ltr">7-8</span></td><td class="k">Finished בשני הכיוונים</td><td>HMAC על כל לחיצת היד. הלקוח בודק את השרשרת לפני שהוא שולח.</td></tr>
+    <tr><td class="n"><span class="ltr">9-10</span></td><td class="k">Application Data</td><td>מפתחות יישום מאותו סוד. מידע ראשון אחרי סבב אחד (<span class="ltr">1-RTT</span>).</td></tr>
+  </table>
+
+  <div class="cards">
+    <div class="pc teal"><h3>שקופית 28 · 1.2 מול 1.3</h3>
+      <p>החליפו בין הגרסאות. מה השתנה: התעודה מוצפנת, החלפת המפתחות תמיד עם דיפי-הלמן זמני (סודיות קדימה), וסבב אחד פחות.</p>
+    </div>
+    <div class="pc amber"><h3>מה לא השתנה</h3>
+      <p>כתובות IP, פורטים, שם האתר (SNI) וגודל ותזמון התעבורה. ECH מצפינה גם את SNI, אבל עוד לא בכל מקום. זו גם הסיבה שלוכד תעבורה מראה ב-1.3 פחות מבעבר.</p>
+    </div>
+  </div>
+
+  <div class="note teal"><h3>חיבור לשיעור 3</h3>
+    <p>בשיעור 3 ברשתות לחיצת היד הוצגה כ״Hello, תעודה, גזירת מפתחות ו-Finished״. ההדגמה מפרקת כל חלק ומראה למה הוא נחוץ.</p>
+  </div>
+</div>
+
+<!-- 10 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">08 · גבולות ושאלות</div>
+  <h1>מגבלות ההדגמות</h1><hr class="rule">
+  <p>לא לדלג על שקופית 29. הטעות הנפוצה אחרי שיעור כזה היא לחשוב ש״RSA זה החשבון הזה״. החשבון נכון, אבל בלי ריפוד, בלי גדלים אמיתיים ובלי מצבי הפעלה הוא לא בטוח.</p>
+
+  <div class="cards">
+    <div class="pc red"><h3>מה הופשט</h3>
+      <p>RSA במספרים זעירים ובלי ריפוד (בפועל: 2048 ביט ומעלה, OAEP ו-PSS). AES בבלוק בודד (בפועל: GCM עם מספר חד-פעמי). התרשימים של PKINIT ו-TLS מראים את העיקרון בלבד.</p>
+    </div>
+    <div class="pc green"><h3>מה כן אמין</h3>
+      <p>SHA-256 ו-AES תואמים את התקנים: נבדקו מול hashlib ו-OpenSSL. מפולת, פירוק לגורמים, לוגריתם בדיד ושרשרת חתימות הם בדיוק העקרונות שבמערכות אמיתיות.</p>
+    </div>
+  </div>
+
+  <h2>שאלות צפויות</h2>
+  <table>
+    <tr><th style="width:34%">שאלה</th><th>תשובה קצרה</th></tr>
+    <tr><td class="k">אם יש HTTPS, למה עדיין יש פישינג?</td><td>תעודה מוכיחה רק שלשרת יש מפתח לשם שבשורת הכתובת. גם לאתר מתחזה יכולה להיות תעודה תקפה לשם שלו.</td></tr>
+    <tr><td class="k">למה לא משתמשים רק ב-RSA?</td><td>איטית ומוגבלת בגודל. משתמשים בה (או ב-ECDHE) רק להסכמה על מפתח ולחתימה.</td></tr>
+    <tr><td class="k">למה השגיאה רק בתחנה אחת?</td><td>שעון, שורש חסר במאגר האמון, או מטמון. בודקים <span class="ltr">w32tm</span> ו-<span class="ltr">certlm.msc</span>.</td></tr>
+    <tr><td class="k">מה קורה אם רשות התעודות נפרצת?</td><td>אפשר להנפיק תעודה ״תקינה״ לכל שם. לכן יש ביטול תעודות ומאגר אמון מנוהל.</td></tr>
+    <tr><td class="k">מנהל הרשת רואה את הסיסמה שלי?</td><td>שרת תקין שומר Hash עם מלח. בכרטיס חכם אין סיסמה שעוברת בכלל.</td></tr>
+    <tr><td class="k">מחשב קוונטי ישבור הכול?</td><td>מחשב גדול מספיק ישבור RSA ו-ECC. AES ו-SHA-256 נפגעים פחות. המעבר לאלגוריתמים עמידים כבר מתחיל.</td></tr>
+  </table>
+
+  <div class="note red"><h3>לא כותבים קריפטוגרפיה לבד</h3>
+    <p>הקוד במצגת הוא כלי הוראה. במערכת אמיתית משתמשים בספריות מוכרות ובהגדרות מומלצות.</p>
+  </div>
+</div>
+
+<!-- 11 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">סיום · מפת השיעור</div>
+  <h1>מהלך המצגת ודגשים למדריך</h1><hr class="rule">
+
+  <table>
+    <tr><th class="n">מס׳</th><th>שלב</th><th>תוכן</th></tr>
+    <tr><td class="n"><span class="ltr">1-2</span></td><td class="k">שער ומפה</td><td>גלוי מול מוצפן; מהלך השיעור.</td></tr>
+    <tr><td class="n"><span class="ltr">3-5</span></td><td class="k">מה זה בכלל</td><td>Base64 חי, מסר בביט האחרון, גלגל אתב״ש וקיסר.</td></tr>
+    <tr><td class="n">6</td><td class="k">כלים מודרניים</td><td>Hash, סימטרית, אסימטרית וחתימה: מה כל כלי נותן ומה המגבלה.</td></tr>
+    <tr><td class="n"><span class="ltr">7-10</span></td><td class="k">Hash עד היברידית</td><td>מפולת, רשת מפתחות, מנעול פתוח, זרם מידע.</td></tr>
+    <tr><td class="n">11</td><td class="k">TLS לטכנאי</td><td>מה המנעול בדפדפן מבטיח, ומה המאזין רואה.</td></tr>
+    <tr><td class="n"><span class="ltr">12-14</span></td><td class="k">חתימה ותעודות</td><td>חתימה חיה, בודק שרשרת, שגיאות תעודה נפוצות.</td></tr>
+    <tr><td class="n"><span class="ltr">15-17</span></td><td class="k">כרטיס חכם</td><td>אתגר ותגובה, מקלדת PIN, בדיקה מלמטה למעלה.</td></tr>
+    <tr><td class="n">18</td><td class="k">סיכום חלק א׳</td><td>כללים לשטח: מה כל כלי נותן ומה לא.</td></tr>
+    <tr><td class="n">19</td><td class="k">מעבר</td><td>איך זה עובד מבפנים; נקודת הפיצול למפגש שני.</td></tr>
+    <tr><td class="n"><span class="ltr">20-22</span></td><td class="k">קלאסי, Hash, XOR</td><td>פיצוח תדירויות, רשת ביטים, XOR הפיך.</td></tr>
+    <tr><td class="n"><span class="ltr">23-26</span></td><td class="k">אלגוריתמים</td><td>AES בצעדים, RSA, דיפי-הלמן, חתימה במספרים.</td></tr>
+    <tr><td class="n"><span class="ltr">27-28</span></td><td class="k">TLS 1.3</td><td>לחיצת יד בעשרה צעדים; 1.2 מול 1.3.</td></tr>
+    <tr><td class="n"><span class="ltr">29-30</span></td><td class="k">גבולות וסיכום</td><td>מגבלות ההדגמות; הכלים משלימים זה את זה.</td></tr>
+  </table>
+
+  <h2>מילון קצר למדריך</h2>
+  <table>
+    <tr><th>מונח</th><th>הגדרה</th><th>מונח</th><th>הגדרה</th></tr>
+    <tr><td class="k">Hash</td><td>טביעת אצבע באורך קבוע, חד-כיוונית.</td><td class="k">HMAC</td><td>Hash עם מפתח סודי.</td></tr>
+    <tr><td class="k">תעודה</td><td>מסמך חתום שקושר מפתח ציבורי לשם.</td><td class="k">SAN</td><td>רשימת השמות שהתעודה תקפה להם.</td></tr>
+    <tr><td class="k">CRL / OCSP</td><td>בדיקה אם תעודה בוטלה.</td><td class="k">ECDHE</td><td>דיפי-הלמן זמני על עקומים.</td></tr>
+    <tr><td class="k">סודיות קדימה</td><td>דליפת מפתח לא חושפת הקלטות ישנות.</td><td class="k">SNI</td><td>שם האתר בתחילת TLS, גלוי לרוב.</td></tr>
+    <tr><td class="k">PKINIT</td><td>כניסה ל-Kerberos בתעודה.</td><td class="k">RTT</td><td>זמן הלוך-חזור ברשת.</td></tr>
+  </table>
+
+  <div class="note teal"><h3>שאלת סיום</h3>
+    <p>בקשו מחניך לתאר במשפט אחד מה קורה כשנכנסים לאתר. תשובה טובה כוללת הסכמה על מפתח, תעודה, חתימה והצפנה סימטרית.</p>
+  </div>
+</div>
+
+</body></html>

@@ -1,0 +1,249 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>יסודות חשמל ואלקטרוניקה</title><style>
+@page{size:A4;margin:52pt 54pt 46pt 54pt;
+  @bottom-right{content:"מחלקת תקשוב · חשמל ואלקטרוניקה · שיעור 1";
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:right;vertical-align:top;padding-top:10pt;direction:rtl}
+  @bottom-left{content:counter(page) " / " counter(pages);
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:left;vertical-align:top;padding-top:10pt;direction:ltr}}
+@page:first{@bottom-right{content:""}@bottom-left{content:""}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Liberation Sans",Arial,sans-serif;color:#1b2a38;font-size:10pt;line-height:1.55;direction:rtl}
+.pg{page-break-after:always}
+.pg:last-child{page-break-after:auto}
+.eyebrow{font-size:9pt;font-weight:bold;color:#0f2740;margin-bottom:9pt}
+h1{font-size:20pt;font-weight:bold;margin:0 0 14pt;color:#0f2740;line-height:1.24;text-align:center}
+h2{font-size:13pt;margin:16pt 0 8pt;color:#0f2740;font-weight:bold}
+.rule{border:0;border-top:1px solid #dbe3ea;margin:0 0 16pt}
+p{margin:0 0 7pt}
+ul{margin:0 0 7pt;padding-right:15pt}
+li{margin-bottom:4pt}
+
+/* stat chips */
+.chips{display:flex;gap:11pt;margin:0 0 16pt}
+.chip{flex:1;background:#0f2740;border-radius:6pt;padding:11pt 8pt;text-align:center}
+.chip b{display:block;font-size:14pt;color:#3fd0e0;line-height:1.15}
+.chip span{display:block;font-size:8.5pt;color:#b6c6d4;margin-top:3pt}
+
+/* two rounded cards with a coloured inner edge */
+.cards{display:flex;gap:11pt;margin:0 0 14pt}
+.cards.three>*{flex:1}
+.cards>*{flex:1;min-width:0}
+.pc{border-radius:7pt;padding:10pt 13pt;position:relative;overflow:hidden}
+.pc::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.pc h3{margin:0 0 5pt;font-size:10pt;font-weight:bold}
+.pc p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.pc p:last-child{margin-bottom:0}
+.pc.teal{background:#e9f4f7}.pc.teal::after{background:#0f8793}.pc.teal h3{color:#0f6f7a}
+.pc.amber{background:#fdf4e6}.pc.amber::after{background:#e0a038}.pc.amber h3{color:#a8701a}
+.pc.red{background:#fdeef0}.pc.red::after{background:#d9556a}.pc.red h3{color:#a83a4c}
+.pc.green{background:#eef7f0}.pc.green::after{background:#4a9c62}.pc.green h3{color:#2f7546}
+
+/* full-width note block, same visual family */
+.note{border-radius:7pt;padding:9pt 13pt;margin:0 0 10pt;position:relative;overflow:hidden}
+.note::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.note h3{margin:0 0 4pt;font-size:9pt;font-weight:bold;letter-spacing:.02em}
+.note p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.note p:last-child{margin-bottom:0}
+.note.teal{background:#e9f4f7}.note.teal::after{background:#0f8793}.note.teal h3{color:#0f6f7a}
+.note.amber{background:#fdf4e6}.note.amber::after{background:#e0a038}.note.amber h3{color:#a8701a}
+.note.red{background:#fdeef0}.note.red::after{background:#d9556a}.note.red h3{color:#a83a4c}
+.note.green{background:#eef7f0}.note.green::after{background:#4a9c62}.note.green h3{color:#2f7546}
+
+/* dark headline band (used for the formula / the one-line rule of a page) */
+.band{background:#0f2740;border-radius:8pt;padding:14pt 18pt;margin:0 0 14pt;text-align:center;
+  color:#3fd0e0;font-size:16pt;font-weight:bold}
+.band.sm{font-size:12.5pt;padding:11pt 16pt}
+.band .w{color:#fff}
+
+table{width:100%;border-collapse:collapse;font-size:9pt;margin:0 0 11pt}
+th,td{border:1px solid #dbe3ea;padding:5pt 8pt;text-align:right;vertical-align:top}
+th{background:#eef4f8;color:#0f6f7a;font-weight:bold}
+td.k{font-weight:bold;color:#0f2740}
+td.n,th.n{text-align:center;width:52pt;white-space:nowrap;direction:ltr;unicode-bidi:embed}
+.ltr{direction:ltr;unicode-bidi:embed;display:inline-block}
+
+.title-pg{height:660pt;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.title-pg .kick{font-size:10pt;color:#0f8793;font-weight:bold;margin-bottom:20pt}
+.title-pg h1{font-size:27pt;margin-bottom:12pt}
+.title-pg .sub{font-size:12pt;color:#5b7186;margin:0 auto 26pt;max-width:400pt;line-height:1.55}
+.title-pg .meta{font-size:9.5pt;color:#5b7186}
+</style></head><body>
+
+<!-- 1 ─────────────────────────── -->
+<div class="pg title-pg">
+  <div class="kick">מחלקת תקשוב · רדיו · דף הנחיה למדריך</div>
+  <h1>יסודות חשמל ואלקטרוניקה</h1>
+  <div class="sub">מתח, זרם, התנגדות, AC/DC, הספק והשראות: עד לגל אלקטרומגנטי.</div>
+  <div class="chips" style="max-width:400pt;margin:0 auto">
+    <div class="chip"><b><span class="ltr">45-50</span> דקות</b><span>משך מומלץ</span></div>
+    <div class="chip"><b>9</b><span>שקופיות כולל שער</span></div>
+    <div class="chip"><b>VHF</b><span>תחום המיקוד</span></div>
+  </div>
+  <div class="meta" style="margin-top:20pt">מותאם לטכנאי שטח · מוקד VHF</div>
+</div>
+
+<!-- 2 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">00 · בריף למדריך</div>
+  <h1>לפני שמתחילים</h1><hr class="rule">
+  <div class="chips">
+    <div class="chip"><b>VHF</b><span>תחום המיקוד</span></div>
+    <div class="chip"><b>9</b><span>שקופיות כולל שער</span></div>
+    <div class="chip"><b><span class="ltr">45-50</span> דקות</b><span>משך מומלץ</span></div>
+  </div>
+
+  <div class="cards">
+    <div style="flex:1">
+      <h2 style="margin-top:0">מטרת השיעור</h2>
+      <p>לבנות שפה חשמלית משותפת שמספיקה לאבחון בשטח: להבין מה מניע זרם, מה מגביל אותו, למה מקור קורס תחת עומס ואיך שינוי מהיר בשדה חשמלי ומגנטי מוביל לקרינה.</p>
+      <div class="note teal"><h3>בסוף השיעור</h3>
+        <p>החניך מבחין בין V, I, R ו־P, מבין למה המתח נופל דווקא בזמן PTT, ויודע להסביר איך זורם זרם RF באנטנה שקצותיה פתוחים.</p>
+      </div>
+    </div>
+    <div style="flex:1">
+      <h2 style="margin-top:0">הכנה מראש</h2>
+      <ul>
+        <li>פתחו את המצגת במסך מלא ובדקו שהאנימציות עובדות.</li>
+        <li>הכינו דוגמה מילולית לתקלה שמופיעה רק בשידור.</li>
+        <li>אין צורך ברכיבי מעבדה או בציוד מדידה שאינו זמין בשטח.</li>
+      </ul>
+      <div class="note amber"><h3>היקף השיעור</h3>
+        <p>המושגים החשמליים שצריך כדי לאבחן תקלת הזנה ולהבין מאיפה מגיע זרם ה־RF באנטנה. תכנון מעגלים ורכיבים נשאר מחוץ לשיעור.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>חלוקת זמן מוצעת</h2>
+  <table>
+    <tr><th>חלק</th><th>מה עושים</th><th class="n">דקות</th></tr>
+    <tr><td class="k">פתיחה</td><td>תרחיש תקלה ומעגל פתוח מול סגור</td><td class="n">5</td></tr>
+    <tr><td class="k">השפה החשמלית</td><td>מתח, זרם, התנגדות וחוק אוהם</td><td class="n">10</td></tr>
+    <tr><td class="k">AC/DC והספק</td><td>כיוון, קצב שינוי ואנרגיה לעומס</td><td class="n">9</td></tr>
+    <tr><td class="k">מקור תחת עומס</td><td>נפילת מתח בזמן PTT</td><td class="n">8</td></tr>
+    <tr><td class="k">השראות ואנטנה</td><td>שדה משתנה וזרם באנטנה פתוחה</td><td class="n">10</td></tr>
+    <tr><td class="k">סגירה</td><td>מהמעגל לגל אלקטרומגנטי</td><td class="n">5</td></tr>
+  </table>
+
+  <div class="note green"><h3>שאלת פתיחה</h3>
+    <p>הציוד נדלק ומראה מתח תקין, אבל בעת PTT הקשר קורס. מה בדיקת מתח ללא עומס עלולה לפספס?</p>
+  </div>
+</div>
+
+<!-- 3 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">01 · שפה חשמלית</div>
+  <h1>מתח, זרם והתנגדות</h1><hr class="rule">
+  <div class="band sm">חוק אוהם<br><span class="w">V = I × R</span></div>
+
+  <p>התחילו ממסלול האנרגיה. מתח יכול להתקיים גם ללא זרם. במסלול פתוח יש מתח, אך אין זרם רציף, כי אין מסלול סגור להעברת אנרגיה לעומס. כשהמסלול נסגר, הזרם מעביר אנרגיה לעומס, וההתנגדות קובעת כמה זרם יזרום עבור מתח נתון.</p>
+
+  <div class="note teal"><h3>היחסים בחוק</h3>
+    <p>באותו עומס, מתח גבוה יותר יוצר זרם גבוה יותר; ואם המתח לא משתנה, התנגדות גבוהה יותר יוצרת זרם נמוך יותר.</p>
+  </div>
+
+  <div class="note green"><h3>שאלה לקבוצה</h3>
+    <p>אם המחבר רופף ורק נוגע, האם מד מתח ללא עומס בהכרח יחשוף את התקלה?</p>
+  </div>
+</div>
+
+<!-- 4 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">02 · אות ואנרגיה</div>
+  <h1>זרם ישר, זרם חילופין והספק</h1><hr class="rule">
+  <div class="band sm">קצב העברת האנרגיה לעומס:<br><span class="w">P = V × I</span></div>
+
+  <p>DC מספק קוטביות קבועה; AC משנה כיוון. ברדיו השינוי מהיר מאוד, ולכן התגובה של כבלים ואנטנות תלויה גם בתדר. הספק הוא קצב העברת האנרגיה, והפסדים בכבל ובמחברים הופכים בעיקר לחום.</p>
+
+  <table>
+    <tr><th>סוג</th><th>מה קורה</th></tr>
+    <tr><td class="k">DC</td><td>קוטביות וכיוון קבועים לאורך זמן.</td></tr>
+    <tr><td class="k">AC</td><td>הכיוון מתהפך במחזוריות; ברדיו ההיפוך מתרחש מיליוני פעמים בשנייה.</td></tr>
+  </table>
+
+  <div class="note teal"><h3>מתח ויכולת הספקה</h3>
+    <p>הדגישו ש״יש מתח״ אינו אומר שהמקור מסוגל לספק זרם בלי לקרוס.</p>
+  </div>
+
+  <div class="note amber"><h3>בדרך לאנטנה</h3>
+    <p>לא כל ההספק שנכנס למערכת מוקרן לאוויר; בדרך יש הפסדי התאמה וכבל.</p>
+  </div>
+</div>
+
+<!-- 5 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">03 · התנהגות תחת עומס</div>
+  <h1>מודדים בזמן PTT</h1><hr class="rule">
+  <div class="band sm">את מתח ההזנה מודדים<br><span class="w">בזמן האירוע, תחת עומס.</span></div>
+
+  <p>שידור דורש יותר זרם מקליטה או המתנה. מקור חלש, כבל דק או מגע פגום יכולים להיראות תקינים ללא עומס ולהפיל מתח דווקא בזמן שידור. במקור תקין מתח ההזנה נשאר יציב גם תחת עומס השידור; במקור או בחיבור חלש הוא צונח בדיוק בזמן הלחיצה על PTT.</p>
+
+  <div class="note teal"><h3>לטכנאי</h3>
+    <p>נפילה בזמן PTT מצביעה לעיתים קרובות על מקור, נתיך, מחבר או כבל הזנה, לפני בדיקת הרדיו עצמו.</p>
+  </div>
+
+  <div class="note green"><h3>איך להעביר</h3>
+    <p>קשרו את הגרף לתרחיש שבו המכשיר נדלק ומראה מתח תקין, אך השידור נופל. אין צורך להציג ערכי מתח של מערכת מסוימת.</p>
+  </div>
+</div>
+
+<!-- 6 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">04 · מהמעגל לאנטנה</div>
+  <h1>למה יש זרם באנטנה שקצותיה פתוחים</h1><hr class="rule">
+  <div class="band sm">הזרם גדול ליד נקודת ההזנה,<br><span class="w">ויורד לאפס בקצוות הפתוחים.</span></div>
+
+  <p>בנקודת ההזנה זורם זרם RF אל זרוע אחת וחוזר דרך הזרוע השנייה של הדיפול, או דרך מישור הארקה/קונטרה־פויז במונופול. לקראת הקצוות המטען מצטבר והזרם המוליך יורד לאפס.</p>
+
+  <p>בחצי מחזור אחד יש + בקצה אחד ו־− בשני; בחצי הבא הקטבים והזרם מתהפכים. השדות המשתנים מאפשרים רציפות אלקטרומגנטית גם ללא חיבור מתכתי בין הקצוות.</p>
+
+  <div class="note teal"><h3>השראות ושדה משתנה</h3>
+    <p>כל שינוי בזרם משנה את השדה המגנטי סביב המוליך, וזו ההשראות. ברדיו הכיוון מתהפך מיליוני פעמים בשנייה, ושינוי מהיר כזה בזרם הוא שמניע את השדות המשתנים שממשיכים אל האנטנה.</p>
+  </div>
+
+  <div class="note green"><h3>ניסוח מומלץ</h3>
+    <p>האנטנה אינה ״מעגל פתוח רגיל״ ב־DC: ב־RF היא מבנה מפוזר שבו מטען, זרם ושדה משתנים לאורך המוליך.</p>
+  </div>
+</div>
+
+<!-- 7 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">סיום · מפת השיעור</div>
+  <h1>מהלך המצגת ודגשים למדריך</h1><hr class="rule">
+
+  <table>
+    <tr><th class="n">מס׳</th><th>שקופית</th><th>דגש למדריך</th></tr>
+    <tr><td class="n">1</td><td class="k">שער</td><td>הרצף של השיעור: מהמעגל החשמלי אל הקרינה.</td></tr>
+    <tr><td class="n">2</td><td class="k">מעגל פתוח ומעגל סגור</td><td>בקשו לזהות היכן יש מתח והיכן יכול לזרום זרם.</td></tr>
+    <tr><td class="n">3</td><td class="k">מתח, זרם והתנגדות</td><td>V, I ו־R ויחידות המידה שלהם.</td></tr>
+    <tr><td class="n">4</td><td class="k">זרם ישר וזרם חילופין</td><td>AC אינו רק חשמל רשת: גם שמע ו־RF משתנים בזמן.</td></tr>
+    <tr><td class="n">5</td><td class="k">הספק</td><td>הפסד בכבל ובמחבר הופך לחום לפני האנטנה.</td></tr>
+    <tr><td class="n">6</td><td class="k">מקור חלש תחת עומס</td><td>נתיך, מחבר וכבל הזנה נבדקים לפני הרדיו עצמו.</td></tr>
+    <tr><td class="n">7</td><td class="k">שינוי בזרם ושדה מגנטי</td><td>גם כבל רגיל כולל השראות; אין צורך בסליל כרכיב.</td></tr>
+    <tr><td class="n">8</td><td class="k">זרם RF באנטנה פתוחה</td><td>הסבירו הצטברות מטען והיפוך בכל חצי מחזור.</td></tr>
+    <tr><td class="n">9</td><td class="k">מזרם במוליך לקרינת רדיו</td><td>סיימו בשרשרת: מטען, זרם משתנה, שדות משתנים, גל.</td></tr>
+  </table>
+
+  <h2>מילון קצר למדריך</h2>
+  <table>
+    <tr><th style="width:22%">מונח</th><th>הגדרה</th></tr>
+    <tr><td class="k">מתח</td><td>הפרש פוטנציאלים שמניע זרם.</td></tr>
+    <tr><td class="k">זרם</td><td>קצב תנועת מטען.</td></tr>
+    <tr><td class="k">התנגדות</td><td>מה שמגביל את הזרם במעגל.</td></tr>
+    <tr><td class="k">הספק</td><td>קצב העברת אנרגיה.</td></tr>
+    <tr><td class="k">AC</td><td>אות שמשנה כיוון בזמן.</td></tr>
+    <tr><td class="k">DC</td><td>מתח או זרם בכיוון קבוע.</td></tr>
+    <tr><td class="k">השראות</td><td>תגובה לשינוי בזרם.</td></tr>
+    <tr><td class="k">שדה EM</td><td>שדות חשמלי ומגנטי המשתנים ומתפשטים.</td></tr>
+  </table>
+
+  <div class="note green"><h3>שאלת סיום</h3>
+    <p>אם האנטנה פתוחה בקצותיה, היכן הזרם גדול והיכן הוא אפס, ומה משתנה בכל חצי מחזור?</p>
+  </div>
+
+  <div class="note red"><h3>טעות נפוצה</h3>
+    <p>חניך מסביר שהאלקטרונים ״קופצים באוויר״ מקצה אחד של האנטנה לשני. בפועל הזרם המוליך דועך לאפס בקצוות, ומה שמתחלף בזמן הוא המטען והשדה.</p>
+  </div>
+</div>
+
+</body></html>

@@ -1,0 +1,305 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>גלים והתפשטות VHF</title><style>
+@page{size:A4;margin:52pt 54pt 46pt 54pt;
+  @bottom-right{content:"מחלקת תקשוב · גלים ו־VHF · שיעור 2";
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:right;vertical-align:top;padding-top:10pt;direction:rtl}
+  @bottom-left{content:counter(page) " / " counter(pages);
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:left;vertical-align:top;padding-top:10pt;direction:ltr}}
+@page:first{@bottom-right{content:""}@bottom-left{content:""}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Liberation Sans",Arial,sans-serif;color:#1b2a38;font-size:10pt;line-height:1.55;direction:rtl}
+.pg{page-break-after:always}
+.pg:last-child{page-break-after:auto}
+.eyebrow{font-size:9pt;font-weight:bold;color:#0f2740;margin-bottom:9pt}
+h1{font-size:20pt;font-weight:bold;margin:0 0 14pt;color:#0f2740;line-height:1.24;text-align:center}
+h2{font-size:13pt;margin:16pt 0 8pt;color:#0f2740;font-weight:bold}
+.rule{border:0;border-top:1px solid #dbe3ea;margin:0 0 16pt}
+p{margin:0 0 7pt}
+ul{margin:0 0 7pt;padding-right:15pt}
+li{margin-bottom:4pt}
+
+/* stat chips */
+.chips{display:flex;gap:11pt;margin:0 0 16pt}
+.chip{flex:1;background:#0f2740;border-radius:6pt;padding:11pt 8pt;text-align:center}
+.chip b{display:block;font-size:14pt;color:#3fd0e0;line-height:1.15}
+.chip span{display:block;font-size:8.5pt;color:#b6c6d4;margin-top:3pt}
+
+/* two rounded cards with a coloured inner edge */
+.cards{display:flex;gap:11pt;margin:0 0 14pt}
+.cards.three>*{flex:1}
+.cards>*{flex:1;min-width:0}
+.pc{border-radius:7pt;padding:10pt 13pt;position:relative;overflow:hidden}
+.pc::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.pc h3{margin:0 0 5pt;font-size:10pt;font-weight:bold}
+.pc p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.pc p:last-child{margin-bottom:0}
+.pc.teal{background:#e9f4f7}.pc.teal::after{background:#0f8793}.pc.teal h3{color:#0f6f7a}
+.pc.amber{background:#fdf4e6}.pc.amber::after{background:#e0a038}.pc.amber h3{color:#a8701a}
+.pc.red{background:#fdeef0}.pc.red::after{background:#d9556a}.pc.red h3{color:#a83a4c}
+.pc.green{background:#eef7f0}.pc.green::after{background:#4a9c62}.pc.green h3{color:#2f7546}
+
+/* full-width note block, same visual family */
+.note{border-radius:7pt;padding:9pt 13pt;margin:0 0 10pt;position:relative;overflow:hidden}
+.note::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.note h3{margin:0 0 4pt;font-size:9pt;font-weight:bold;letter-spacing:.02em}
+.note p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.note p:last-child{margin-bottom:0}
+.note.teal{background:#e9f4f7}.note.teal::after{background:#0f8793}.note.teal h3{color:#0f6f7a}
+.note.amber{background:#fdf4e6}.note.amber::after{background:#e0a038}.note.amber h3{color:#a8701a}
+.note.red{background:#fdeef0}.note.red::after{background:#d9556a}.note.red h3{color:#a83a4c}
+.note.green{background:#eef7f0}.note.green::after{background:#4a9c62}.note.green h3{color:#2f7546}
+
+/* dark headline band (used for the formula / the one-line rule of a page) */
+.band{background:#0f2740;border-radius:8pt;padding:14pt 18pt;margin:0 0 14pt;text-align:center;
+  color:#3fd0e0;font-size:16pt;font-weight:bold}
+.band.sm{font-size:12.5pt;padding:11pt 16pt}
+.band .w{color:#fff}
+
+table{width:100%;border-collapse:collapse;font-size:9pt;margin:0 0 11pt}
+th,td{border:1px solid #dbe3ea;padding:5pt 8pt;text-align:right;vertical-align:top}
+th{background:#eef4f8;color:#0f6f7a;font-weight:bold}
+td.k{font-weight:bold;color:#0f2740}
+td.n,th.n{text-align:center;width:52pt;white-space:nowrap;direction:ltr;unicode-bidi:embed}
+.ltr{direction:ltr;unicode-bidi:embed;display:inline-block}
+
+.title-pg{height:660pt;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.title-pg .kick{font-size:10pt;color:#0f8793;font-weight:bold;margin-bottom:20pt}
+.title-pg h1{font-size:27pt;margin-bottom:12pt}
+.title-pg .sub{font-size:12pt;color:#5b7186;margin:0 auto 26pt;max-width:400pt;line-height:1.55}
+.title-pg .meta{font-size:9.5pt;color:#5b7186}
+</style></head><body>
+
+<!-- 1 ─────────────────────────── -->
+<div class="pg title-pg">
+  <div class="kick">מחלקת תקשוב · רדיו · דף הנחיה למדריך</div>
+  <h1>גלים והתפשטות VHF</h1>
+  <div class="sub">תדר, משרעת ופאזה; החזרה והתאבכות; איפנון; דעיכה והתפשטות.</div>
+  <div class="chips">
+    <div class="chip"><b><span class="ltr">50-55</span> דקות</b><span>משך מומלץ</span></div>
+    <div class="chip"><b>14</b><span>שקופיות</span></div>
+    <div class="chip"><b>VHF</b><span>תחום המיקוד</span></div>
+  </div>
+  <div class="meta" style="margin-top:20pt">מותאם לטכנאי שטח · מוקד VHF</div>
+</div>
+
+<!-- 2 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">00 · בריף למדריך</div>
+  <h1>לפני שמתחילים</h1><hr class="rule">
+  <div class="chips">
+    <div class="chip"><b>VHF</b><span>תחום המיקוד</span></div>
+    <div class="chip"><b>14</b><span>שקופיות כולל שער</span></div>
+    <div class="chip"><b><span class="ltr">50-55</span> דקות</b><span>משך מומלץ</span></div>
+  </div>
+
+  <div class="cards">
+    <div style="flex:1">
+      <h2 style="margin-top:0">מטרת השיעור</h2>
+      <p>לתת לטכנאי מודל חזותי שמחבר בין צורת הגל לבין תופעות בשטח: קו ראייה, חסימות, אזור פרנל, ריבוי נתיבים ורוחב פס.</p>
+      <div class="note teal"><h3>מה החניך צריך לדעת</h3>
+        <p>בסיום, החניך יסביר כיצד תדר, משרעת ופאזה משפיעים על אות VHF; יזהה החזרה והתאבכות; ויבדיל בין AM, FM ו־FSK ברמה תפעולית.</p>
+      </div>
+    </div>
+    <div style="flex:1">
+      <h2 style="margin-top:0">הכנה מראש</h2>
+      <ul>
+        <li>לחשוב על שני אתרי קשר מוכרים: אחד פתוח ואחד בנוי/הררי.</li>
+        <li>להכין דוגמה למצב שבו תזוזה קטנה שינתה קליטה.</li>
+        <li>אין צורך לדון לעומק ב־HF או UHF; מציינים שהם תחומים נוספים.</li>
+      </ul>
+      <div class="note amber"><h3>היקף השיעור</h3>
+        <p>לא נכנסים למודלים מתמטיים של התפשטות. מתמקדים בהשפעות על קשר VHF בשטח.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>חלוקת זמן מוצעת</h2>
+  <table>
+    <tr><th>חלק</th><th>מה עושים</th><th class="n">דקות</th></tr>
+    <tr><td class="k">פתיחה</td><td>גל כייצוג של שינוי בזמן ובמרחב</td><td class="n">5</td></tr>
+    <tr><td class="k">מאפייני גל</td><td>תדר, משרעת, פאזה ואורך גל</td><td class="n">10</td></tr>
+    <tr><td class="k">החזרה והתאבכות</td><td>נתיבים מצטרפים או מבטלים</td><td class="n">9</td></tr>
+    <tr><td class="k">התפשטות VHF</td><td>קו ראייה, פרנל, חסימות ודעיכה</td><td class="n">12</td></tr>
+    <tr><td class="k">איפנון</td><td>מידע על נשא: AM, FM, FSK</td><td class="n">10</td></tr>
+    <tr><td class="k">רוחב פס ושכבות</td><td>איפנון, קידוד והצפנה</td><td class="n">6</td></tr>
+    <tr><td class="k">סגירה</td><td>חזרה לתרחיש השטח</td><td class="n">4</td></tr>
+  </table>
+
+  <div class="note green"><h3>פתיחה מומלצת</h3>
+    <p>מדוע הזזה של אנטנה בחצי מטר יכולה לשפר קשר, גם כשהמרחק בין הצדדים כמעט לא השתנה?</p>
+  </div>
+</div>
+
+<!-- 3 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">01 · מאפייני גל</div>
+  <h1>ארבע דרכים לתאר שינוי מחזורי</h1><hr class="rule">
+  <p>תדר מתאר כמה מהר הגל חוזר על עצמו, משרעת מתארת את גודלו, פאזה מתארת היכן הוא במחזור, ואורך הגל מחבר את התדר למרחק.</p>
+
+  <div class="cards">
+    <div class="pc teal"><h3>תדר</h3>
+      <p>כמה מחזורים בשנייה. נמדד בהרץ, וקובע את תחום העבודה.</p>
+    </div>
+    <div class="pc teal"><h3>משרעת</h3>
+      <p>כמה גדול השינוי. קשורה לעוצמת השדה ולרמת האות.</p>
+    </div>
+  </div>
+  <div class="cards">
+    <div class="pc teal"><h3>פאזה</h3>
+      <p>איפה הגל נמצא בתוך המחזור. קובעת כיצד גלים מתחברים זה לזה.</p>
+    </div>
+    <div class="pc teal"><h3>אורך גל</h3>
+      <p>מרחק של מחזור שלם. מתקצר ככל שהתדר עולה; באותו תווך, תדר גבוה יותר פירושו אורך גל קצר יותר.</p>
+    </div>
+  </div>
+
+  <div class="note teal"><h3>שאלת בדיקה</h3>
+    <p>איזה מאפיין משתנה אם מזיזים גל אחד ביחס לאחר בלי לשנות את צורתו?</p>
+  </div>
+</div>
+
+<!-- 4 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">02 · מפגש עם הסביבה</div>
+  <h1>החזרה והתאבכות: הנתיבים נסכמים במקלט</h1><hr class="rule">
+  <p>קירות, קרקע, רכב ותוואי שטח יוצרים נתיבים מוחזרים. במקלט הם מצטרפים לפי המשרעת והפאזה שלהם, ולכן יכולים לחזק או להחליש את האות.</p>
+
+  <div class="cards">
+    <div class="pc green"><h3>התאבכות בונה</h3>
+      <p>הפסגות מגיעות יחד. נתיבים שמגיעים כמעט באותה פאזה מצטרפים ומחזקים את האות.</p>
+    </div>
+    <div class="pc red"><h3>התאבכות הורסת</h3>
+      <p>פסגה פוגשת שפל. נתיבים שמגיעים בפאזה הפוכה מבטלים חלקית זה את זה ומחלישים את האות.</p>
+    </div>
+  </div>
+
+  <div class="note teal"><h3>התופעה שרואים בשטח</h3>
+    <p>אותו משדר יכול להיקלט אחרת במיקום סמוך, בגלל שינוי פאזה בין הנתיבים.</p>
+  </div>
+  <div class="note green"><h3>תרגום לשטח</h3>
+    <p>לפני שמעלים הספק, נסה שינוי גובה, קיטוב או מיקום. לפעמים תזוזה קטנה משנה את סכום הנתיבים.</p>
+  </div>
+</div>
+
+<!-- 5 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">03 · התפשטות VHF</div>
+  <h1>קו ראייה, אזור פרנל ודעיכה</h1><hr class="rule">
+  <p>ב־VHF הגובה ופינוי הדרך חשובים מאוד. גם אם יש קו ראייה גאומטרי, עצם בתוך אזור פרנל גורם עקיפה, החזרה ואובדן נוסף.</p>
+
+  <div class="cards">
+    <div class="pc teal"><h3>נפח, לא קו</h3>
+      <p>אזור פרנל הוא נפח בצורת אליפסה סביב קו הראייה הישר בין המשדר למקלט, לא קו דק.</p>
+    </div>
+    <div class="pc amber"><h3>המרכז רגיש יותר</h3>
+      <p>חסימה באמצע הדרך פוגעת יותר מאותה חסימה קרוב לאחד הקצוות.</p>
+    </div>
+  </div>
+
+  <div class="note teal"><h3>משפט שימושי</h3>
+    <p>גובה אנטנה עשוי להרוויח יותר מקצת הספק נוסף, משום שהוא משנה את הדרך ולא רק את נקודת ההתחלה.</p>
+  </div>
+</div>
+
+<!-- 6 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">04 · נשא ומידע</div>
+  <h1>איפנון: איזה מאפיין של הנשא נושא את המידע</h1><hr class="rule">
+  <p>הנשא הוא גל בתדר הרדיו. המידע משנה מאפיין שלו: ב־AM את המשרעת, ב־FM את התדר באופן רציף, וב־FSK מעבר בין תדרים בדידים.</p>
+
+  <div class="cards three">
+    <div class="pc teal"><h3>AM: המעטפת משתנה</h3>
+      <p>גובה הגל, כלומר המשרעת, עוקב אחרי המידע.</p>
+    </div>
+    <div class="pc teal"><h3>FM: המרווח משתנה ברצף</h3>
+      <p>התדר הרגעי זז מעלה ומטה בהתאם למידע, ברצף.</p>
+    </div>
+    <div class="pc teal"><h3>FSK: קפיצה בין תדרים</h3>
+      <p>האות עובר בין כמה תדרים קבועים, כל תדר מייצג מצב בדיד.</p>
+    </div>
+  </div>
+
+  <div class="note amber"><h3>מיקוד</h3>
+    <p>לקהל זה מספיק להבין את העיקרון ואת הקשר לרוחב פס, לרעש ולאיכות קליטה. אין צורך להיכנס למימוש משדר.</p>
+  </div>
+</div>
+
+<!-- 7 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">05 · מה נמצא על הערוץ</div>
+  <h1>רוחב פס, איפנון, קידוד והצפנה</h1><hr class="rule">
+  <p>אות רדיו תופס תחום תדרים, לא נקודה יחידה. איפנון ממפה מידע לגל; קידוד מוסיף מבנה להתמודדות עם שגיאות; הצפנה מגינה על התוכן.</p>
+
+  <div class="cards three">
+    <div class="pc teal"><h3>איפנון</h3>
+      <p>הצעד הראשון: ממפה את המידע לתוך תכונה של הגל הנושא.</p>
+    </div>
+    <div class="pc teal"><h3>קידוד</h3>
+      <p>מוסיף מבנה לגל כדי להתמודד עם שגיאות בדרך.</p>
+    </div>
+    <div class="pc teal"><h3>הצפנה</h3>
+      <p>שכבה נפרדת שמגינה על התוכן עצמו, לא על הגל.</p>
+    </div>
+  </div>
+
+  <div class="note teal"><h3>הסדר מתהפך בקליטה</h3>
+    <p>בקליטה מפענחים בסדר ההפוך: גל אל מידע, תיקון מבנה, ואז תוכן.</p>
+  </div>
+  <div class="note amber"><h3>הערת תחומים</h3>
+    <p>HF ו־UHF קיימים ומתנהגים אחרת בגלל תדר ואורך גל, אך ההדרכה ממוקדת בשימושי VHF.</p>
+  </div>
+</div>
+
+<!-- 8 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">סיום · מפת השיעור</div>
+  <h1>מהלך המצגת ודגשים למדריך</h1><hr class="rule">
+
+  <table>
+    <tr><td class="n">1</td><td class="k">שער<br><span style="font-weight:400;color:#8b9bab">הצג את המוקד: מה עושה הגל בדרך.</span></td>
+        <td class="n">2</td><td class="k">גל בזמן<br><span style="font-weight:400;color:#8b9bab">קשר מחזור לשינוי מחזורי.</span></td></tr>
+    <tr><td class="n">3</td><td class="k">תדר ומשרעת<br><span style="font-weight:400;color:#8b9bab">הפרד בין קצב שינוי לעוצמה.</span></td>
+        <td class="n">4</td><td class="k">פאזה<br><span style="font-weight:400;color:#8b9bab">הכן את הקרקע להתאבכות.</span></td></tr>
+    <tr><td class="n">5</td><td class="k">החזרה<br><span style="font-weight:400;color:#8b9bab">הראה שינוי נתיב על משטח.</span></td>
+        <td class="n">6</td><td class="k">התאבכות<br><span style="font-weight:400;color:#8b9bab">חבר בין פאזה לחיזוק או ביטול.</span></td></tr>
+    <tr><td class="n">7</td><td class="k">דעיכה<br><span style="font-weight:400;color:#8b9bab">הדגש מרחק והפסדי דרך.</span></td>
+        <td class="n">8</td><td class="k">קו ראייה<br><span style="font-weight:400;color:#8b9bab">VHF מושפע מאוד מגאומטריית השטח.</span></td></tr>
+    <tr><td class="n">9</td><td class="k">אזור פרנל<br><span style="font-weight:400;color:#8b9bab">קו פתוח דק אינו מספיק.</span></td>
+        <td class="n">10</td><td class="k">ריבוי נתיבים<br><span style="font-weight:400;color:#8b9bab">תזוזה קטנה משנה את סכום הנתיבים.</span></td></tr>
+    <tr><td class="n">11</td><td class="k">נשא ומידע<br><span style="font-weight:400;color:#8b9bab">הציגו את שני האותות לפני האיפנון.</span></td>
+        <td class="n">12</td><td class="k">AM/FM/FSK<br><span style="font-weight:400;color:#8b9bab">הראה מה משתנה בכל שיטה.</span></td></tr>
+    <tr><td class="n">13</td><td class="k">רוחב פס<br><span style="font-weight:400;color:#8b9bab">יותר שינוי צורך מרחב ספקטרלי.</span></td>
+        <td class="n">14</td><td class="k">שכבות<br><span style="font-weight:400;color:#8b9bab">איפנון, קידוד והצפנה אינם אותו דבר.</span></td></tr>
+  </table>
+
+  <div class="cards">
+    <div style="flex:1">
+      <div class="note teal"><h3>שאלת סיום</h3>
+        <p>מה היית משנה קודם בקישור VHF חלש: עוד הספק, עוד גובה או הזזה הצידה, ועל איזה מנגנון כל שינוי משפיע?</p>
+      </div>
+      <div class="note red"><h3>טעות נפוצה</h3>
+        <p>לא להציג קו ראייה כקו גאומטרי דק בלבד. חסימה באזור פרנל יכולה לפגוע גם כששתי האנטנות "רואות" זו את זו.</p>
+      </div>
+    </div>
+    <div style="flex:1">
+      <h2 style="margin-top:0">מילון קצר למדריך</h2>
+      <div style="display:flex;gap:11pt">
+        <div style="flex:1">
+          <p><b>תדר:</b> מספר מחזורים בשנייה.</p>
+          <p><b>אורך גל:</b> מרחק למחזור מלא.</p>
+          <p><b>ריבוי נתיבים:</b> הגעה במספר מסלולים.</p>
+          <p><b>רוחב פס:</b> תחום התדרים שהאות תופס.</p>
+        </div>
+        <div style="flex:1">
+          <p><b>משרעת:</b> גודל השינוי באות.</p>
+          <p><b>פאזה:</b> מיקום יחסי בתוך המחזור.</p>
+          <p><b>פרנל:</b> נפח סביב קו הראייה שדורש פינוי.</p>
+          <p><b>איפנון:</b> הטבעת מידע על נשא.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body></html>

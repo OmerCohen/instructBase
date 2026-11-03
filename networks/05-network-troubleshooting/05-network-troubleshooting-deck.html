@@ -1,0 +1,501 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><title>איתור תקלות רשת לפי סדר בדיקות</title></head><body><style>
+:root{--deep:#04070d;--panel:#0b1220;--panel2:#101b30;--card:rgba(255,255,255,.052);--border:rgba(255,255,255,.105);--cyan:#22d3ee;--cyan2:#0891b2;--amber:#fbbf24;--red:#fb7185;--green:#4ade80;--ink:#f1f5f9;--muted:#a7b7c9;--dim:#8ba0b5}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;font-family:"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased}button{font:inherit}.deck-root{position:fixed;inset:0;background:radial-gradient(circle at 50% 24%,#0c1a2b 0,#000 76%);direction:rtl}.stage-shell{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}.stage{width:1280px;height:720px;position:relative;transform-origin:center;background:linear-gradient(155deg,#08111e 0%,#0a1829 58%,#07101c 100%);border-radius:16px;box-shadow:0 42px 110px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.06);overflow:hidden}.stage::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(34,211,238,.035) 1px,transparent 1px);background-size:100% 56px}.slide{position:absolute;inset:0;padding:43px 62px 66px;display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateX(-14px);transition:opacity .28s ease,transform .28s ease}.slide.active{opacity:1;pointer-events:auto;transform:none}.eyebrow{display:flex;align-items:center;gap:10px;padding-right:122px;color:var(--cyan);font-size:15px;font-weight:700;margin-bottom:8px}.eyebrow .num{display:inline-flex;align-items:center;justify-content:center;width:29px;height:29px;border-radius:8px;background:rgba(34,211,238,.11);border:1px solid rgba(34,211,238,.35);font-size:12px}.title{font-size:42px;line-height:1.13;color:var(--ink);font-weight:800;margin:0 0 7px}.subtitle{font-size:19px;line-height:1.5;color:var(--muted);margin:0 0 15px;max-width:1080px}.body{flex:1;min-height:0;display:flex;flex-direction:column}.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.34fr);gap:34px;flex:1;min-height:0;align-items:stretch}.split.text-wide{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}.stack{display:flex;flex-direction:column;gap:13px;min-width:0}.copy{font-size:19px;line-height:1.58;color:var(--muted);margin:0}.copy strong{color:var(--ink)}.key{background:rgba(34,211,238,.065);border-right:4px solid var(--cyan);border-radius:12px;padding:14px 17px;color:var(--ink);font-size:18px;line-height:1.5}.key.amber{background:rgba(251,191,36,.07);border-color:var(--amber)}.key.red{background:rgba(251,113,133,.07);border-color:var(--red)}.visual{position:relative;min-height:0;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:16px;background:radial-gradient(circle at 50% 40%,rgba(34,211,238,.075),transparent 67%),var(--panel);overflow:hidden;padding:16px}.visual.flat{border:0;background:transparent;padding:0}.visual svg{width:100%;height:100%;max-height:500px;overflow:visible}.visual-label{position:absolute;inset:auto 18px 12px;font-size:14px;color:var(--dim);text-align:center}.formula{direction:ltr;unicode-bidi:isolate;display:flex;align-items:center;justify-content:center;gap:15px;border:1px solid var(--border);background:var(--panel2);border-radius:14px;padding:15px 22px;color:var(--ink);font-size:31px;font-weight:800}.formula .accent{color:var(--cyan)}.formula .amber{color:var(--amber)}.grid2,.grid3,.grid4{display:grid;gap:16px;flex:1;align-content:stretch}.grid2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid4{grid-template-columns:repeat(4,minmax(0,1fr))}.card{border:1px solid var(--border);border-radius:15px;background:var(--card);padding:17px 19px;min-width:0}.card h3{margin:0 0 7px;color:var(--ink);font-size:22px}.card p{margin:0;color:var(--muted);font-size:16.5px;line-height:1.48}.card .tag{font-size:13px;font-weight:800;color:var(--cyan);margin-bottom:7px}.card.amber .tag{color:var(--amber)}.card.red .tag{color:var(--red)}.card.green .tag{color:var(--green)}.steps{display:flex;align-items:stretch;gap:26px;direction:rtl;flex:1}.step{flex:1 1 0;min-width:0;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:22px 22px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.025);overflow-wrap:anywhere;word-break:break-word}.step:not(:last-child)::after{content:"←";position:absolute;left:-26px;top:50%;transform:translateY(-50%);z-index:2;width:26px;height:26px;display:grid;place-items:center;border-radius:50%;background:var(--panel2);border:1px solid var(--border);color:var(--cyan)}.step strong{font-size:19px;color:var(--ink);margin-bottom:6px}.step span{font-size:15px;color:var(--muted);line-height:1.4}.metric{display:flex;align-items:baseline;gap:10px;direction:ltr;justify-content:center}.metric .value{font-size:58px;color:var(--cyan);font-weight:800}.metric .unit{font-size:20px;color:var(--muted)}.ltr{direction:ltr;unicode-bidi:isolate}span.ltr,b.ltr,i.ltr,em.ltr{display:inline;white-space:nowrap}.table{width:100%;border-collapse:collapse;font-size:16px}.table th,.table td{padding:11px 14px;border:1px solid var(--border);text-align:center}.table th{background:var(--panel2);color:var(--cyan)}.table td{background:rgba(255,255,255,.025);color:var(--muted)}.table td:first-child{color:var(--ink);font-weight:700}.checklist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}.checklist li{display:block;position:relative;padding-right:36px;min-height:24px;color:var(--muted);font-size:18px;line-height:1.45}.checklist li::before{content:"•";flex:0 0 25px;width:25px;height:25px;border-radius:7px;display:grid;place-items:center;background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.3);color:var(--green);font-weight:800}.question{font-size:28px;color:var(--ink);font-weight:800;line-height:1.35}.answer-row{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:20px}.answer{border:1px solid var(--border);border-radius:14px;padding:18px;background:rgba(255,255,255,.035);color:var(--muted);font-size:17px;line-height:1.45}.answer strong{display:block;color:var(--cyan);font-size:20px;margin-bottom:5px}.sources{font-size:13px;color:var(--dim);line-height:1.45;margin-top:8px}.sources a{color:var(--dim)}.footer{position:absolute;right:62px;left:62px;bottom:24px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--dim)}.title-slide{align-items:center;justify-content:center;text-align:center}.title-slide .badge{display:inline-flex;align-items:center;padding:8px 20px;border-radius:999px;border:1px solid rgba(34,211,238,.36);background:rgba(34,211,238,.09);color:var(--cyan);font-size:16px;font-weight:700;margin-bottom:25px}.title-slide h1{font-size:70px;line-height:1.08;margin:0 0 16px;color:var(--ink)}.title-slide p{font-size:24px;color:var(--muted);line-height:1.55;max-width:900px;margin:0 auto 28px}.hero-wave{width:650px;height:88px;max-width:72%}.nav{position:absolute;z-index:20;right:0;left:0;bottom:0;display:flex;align-items:center;gap:12px;padding:10px 25px;background:linear-gradient(0deg,rgba(0,0,0,.72),transparent)}.nav button{border:1px solid var(--border);background:rgba(255,255,255,.065);color:var(--ink);padding:7px 13px;border-radius:9px;cursor:pointer}.nav button:hover:not(:disabled){background:rgba(34,211,238,.14)}.nav button:disabled{opacity:.28;cursor:default}.progress{flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden}.progress>span{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--amber));transition:width .25s}.counter{direction:ltr;color:var(--dim);font-size:14px;min-width:58px;text-align:center}.notes-panel{position:absolute;z-index:30;left:24px;bottom:58px;width:390px;max-height:220px;overflow:auto;border:1px solid rgba(251,191,36,.36);border-radius:13px;background:rgba(6,10,18,.96);padding:14px 16px;color:var(--muted);font-size:15px;line-height:1.5;box-shadow:0 18px 60px rgba(0,0,0,.5)}.notes-panel[hidden]{display:none}.notes-panel strong{color:var(--amber);display:block;margin-bottom:5px}.speaker-note{display:none}.kbd-hint{position:absolute;left:21px;top:18px;color:var(--dim);font-size:11px}svg text{paint-order:stroke;stroke:#071019;stroke-width:2.4px;stroke-linejoin:round}.visual svg text,.card svg text{font-family:"Segoe UI",Arial,sans-serif}.flow{stroke-dasharray:8 10;animation:dash 2s linear infinite}.pulse{animation:pulse 1.7s ease-in-out infinite}.float{animation:float 3s ease-in-out infinite}.rotate{transform-origin:center;animation:spin 8s linear infinite}@keyframes dash{to{stroke-dashoffset:-72}}@keyframes pulse{50%{opacity:.35}}@keyframes float{50%{transform:translateY(-7px)}}@keyframes spin{to{transform:rotate(360deg)}}.flow.rev{animation-direction:reverse}.flow.slow{animation-duration:3.6s}.flow.fast{animation-duration:1.1s}.wave{transform-box:fill-box;animation:travel 2.6s linear infinite}.wave.rev{animation-direction:reverse}.wave.slow{animation-duration:4.2s}@keyframes travel{to{transform:translateX(var(--period,120px))}}.pkt{transform-box:fill-box;animation:pkt 2.8s ease-in-out infinite}@keyframes pkt{0%{opacity:0}8%{opacity:1}92%{opacity:1}100%{opacity:0;transform:translateX(var(--run,220px))}}.pkt.rev{animation-name:pktr}@keyframes pktr{0%{opacity:0}8%{opacity:1}92%{opacity:1}100%{opacity:0;transform:translateX(calc(-1*var(--run,220px)))}}.pkt.d1{animation-delay:.35s}.pkt.d2{animation-delay:.7s}.pkt.d3{animation-delay:1.05s}.blink{animation:blink 1.8s steps(1,end) infinite}@keyframes blink{0%,55%{opacity:1}56%,100%{opacity:.2}}.breathe{transform-box:fill-box;transform-origin:center;animation:breathe 2.4s ease-in-out infinite}@keyframes breathe{50%{transform:scale(1.12)}}.fade-cycle{animation:fadecyc 3.2s ease-in-out infinite}@keyframes fadecyc{0%,100%{opacity:.15}45%,55%{opacity:1}}@media(prefers-reduced-motion:reduce){.deck-root:not(.motion-on) *{animation:none!important;transition:none!important}}.motion-badge{position:absolute;left:21px;top:38px;z-index:6;font-size:11px;color:var(--cyan);background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.35);border-radius:6px;padding:2px 7px;pointer-events:none}.motion-badge[hidden]{display:none}
+@media print{html,body{height:auto;overflow:visible;background:#fff}.deck-root{position:static;background:#fff}.stage-shell{position:static;display:block;overflow:visible}.stage{width:1280px;height:auto;transform:none!important;border-radius:0;box-shadow:none;overflow:visible;background:#08111e}.slide{position:relative;width:1280px;height:720px;opacity:1!important;transform:none!important;pointer-events:auto;page-break-after:always}.nav,.notes-panel,.kbd-hint{display:none!important}}
+svg text.ltrtx,svg tspan.ltrtx{direction:ltr;unicode-bidi:isolate}svg text.nohalo{stroke:none;paint-order:normal}.table td,.table th,.rt td,.rt th{unicode-bidi:plaintext}.table td.fx,.rt td.fx{unicode-bidi:isolate}.crest{background-image:url(data:image/png;base64,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);background-size:contain;background-position:center;background-repeat:no-repeat;display:inline-block;flex:0 0 auto}.crest-lg{width:76px;height:107px}.crest-sm{width:27px;height:38px}.brand{display:flex;align-items:center;gap:15px;margin-bottom:22px;direction:rtl}.brand-txt{display:flex;flex-direction:column;align-items:flex-start;line-height:1.18;text-align:right}.brand-txt b{font-size:25px;font-weight:800;color:var(--ink);letter-spacing:.01em}.brand-txt i{font-size:16px;font-style:normal;color:var(--cyan);font-weight:600}.slide-mark{position:absolute;top:28px;right:62px;z-index:4;display:flex;align-items:flex-end;gap:9px;font-size:13px;font-weight:600;color:var(--dim);letter-spacing:.01em;pointer-events:none}.slide-mark>span:last-child{padding-bottom:3px}.foot-brand{display:inline-flex;align-items:center;gap:7px;color:var(--dim);white-space:nowrap}</style><style>@page{size:13.333in 7.5in;margin:0}svg text[font-family*="Consolas"],svg text[font-family*="monospace"]{direction:ltr;unicode-bidi:bidi-override}</style><style>/* nav bar covers the slide footer on screen; the counter is in the nav */@media screen{.stage .footer{display:none}}/* A pauses CSS animations too, not only SVG ones */.deck-root:not(.motion-on) *,.deck-root:not(.motion-on) *::before,.deck-root:not(.motion-on) *::after{animation-play-state:paused!important}</style><style>/* lesson 5 demos */
+.n05-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;min-width:0}
+.n05-lbl{font-size:14px;font-weight:700;color:var(--dim);white-space:nowrap}
+.n05-mono{font-family:Consolas,"Courier New",monospace;direction:ltr;unicode-bidi:isolate;color:var(--ink);font-size:16px;font-weight:700}
+.n05-big{font-size:30px;font-weight:800;color:var(--cyan);direction:ltr;unicode-bidi:isolate;min-width:64px;text-align:center}
+.n05-btn{appearance:none;cursor:pointer;border:1px solid var(--border);background:rgba(255,255,255,.06);color:var(--ink);border-radius:9px;padding:6px 13px;font-size:15px;line-height:1.2;white-space:nowrap;transition:background .15s,border-color .15s}
+.n05-btn:hover{background:rgba(34,211,238,.12)}
+.n05-btn.on{background:rgba(34,211,238,.18);border-color:var(--cyan);color:var(--cyan);font-weight:700}
+.n05-rng{flex:1;min-width:0;accent-color:var(--cyan)}
+.n05-wt{gap:9px}
+.n05-def{display:grid;grid-template-columns:1.15fr 1.3fr 1fr 1.25fr;gap:8px}
+.n05-def>div{border:1px solid var(--border);border-radius:11px;background:var(--card);padding:6px 11px;min-width:0}
+.n05-def>div>span{display:block;font-size:12.5px;font-weight:800;color:var(--cyan);margin-bottom:1px}
+.n05-def b{display:block;font-size:14.5px;font-weight:600;color:var(--ink);line-height:1.35}
+.n05-def b.bad{color:var(--red)}
+.n05-wtgrid{display:grid;grid-template-columns:minmax(0,.6fr) minmax(0,1fr);gap:14px;flex:1;min-height:0}
+.n05-ladder{display:flex;flex-direction:column-reverse;gap:6px;min-height:0}
+.n05-chk{display:grid;grid-template-columns:26px minmax(0,1fr) 74px;align-items:center;gap:9px;text-align:right;cursor:pointer;border:1px solid var(--border);border-radius:11px;background:rgba(255,255,255,.035);color:var(--ink);padding:5px 10px;font:inherit;flex:1;min-height:0;transition:border-color .2s,background .2s,box-shadow .2s}
+.n05-chk:hover{background:rgba(34,211,238,.08)}
+.n05-chk i{font-style:normal;width:24px;height:24px;border-radius:7px;display:grid;place-items:center;background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.3);color:var(--cyan);font-size:12px;font-weight:800}
+.n05-chk b{display:block;font-size:15.5px;line-height:1.25}
+.n05-chk code{display:block;font-family:Consolas,"Courier New",monospace;font-size:12.5px;color:var(--dim);direction:ltr;text-align:right;unicode-bidi:plaintext;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.n05-chk em{font-style:normal;font-size:13px;font-weight:800;text-align:center;border-radius:999px;padding:3px 0;color:var(--dim);background:rgba(255,255,255,.04)}
+.n05-chk.ok{border-color:rgba(74,222,128,.45)}.n05-chk.ok em{color:var(--green);background:rgba(74,222,128,.12)}
+.n05-chk.bad{border-color:rgba(251,113,133,.55)}.n05-chk.bad em{color:var(--red);background:rgba(251,113,133,.12)}
+.n05-chk.sel{box-shadow:inset 0 0 0 2px rgba(34,211,238,.45)}
+.n05-chk.hit{background:rgba(251,113,133,.1);border-color:var(--red)}
+.n05-concol{display:flex;flex-direction:column;gap:8px;min-height:0;min-width:0}
+.n05-con{background:#050a12;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:9px 14px;font-family:Consolas,"Courier New",monospace;font-size:13.5px;line-height:1.48;color:var(--muted);direction:ltr;text-align:left;white-space:pre;overflow:hidden;flex:1;min-height:0}
+.n05-con .cmd{color:var(--cyan)}
+.n05-con .hl{color:var(--red);font-weight:700}
+.n05-con .tip{font-family:"Segoe UI",Arial,sans-serif;color:var(--dim);direction:rtl;text-align:right;display:block;white-space:normal;font-size:15px}
+.n05-verdict{border-right:4px solid var(--dim);background:rgba(255,255,255,.04);border-radius:10px;padding:8px 13px;font-size:15.5px;line-height:1.45;color:var(--ink)}
+.n05-verdict.ok{border-color:var(--green);background:rgba(74,222,128,.06)}
+.n05-verdict.warn{border-color:var(--amber);background:rgba(251,191,36,.07)}
+.n05-verdict.bad{border-color:var(--red);background:rgba(251,113,133,.08)}
+.n05-q{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--border);border-radius:12px;background:var(--card);padding:8px 13px;font-size:17px;color:var(--ink);transition:opacity .25s}
+.n05-q small{display:block;font-size:13px;color:var(--dim);min-height:0}
+.n05-q.off{opacity:.4}
+.n05-seg{display:flex;flex:0 0 auto;border:1px solid var(--border);border-radius:9px;overflow:hidden}
+.n05-seg button{appearance:none;border:0;background:transparent;color:var(--muted);padding:6px 12px;font-size:14.5px;cursor:pointer;font-family:inherit}
+.n05-seg button+button{border-right:1px solid var(--border)}
+.n05-seg button.on[data-v="1"]{background:rgba(74,222,128,.16);color:var(--green);font-weight:700}
+.n05-seg button.on[data-v="0"]{background:rgba(251,113,133,.16);color:var(--red);font-weight:700}
+.n05-scb rect,.n05-scl{transition:stroke .25s,fill .25s,opacity .25s}
+.n05-scb.dim{opacity:.4}
+.n05-kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:baseline;border:1px solid var(--border);border-radius:12px;background:var(--card);padding:9px 14px}
+.n05-kv span{font-size:14px;color:var(--dim);font-weight:700}
+.n05-kv b{font-family:Consolas,"Courier New",monospace;font-size:16.5px;color:var(--ink);text-align:left}
+.n05-bits{display:flex;gap:6px;direction:ltr;justify-content:center}
+.n05-bits>span{display:flex;gap:1px}
+.n05-bits i{flex:0 0 auto;width:13px;height:24px;border-radius:2px;background:rgba(255,255,255,.07);color:var(--dim);font-style:normal;font-family:Consolas,monospace;font-size:10.5px;display:grid;place-items:center;transition:background .2s,color .2s}
+.n05-bits i.net{background:rgba(34,211,238,.42);color:#04121a;font-weight:700}
+.n05-bits i.plan{box-shadow:inset 0 -3px 0 var(--amber)}
+.n05-legend{display:flex;gap:18px;font-size:13px;color:var(--dim);justify-content:flex-start}
+.n05-legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-left:6px;vertical-align:-1px}
+.n05-tbl{font-size:16px}
+.n05-tbl th,.n05-tbl td{padding:10px 10px}
+.n05-tbl td.fx{font-family:Consolas,"Courier New",monospace;direction:ltr}
+.n05-tbl td.ok{color:var(--green)}
+.n05-tbl td.bad{color:var(--red);font-weight:700}
+.n05-tbl td.warn{color:var(--amber)}
+.n05-tbl tr.flag td{background:rgba(251,113,133,.07)}
+.n05-lim td{text-align:right;line-height:1.45}
+.n05-lim td:first-child{text-align:center}
+.n05-stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.n05-stat{border:1px solid var(--border);border-radius:11px;background:var(--card);padding:6px 8px;text-align:center}
+.n05-stat span{display:block;font-size:13px;color:var(--dim);font-weight:700;white-space:nowrap}
+.n05-stat b{display:block;font-size:21px;color:var(--ink);direction:ltr;unicode-bidi:isolate}
+.n05-stat.hot b{color:var(--amber)}
+.n05-ticket{border:1px solid var(--border);border-radius:12px;background:var(--card);padding:9px 14px;font-size:16px;line-height:1.45;color:var(--ink)}
+.n05-ticket small{display:block;color:var(--muted);font-size:14.5px;margin-top:2px}
+.n05-flash{animation:n05flash .9s ease}
+@keyframes n05flash{0%{box-shadow:0 0 0 0 rgba(34,211,238,.55)}100%{box-shadow:0 0 0 12px rgba(34,211,238,0)}}
+.n05-qs p{font-size:18px;line-height:1.5;color:var(--ink)}
+</style><div class="deck-root motion-on" id="network-lesson-5" dir="rtl"><div class="stage-shell"><main class="stage" aria-label="איתור תקלות רשת לפי סדר בדיקות"><div class="motion-badge" hidden>אנימציות כבויות</div><div class="kbd-hint">← → ניווט · N הערות · F מסך מלא · A כיבוי אנימציות</div><section class="slide title-slide active" aria-hidden="false"><div class="brand"><span class="crest crest-lg" role="img" aria-label="סמל היחידה"></span><span class="brand-txt"><b>גדס״ם 5059</b><i>מחלקת תקשוב</i></span></div><div class="badge">Windows</div><h1>איתור תקלות רשת לפי סדר בדיקות</h1><p>סימפטום והיקף, <span class="ltr">Link</span> ו-<span class="ltr">VLAN</span>, <span class="ltr">IP</span>, <span class="ltr">ARP</span> וניתוב, <span class="ltr">DNS</span>, שירות, <span class="ltr">Domain</span> ואמון.</p><svg class="hero-wave" viewBox="0 0 650 88" role="img" aria-label="זרימת מנות ברשת"><path d="M20 44 H140 L175 20 H305 L340 68 H470 L505 44 H630" fill="none" stroke="#22d3ee" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="140" cy="44" r="8" fill="#fbbf24"/><circle cx="305" cy="20" r="8" fill="#4ade80"/><circle cx="470" cy="68" r="8" fill="#fb7185"/></svg><aside class="speaker-note">כל תקלה שמוצגת ממחישה שלב אחד בתהליך. בכל שלב משווים את מה שאמור לקרות למה שקורה בפועל. מבנה השיעור: שקופית 2 עוברת על כל סדר הבדיקות בתקלה אחת, ושם מגדירים סימפטום, היקף, ציפייה וראיה. שקופיות 3 ו-4 עוסקות בהיקף ובייחוס, שקופיות 5 עד 12 בשלב אחד כל אחת, מהחיבור הפיזי ועד Domain ואמון, ו-13 ו-14 בתקלה לסירוגין ובסגירת תקלה. שקופית 15 היא תרגול, 16 מגבלות ההדגמות ו-17 הסיכום. בשקופיות 2, 3, 7 ו-13 יש הדגמות חיות.</aside></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">01</span>מהתלונה לבדיקה</div><h1 class="title">מהתלונה לשלב התקול</h1><p class="subtitle">אותה תלונה יכולה להגיע מכל שלב. מגדירים סימפטום, היקף וציפייה, ובודקים מלמטה למעלה עד הבדיקה הראשונה שנכשלת.</p><div class="body n05-wt"><div class="n05-row"><span class="n05-lbl">תקלה</span><button class="n05-btn n05-case on" type="button" data-case="0">1</button><button class="n05-btn n05-case" type="button" data-case="1">2</button><button class="n05-btn n05-case" type="button" data-case="2">3</button><button class="n05-btn n05-case" type="button" data-case="3">4</button><button class="n05-btn n05-case" type="button" data-case="4">5</button><span style="flex:1"></span><button class="n05-btn" type="button" id="n5-reset">ניקוי הבדיקות</button></div><div class="n05-def"><div><span>סימפטום</span><b id="n5-sym">הדפדפן לא פותח את האתר הפנימי <span class="ltr">server.unit</span></b></div><div><span>היקף</span><b id="n5-scope"></b></div><div><span>ציפייה</span><b id="n5-exp">האתר נפתח ב-<span class="ltr">HTTPS</span>, כמו בתחנת הייחוס</b></div><div><span>ראיה</span><b id="n5-ev">עוד לא נאספה</b></div></div><div class="n05-wtgrid"><div class="n05-ladder" id="n5-ladder" aria-label="בדיקות לפי סדר"></div><div class="n05-concol"><div class="n05-con" id="n5-con" aria-live="polite"></div><div class="n05-verdict" id="n5-verdict"></div></div></div></div><aside class="speaker-note">תיאור טוב כולל מי, מה, מתי, באיזו תצורה והאם התקלה קבועה או לסירוגין, ומשנים משהו רק אחרי שהשאלה מוגדרת. בכל התקלות התחנה היא 10.20.30.27 והשרת 10.20.40.25. בפתיחה מוצגת תקלה 1, ובדיקת Link כבר רצה ותקינה. לחצו על הבדיקות מלמטה למעלה: בתקלה 1 נכשלת ״תצורה מול התכנון״ (Subnet Mask 255.255.0.0), ובדיקת השער עוברת בכל זאת. אחר כך בחרו תקלה אחרת והתחילו דווקא מהפורט: הבדיקה נכשלת, והמסך אומר שעוד לא ידוע איפה התקלה עד שבודקים את מה שמתחת. התשובות: בתקלה 1 התצורה, בתקלה 2 פורט השירות, בתקלה 3 ה-Link, בתקלה 4 השכן המקומי (פורט ב-VLAN אחר) ובתקלה 5 השם. הטעות הנפוצה היא לעצור בבדיקה הראשונה שנכשלה גם כשהיא גבוהה ולתקן שם.</aside><div class="footer"><span>שיעור 5 · תהליך איתור תקלות</span><span class="ltr">02 / 17</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">02</span>היקף</div><h1 class="title">היקף התקלה מצמצם את רשימת החשודים</h1><p class="subtitle">ההיקף הוא מהראיות החזקות שיש עוד לפני מדידה. כמה תשובות של עובד או לא עובד מצביעות על חשודים שונים.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px"><div class="stack" style="gap:9px"><div class="n05-q" data-q="0"><span>אותה פעולה מתחנה סמוכה, באותו מקטע<small></small></span><div class="n05-seg"><button type="button" data-v="1">עובד</button><button type="button" data-v="0" class="on">לא עובד</button></div></div><div class="n05-q" data-q="1"><span>משתמש אחר באותה תחנה<small></small></span><div class="n05-seg"><button type="button" data-v="1" class="on">עובד</button><button type="button" data-v="0">לא עובד</button></div></div><div class="n05-q" data-q="2"><span>אותה פעולה ממקטע אחר<small></small></span><div class="n05-seg"><button type="button" data-v="1" class="on">עובד</button><button type="button" data-v="0">לא עובד</button></div></div><div class="n05-q" data-q="3"><span>שירות אחר מאותה תחנה<small></small></span><div class="n05-seg"><button type="button" data-v="1" class="on">עובד</button><button type="button" data-v="0">לא עובד</button></div></div><div class="key" id="n5-sc-out" style="padding:11px 15px;font-size:16.5px"></div></div><div class="visual" style="padding:10px"><svg id="n5-sc-svg" viewBox="0 0 640 420" role="img" aria-label="היקף התקלה והחשודים"><path class="n05-scl" data-k="user" d="M230 70 L320 161" stroke="#8ba0b5" stroke-width="3"/><path class="n05-scl" data-k="host" d="M230 210 L320 210" stroke="#8ba0b5" stroke-width="3"/><path class="n05-scl" data-k="seg" d="M230 350 L320 259" stroke="#8ba0b5" stroke-width="3"/><path class="n05-scl" data-k="svc" d="M410 110 L320 175" stroke="#8ba0b5" stroke-width="3"/><path class="n05-scl" data-k="site" d="M410 310 L320 245" stroke="#8ba0b5" stroke-width="3"/><g class="n05-scb" data-k="user"><rect x="10" y="38" width="220" height="64" rx="16" fill="#101b30" stroke="#8ba0b5" stroke-width="2.5"/><text x="120" y="77" text-anchor="middle" fill="#f1f5f9" font-size="20" font-weight="700">משתמש אחד</text></g><g class="n05-scb" data-k="host"><rect x="10" y="178" width="220" height="64" rx="16" fill="#101b30" stroke="#8ba0b5" stroke-width="2.5"/><text x="120" y="217" text-anchor="middle" fill="#f1f5f9" font-size="20" font-weight="700">תחנה אחת</text></g><g class="n05-scb" data-k="seg"><rect x="10" y="318" width="220" height="64" rx="16" fill="#101b30" stroke="#8ba0b5" stroke-width="2.5"/><text x="120" y="357" text-anchor="middle" fill="#f1f5f9" font-size="20" font-weight="700">VLAN / מקטע</text></g><g class="n05-scb" data-k="svc"><rect x="410" y="78" width="220" height="64" rx="16" fill="#101b30" stroke="#8ba0b5" stroke-width="2.5"/><text x="520" y="117" text-anchor="middle" fill="#f1f5f9" font-size="20" font-weight="700">שירות אחד</text></g><g class="n05-scb" data-k="site"><rect x="410" y="278" width="220" height="64" rx="16" fill="#101b30" stroke="#8ba0b5" stroke-width="2.5"/><text x="520" y="317" text-anchor="middle" fill="#f1f5f9" font-size="20" font-weight="700">כל האתר</text></g><circle cx="320" cy="210" r="50" fill="#fb718520" stroke="#fb7185" stroke-width="3"/><text x="320" y="217" text-anchor="middle" fill="#f1f5f9" font-size="18">התקלה</text></svg></div></div></div><aside class="speaker-note">בפתיחה: תחנה סמוכה לא עובדת וממקטע אחר כן, ולכן ההיקף הוא המקטע. שנו את התשובה הראשונה ל״עובד״: ההיקף עובר לתחנה, והשאלה על המקטע האחר מאפירה כי היא כבר לא משנה. אחר כך ״משתמש אחר באותה תחנה: עובד״ מעביר את ההיקף למשתמש. הראו איך אותו סימפטום מתפרש אחרת לפי ההיקף. הטעות הנפוצה היא לקבוע היקף לפי מי שהתקשר; בודקים בעצמכם לפחות תחנה אחת נוספת.</aside><div class="footer"><span>שיעור 5 · תהליך איתור תקלות</span><span class="ltr">03 / 17</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">03</span>ייחוס</div><h1 class="title">השוואה למערכת תקינה דומה</h1><p class="subtitle">קשה להחליט לפי ערך אחד. משווים שתי תצורות שאמורות להיות זהות ומחפשים מה שונה ביניהן.</p><div class="body"><div class="visual"><svg viewBox="0 0 1080 420" role="img" aria-label="השוואת ipconfig בין מערכת תקינה לתקולה"><rect x="70" y="75" width="420" height="275" rx="22" fill="#4ade8010" stroke="#4ade80" stroke-width="3"/><text x="280" y="115" text-anchor="middle" fill="#4ade80" font-size="22">ייחוס תקין</text><text class="ltrtx" x="110" y="165" direction="ltr" fill="#9fb0c3" font-size="17">Link</text><text class="ltrtx" x="270" y="165" direction="ltr" unicode-bidi="bidi-override" fill="#f1f5f9" font-size="17">Up</text><text class="ltrtx" x="110" y="210" direction="ltr" fill="#9fb0c3" font-size="17">IP</text><text class="ltrtx" x="270" y="210" direction="ltr" unicode-bidi="bidi-override" fill="#f1f5f9" font-size="17">10.20.30.15/24</text><text class="ltrtx" x="110" y="255" direction="ltr" fill="#9fb0c3" font-size="17">Gateway</text><text class="ltrtx" x="270" y="255" direction="ltr" unicode-bidi="bidi-override" fill="#f1f5f9" font-size="17">10.20.30.1</text><text class="ltrtx" x="110" y="300" direction="ltr" fill="#9fb0c3" font-size="17">DNS</text><text class="ltrtx" x="270" y="300" direction="ltr" unicode-bidi="bidi-override" fill="#f1f5f9" font-size="17">10.20.10.10</text><rect x="590" y="75" width="420" height="275" rx="22" fill="#fb718510" stroke="#fb7185" stroke-width="3"/><text x="800" y="115" text-anchor="middle" fill="#fb7185" font-size="22">מערכת תקולה</text><text class="ltrtx" x="630" y="165" direction="ltr" fill="#9fb0c3" font-size="17">Link</text><text class="ltrtx" x="790" y="165" direction="ltr" unicode-bidi="bidi-override" fill="#f1f5f9" font-size="17">Up</text><text class="ltrtx" x="630" y="210" direction="ltr" fill="#9fb0c3" font-size="17">IP</text><text class="ltrtx" x="790" y="210" direction="ltr" unicode-bidi="bidi-override" fill="#fb7185" font-size="17">10.20.30.27/16</text><text class="ltrtx" x="630" y="255" direction="ltr" fill="#9fb0c3" font-size="17">Gateway</text><text class="ltrtx" x="790" y="255" direction="ltr" unicode-bidi="bidi-override" fill="#f1f5f9" font-size="17">10.20.30.1</text><text class="ltrtx" x="630" y="300" direction="ltr" fill="#9fb0c3" font-size="17">DNS</text><text class="ltrtx" x="790" y="300" direction="ltr" unicode-bidi="bidi-override" fill="#f1f5f9" font-size="17">10.20.10.10</text><path d="M520 210 H565" stroke="#fbbf24" stroke-width="8"/><text x="540" y="190" text-anchor="middle" fill="#fbbf24" font-size="17">פער</text></svg></div></div><aside class="speaker-note">השוו לתחנה דומה ככל האפשר: דגם, פורט, VLAN ותצורה. תעדו את ההבדל לפני תיקון. הכתובות שונות (15 ו-27) כמו בכל שתי תחנות באותו מקטע; ההבדל שצריך לתפוס הוא ה-Prefix, /16 במקום /24. מה הוא עושה רואים בשקופית 7.</aside><div class="footer"><span>שיעור 5 · תהליך איתור תקלות</span><span class="ltr">04 / 17</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">04</span>שכבה פיזית</div><h1 class="title">כשאין Link, מתחילים מהחיבור הפיזי</h1><p class="subtitle">בדיקות IP לא יעזרו כל עוד המסלול הפיזי לא עלה.</p><div class="body"><div class="visual"><svg viewBox="0 0 1080 420" role="img" aria-label="כשל פיזי בין תחנה למתג"><rect x="55" y="135" width="190" height="130" rx="18" fill="#101b30" stroke="#4ade80" stroke-width="3"/><text x="127" y="191" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">תחנה</text><text x="127" y="224" text-anchor="middle" fill="#9fb0c3" font-size="16">מתאם פעיל</text><path d="M245 200 H465" stroke="#4ade80" stroke-width="12"/><circle class="pkt " style="--run:220px" cx="245" cy="200" r="5" fill="#4ade80"/><circle cx="540" cy="200" r="52" fill="#fb718518" stroke="#fb7185" stroke-width="4"/><path d="M510 170 L570 230 M570 170 L510 230" stroke="#fb7185" stroke-width="8"/><path d="M615 200 H835" stroke="#8ba0b5" stroke-width="12" stroke-dasharray="12 9"/><circle class="pkt d1" style="--run:220px" cx="615" cy="200" r="5" fill="#8ba0b5"/><rect x="835" y="135" width="190" height="130" rx="18" fill="#101b30" stroke="#22d3ee" stroke-width="3"/><text x="930" y="191" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">מתג</text><text x="930" y="224" text-anchor="middle" fill="#9fb0c3" font-size="16">פורט צפוי</text><text x="540" y="315" text-anchor="middle" fill="#fb7185" font-size="20">כבל, מחבר, הזנה ופורט נבדקים לפני כל בדיקת IP</text></svg></div></div><aside class="speaker-note">נורה ירוקה אינה מספיקה אם יש שגיאות או ניתוקים. עם זאת, ללא Link אין טעם להתקדם מעלה.</aside><div class="footer"><span>שיעור 5 · תהליך איתור תקלות</span><span class="ltr">05 / 17</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">05</span>Ethernet ו-VLAN</div><h1 class="title">Link תקין בלי שכנות מקומית</h1><p class="subtitle">מצב כזה יכול להצביע על פורט או VLAN לא צפויים. הטכנאי לא משנה VLAN בשטח; הוא אוסף ראיות ומעביר לצוות המנהל.</p><div class="body"><div class="visual"><svg viewBox="0 0 1080 420" role="img" aria-label="תחנה ומתג בקישור תקין אך Gateway ב-VLAN אחר"><rect x="55" y="135" width="200" height="130" rx="18" fill="#101b30" stroke="#4ade80" stroke-width="3"/><text x="155" y="191" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">תחנה</text><text class="ltrtx" x="155" y="224" text-anchor="middle" fill="#9fb0c3" font-size="16">Link Up</text><rect x="440" y="125" width="200" height="150" rx="18" fill="#101b30" stroke="#22d3ee" stroke-width="3"/><text x="540" y="191" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">מתג</text><text x="540" y="224" text-anchor="middle" fill="#9fb0c3" font-size="16">פורט ב-VLAN 20</text><rect x="825" y="135" width="200" height="130" rx="18" fill="#101b30" stroke="#fbbf24" stroke-width="3"/><text class="ltrtx" x="925" y="191" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">Gateway</text><text x="925" y="224" text-anchor="middle" fill="#9fb0c3" font-size="16">נמצא ב-VLAN 10</text><path d="M255 200 H440" stroke="#4ade80" stroke-width="8"/><circle class="pkt d2" style="--run:185px" cx="255" cy="200" r="5" fill="#4ade80"/><path d="M640 200 H825" stroke="#fb7185" stroke-width="7" stroke-dasharray="11 8"/><circle class="pkt d3" style="--run:185px" cx="640" cy="200" r="5" fill="#fb7185"/><circle cx="735" cy="200" r="35" fill="#fb718520" stroke="#fb7185" stroke-width="3"/><text class="ltrtx" x="735" y="207" text-anchor="middle" fill="#f1f5f9" font-size="22">×</text><text x="540" y="340" text-anchor="middle" fill="#9fb0c3" font-size="18">ראיות להעברה: Link תקין, הפורט הצפוי וחוסר השכנות</text></svg></div></div><aside class="speaker-note">התיעוד צריך לכלול מזהה פורט, MAC, כתובת, זמן והיעד המקומי שלא הופיע ב-ARP.</aside><div class="footer"><span>שיעור 5 · תהליך איתור תקלות</span><span class="ltr">06 / 17</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">06</span>כתובת ומסכה</div><h1 class="title">Prefix שגוי משנה את ההחלטה מקומי/מרוחק</h1><p class="subtitle">זה קורה גם כשהכתובת עצמה נכונה, ולכן משווים לתכנון את <span class="ltr">IP</span>, <span class="ltr">Prefix</span>, <span class="ltr">Gateway</span> ו-<span class="ltr">DNS</span> יחד.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:22px"><div class="stack" style="gap:10px"><div class="n05-kv"><span>כתובת התחנה</span><b class="ltr">10.20.30.27</b><span>השער</span><b class="ltr">10.20.30.1</b><span>התכנון</span><b class="ltr">10.20.30.0/24</b></div><div class="n05-row" style="flex-wrap:nowrap"><span class="n05-lbl"><span class="ltr">Prefix</span> בתחנה</span><input type="range" class="n05-rng" id="n5-pf" min="16" max="27" value="16" aria-label="Prefix"><b class="n05-big" id="n5-pfv">/16</b></div><div class="n05-row" style="justify-content:space-between"><span class="n05-lbl"><span class="ltr">Subnet Mask</span></span><b class="n05-mono" id="n5-mask"></b></div><div class="n05-bits" id="n5-bits" aria-hidden="true"></div><div class="n05-row" style="justify-content:space-between"><span class="n05-lbl">הרשת לפי התחנה</span><b class="n05-mono" id="n5-range"></b></div><div class="key" id="n5-pf-sum" style="padding:10px 14px;font-size:15.5px"></div></div><div class="stack"><table class="table n05-tbl" id="n5-pf-tbl"><thead><tr><th>יעד</th><th>כתובת</th><th>לפי התכנון</th><th>התחנה מחליטה</th><th>מה קורה</th></tr></thead><tbody></tbody></table><div class="n05-legend"><span><i style="background:var(--cyan)"></i>ביטים של הרשת לפי התחנה</span><span><i style="background:var(--amber)"></i>גבול הרשת בתכנון</span></div></div></div></div><aside class="speaker-note">בפתיחה מוצגת התחנה משקופית 4: 10.20.30.27 עם /16, כשבתכנון /24. שרת ה-DNS 10.20.10.10 והשרת 10.20.40.25 נראים לה מקומיים, היא שולחת להם ARP ואף אחד לא עונה. גררו ל-/19: רק ה-DNS עוד נכשל. ב-/20 עד /23 ה-Prefix עדיין שגוי ואף יעד ברשימה לא נפגע; ב-/23 התקלה תופיע רק מול 10.20.31.x. ב-/24 הכול תואם. מ-/25 השכן 10.20.30.200 נראה מרוחק, וב-/27 גם 10.20.30.40: התעבורה אליהם עוברת דרך השער ובדרך כלל עובדת, ולכן קשה לגלות את זה. ב-/16 התחנה מסווגת לא נכון 65,280 כתובות. ברשת שבה הנתב עונה במקום היעדים (Proxy ARP) התקלה של /16 מוסתרת. אל תתקנו לפי תחנה אחרת בלי לוודא שהיא באותו תפקיד ובאותו מקטע.</aside><div class="footer"><span>שיעור 5 · תהליך איתור תקלות</span><span class="ltr">07 / 17</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">07</span>שכנות ARP</div><h1 class="title">ARP חסר מצביע על תקלה לפני הניתוב</h1><p class="subtitle">כשאין MAC ליעד המקומי או ל-Gateway, החיפוש מצטמצם ל-Link או לפורט, ל-VLAN, לכפילות כתובת או לשכן עצמו.</p><div class="body"><div class="visual"><svg viewBox="0 0 1080 420" role="img" aria-label="רשומת שכן Unreachable לשער המקומי"><rect x="30" y="130" width="210" height="140" rx="18" fill="#101b30" stroke="#4ade80" stroke-width="3"/><text x="135" y="191" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">תחנה</text><text x="135" y="224" text-anchor="middle" fill="#9fb0c3" font-size="16">ARP ל-10.20.30.1</text><rect x="275" y="88" width="530" height="234" rx="20" fill="#050a12" stroke="#8ba0b5" stroke-width="2"/><text class="ltrtx" x="298" y="126" fill="#4ade80" font-family="Consolas,monospace" font-size="15">PS&gt; Get-NetNeighbor -IPAddress 10.20.30.1</text><text class="ltrtx" x="298" y="170" fill="#8ba0b5" font-family="Consolas,monospace" font-size="15">ifIndex</text><text class="ltrtx" x="372" y="170" fill="#8ba0b5" font-family="Consolas,monospace" font-size="15">IPAddress</text><text class="ltrtx" x="490" y="170" fill="#8ba0b5" font-family="Consolas,monospace" font-size="15">LinkLayerAddress</text><text class="ltrtx" x="660" y="170" fill="#8ba0b5" font-family="Consolas,monospace" font-size="15">State</text><text class="ltrtx" x="298" y="202" fill="#f1f5f9" font-family="Consolas,monospace" font-size="15">12</text><text class="ltrtx" x="372" y="202" fill="#f1f5f9" font-family="Consolas,monospace" font-size="15">10.20.30.1</text><text class="ltrtx" x="490" y="202" fill="#fb7185" font-family="Consolas,monospace" font-size="15">00-00-00-00-00-00</text><text class="ltrtx" x="660" y="202" fill="#fb7185" font-family="Consolas,monospace" font-size="15">Unreachable</text><text x="540" y="252" text-anchor="middle" fill="#9fb0c3" font-size="16">אין MAC לשער המקומי</text><text x="540" y="290" text-anchor="middle" fill="#9fb0c3" font-size="15">ב-<tspan class="ltrtx">arp -a</tspan> רשומה כזו פשוט לא מופיעה</text><rect x="840" y="130" width="210" height="140" rx="18" fill="#101b30" stroke="#fbbf24" stroke-width="3"/><text class="ltrtx" x="945" y="191" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">Gateway</text><text x="945" y="224" text-anchor="middle" fill="#9fb0c3" font-size="16">אמור להיות שכן</text><path d="M240 200 H275 M805 200 H840" stroke="#fb7185" stroke-width="6" stroke-dasharray="10 8"/><text x="540" y="372" text-anchor="middle" fill="#f1f5f9" font-size="19">בשלב הזה טבלת הניתוב עוד לא רלוונטית</text></svg></div></div><aside class="speaker-note">ב-Windows הפקודה arp -a מציגה רק רשומות שנפתרו, ולכן את המצב רואים ב-Get-NetNeighbor: Reachable או Stale אומרים שיש MAC, ו-Unreachable עם MAC של אפסים אומר שאין תשובה. ב-Windows רשומה יכולה להיות חסרה עד שתהיה תעבורה. צרו תעבורה (ping 10.20.30.1) ואז השוו שוב.</aside><div class="footer"><span>שיעור 5 · תהליך איתור תקלות</span><span class="ltr">08 / 17</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">08</span>ניתוב</div><h1 class="title">ARP תקין ל-Gateway אינו מוכיח שהמשך המסלול נכון</h1><p class="subtitle">טבלת ניתוב או שער ביניים יכולים לשלוח את החבילה לכיוון שגוי.</p><div class="body"><div class="visual"><svg viewBox="0 0 1080 420" role="img" aria-label="חבילה נעצרת בגלל נתיב חסר"><rect x="55" y="135" width="200" height="130" rx="18" fill="#101b30" stroke="#4ade80" stroke-width="3"/><text x="155" y="191" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">תחנה</text><text x="155" y="224" text-anchor="middle" fill="#9fb0c3" font-size="16">יעד 10.20.40.25</text><rect x="440" y="125" width="200" height="150" rx="18" fill="#101b30" stroke="#fb7185" stroke-width="3"/><text x="540" y="191" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">טבלת ניתוב</text><text x="540" y="224" text-anchor="middle" fill="#9fb0c3" font-size="16">אין Route מתאים</text><rect x="825" y="135" width="200" height="130" rx="18" fill="#101b30" stroke="#fbbf24" stroke-width="3"/><text x="925" y="191" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">שרת</text><text x="925" y="224" text-anchor="middle" fill="#9fb0c3" font-size="16">רשת מרוחקת</text><path d="M255 200 H440" stroke="#4ade80" stroke-width="7"/><circle class="pkt d1" style="--run:185px" cx="255" cy="200" r="5" fill="#4ade80"/><path d="M640 200 H825" stroke="#fb7185" stroke-width="7" stroke-dasharray="11 8"/><circle class="pkt d2" style="--run:185px" cx="640" cy="200" r="5" fill="#fb7185"/><path d="M705 165 L760 235 M760 165 L705 235" stroke="#fb7185" stroke-width="8"/><text x="540" y="345" text-anchor="middle" fill="#9fb0c3" font-size="18">Gateway תקין אינו מספיק אם נתיב ספציפי שולח לכיוון אחר או שאין ברירת מחדל</text></svg></div></div><aside class="speaker-note">הטכנאי בודק את טבלת התחנה ואת נקודת התגובה האחרונה. שינוי נתבים נשאר אצל הגורם המנהל.</aside><div class="footer"><span>שיעור 5 · תהליך איתור תקלות</span><span class="ltr">09 / 17</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">09</span>DNS</div><h1 class="title">כשלפי IP עובד ולפי שם לא, החשוד הוא DNS</h1><p class="subtitle">רשומה ישנה, DNS שגוי או Cache מקומי יכולים להפנות ליעד אחר.</p><div class="body"><div class="visual"><svg viewBox="0 0 1080 420" role="img" aria-label="שם DNS מחזיר כתובת ישנה במקום שרת חדש"><rect x="55" y="135" width="210" height="130" rx="18" fill="#101b30" stroke="#4ade80" stroke-width="3"/><text x="160" y="191" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">לקוח</text><text x="160" y="224" text-anchor="middle" fill="#9fb0c3" font-size="16">IP לשרת עובד</text><rect x="435" y="125" width="210" height="150" rx="18" fill="#101b30" stroke="#fb7185" stroke-width="3"/><text class="ltrtx" x="540" y="191" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">DNS</text><text x="540" y="224" text-anchor="middle" fill="#9fb0c3" font-size="16">שם מחזיר כתובת ישנה</text><rect x="815" y="135" width="210" height="130" rx="18" fill="#101b30" stroke="#22d3ee" stroke-width="3"/><text x="920" y="191" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">שרת חדש</text><text class="ltrtx" x="920" y="224" text-anchor="middle" fill="#9fb0c3" font-size="16">10.20.40.25</text><path d="M265 200 H435" stroke="#fb7185" stroke-width="7"/><circle class="pkt d3" style="--run:170px" cx="265" cy="200" r="5" fill="#fb7185"/><path d="M645 200 H815" stroke="#fb7185" stroke-width="7" stroke-dasharray="10 8"/><circle class="pkt " style="--run:170px" cx="645" cy="200" r="5" fill="#fb7185"/><text class="ltrtx" x="540" y="95" text-anchor="middle" fill="#fb7185" font-size="20">server.unit → 10.20.40.12</text><text x="540" y="345" text-anchor="middle" fill="#f1f5f9" font-size="19">גישה לפי IP מול גישה לפי שם מבודדת את שלב פתרון השם</text></svg></div></div><aside class="speaker-note">כשהתעודה תלויה בשם, חיבור לפי IP אינו בדיקה מלאה של היישום, אבל הוא עדיין מבודד את שלב DNS.</aside><div class="footer"><span>שיעור 5 · תהליך איתור תקלות</span><span class="ltr">10 / 17</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">10</span>פורט ושירות</div><h1 class="title">כאשר שם ו-Ping עובדים, בודקים Listener, פורט וחומת אש</h1><p class="subtitle">השרת יכול להיות נגיש ברשת בזמן שהיישום עצמו אינו זמין.</p><div class="body"><div class="visual"><svg viewBox="0 0 1080 420" role="img" aria-label="רשת לשרת תקינה אך יישום עצור"><rect x="55" y="130" width="200" height="140" rx="18" fill="#101b30" stroke="#4ade80" stroke-width="3"/><text x="155" y="191" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">לקוח</text><text x="155" y="224" text-anchor="middle" fill="#9fb0c3" font-size="16">Ping + DNS תקינים</text><rect x="440" y="120" width="200" height="160" rx="18" fill="#101b30" stroke="#22d3ee" stroke-width="3"/><text x="540" y="191" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">שרת</text><text x="540" y="224" text-anchor="middle" fill="#9fb0c3" font-size="16">פורט 443</text><rect x="825" y="130" width="200" height="140" rx="18" fill="#101b30" stroke="#fb7185" stroke-width="3"/><text x="925" y="191" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">יישום</text><text x="925" y="224" text-anchor="middle" fill="#9fb0c3" font-size="16">שירות עצור</text><path d="M255 200 H440" stroke="#4ade80" stroke-width="7"/><circle class="pkt d1" style="--run:185px" cx="255" cy="200" r="5" fill="#4ade80"/><path d="M640 200 H825" stroke="#fb7185" stroke-width="7" stroke-dasharray="10 8"/><circle class="pkt d2" style="--run:185px" cx="640" cy="200" r="5" fill="#fb7185"/><circle cx="735" cy="200" r="38" fill="#fb718520" stroke="#fb7185" stroke-width="3"/><text class="ltrtx" x="735" y="207" text-anchor="middle" fill="#f1f5f9" font-size="22">×</text><text x="540" y="345" text-anchor="middle" fill="#9fb0c3" font-size="18">רשת תקינה אינה מבטיחה Listener, חומת אש או יישום תקין</text></svg></div></div><aside class="speaker-note">Test-NetConnection בודק TCP לפורט. לאחר מכן עוברים ליומן ולשירות עצמו.</aside><div class="footer"><span>שיעור 5 · תהליך איתור תקלות</span><span class="ltr">11 / 17</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">11</span>Domain ואמון</div><h1 class="title">סדר הבדיקה בתקלת אימות: DNS, זמן, כרטיס ותעודה</h1><p class="subtitle">הסימפטום מופיע בשירות, אך הסיבה יכולה להיות תשתיתית.</p><div class="body"><div class="visual"><svg viewBox="0 0 1080 420" role="img" aria-label="שרשרת תקינה עד זמן שגוי שמפיל Kerberos"><defs><marker id="idA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#22d3ee"/></marker></defs><rect x="20" y="145" width="176" height="120" rx="18" fill="#101b30" stroke="#4ade80" stroke-width="3"/><text x="108" y="196" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">רשת</text><text x="108" y="229" text-anchor="middle" fill="#9fb0c3" font-size="16">תקינה</text><rect x="241" y="145" width="176" height="120" rx="18" fill="#101b30" stroke="#4ade80" stroke-width="3"/><text class="ltrtx" x="340" y="196" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">DNS</text><text x="329" y="229" text-anchor="middle" fill="#9fb0c3" font-size="16">DC נמצא</text><rect x="462" y="145" width="176" height="120" rx="18" fill="#101b30" stroke="#fb7185" stroke-width="3"/><text x="550" y="196" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">זמן</text><text x="550" y="229" text-anchor="middle" fill="#9fb0c3" font-size="16">פער גדול</text><rect x="683" y="145" width="176" height="120" rx="18" fill="#101b30" stroke="#fb7185" stroke-width="3"/><text class="ltrtx" x="780" y="196" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">Kerberos</text><text x="771" y="229" text-anchor="middle" fill="#9fb0c3" font-size="16">Ticket נדחה</text><rect x="904" y="145" width="176" height="120" rx="18" fill="#101b30" stroke="#fb7185" stroke-width="3"/><text x="992" y="196" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">שירות</text><text x="992" y="229" text-anchor="middle" fill="#9fb0c3" font-size="16">אין כניסה</text><path d="M196 205 H241 M417 205 H462 M638 205 H683 M859 205 H904" stroke="#22d3ee" stroke-width="5" marker-end="url(#idA)"/><text x="540" y="335" text-anchor="middle" fill="#f1f5f9" font-size="20">הודעת ״אימות נכשל״ יכולה לנבוע מפער שעון ולא מהסיסמה</text></svg></div></div><aside class="speaker-note">אל תתחילו באיפוס סיסמה. קודם ודאו איתור DC, זמן וכרטיסים.</aside><div class="footer"><span>שיעור 5 · תהליך איתור תקלות</span><span class="ltr">12 / 17</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">12</span>תקלה לסירוגין</div><h1 class="title">ממוצע תקין יכול להסתיר קפיצות השהיה ואובדן</h1><p class="subtitle">אוספים מדידה לאורך זמן ומחברים אותה לשעה, אירועים ועומס.</p><div class="body" style="gap:9px"><div class="n05-row" style="gap:10px"><span class="n05-lbl">Ping כל שנייה במשך רבע שעה · חלון ממוצע</span><button class="n05-btn n05-win" type="button" data-w="1">שנייה</button><button class="n05-btn n05-win" type="button" data-w="10">10 שניות</button><button class="n05-btn n05-win on" type="button" data-w="60">דקה</button><button class="n05-btn n05-win" type="button" data-w="300">5 דקות</button><span style="flex:1"></span><span class="n05-lbl">משך כל קפיצה</span><input type="range" class="n05-rng" id="n5-av-len" min="0" max="60" step="5" value="20" style="width:150px" aria-label="משך כל קפיצה"><b class="n05-mono" id="n5-av-lenv" style="min-width:58px;text-align:center"></b></div><div class="visual" style="flex:1;padding:6px 10px"><svg id="n5-av-svg" viewBox="0 0 1100 292" role="img" aria-label="השהיה ואובדן לאורך זמן"></svg></div><div class="n05-stats"><div class="n05-stat"><span>השהיה ממוצעת</span><b id="n5-av-avg"></b></div><div class="n05-stat"><span>אובדן כולל</span><b id="n5-av-loss"></b></div><div class="n05-stat hot"><span>השיא בגרף</span><b id="n5-av-mb"></b></div><div class="n05-stat"><span>השיא בפועל</span><b id="n5-av-mr"></b></div><div class="n05-stat hot"><span>אובדן בחלון הגרוע</span><b id="n5-av-wl"></b></div><div class="n05-stat"><span>רצף אובדן ארוך</span><b id="n5-av-run"></b></div></div></div><aside class="speaker-note">הנתונים: Ping לשער בכל שנייה במשך 15 דקות, השהיה רגילה של 1 עד 4 ms ושתי קפיצות, שמתחילות ב-4:10 וב-10:40. בפתיחה החלון הוא דקה וכל קפיצה 20 שניות: השיא בגרף 56.8 ms ואובדן של 16.7% בדקה הגרועה. עברו ל-5 דקות: השיא בגרף יורד ל-12.0 ms והאובדן בחלון הגרוע ל-3.3%, והקו כמעט שטוח. עברו לשנייה: קפיצות עד 394 ms, שניות של אובדן מלא ורצף של 7 שניות בלי תשובה. הממוצע הכולל (8.7 ms, אובדן 2.1%) לא משתנה בשום חלון. שמרו חותמות זמן כדי להשוות ליומני מערכת ולשינויי סביבה.</aside><div class="footer"><span>שיעור 5 · תהליך איתור תקלות</span><span class="ltr">13 / 17</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">13</span>סגירת תקלה</div><h1 class="title">שינוי אחד בכל פעם ובדיקה חוזרת</h1><p class="subtitle">את התיקון מאמתים באותה בדיקה שבה התקלה הופיעה, ואז מתעדים את התוצאה.</p><div class="body"><div class="visual"><svg viewBox="0 0 1080 420" role="img" aria-label="רצף שינוי בדיקה השוואה ותיעוד"><defs><marker id="cvA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#22d3ee"/></marker></defs><rect x="20" y="140" width="215" height="130" rx="18" fill="#101b30" stroke="#fbbf24" stroke-width="3"/><text x="127" y="196" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">שינוי אחד</text><text x="127" y="229" text-anchor="middle" fill="#9fb0c3" font-size="16">מה שונה ומתי</text><rect x="295" y="140" width="215" height="130" rx="18" fill="#101b30" stroke="#22d3ee" stroke-width="3"/><text x="402" y="196" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">בדיקה חוזרת</text><text x="402" y="229" text-anchor="middle" fill="#9fb0c3" font-size="16">אותו קריטריון</text><rect x="570" y="140" width="215" height="130" rx="18" fill="#101b30" stroke="#4ade80" stroke-width="3"/><text x="677" y="196" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">השוואה</text><text x="677" y="229" text-anchor="middle" fill="#9fb0c3" font-size="16">מול ייחוס</text><rect x="845" y="140" width="215" height="130" rx="18" fill="#101b30" stroke="#8b5cf6" stroke-width="3"/><text x="952" y="196" text-anchor="middle" fill="#f1f5f9" font-size="22" font-weight="700">תיעוד</text><text x="952" y="229" text-anchor="middle" fill="#9fb0c3" font-size="16">תוצאה וקבצים</text><path d="M235 205 H295 M510 205 H570 M785 205 H845" stroke="#22d3ee" stroke-width="6" marker-end="url(#cvA)"/><text x="540" y="335" text-anchor="middle" fill="#fb7185" font-size="19">אחרי כמה שינויים יחד כבר אי אפשר לדעת מה פתר את התקלה</text></svg></div></div><aside class="speaker-note">תיעוד מינימלי: סימפטום, היקף, תצורה, בדיקות, שינוי, תוצאה וקבצים רלוונטיים.</aside><div class="footer"><span>שיעור 5 · תהליך איתור תקלות</span><span class="ltr">14 / 17</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">14</span>תרגול</div><h1 class="title">באיזה שלב התקלה?</h1><p class="subtitle">קריאות שירות עם הראיות שנאספו בתחנה. לכל קריאה: באיזה שלב התקלה, מה בודקים עכשיו ומה מעבירים.</p><div class="body"><div class="split" style="grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:22px"><div class="stack" style="gap:9px"><div class="n05-row"><button class="n05-btn n05-tk on" type="button" data-t="0">קריאה 1</button><button class="n05-btn n05-tk" type="button" data-t="1">קריאה 2</button><button class="n05-btn n05-tk" type="button" data-t="2">קריאה 3</button></div><div class="n05-ticket" id="n5-tk-txt"></div><div class="n05-con" id="n5-tk-con" style="flex:1"></div></div><div class="card n05-qs" style="padding:14px 17px"><div class="tag">שאלות</div><p style="margin-bottom:10px">1. באיזה שלב התקלה בקריאה 1, ומה מתעדים לפני שמעבירים אותה?</p><p style="margin-bottom:10px">2. בקריאה 2 אותו שם מוביל לשתי כתובות. מאיפה מגיעה כל אחת, ומה עושים לפני <span class="ltr">ipconfig /flushdns</span>?</p><p style="margin-bottom:10px">3. בקריאה 3 למה איפוס סיסמה לא יפתור, ומה הבדיקה הבאה?</p><p>4. בקריאה 2 טכנאי מחק שורה מקובץ <span class="ltr">hosts</span>, ניקה את המטמון ואתחל את התחנה, והאתר עלה. מה חסר בסגירת התקלה?</p></div></div></div><aside class="speaker-note">תנו לחניכים לעבור על הקריאות בזוגות ולענות לפני שמגלים תשובות. 1: ה-Link תקין (Status Up ומהירות של 1 Gbps), אבל 169.254.83.12 היא כתובת APIPA: לא הגיעה תשובה מ-DHCP. השלב הוא השכנות המקומית (Ethernet ו-VLAN). התחנה הקבועה בחדר עובדת, ולכן החשוד הוא השקע או ה-VLAN של הפורט שלו. בודקים ipconfig /renew ומשווים לאותו מחשב בשקע של התחנה הקבועה. מתעדים מזהה שקע, MAC (Physical Address), שעה, Link Up והכתובת שהתקבלה, ולא משנים VLAN בשטח. 2: nslookup שואל את שרת ה-DNS ישירות ומקבל 10.20.40.25. Ping עובר דרך קובץ hosts והמטמון של התחנה ומגיע ל-10.20.40.12, ולכן המקור בתחנה: שורה בקובץ hosts או רשומה ישנה במטמון. לפני הניקוי שומרים את ipconfig /displaydns ופותחים את קובץ hosts; ניקוי קודם מוחק את הראיה. 3: הפער בין השעונים 13 דקות, ו-Kerberos מקבל בברירת המחדל עד חמש. השעון לא מסתנכרן (Source: Local CMOS Clock) ואין כרטיסים. איפוס סיסמה לא יעזור, ומכשירים ששומרים את הסיסמה הישנה עלולים לנעול את החשבון. בודקים אזור זמן ומקור סנכרון, מתקנים לפי נוהל היחידה, מוחקים כרטיסים (klist purge) ובודקים שוב את הכניסה לתיקייה. 4: שינו כמה דברים יחד, ולכן אי אפשר לדעת מה פתר, ומה שהיה במטמון ובקובץ לא תועד. חסרים תיעוד לפני השינוי, שינוי אחד בכל פעם, הרצה חוזרת של ping server.unit כדי לראות שהוא מגיע עכשיו ל-10.20.40.25, ותיעוד התוצאה (שקופית 14).</aside><div class="footer"><span>שיעור 5 · תהליך איתור תקלות</span><span class="ltr">15 / 17</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">15</span>גבולות ההדגמות</div><h1 class="title">מגבלות ההדגמות</h1><p class="subtitle">כל הדגמה בשיעור מפשטת משהו כדי שהעיקרון ייראה בבירור.</p><div class="body"><table class="table n05-tbl n05-lim"><thead><tr><th style="width:17%">הדגמה</th><th style="width:40%">מה הופשט</th><th>מה יש בפועל</th></tr></thead><tbody><tr><td>סדר הבדיקות (שקופית 2)</td><td>בכל תקלה יש סיבה אחת, וכל בדיקה נותנת תשובה ברורה.</td><td>לפעמים יש שתי תקלות יחד, או תקלה לסירוגין. חומת אש שחוסמת Ping מכשילה בדיקה כשהשלב תקין.</td></tr><tr><td>היקף (שקופית 3)</td><td>תשובות חד-משמעיות של עובד או לא עובד.</td><td>התשובות מגיעות ממשתמשים ולא תמיד מדויקות, וההיקף יכול להיות חלקי, למשל חלק מהתחנות במקטע.</td></tr><tr><td><span class="ltr">Prefix</span> (שקופית 7)</td><td>מקטע אחד, שער אחד, בלי נתיבים נוספים, והנתב מעביר תעבורה חזרה לאותו מקטע.</td><td><span class="ltr">Proxy ARP</span> בנתב יכול להסתיר Prefix קצר מדי, ונתיבי VPN או חומת אש משנים את התמונה. כל צד מחליט לפי ההגדרות שלו.</td></tr><tr><td>ממוצע וקפיצות (שקופית 13)</td><td>נתונים מלאכותיים, Ping בכל שנייה וקפיצות בזמנים קבועים.</td><td>נתבים רבים עונים ל-Ping בעדיפות נמוכה, ולכן אובדן מול הנתב עצמו לא תמיד אומר שתעבורה שעוברת דרכו נפגעת. משווים למדידה מול תחנת קצה.</td></tr></tbody></table><div class="key amber" style="margin-top:12px">הפלטים בהדגמות מקוצרים. בתחנה אמיתית יש עוד שורות, ומחפשים בהן את אותם שדות.</div></div><aside class="speaker-note">לא לדלג. חניכים יוצאים לפעמים עם הרושם שכל בדיקה נותנת תשובה חד-משמעית. בשטח Ping לפעמים חסום, משתמשים מדווחים חלקית, ולפעמים יש שתי תקלות בבת אחת. הדגישו שמשווים לייחוס כדי לדעת אם זו תקלה או התנהגות רגילה של הרשת.</aside><div class="footer"><span>שיעור 5 · תהליך איתור תקלות</span><span class="ltr">16 / 17</span></div></section>
+<section class="slide" aria-hidden="true"><div class="slide-mark" aria-hidden="true"><span class="crest crest-sm"></span><span>תקשוב 5059</span></div><div class="eyebrow"><span class="num">16</span>התהליך השלם</div><h1 class="title">בודקים לפי שכבות, עד לתוצאה הראשונה שאינה תקינה</h1><p class="subtitle">כל שלב מצמצם את רשימת החשודים ומראה למי להעביר את התקלה.</p><div class="body"><div class="steps"><div class="step"><strong>Link</strong><span>כבל ומתאם</span></div><div class="step"><strong>Ethernet/VLAN</strong><span>שכנות מקומית</span></div><div class="step"><strong>IP/Route</strong><span>כתובת ודרך</span></div><div class="step"><strong>DNS/Service</strong><span>שם ופורט</span></div><div class="step"><strong>Domain/Trust</strong><span>זהות ואמון</span></div></div><div class="key" style="margin-top:18px">מחפשים את הבדיקה המהירה ביותר שמראה איזה שלב תקול. אין צורך להריץ כל כלי שקיים.</div></div><aside class="speaker-note">אפשר לחזור לכל שקופית קודמת כדוגמה לשלב המתאים.</aside><div class="footer"><span>שיעור 5 · תהליך איתור תקלות</span><span class="ltr">17 / 17</span></div></section><div class="nav"><button type="button" data-prev aria-label="שקופית קודמת">הקודם</button><button type="button" data-next aria-label="שקופית הבאה">הבא</button><div class="progress" aria-hidden="true"><span></span></div><div class="counter"></div><button type="button" data-notes>הערות</button></div><div class="notes-panel" hidden></div></main></div></div><script>
+(() => {
+  const root = document.querySelector('.deck-root');
+  const stage = root.querySelector('.stage');
+  const slides = [...root.querySelectorAll('.slide')];
+  const prev = root.querySelector('[data-prev]');
+  const next = root.querySelector('[data-next]');
+  const counter = root.querySelector('.counter');
+  const progress = root.querySelector('.progress span');
+  const notesButton = root.querySelector('[data-notes]');
+  const notesPanel = root.querySelector('.notes-panel');
+  let index = 0;
+  function scaleStage(){
+    const s = Math.min((innerWidth-20)/1280,(innerHeight-20)/720);
+    stage.style.transform = 'scale('+Math.max(.2,s)+')';
+  }
+  function show(i){
+    index = Math.max(0,Math.min(slides.length-1,i));
+    slides.forEach((s,n)=>{const active=n===index;s.classList.toggle('active',active);s.setAttribute('aria-hidden',String(!active));});
+    prev.disabled=index===0; next.disabled=index===slides.length-1;
+    counter.textContent=(index+1)+' / '+slides.length;
+    progress.style.width=((index+1)/slides.length*100)+'%';
+    notesPanel.hidden=true;
+  }
+  prev.addEventListener('click',()=>show(index-1));
+  next.addEventListener('click',()=>show(index+1));
+  notesButton.addEventListener('click',()=>{
+    const note=slides[index].querySelector('.speaker-note');
+    notesPanel.innerHTML='<strong>הערות למעביר</strong>'+(note?note.innerHTML:'אין הערות לשקופית זו.');
+    notesPanel.hidden=!notesPanel.hidden;
+  });
+  addEventListener('keydown',(e)=>{
+    if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(index+1)}
+    else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(index-1)}
+    else if(e.key==='Home')show(0);else if(e.key==='End')show(slides.length-1);
+    else if(e.key.toLowerCase()==='n')notesButton.click();
+    else if(e.key.toLowerCase()==='a'){root.classList.toggle('motion-on');var mb=root.querySelector('.motion-badge');if(mb)mb.hidden=root.classList.contains('motion-on');root.querySelectorAll('svg').forEach(function(v){if(v.pauseAnimations){root.classList.contains('motion-on')?v.unpauseAnimations():v.pauseAnimations();}});}else if(e.key.toLowerCase()==='f'){if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()}
+  });
+  
+  addEventListener('resize',scaleStage);scaleStage();show(0);
+})();
+</script><script>
+(function () {
+  'use strict';
+  var root = document.querySelector('.deck-root');
+  function $(id) { return document.getElementById(id); }
+  function el(tag, attrs, text) {
+    var e = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  /* the deck starts with motion-on; A removes it, and then nothing animates */
+  function motionOK() { return !!(root && root.classList.contains('motion-on')); }
+  function activeSlideOf(node) { var s = node && node.closest('.slide'); return !!(s && s.classList.contains('active')); }
+  function onInput(node, fn) { node.addEventListener('input', fn); }
+  function L(s) { return '<span class="ltr">' + s + '</span>'; }
+  function safe(name, fn) { try { fn(); } catch (err) { if (window.console) console.error('[n05] ' + name, err); } }
+
+  /* typing inside a field must not drive the deck (space, n, a, f, arrows) */
+  document.querySelectorAll('.deck-root input:not([type=range]), .deck-root textarea, .deck-root select').forEach(function (f) {
+    f.addEventListener('keydown', function (e) { e.stopPropagation(); if (e.key === 'Escape') f.blur(); });
+  });
+
+  /* console renderer shared by the walk-through and the exercise.
+     '!' marks the line that carries the evidence; prompts are coloured. */
+  function lineHTML(t) {
+    if (t.charAt(0) === '!') return '<span class="hl">' + esc(t.slice(1)) + '</span>';
+    if (/^(PS> |C:\\> )/.test(t)) return '<span class="cmd">' + esc(t) + '</span>';
+    return esc(t);
+  }
+  function printer(box) {
+    var timer = null;
+    return function (lines) {
+      if (timer) { clearInterval(timer); timer = null; }
+      var html = lines.map(lineHTML);
+      if (!motionOK() || !activeSlideOf(box)) { box.innerHTML = html.join('\n'); return; }
+      var n = 0; box.innerHTML = '';
+      timer = setInterval(function () {
+        if (!motionOK() || !activeSlideOf(box)) n = html.length; else n++;
+        box.innerHTML = html.slice(0, n).join('\n');
+        if (n >= html.length) { clearInterval(timer); timer = null; }
+      }, 55);
+    };
+  }
+
+  /* ================= slide 2: from complaint to the failing layer ================= */
+  safe('walk', function () {
+    var lad = $('n5-ladder'); if (!lad) return;
+    var CK = [
+      { n: 'Link', c: 'Get-NetAdapter', s: '5' },
+      { n: 'תצורה מול התכנון', c: 'ipconfig /all', s: '4 ו-7' },
+      { n: 'שכן מקומי: השער', c: 'ping 10.20.30.1 · Get-NetNeighbor', s: '6 ו-8' },
+      { n: 'דרך לשרת לפי ' + L('IP'), c: 'ping 10.20.40.25', s: '9' },
+      { n: 'שם השרת', c: 'nslookup server.unit', s: '10' },
+      { n: 'פורט השירות', c: 'Test-NetConnection -Port 443', s: '11' }
+    ];
+    var ADP = ['PS> Get-NetAdapter | ft Name,Status,LinkSpeed', '', 'Name      Status        LinkSpeed', '----      ------        ---------'];
+    var IPC = ['C:\\> ipconfig /all', '', 'Ethernet adapter Ethernet:', ''];
+    var NBR = ['PS> Get-NetNeighbor -IPAddress 10.20.30.1', '', 'ifIndex IPAddress    LinkLayerAddress   State        PolicyStore', '------- ---------    ----------------   -----        -----------'];
+    function ping(dst, rows) { return ['C:\\> ping -n 2 ' + dst, 'Pinging ' + dst + ' with 32 bytes of data:'].concat(rows); }
+    var UNR = '!Reply from 10.20.30.27: Destination host unreachable.', GEN = '!PING: transmit failed. General failure.';
+    var TNC = 'PS> Test-NetConnection server.unit -Port 443';
+    var O = {
+      linkOk: { l: ADP.concat(['Ethernet  Up            1 Gbps']) },
+      linkDown: { l: ADP.concat(['!Ethernet  Disconnected  0 bps']), e: L('Status: Disconnected') },
+      cfgOk: { l: IPC.concat(['   Physical Address. . . . : 3C-52-82-1A-4F-07', '   IPv4 Address. . . . . . : 10.20.30.27(Preferred)', '   Subnet Mask . . . . . . : 255.255.255.0', '   Default Gateway . . . . : 10.20.30.1', '   DNS Servers . . . . . . : 10.20.10.10']) },
+      cfgMask: { l: IPC.concat(['   Physical Address. . . . : 3C-52-82-1A-4F-07', '   IPv4 Address. . . . . . : 10.20.30.27(Preferred)', '!   Subnet Mask . . . . . . : 255.255.0.0', '   Default Gateway . . . . : 10.20.30.1', '   DNS Servers . . . . . . : 10.20.10.10']),
+        e: L('Subnet Mask 255.255.0.0') + ', ובתכנון ' + L('255.255.255.0') },
+      cfgMedia: { l: IPC.concat(['!   Media State . . . . . . : Media disconnected', '   Physical Address. . . . : 3C-52-82-1A-4F-07']), e: L('Media disconnected') },
+      gwOk: { l: ping('10.20.30.1', ['Reply from 10.20.30.1: bytes=32 time<1ms TTL=255', 'Reply from 10.20.30.1: bytes=32 time<1ms TTL=255', '']).concat(NBR, ['12      10.20.30.1   00-1A-2B-3C-4D-01  Reachable    ActiveStore']) },
+      gwBad: { l: ping('10.20.30.1', [UNR, UNR, '']).concat(NBR, ['!12      10.20.30.1   00-00-00-00-00-00  Unreachable  ActiveStore']), e: 'לשער אין ' + L('MAC') + ' (' + L('Unreachable') + ')' },
+      gwGen: { l: ping('10.20.30.1', [GEN, GEN]), e: L('General failure') + ' כבר ב-' + L('Ping') + ' לשער' },
+      srvOk: { l: ping('10.20.40.25', ['Reply from 10.20.40.25: bytes=32 time=1ms TTL=127', 'Reply from 10.20.40.25: bytes=32 time=1ms TTL=127']) },
+      srvUnr: { l: ping('10.20.40.25', [UNR, UNR]), e: L('Destination host unreachable') + ' מהכתובת של התחנה עצמה' },
+      srvGen: { l: ping('10.20.40.25', [GEN, GEN]), e: L('General failure') + ' ב-' + L('Ping') + ' לשרת' },
+      dnsOk: { l: ['C:\\> nslookup server.unit', 'Server:  dns1.unit', 'Address:  10.20.10.10', '', 'Name:    server.unit', 'Address:  10.20.40.25'] },
+      dnsOld: { l: ['C:\\> nslookup server.unit', 'Server:  dns1.unit', 'Address:  10.20.10.10', '', 'Name:    server.unit', '!Address:  10.20.40.12'], e: 'השם מחזיר ' + L('10.20.40.12') + ', והשרת ב-' + L('10.20.40.25') },
+      dnsTo: { l: ['C:\\> nslookup server.unit', 'DNS request timed out.', '    timeout was 2 seconds.', 'Server:  UnKnown', 'Address:  10.20.10.10', '', 'DNS request timed out.', '    timeout was 2 seconds.', '!*** Request to UnKnown timed-out'], e: 'שרת ה-' + L('DNS') + ' לא עונה' },
+      dnsNone: { l: ['C:\\> nslookup server.unit', '!*** Default servers are not available'], e: 'אין שרת ' + L('DNS') + ' זמין' },
+      tncOk: { l: [TNC, '', 'ComputerName     : server.unit', 'RemoteAddress    : 10.20.40.25', 'RemotePort       : 443', 'InterfaceAlias   : Ethernet', 'SourceAddress    : 10.20.30.27', 'TcpTestSucceeded : True'] },
+      tnc25: { l: [TNC, '!WARNING: TCP connect to (10.20.40.25 : 443) failed', '', 'ComputerName           : server.unit', 'RemoteAddress          : 10.20.40.25', 'RemotePort             : 443', 'SourceAddress          : 10.20.30.27', 'PingSucceeded          : True', 'PingReplyDetails (RTT) : 1 ms', '!TcpTestSucceeded       : False'],
+        e: L('Ping') + ' לשרת עובר, והפורט לא עונה' },
+      tnc12: { l: [TNC, '!WARNING: TCP connect to (10.20.40.12 : 443) failed', 'WARNING: Ping to 10.20.40.12 failed with status: TimedOut', '', 'ComputerName           : server.unit', 'RemoteAddress          : 10.20.40.12', 'RemotePort             : 443', 'SourceAddress          : 10.20.30.27', 'PingSucceeded          : False', '!TcpTestSucceeded       : False'],
+        e: 'החיבור יוצא ל-' + L('10.20.40.12') },
+      tncName: { l: [TNC, '!WARNING: Name resolution of server.unit failed'], e: 'השם לא מתורגם לכתובת' }
+    };
+    /* the case order on screen does not follow the layer order on purpose */
+    var CASES = [
+      { scope: 'תחנה אחת, מאז שהוגדרה לה כתובת ידנית. בתחנה הסמוכה האתר נפתח.', o: ['linkOk', 'cfgMask', 'gwOk', 'srvUnr', 'dnsTo', 'tncName'] },
+      { scope: 'כל התחנות, ורק האתר הזה. שאר השירותים עובדים.', o: ['linkOk', 'cfgOk', 'gwOk', 'srvOk', 'dnsOk', 'tnc25'] },
+      { scope: 'תחנה אחת, אחרי ניקיון בחדר. בתחנה הסמוכה האתר נפתח.', o: ['linkDown', 'cfgMedia', 'gwGen', 'srvGen', 'dnsNone', 'tncName'] },
+      { scope: 'תחנה אחת, מאז שהועברה לשקע אחר בחדר.', o: ['linkOk', 'cfgOk', 'gwBad', 'srvUnr', 'dnsTo', 'tncName'] },
+      { scope: 'כל התחנות, ורק האתר הזה, מאז שהשרת הועבר לכתובת חדשה.', o: ['linkOk', 'cfgOk', 'gwOk', 'srvOk', 'dnsOld', 'tnc12'] }
+    ];
+    var con = $('n5-con'), ver = $('n5-verdict'), ev = $('n5-ev'), scope = $('n5-scope');
+    var show = printer(con), cur = 0, done = [], sel = -1, btns = [];
+    CK.forEach(function (k, i) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'n05-chk';
+      b.innerHTML = '<i>' + (i + 1) + '</i><span><b>' + k.n + '</b><code>' + esc(k.c) + '</code></span><em>לא נבדק</em>';
+      b.addEventListener('click', function () { run(i); });
+      lad.appendChild(b); btns.push(b);
+    });
+    function out(i) { return O[CASES[cur].o[i]]; }
+    function passes(i) { return !out(i).e; }
+    function names(list) { return list.map(function (j) { return CK[j].n; }).join(', '); }
+    function render() {
+      var fails = [], ran = 0;
+      for (var i = 0; i < CK.length; i++) { if (done[i] === false) fails.push(i); if (done[i] !== undefined) ran++; }
+      var first = fails.length ? fails[0] : -1, missing = [];
+      for (var j = 0; j < first; j++) if (done[j] === undefined) missing.push(j);
+      var located = first >= 0 && !missing.length;
+      btns.forEach(function (b, i) {
+        b.classList.toggle('ok', done[i] === true);
+        b.classList.toggle('bad', done[i] === false);
+        b.classList.toggle('sel', i === sel);
+        b.classList.toggle('hit', located && i === first);
+        b.querySelector('em').textContent = done[i] === true ? 'תקין' : done[i] === false ? 'נכשל' : 'לא נבדק';
+      });
+      if (first >= 0) { ev.innerHTML = out(first).e; ev.className = 'bad'; }
+      else { ev.textContent = ran ? 'מה שנבדק עד עכשיו תקין' : 'עוד לא נאספה'; ev.className = ''; }
+      var cnt = ' <span style="color:var(--dim)">(' + ran + ' בדיקות)</span>';
+      if (!ran) { ver.className = 'n05-verdict'; ver.innerHTML = 'בחרו בדיקה. בסדר הרגיל מתחילים מ-' + L('Link') + ', בתחתית הרשימה.'; }
+      else if (first < 0) { ver.className = 'n05-verdict ok'; ver.innerHTML = 'כל מה שנבדק עד עכשיו תקין. עוברים לשלב הבא.' + cnt; }
+      else if (!located) {
+        ver.className = 'n05-verdict warn';
+        ver.innerHTML = 'נכשל: <b>' + CK[first].n + '</b>. מתחתיו עוד לא נבדקו: ' + names(missing) + '. עד שהם נבדקים אי אפשר לדעת אם התקלה כאן.' + cnt;
+      } else {
+        ver.className = 'n05-verdict bad';
+        ver.innerHTML = 'התקלה בשלב <b>' + CK[first].n + '</b>, וכל מה שמתחתיו תקין. מתעדים את הראיה, משנים דבר אחד ובודקים שוב. מוסבר בשקופית ' + CK[first].s + '.' + cnt;
+      }
+    }
+    function run(i) {
+      done[i] = passes(i); sel = i;
+      show(out(i).l);
+      render();
+    }
+    function setCase(c) {
+      cur = c; done = []; sel = -1;
+      scope.textContent = CASES[c].scope;
+      document.querySelectorAll('.n05-case').forEach(function (b) { b.classList.toggle('on', +b.getAttribute('data-case') === c); });
+      con.innerHTML = '<span class="tip">כאן יופיע הפלט של הבדיקה שתבחרו.</span>';
+      render();
+    }
+    document.querySelectorAll('.n05-case').forEach(function (b) {
+      b.addEventListener('click', function () { setCase(+b.getAttribute('data-case')); });
+    });
+    $('n5-reset').addEventListener('click', function () { setCase(cur); });
+    setCase(0); run(0);
+  });
+
+  /* ================= slide 3: scope from quick comparisons ================= */
+  safe('scope', function () {
+    var qs = [].slice.call(document.querySelectorAll('.n05-q')); if (!qs.length) return;
+    var outBox = $('n5-sc-out');
+    var SC = {
+      user: { t: 'משתמש אחד', s: 'החשבון (נעול, סיסמה שפגה), הפרופיל וההרשאות של המשתמש.' },
+      host: { t: 'תחנה אחת', s: 'התחנה עצמה: כבל, מתאם, כתובת, ' + L('DNS') + ' וחומת אש מקומית.' },
+      seg: { t: L('VLAN') + ' או מקטע', s: 'המתג, הגדרת ה-' + L('VLAN') + ', השער של המקטע, או מאגר כתובות ' + L('DHCP') + ' שהתמלא.' },
+      svc: { t: 'שירות אחד', s: 'השרת, השירות, רשומת ה-' + L('DNS') + ' או התעודה.' },
+      site: { t: 'כל האתר', s: 'רכיב מרכזי: הקו שיוצא מהאתר, הנתב, ' + L('DNS') + ' ובקר הדומיין, או הזנת החשמל לארון התקשורת.' }
+    };
+    var v = qs.map(function (q) { return q.querySelector('button.on').getAttribute('data-v') === '1'; });
+    /* q0 neighbour in the same segment, q1 other user on this station, q2 other segment, q3 other service from this station */
+    function decide() {
+      if (v[0]) return { k: v[1] ? 'user' : 'host', rel: [0, 1] };
+      if (v[2]) return { k: 'seg', rel: [0, 2] };
+      return { k: v[3] ? 'svc' : 'site', rel: [0, 2, 3] };
+    }
+    function render() {
+      var d = decide();
+      qs.forEach(function (q, i) {
+        var on = d.rel.indexOf(i) >= 0;
+        q.classList.toggle('off', !on);
+        q.querySelector('small').textContent = on ? '' : 'לא משנה בתשובות האלה';
+        q.querySelectorAll('button').forEach(function (b) { b.classList.toggle('on', (b.getAttribute('data-v') === '1') === v[i]); });
+      });
+      document.querySelectorAll('#n5-sc-svg .n05-scb').forEach(function (g) {
+        var hit = g.getAttribute('data-k') === d.k, r = g.querySelector('rect');
+        g.classList.toggle('dim', !hit);
+        r.setAttribute('stroke', hit ? '#fbbf24' : '#8ba0b5');
+        r.setAttribute('stroke-width', hit ? '4' : '2.5');
+        r.setAttribute('fill', hit ? '#fbbf2422' : '#101b30');
+      });
+      document.querySelectorAll('#n5-sc-svg .n05-scl').forEach(function (p) {
+        var hit = p.getAttribute('data-k') === d.k;
+        p.setAttribute('stroke', hit ? '#fbbf24' : '#8ba0b5'); p.setAttribute('stroke-width', hit ? '5' : '2');
+        p.setAttribute('opacity', hit ? '1' : '.35');
+      });
+      outBox.innerHTML = '<b>ההיקף: ' + SC[d.k].t + '.</b> חשודים: ' + SC[d.k].s;
+    }
+    qs.forEach(function (q, i) {
+      q.querySelectorAll('button').forEach(function (b) {
+        b.addEventListener('click', function () { v[i] = b.getAttribute('data-v') === '1'; render(); });
+      });
+    });
+    render();
+  });
+
+  /* ================= slide 7: prefix and the local/remote decision ================= */
+  safe('prefix', function () {
+    var rng = $('n5-pf'); if (!rng) return;
+    function ip2n(s) { var p = s.split('.').map(Number); return ((p[0] << 24) >>> 0) + (p[1] << 16) + (p[2] << 8) + p[3]; }
+    function n2ip(n) { return [n >>> 24, (n >>> 16) & 255, (n >>> 8) & 255, n & 255].join('.'); }
+    function mask(p) { return p === 0 ? 0 : (0xFFFFFFFF << (32 - p)) >>> 0; }
+    function same(a, b, p) { var m = mask(p); return ((a & m) >>> 0) === ((b & m) >>> 0); }
+    var ME = ip2n('10.20.30.27'), PLAN = 24;
+    var DEST = [
+      { n: 'השער', a: '10.20.30.1' }, { n: 'תחנה שכנה', a: '10.20.30.40' }, { n: 'תחנה שכנה', a: '10.20.30.200' },
+      { n: 'שרת ' + L('DNS'), a: '10.20.10.10' }, { n: L('server.unit'), a: '10.20.40.25' }, { n: 'שרת באתר אחר', a: '172.16.5.10' }
+    ];
+    var tb = document.querySelector('#n5-pf-tbl tbody'), bits = $('n5-bits');
+    var cells = [];
+    for (var o = 0; o < 4; o++) {
+      var grp = document.createElement('span');
+      for (var b = 0; b < 8; b++) { var c = document.createElement('i'); var bit = 31 - (o * 8 + b); c.textContent = (ME >>> bit) & 1; grp.appendChild(c); cells.push(c); }
+      bits.appendChild(grp);
+    }
+    function fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+    function render() {
+      var p = +rng.value, m = mask(p);
+      $('n5-pfv').textContent = '/' + p;
+      $('n5-mask').textContent = n2ip(m);
+      var net = (ME & m) >>> 0, last = (net | (~m >>> 0)) >>> 0;
+      $('n5-range').textContent = n2ip(net) + ' - ' + n2ip(last);
+      cells.forEach(function (c, i) { c.classList.toggle('net', i < p); c.classList.toggle('plan', i < PLAN); });
+      var fails = 0, ind = 0;
+      tb.innerHTML = DEST.map(function (d) {
+        var a = ip2n(d.a), pl = same(ME, a, PLAN), st = same(ME, a, p), res, cls;
+        if (pl && st) { res = L('ARP') + ' ישיר. עובד'; cls = 'ok'; }
+        else if (!pl && !st) { res = 'דרך השער. עובד'; cls = 'ok'; }
+        else if (st) { res = L('ARP') + ' בלי תשובה. נכשל'; cls = 'bad'; fails++; }
+        else { res = 'דרך השער במקום ישירות'; cls = 'warn'; ind++; }
+        return '<tr' + (pl !== st ? ' class="flag"' : '') + '><td>' + d.n + '</td><td class="fx">' + d.a + '</td><td>' + (pl ? 'מקומי' : 'מרוחק') + '</td><td' + (pl !== st ? ' class="' + cls + '"' : '') + '>' + (st ? 'מקומי' : 'מרוחק') + '</td><td class="' + cls + '">' + res + '</td></tr>';
+      }).join('');
+      var sum = $('n5-pf-sum'), size = Math.pow(2, 32 - p);
+      if (p < PLAN) {
+        sum.className = 'key ' + (fails ? 'red' : 'amber');
+        sum.innerHTML = L('Prefix') + ' קצר מהתכנון: ' + L(fmt(size - 256)) + ' כתובות מרוחקות נראות לתחנה מקומיות. ' +
+          (fails ? 'אליהן היא שולחת ' + L('ARP') + ' ואף אחד לא עונה.' : 'אף יעד ברשימה לא נפגע, והתקלה תופיע רק מול כתובות בטווח הזה.');
+      } else if (p > PLAN) {
+        sum.className = 'key amber';
+        sum.innerHTML = L('Prefix') + ' ארוך מהתכנון: ' + L(fmt(256 - size)) + ' כתובות במקטע נראות לתחנה מרוחקות. ' +
+          (ind ? 'התעבורה אליהן עוברת דרך השער ובדרך כלל עובדת, ולכן קשה לגלות את זה.' : 'אף יעד ברשימה לא נמצא בטווח הזה.');
+      } else {
+        sum.className = 'key';
+        sum.innerHTML = 'תואם לתכנון: כל יעד מקבל את ההחלטה הנכונה.';
+      }
+    }
+    onInput(rng, render);
+    render();
+  });
+
+  /* ================= slide 13: averages hide spikes ================= */
+  safe('average', function () {
+    var svg = $('n5-av-svg'); if (!svg) return;
+    var N = 900, B1 = 250, B2 = 640, win = 60;
+    function hA(i) { return (Math.imul(i, 2654435761 | 0) >>> 0) / 4294967296; }
+    function hB(i) { return ((Math.imul(i, 2246822519 | 0) + 3266489917) >>> 0) / 4294967296; }
+    function series(Lb) {
+      var s = [];
+      for (var i = 0; i < N; i++) {
+        var o = -1;
+        if (i >= B1 && i < B1 + Lb) o = i - B1; else if (i >= B2 && i < B2 + Lb) o = i - B2;
+        if (o >= 0) {
+          var core = o >= Math.floor(Lb / 3) && o < Math.floor(Lb / 3) + Math.floor(Lb / 4);
+          s.push(core || hB(i) < 0.35 ? null : 120 + Math.floor(hA(i) * 280));
+        } else s.push(1 + Math.floor(hA(i) * 4));
+      }
+      return s;
+    }
+    function stats(s, w) {
+      var sum = 0, rec = 0, maxR = 0, run = 0, best = 0, bk = [];
+      s.forEach(function (x) { if (x === null) { run++; if (run > best) best = run; } else { run = 0; sum += x; rec++; if (x > maxR) maxR = x; } });
+      for (var k = 0; k < N; k += w) {
+        var bs = 0, br = 0, n = Math.min(w, N - k);
+        for (var j = k; j < k + n; j++) if (s[j] !== null) { bs += s[j]; br++; }
+        bk.push({ a: br ? bs / br : null, l: 100 * (n - br) / n, k: k, n: n });
+      }
+      var mb = 0, ml = 0;
+      bk.forEach(function (b) { if (b.a !== null && b.a > mb) mb = b.a; if (b.l > ml) ml = b.l; });
+      return { avg: sum / rec, loss: 100 * (N - rec) / N, mb: mb, mr: maxR, wl: ml, run: best, bk: bk };
+    }
+    var X0 = 62, X1 = 1086, YT = 26, YB = 212, LT = 236, LB = 276, RMAX = 400;
+    function x(t) { return X0 + (X1 - X0) * t / N; }
+    function y(ms) { return YB - (YB - YT) * Math.min(ms, RMAX) / RMAX; }
+    function draw(st) {
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+      [0, 100, 200, 300, 400].forEach(function (v) {
+        svg.appendChild(el('line', { x1: X0, x2: X1, y1: y(v), y2: y(v), stroke: 'rgba(255,255,255,.08)' }));
+        svg.appendChild(el('text', { x: X0 - 8, y: y(v) + 5, 'text-anchor': 'end', fill: '#8ba0b5', 'font-size': 13, 'class': 'ltrtx' }, v));
+      });
+      svg.appendChild(el('text', { x: X0 - 8, y: YT - 10, 'text-anchor': 'end', fill: '#8ba0b5', 'font-size': 12, 'class': 'ltrtx' }, 'ms'));
+      for (var mnt = 0; mnt <= 15; mnt += 3) {
+        svg.appendChild(el('text', { x: x(mnt * 60), y: LB + 15, 'text-anchor': 'middle', fill: '#8ba0b5', 'font-size': 13 }, mnt));
+      }
+      svg.appendChild(el('text', { x: X0 - 14, y: LB + 15, 'text-anchor': 'start', fill: '#8ba0b5', 'font-size': 12 }, 'דקות'));
+      svg.appendChild(el('rect', { x: X0, y: LT, width: X1 - X0, height: LB - LT, fill: 'rgba(255,255,255,.03)' }));
+      svg.appendChild(el('text', { x: X0 - 8, y: LT + 16, 'text-anchor': 'end', fill: '#fb7185', 'font-size': 12 }, 'אובדן'));
+      var d = '', open = false;
+      st.bk.forEach(function (b) {
+        if (b.l > 0) {
+          var h = (LB - LT) * b.l / 100;
+          svg.appendChild(el('rect', { x: x(b.k), y: LB - h, width: Math.max(1.2, x(b.k + b.n) - x(b.k) - (win > 1 ? 1 : 0)), height: h, fill: '#fb7185', opacity: '.85' }));
+        }
+        if (b.a === null) { open = false; return; }
+        var yy = y(b.a).toFixed(1);
+        d += (open ? ' V' + yy : ' M' + x(b.k).toFixed(1) + ' ' + yy) + ' H' + x(b.k + b.n).toFixed(1);
+        open = true;
+      });
+      svg.appendChild(el('path', { d: d, fill: 'none', stroke: '#22d3ee', 'stroke-width': win === 1 ? 2 : 3, 'stroke-linejoin': 'round' }));
+      var ya = y(st.avg);
+      svg.appendChild(el('line', { x1: X0, x2: X1, y1: ya, y2: ya, stroke: '#4ade80', 'stroke-width': 2, 'stroke-dasharray': '7 6' }));
+      svg.appendChild(el('text', { x: X1 - 4, y: ya - 7, 'text-anchor': 'start', fill: '#4ade80', 'font-size': 14 }, 'ממוצע כולל'));
+    }
+    var lenR = $('n5-av-len');
+    function f1(v) { return v.toFixed(1); }
+    function render() {
+      var Lb = +lenR.value, st = stats(series(Lb), win);
+      $('n5-av-lenv').textContent = Lb + ' s';
+      $('n5-av-avg').textContent = f1(st.avg) + ' ms';
+      $('n5-av-loss').textContent = f1(st.loss) + '%';
+      $('n5-av-mb').textContent = f1(st.mb) + ' ms';
+      $('n5-av-mr').textContent = st.mr + ' ms';
+      $('n5-av-wl').textContent = f1(st.wl) + '%';
+      $('n5-av-run').textContent = st.run + ' s';
+      draw(st);
+    }
+    document.querySelectorAll('.n05-win').forEach(function (b) {
+      b.addEventListener('click', function () {
+        win = +b.getAttribute('data-w');
+        document.querySelectorAll('.n05-win').forEach(function (o) { o.classList.toggle('on', o === b); });
+        render();
+      });
+    });
+    onInput(lenR, render);
+    render();
+  });
+
+  /* ================= slide 15: exercise tickets ================= */
+  safe('tickets', function () {
+    var txt = $('n5-tk-txt'); if (!txt) return;
+    var TK = [
+      { t: 'מחשב נייד בחדר הישיבות לא נכנס לשום אתר.', s: 'רק המחשב הזה, בשקע שבקיר. בתחנה הקבועה בחדר הכול עובד.',
+        l: ['PS> Get-NetAdapter | ft Name,Status,LinkSpeed', '', 'Name      Status  LinkSpeed', '----      ------  ---------', 'Ethernet  Up      1 Gbps', '',
+          'C:\\> ipconfig', '', 'Ethernet adapter Ethernet:', '', '!   Autoconfiguration IPv4 Address. . : 169.254.83.12', '   Subnet Mask . . . . . . . . . . . : 255.255.0.0', '   Default Gateway . . . . . . . . . :'] },
+      { t: 'האתר הפנימי ' + L('server.unit') + ' לא נפתח.', s: 'רק בתחנה הזו. בתחנה הסמוכה האתר נפתח.',
+        l: ['C:\\> nslookup server.unit', 'Server:  dns1.unit', 'Address:  10.20.10.10', '', 'Name:    server.unit', 'Address:  10.20.40.25', '',
+          'C:\\> ping -n 1 server.unit', '', '!Pinging server.unit [10.20.40.12] with 32 bytes of data:', 'Request timed out.'] },
+      { t: 'כל המשתמשים בתחנה מקבלים ״שם משתמש או סיסמה שגויים״ בכניסה לתיקייה המשותפת.', s: 'מתחנות אחרות אותם משתמשים נכנסים. השעון בתחנה מראה ' + L('09:51') + ', ובתחנה הסמוכה ' + L('10:04') + '.',
+        l: ['C:\\> klist', '', 'Current LogonId is 0:0x3e7b1', '', '!Cached Tickets: (0)', '',
+          'C:\\> w32tm /query /status', '!Leap Indicator: 3(not synchronized)', 'Stratum: 0 (unspecified)', '!Last Successful Sync Time: unspecified', '!Source: Local CMOS Clock'] }
+    ];
+    var con = $('n5-tk-con'), show = printer(con);
+    function setT(i) {
+      document.querySelectorAll('.n05-tk').forEach(function (b) { b.classList.toggle('on', +b.getAttribute('data-t') === i); });
+      txt.innerHTML = TK[i].t + '<small>' + TK[i].s + '</small>';
+      show(TK[i].l);
+    }
+    document.querySelectorAll('.n05-tk').forEach(function (b) { b.addEventListener('click', function () { setT(+b.getAttribute('data-t')); }); });
+    setT(0);
+  });
+})();
+</script></body></html>

@@ -1,0 +1,23 @@
+{
+  "id": "gaza",
+  "name": "עוטף עזה",
+  "nameEn": "Gaza Envelope",
+  "blurb": "מישור חופי כמעט שטוח — קו-ראייה ארוך, אבל מעט מסתור טבעי.",
+  "gridSize": 384,
+  "bounds": {
+    "west": 34.27734375,
+    "east": 34.716796875,
+    "north": 31.653381399663985,
+    "south": 31.278550858946524
+  },
+  "elevation": {
+    "min": -6,
+    "max": 223
+  },
+  "spanMeters": {
+    "x": 41726,
+    "y": 41656
+  },
+  "source": "AWS Terrain Tiles (terrarium / SRTM)",
+  "zoom": 12
+}

@@ -1,0 +1,399 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>IP, ניתוב, DNS ו-ARP</title><style>
+@page{size:A4;margin:52pt 54pt 46pt 54pt;
+  @bottom-right{content:"מחלקת תקשוב · IP וניתוב · שיעור 2";
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:right;vertical-align:top;padding-top:10pt;direction:rtl}
+  @bottom-left{content:counter(page) " / " counter(pages);
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:left;vertical-align:top;padding-top:10pt;direction:ltr}}
+@page:first{@bottom-right{content:""}@bottom-left{content:""}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Liberation Sans",Arial,sans-serif;color:#1b2a38;font-size:10pt;line-height:1.55;direction:rtl}
+.pg{page-break-after:always}
+.pg:last-child{page-break-after:auto}
+.eyebrow{font-size:9pt;font-weight:bold;color:#0f2740;margin-bottom:9pt}
+h1{font-size:20pt;font-weight:bold;margin:0 0 14pt;color:#0f2740;line-height:1.24;text-align:center}
+h2{font-size:13pt;margin:16pt 0 8pt;color:#0f2740;font-weight:bold}
+.rule{border:0;border-top:1px solid #dbe3ea;margin:0 0 16pt}
+p{margin:0 0 7pt}
+ul{margin:0 0 7pt;padding-right:15pt}
+li{margin-bottom:4pt}
+
+/* stat chips */
+.chips{display:flex;gap:11pt;margin:0 0 16pt}
+.chip{flex:1;background:#0f2740;border-radius:6pt;padding:11pt 8pt;text-align:center}
+.chip b{display:block;font-size:14pt;color:#3fd0e0;line-height:1.15}
+.chip span{display:block;font-size:8.5pt;color:#b6c6d4;margin-top:3pt}
+
+/* two rounded cards with a coloured inner edge */
+.cards{display:flex;gap:11pt;margin:0 0 14pt}
+.cards.three>*{flex:1}
+.cards>*{flex:1;min-width:0}
+.pc{border-radius:7pt;padding:10pt 13pt;position:relative;overflow:hidden}
+.pc::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.pc h3{margin:0 0 5pt;font-size:10pt;font-weight:bold}
+.pc p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.pc p:last-child{margin-bottom:0}
+.pc.teal{background:#e9f4f7}.pc.teal::after{background:#0f8793}.pc.teal h3{color:#0f6f7a}
+.pc.amber{background:#fdf4e6}.pc.amber::after{background:#e0a038}.pc.amber h3{color:#a8701a}
+.pc.red{background:#fdeef0}.pc.red::after{background:#d9556a}.pc.red h3{color:#a83a4c}
+.pc.green{background:#eef7f0}.pc.green::after{background:#4a9c62}.pc.green h3{color:#2f7546}
+
+/* full-width note block, same visual family */
+.note{border-radius:7pt;padding:9pt 13pt;margin:0 0 10pt;position:relative;overflow:hidden}
+.note::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.note h3{margin:0 0 4pt;font-size:9pt;font-weight:bold;letter-spacing:.02em}
+.note p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.note p:last-child{margin-bottom:0}
+.note.teal{background:#e9f4f7}.note.teal::after{background:#0f8793}.note.teal h3{color:#0f6f7a}
+.note.amber{background:#fdf4e6}.note.amber::after{background:#e0a038}.note.amber h3{color:#a8701a}
+.note.red{background:#fdeef0}.note.red::after{background:#d9556a}.note.red h3{color:#a83a4c}
+.note.green{background:#eef7f0}.note.green::after{background:#4a9c62}.note.green h3{color:#2f7546}
+
+/* dark headline band (used for the formula / the one-line rule of a page) */
+.band{background:#0f2740;border-radius:8pt;padding:14pt 18pt;margin:0 0 14pt;text-align:center;
+  color:#3fd0e0;font-size:16pt;font-weight:bold}
+.band.sm{font-size:12.5pt;padding:11pt 16pt}
+.band .w{color:#fff}
+
+table{width:100%;border-collapse:collapse;font-size:9pt;margin:0 0 11pt}
+th,td{border:1px solid #dbe3ea;padding:5pt 8pt;text-align:right;vertical-align:top}
+th{background:#eef4f8;color:#0f6f7a;font-weight:bold}
+td.k{font-weight:bold;color:#0f2740}
+td.n,th.n{text-align:center;width:52pt;white-space:nowrap;direction:ltr;unicode-bidi:embed}
+.ltr{direction:ltr;unicode-bidi:embed;display:inline-block}
+
+.title-pg{height:660pt;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.title-pg .kick{font-size:10pt;color:#0f8793;font-weight:bold;margin-bottom:20pt}
+.title-pg h1{font-size:27pt;margin-bottom:12pt}
+.title-pg .sub{font-size:12pt;color:#5b7186;margin:0 auto 26pt;max-width:400pt;line-height:1.55}
+.title-pg .meta{font-size:9.5pt;color:#5b7186}
+</style></head><body>
+<!-- שער -->
+<div class="pg title-pg">
+  <div class="kick">מחלקת תקשוב · רשתות · שיעור 2 · מדריך למעביר השיעור</div>
+  <h1>IP, ניתוב, DNS ו-ARP</h1>
+  <div class="sub">הסבר לכל שקופית: מה מוצג, מה צריך להבין כדי להסביר למה התחנה מחליטה כך, איך מפעילים את ההדגמות, אילו שאלות יעלו ואיפה חניכים מתבלבלים.</div>
+  <div class="chips" style="width:400pt;margin:0 auto">
+    <div class="chip"><b>16</b><span>שקופיות</span></div>
+    <div class="chip"><b>73 דקות</b><span>משך מומלץ</span></div>
+    <div class="chip"><b>4</b><span>שקופיות עם הדגמה חיה</span></div>
+  </div>
+  <div class="meta" style="margin-top:20pt">לטכנאי שטח בסביבת Windows מנוהלת · כתובות קבועות</div>
+</div>
+
+<!-- הכנה -->
+<div class="pg">
+  <div class="eyebrow">00 · לפני השיעור</div>
+  <h1>מטרה, הכנה וחלוקת זמן</h1><hr class="rule">
+  <h2 style="break-after:avoid">למי המדריך הזה</h2>
+  <p>המדריך כתוב למי שמעביר את השיעור ולא בהכרח עבד עם רשתות לעומק. לכל שקופית יש רקע רחב יותר ממה שעל המסך, כדי שתוכלו להסביר מה קורה בתוך התחנה ולענות כשחניך שואל ״למה״. את הרקע לא מקריאים לכיתה; קחו ממנו מה שמתאים לקבוצה.</p>
+
+  <h2 style="break-after:avoid">מטרת השיעור</h2>
+  <p>להסביר מה התחנה בודקת לפני שהיא שולחת מסגרת: מסכה, Gateway, טבלת ניתוב, ARP ופתרון שם. השיעור עוקב אחרי בקשה אחת, מתחנה <span class="ltr">10.20.30.15</span> אל השרת <span class="ltr">server.unit</span> בכתובת <span class="ltr">10.20.40.25</span>. בסופו חניך אמור להחליט מתוך כתובת ומסכה אם יעד מקומי או מרוחק, להסביר מה ARP והנתב עושים בדרך, לקרוא שורה בטבלת ניתוב, ולהפריד בין תקלת DNS לתקלה בקישור או בשירות.</p>
+
+  <h2 style="break-after:avoid">הכנה</h2>
+  <ul>
+    <li>פתחו את המצגת ב-Chrome או ב-Edge במחשב שמחובר למקרן ועברו על כל השקופיות. היא לא צריכה חיבור לרשת.</li>
+    <li>הניווט: חצים או רווח, <span class="ltr">Home</span> ו-<span class="ltr">End</span> לקצוות, <span class="ltr">N</span> פותח וסוגר את הערות המדריך, <span class="ltr">F</span> מסך מלא.</li>
+    <li>בשקופיות 2, 9, 14 ו-16 יש שדות להקלדה וכפתורים. כשהסמן בתוך שדה, החצים, הרווח והאותיות כותבים בשדה ולא מעבירים שקופית. <span class="ltr">Esc</span> או לחיצה מחוץ לשדה מחזירים את הניווט. אחרי לחיצה על כפתור בהדגמה המקשים מנווטים כרגיל.</li>
+    <li>בשקופיות 4, 5, 8, 10, 12 ו-13 נקודות קטנות נעות על הקווים ומדמות חבילות, ובשקופית 2 המסלול שנבחר מסומן בקו מקווקו שזז. המקש <span class="ltr">A</span> עוצר את התנועה ומציג ״אנימציות כבויות״; לחיצה נוספת מחזירה אותה.</li>
+    <li>מספרי השקופיות במדריך הם המספרים שבמונה בתחתית המסך (״2 / 16״). המספר הקטן שליד הכותרת בכל שקופית נמוך באחד, כי שקופית השער לא ממוספרת.</li>
+    <li>הכינו תרשים כתובות פשוט עם שתי רשתות (הכתובות בנספח), ובחרו כתובת IP ושם שירות מוכרים לחניכים לדוגמה מילולית.</li>
+    <li>זכרו שהסביבה עובדת בכתובות קבועות, שמוגדרות בתחנה עצמה ולא מתקבלות מ-DHCP, ולכן טעות הקלדה בכתובת, במסכה, ב-Gateway או בשרת ה-DNS היא תקלת שטח אמיתית. עליה בנוי התרגיל בשקופית 14.</li>
+  </ul>
+  <div class="note amber" style="break-inside:avoid"><h3>מה לא מלמדים בשיעור הזה</h3>
+    <p>השיעור נשאר ברמת קריאה והבנה של ההחלטות שהתחנה מקבלת. ניהול נתבים ושרתי DNS לא נכלל, וגם לא חישוב בינארי ביד; ההדגמה בשקופית 2 מציגה ביטים רק באוקטטה שבה עובר גבול ה-Prefix, וזה להמחשה. רשומות SRV שייכות לשיעור Domain, והפקודות עצמן לשיעור הכלים. DHCP מקצה הגדרות רשת באופן דינמי; בסביבה הסטטית מספיק לזהות אם הוא מופעל, בלי ללמוד את תהליך ההקצאה.</p>
+  </div>
+
+  <h2 style="break-after:avoid">חלוקת זמן מוצעת</h2>
+  <table style="break-inside:avoid">
+    <tr><th>חלק</th><th>שקופיות</th><th>מה מעבירים</th><th class="n">דקות</th></tr>
+    <tr><td class="k">פתיחה</td><td class="n"><span class="ltr">1-2</span></td><td>מקומי או מרוחק, בהדגמה חיה</td><td class="n">9</td></tr>
+    <tr><td class="k">כתובת ומסכה</td><td class="n"><span class="ltr">3-4</span></td><td>Prefix והחלטת רשת</td><td class="n">7</td></tr>
+    <tr><td class="k">ARP</td><td class="n"><span class="ltr">6-7</span></td><td>מיפוי IP מקומי ל-MAC</td><td class="n">9</td></tr>
+    <tr><td class="k">ניתוב</td><td class="n"><span class="ltr">5, 8-9</span></td><td>Gateway, נתב, וטבלת נתיבים בהדגמה חיה</td><td class="n">13</td></tr>
+    <tr><td class="k">DNS</td><td class="n"><span class="ltr">10-11</span></td><td>שם, רשומה ו-Cache</td><td class="n">10</td></tr>
+    <tr><td class="k">בידוד תקלה</td><td class="n"><span class="ltr">12-13</span></td><td>IP מול שם, ICMP מול שירות</td><td class="n">8</td></tr>
+    <tr><td class="k">תרגול</td><td class="n">14</td><td>הגדרה שגויה ומה מפסיק לעבוד</td><td class="n">10</td></tr>
+    <tr><td class="k">מגבלות ההדגמות</td><td class="n">15</td><td>מה הרשת בהדגמות מפשטת</td><td class="n">2</td></tr>
+    <tr><td class="k">סגירה</td><td class="n">16</td><td>הדרך המלאה מהשם למסגרת, בהדגמה חיה</td><td class="n">5</td></tr>
+  </table>
+  <p>השיעור לוקח כ-73 דקות. ההדגמות בשקופיות 2, 9 ו-16 לוקחות יחד כ-8 דקות יותר מהסבר על איור, התרגול כ-10 ושקופית המגבלות כ-2. שקופיות 3 ו-4 עוברות מהר יותר, כי את ההשוואה עצמה החניכים כבר ראו בהדגמה, וזה חוסך כ-2 דקות. כשהזמן קצר, אפשר להעביר את התרגול (14) כפתיחה לשיעור הבא ולהסתפק בשקופית 9 בברירת המחדל ובשרת C; כך יורדים לכ-61 דקות.</p>
+  <p>שקופית 5 (Gateway) נספרת בחלק הניתוב, אבל במצגת היא באה לפני ARP, כי ARP ליעד מרוחק פונה ל-Gateway.</p>
+  <div class="note green" style="break-inside:avoid"><h3>שאלה לפתיחה</h3>
+    <p>למה תחנה צריכה את כתובת ה-MAC של ה-Gateway ולא את כתובת ה-MAC של שרת מרוחק? שאלו ואל תענו מיד. התשובה נבנית בשקופיות <span class="ltr">5-8</span>.</p>
+  </div>
+</div>
+
+<!-- 1-2 -->
+<div class="pg">
+  <div class="eyebrow">01 · שקופיות <span class="ltr">1-2</span></div>
+  <h1>פתיחה: מקומי או מרוחק</h1><hr class="rule">
+
+  <h2 style="break-after:avoid">שקופית 1 · IP וניתוב: מתי פונים ישירות ומתי דרך שער</h2>
+  <p>שקופית השער. לאורך השיעור עוקבים אחרי חבילה אחת אל שרת שפונים אליו לפי שם. השם נפתר לכתובת, התחנה מחליטה אם היעד מקומי או מרוחק, ואז מחפשת את ה-MAC של היעד הבא. במצגת DNS מגיע מאוחר (שקופיות <span class="ltr">10-12</span>), אף שבבקשה אמיתית הוא קורה ראשון; בשקופית 16 השלבים חוזרים לסדר האמיתי. כאן שואלים את שאלת הפתיחה.</p>
+
+  <h2 style="break-after:avoid">שקופית 2 · התחנה בודקת קודם אם היעד נמצא ברשת שלה</h2>
+  <p><strong>על המסך:</strong> מימין שדה לכתובת של מחשב A, סרגל ל-Prefix (מ-<span class="ltr">/8</span> עד <span class="ltr">/30</span>) עם המסכה שלו, שדה לכתובת היעד עם כפתורים ״מחשב B״ ו״שרת C״, וה-Gateway של A, <span class="ltr">10.20.30.1</span>, שאינו משתנה. מתחת לשדות טבלה: הכתובת של A, המסכה, ובשורה השלישית התוצאה של AND ביניהן, חלק הרשת של A. אותו דבר שוב ליעד. אוקטטה שזהה בשני חלקי הרשת צבועה בירוק, ואוקטטה ששונה באדום. משמאל תרשים: <span class="ltr">A</span>, <span class="ltr">B</span> וה-Gateway מחוברים למתג ברשת המקומית <span class="ltr">10.20.30.0/24</span>, ושרת C ברשת אחרת שמאחורי ה-Gateway. המסלול שהתחנה בחרה מסומן בקו מקווקו, ומתחת לתרשים כתוב מה התחנה מחליטה, ושורה קצרה שמשווה את ההחלטה למבנה הרשת בפועל.</p>
+  <p><strong>רקע.</strong> בכל תחנה מוגדרות כתובת, מסכה, Default Gateway ושרת DNS. לפני כל שליחה התחנה משווה את חלק הרשת של כתובת היעד לחלק הרשת של הכתובת שלה, לפי המסכה שלה. אם הם זהים, היעד איתה על אותו קישור מקומי, והמסגרת נשלחת ישירות ל-MAC שלו. אם הם שונים, המסגרת נשלחת ל-Gateway. כתובת היעד בחבילה זהה בשני המקרים; משתנה רק המכשיר שמקבל את המסגרת בקישור הראשון.</p>
+  <p>את חלק הרשת מוציאים בפעולת AND בין הכתובת למסכה. ביט 1 במסכה משאיר את הביט של הכתובת, ביט 0 מאפס אותו. לכן באוקטטה שבה המסכה 255 נשארת האוקטטה כמו שהיא, ובאוקטטה שבה המסכה 0 יוצא 0. ב-<span class="ltr">/24</span> חלק הרשת של <span class="ltr">10.20.30.15</span> הוא <span class="ltr">10.20.30.0</span>. רק כשה-Prefix אינו כפולה של 8 הגבול עובר בתוך אוקטטה, ואז ההדגמה מציגה מתחת לאוקטטה הזו את שמונת הביטים שלה, עם ביטי הרשת מודגשים.</p>
+  <p>ההשוואה נעשית לפי המסכה של התחנה השולחת בלבד. A לא יודע איזו מסכה מוגדרת ב-B או ב-C, ולכן בהדגמה משנים רק את המסכה של A. התרשים מראה את מבנה הרשת האמיתי. כשההחלטה של A לא מתאימה לו, השורה שמתחת לתרשים אומרת מה יקרה בפועל.</p>
+  <p><strong>ההדגמה.</strong> בפתיחה A הוא <span class="ltr">10.20.30.15/24</span> והיעד שרת C, <span class="ltr">10.20.40.25</span>. בטבלה חלק הרשת יוצא <span class="ltr">10.20.30.0</span> מול <span class="ltr">10.20.40.0</span>: שתי האוקטטות הראשונות ירוקות והשלישית אדומה. בתיבה הצהובה: ״מרוחק״, ושואלים ב-ARP על <span class="ltr">10.20.30.1</span>, וכתובת היעד בחבילה נשארת <span class="ltr">10.20.40.25</span>. בתרשים המסלול עובר מ-A למתג, ל-Gateway ולשרת C, ומתחתיו בירוק ״ההחלטה מתאימה למבנה הרשת״. מכאן:</p>
+  <ul>
+    <li>לחצו ״מחשב B״. חלק הרשת <span class="ltr">10.20.30.0</span> בשני הצדדים, הכול ירוק, והתיבה אומרת ״מקומי״ ו-ARP על <span class="ltr">10.20.30.80</span>. המסלול עובר מ-A למתג ומשם ישר ל-B, וה-Gateway לא נדלק.</li>
+    <li>לחצו ״שרת C״ והזיזו את הסרגל ל-<span class="ltr">/16</span> (מסכה <span class="ltr">255.255.0.0</span>). האוקטטה השלישית עוברת לחלק התחנה ומאפירה, חלק הרשת יוצא <span class="ltr">10.20.0.0</span> בשני הצדדים, והתחנה מחליטה ״מקומי״ ושואלת ב-ARP על <span class="ltr">10.20.40.25</span>. בתרשים הקו מ-A למתג אדום, שרת C מוקף באדום מקווקו, ומתחת למתג כתוב ״אין תשובה ל-ARP״. השורה האדומה: ״בפועל היעד מאחורי ה-Gateway. לשאלת ה-ARP אין תשובה, והמסגרת לא נשלחת.״ זו תקלת המסכה השגויה מסעיף ״בשטח״ שלמטה.</li>
+    <li>אם הקבוצה חזקה: <span class="ltr">/25</span> (מסכה <span class="ltr">255.255.255.128</span>) והקלידו ביעד <span class="ltr">10.20.30.200</span>. מתחת לאוקטטה הרביעית מופיעים הביטים, ובשורת המסכה <span class="ltr">10000000</span>. חלק הרשת של A הוא <span class="ltr">10.20.30.0</span> ושל היעד <span class="ltr">10.20.30.128</span>, ולכן ״מרוחק״, אף ששתי הכתובות באותה <span class="ltr">/24</span>. בתרשים מופיעה תיבת ״יעד״ ברשת המקומית, והמסלול הולך ל-Gateway וחוזר דרך המתג. השורה הצהובה: ״בפועל היעד מחובר לאותו מתג. המסגרת עוברת דרך ה-Gateway בלי צורך.״</li>
+  </ul>
+  <p>אפשר גם לשנות את הכתובת של A. אם מקלידים למשל <span class="ltr">10.20.31.15</span>, השורה האדומה אומרת שהכתובת של A לא שייכת לרשת שאליה הוא מחובר: טעות הקלדה בכתובת עצמה. כתובת לא תקינה (אוקטטה מעל 255, חסרה נקודה) מסמנת את השדה באדום, והטבלה מציגה סימני שאלה.</p>
+  <p><strong>בשטח.</strong> תחנה שמוגדרת בטעות עם <span class="ltr">255.255.0.0</span> במקום <span class="ltr">255.255.255.0</span> תחשיב את <span class="ltr">10.20.40.25</span> כיעד מקומי, תשאל עליו ב-ARP ולא תקבל תשובה. השרת ייראה ״לא זמין״ אף שה-Gateway תקין, והרשת המקומית ממשיכה לעבוד. המקרה ההפוך, מסכה ארוכה מדי כמו ב-<span class="ltr">/25</span>, מבלבל יותר: רוב הדברים עובדים, כי ה-Gateway מעביר את התעבורה בחזרה לרשת המקומית, ורק ביצועים חלשים או התנהגות מוזרה מול חלק מהתחנות מרמזים על התקלה.</p>
+  <table style="break-inside:avoid">
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">למה ב-<span class="ltr">/25</span> הכתובת <span class="ltr">10.20.30.200</span> ברשת אחרת?</td><td>הביט הראשון של האוקטטה הרביעית שייך עכשיו לחלק הרשת. כתובות <span class="ltr">0-127</span> הן רשת אחת, ו-<span class="ltr">128-255</span> רשת אחרת.</td></tr>
+    <tr><td class="k">ומה אם ב-B מוגדרת מסכה אחרת?</td><td>זה משפיע רק על מה ש-B מחליט כשהוא שולח. כל צד מחליט לפי המסכה שלו, ולכן מסכה שגויה בצד אחד יכולה לשבור תקשורת רק בכיוון אחד.</td></tr>
+  </table>
+  <div class="note red" style="break-inside:avoid"><h3>טעות נפוצה</h3>
+    <p>חניכים חושבים שכל התעבורה עוברת דרך ה-Gateway. בתרשים <span class="ltr">A</span>, <span class="ltr">B</span> וה-Gateway מחוברים כל אחד למתג, והמסלול מ-A ל-B לא נוגע ב-Gateway. הדגישו: גם אם ה-Gateway כבוי, A ו-B ממשיכים לתקשר.</p>
+  </div>
+</div>
+
+<!-- 3-4 -->
+<div class="pg">
+  <div class="eyebrow">02 · שקופיות <span class="ltr">3-4</span></div>
+  <h1>כתובת, Prefix והשוואת רשתות</h1><hr class="rule">
+
+  <h2 style="break-after:avoid">שקופית 3 · כתובת IP מזהה גם רשת וגם תחנה בתוך הרשת</h2>
+  <p><strong>על המסך:</strong> <span class="ltr">10.20.30.15/24</span> מחולקת לחלק הרשת (<span class="ltr">10.20.30</span>) ולחלק התחנה (15).</p>
+  <p><strong>רקע.</strong> כתובת <span class="ltr">IPv4</span> היא 32 ביט, שנכתבים כארבעה מספרים בין 0 ל-255 (אוקטטות) עם נקודות. ה-Prefix שאחרי הלוכסן אומר כמה ביטים מתחילת הכתובת שייכים לחלק הרשת; כל התחנות באותה רשת חולקות אותו ונבדלות בחלק התחנה.</p>
+  <p>ב-Windows וב-<span class="ltr">ipconfig</span> רואים את אותו מידע כמסכה. כל 255 במסכה מכסה אוקטטה שלמה של חלק הרשת: <span class="ltr">255.255.255.0</span> הוא <span class="ltr">/24</span>, <span class="ltr">255.255.0.0</span> הוא <span class="ltr">/16</span>. לא ממירים לבינארי. אפשר לחזור לשקופית 2 ולהזיז את הסרגל: ליד ה-Prefix מופיעה המסכה המתאימה.</p>
+  <p>ברשת <span class="ltr">/24</span> יש 256 כתובות, ושתיים שמורות: <span class="ltr">10.20.30.0</span> מציינת את הרשת עצמה, ו-<span class="ltr">10.20.30.255</span> היא כתובת השידור שלה. נשארות 254 לתחנות, לשרתים ולנתב. הכתובות בשיעור מתחילות ב-10, אחד הטווחים הפרטיים (יחד עם <span class="ltr">172.16.0.0/12</span> ו-<span class="ltr">192.168.0.0/16</span>), שמיועדים לרשתות פנימיות ולא מנותבים באינטרנט.</p>
+
+  <h2 style="break-after:avoid">שקופית 4 · ב־<span class="ltr">/24</span> שלוש האוקטטות הראשונות קובעות את הרשת</h2>
+  <p><strong>על המסך:</strong> שלוש הכתובות משקופית 2. קו ירוק מחבר את <span class="ltr">10.20.30.15</span> ו-<span class="ltr">10.20.30.80</span>, וקו אדום מסמן ש-<span class="ltr">10.20.40.25</span> ברשת אחרת (<span class="ltr">30 ≠ 40</span>).</p>
+  <p><strong>רקע.</strong> ב-<span class="ltr">/24</span> חלק הרשת הוא בדיוק שלוש האוקטטות הראשונות, ולכן משווים בעין. ציינו שהכלל נכון ל-<span class="ltr">/24</span> בלבד. ב-<span class="ltr">/16</span> משווים שתי אוקטטות, ושלוש הכתובות בשקופית כבר באותה רשת. כשה-Prefix אינו כפולה של 8 הגבול עובר בתוך אוקטטה: <span class="ltr">/25</span> חוצה את האוקטטה האחרונה ל-<span class="ltr">0-127</span> ול-<span class="ltr">128-255</span>, ולכן <span class="ltr">10.20.30.15</span> ו-<span class="ltr">10.20.30.200</span> ברשתות שונות. רק מזכירים שזה קיים, בלי לחשב. מי שראה את <span class="ltr">/25</span> בהדגמה בשקופית 2 כבר מכיר את המקרה.</p>
+  <p><strong>בשטח.</strong> <span class="ltr">10.20.30.15</span> ו-<span class="ltr">10.20.31.15</span> נראות שכנות, אבל ב-<span class="ltr">/24</span> התעבורה ביניהן עוברת בנתב. כשתחנה ״לא רואה״ תחנה אחרת, בודקים כתובת ומסכה בשתיהן.</p>
+</div>
+
+<!-- 5-7 -->
+<div class="pg">
+  <div class="eyebrow">03 · שקופיות <span class="ltr">5-7</span></div>
+  <h1>ה-Gateway, מנגנון ARP והמטמון שלו</h1><hr class="rule">
+
+  <h2 style="break-after:avoid">שקופית 5 · ה-Gateway הוא היעד המקומי שמקבל חבילות לרשתות אחרות</h2>
+  <p><strong>על המסך:</strong> מחשב ששולח ל-<span class="ltr">10.20.40.25</span>, מעוין ״יעד מקומי? מסכה מחליטה״, ושתי יציאות: ״כן: ARP ליעד״ ו״לא: ARP ל-Gateway״.</p>
+  <p><strong>רקע.</strong> ה-Default Gateway הוא כתובת של ממשק נתב (לפעמים חומת אש או מתג שמנתב) ברשת של התחנה. אליו נשלחת כל חבילה ליעד שאינו מקומי ושאין לו נתיב מפורט יותר (שקופית 9). כדי לשלוח אליו מסגרת התחנה צריכה את ה-MAC שלו, ומשיגה אותו ב-ARP.</p>
+  <p>כתובת ה-IP של ה-Gateway לא נכתבת בחבילה. בחבילה שיוצאת אל השרת המרוחק כתובת היעד היא <span class="ltr">10.20.40.25</span>, וה-Gateway מופיע רק כ-MAC היעד בכותרת ה-Ethernet. את ה-IP שלו התחנה צריכה רק כדי לשאול עליו ב-ARP. בשקופית 16 רואים את זה במסגרת עצמה: ה-MAC ביעד של ה-Gateway, וה-IP ביעד של השרת.</p>
+  <p>זו גם התשובה לשאלת הפתיחה: כתובת MAC תקפה רק בקישור המקומי. השרת המרוחק לא נמצא בקישור הזה, שאלת ARP לא מגיעה אליו, והמתג לא יודע לאן להעביר מסגרת שממוענת ל-MAC שלו. לכן ה-Gateway חייב להיות באותה רשת של התחנה, ו-Windows מתריע כשמגדירים אותו מחוצה לה.</p>
+  <p><strong>בשטח.</strong> התקלה הנפוצה: ה-IP והמסכה נראים תקינים, אבל ה-Gateway חסר או שגוי. הסימן: הרשת המקומית עובדת, תחנה שכנה או מדפסת, וכל מה שמחוצה לה לא. בתרגיל בשקופית 14 זו שאלה 2.</p>
+  <table style="break-inside:avoid">
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">ה-Gateway חייב להיות הכתובת שמסתיימת ב-1?</td><td>זה רק מנהג נפוץ. הכתובת נקבעת בתכנון הרשת, והתנאי היחיד הוא שתהיה באותה רשת של התחנה.</td></tr>
+  </table>
+
+  <h2 style="break-after:avoid">שקופית 6 · ARP מתרגם כתובת IP מקומית לכתובת MAC</h2>
+  <p><strong>על המסך:</strong> מחשב A שואל ״מי מחזיק <span class="ltr">10.20.30.80</span>?״, ומחשב B עונה ״אני. ה-MAC שלי הוא <span class="ltr">34-7A-...</span>״.</p>
+  <p><strong>רקע.</strong> כתובת MAC היא 48 ביט, שנכתבים כשישה זוגות ספרות הקסדצימליות; שלושת הבתים הראשונים מזהים את יצרן הכרטיס. כדי לשלוח מסגרת צריך את ה-MAC של המקבל, ו-ARP מוצא אותו: התחנה שולחת בקשה לכתובת השידור <span class="ltr">FF-FF-FF-FF-FF-FF</span>, כל מכשיר ב-VLAN מקבל אותה, ורק מי שמחזיק את ה-IP המבוקש עונה, ישירות לשואל.</p>
+  <p>VLAN הוא רשת מקומית לוגית על גבי מתגים, ומסגרות שידור לא יוצאות ממנו. נתב לא מעביר שידורים, ולכן ARP נעצר בגבול ה-VLAN. לכן ליעד מרוחק מבצעים ARP ל-Gateway. ל-ARP גם אין קשר לפתרון שמות; הוא מתחיל מכתובת IP שכבר ידועה.</p>
+  <p><strong>בשטח.</strong> ARP חושף גם כתובת כפולה. כשמגדירים כתובת, Windows בודק ב-ARP אם מכשיר אחר כבר מחזיק אותה, ואם כן מתריע על התנגשות כתובות IP ולא משתמש בה (ב-<span class="ltr">ipconfig</span> היא מסומנת <span class="ltr">Duplicate</span>). ברשת שבה כתובות מוקלדות ביד זו תקלה נפוצה.</p>
+  <div class="note red" style="break-inside:avoid"><h3>טעות נפוצה</h3>
+    <p>יש חניכים שחושבים ש-ARP ״מוצא שרתים באינטרנט״. בפועל הוא עובד רק ברשת המקומית.</p>
+  </div>
+
+  <h2 style="break-after:avoid">שקופית 7 · מערכת ההפעלה זוכרת לזמן מה תשובות ARP</h2>
+  <p><strong>על המסך:</strong> פלט של <span class="ltr">arp -a</span> כמו ב-Windows: שורת <span class="ltr">Interface: 10.20.30.15 --- 0xb</span>, ומתחתיה שלוש רשומות. ה-Gateway <span class="ltr">10.20.30.1</span> ומחשב B <span class="ltr">10.20.30.80</span> מסוג dynamic, וכתובת השידור <span class="ltr">10.20.30.255</span> עם <span class="ltr">ff-ff-ff-ff-ff-ff</span> מסוג static. מתחת לפלט אזהרה: רשומה חסרה או MAC לא צפוי מרמזים על בעיה ברשת המקומית או ב-VLAN.</p>
+  <p><strong>רקע.</strong> כדי לא לשדר שאלה לפני כל מסגרת, כל תשובת ARP נשמרת במטמון לזמן קצר. רשומה dynamic נלמדה מ-ARP ופגה לבד; רשומה static קבועה. שורת ה-Interface אומרת מאיזה כרטיס רשת נלקחה הטבלה: הכתובת של הכרטיס, ואחריה מספר הממשק בכתיב הקסדצימלי. בתחנה עם כמה כרטיסים, למשל עם VPN, יש טבלה נפרדת לכל אחד. בפלט אמיתי יש בדרך כלל עוד כמה שורות static לכתובות שידור ו-Multicast, ואלה תקינות.</p>
+  <p>שאלו מה חסר בטבלה. התשובה: השרת המרוחק <span class="ltr">10.20.40.25</span>. גם אחרי עבודה ארוכה מולו יופיע במטמון רק ה-Gateway, כי על השרת אף פעם לא שואלים ב-ARP.</p>
+  <p>רשומה חסרה אינה בהכרח תקלה; ייתכן שעוד לא הייתה תעבורה ליעד. בודקים אם הטבלה תואמת למה שמצפים לראות במצב תקין. בשקופית 16 יש לזה דוגמה: הנתב השני <span class="ltr">10.20.30.2</span> לא נמצא בטבלה הזו, ולכן לפני השליחה אליו נשלחת שאלת ARP.</p>
+  <p><strong>בשטח.</strong> MAC שונה ליד ה-Gateway ממה שרואים בתחנות אחרות באותה רשת מרמז על מכשיר שהוגדר בטעות עם אותה כתובת, ובמקרה חמור על התחזות (ARP Spoofing). Gateway שלא מופיע בכלל, אצל תחנה שניסתה לצאת מהרשת, מפנה לקישור המקומי: כבל, פורט או VLAN לא נכון במתג.</p>
+</div>
+
+<!-- 8-9 -->
+<div class="pg">
+  <div class="eyebrow">04 · שקופיות <span class="ltr">8-9</span></div>
+  <h1>מעבר דרך נתב וטבלת ניתוב</h1><hr class="rule">
+
+  <h2 style="break-after:avoid">שקופית 8 · הנתב מעביר את חבילת ה-IP במסגרת Ethernet חדשה</h2>
+  <p><strong>על המסך:</strong> מחשב A, שהכתובת שלו היא IP המקור, נתב עם שני ממשקי Ethernet, ושרת C, שהכתובת שלו היא IP היעד. בקישור הראשון <span class="ltr">MAC A → MAC R1</span>, ובשני <span class="ltr">MAC R2 → MAC C</span>. האותיות כמו בשקופית 2: A התחנה, C השרת שמעבר לנתב, ו-R1 הוא הממשק של הנתב שמשמש Gateway של A.</p>
+  <p><strong>רקע.</strong> החבילה (Packet) היא יחידת ה-IP, עם כתובות מקור ויעד. המסגרת (Frame) היא מעטפת ה-Ethernet סביבה, עם MAC מקור ו-MAC יעד, והיא תקפה לקישור אחד. הנתב מקבל את המסגרת בממשק <span class="ltr">R1</span> כי היא ממוענת ל-MAC שלו, מסיר את המעטפת, מחפש את כתובת היעד בטבלת הניתוב שלו, שואל ב-ARP על היעד (או על הנתב הבא) ובונה מסגרת חדשה מממשק <span class="ltr">R2</span>. הכתובת של <span class="ltr">R1</span> היא ה-Gateway של התחנות ברשת הראשונה.</p>
+  <p>בחבילה עצמה הנתב מוריד באחד את ה-TTL, מונה שמונע מחבילה להסתובב לנצח בלולאת ניתוב. כתובות המקור והיעד לא משתנות, כל עוד אין בדרך NAT, שמשנה כתובות בכוונה ולא נלמד כאן. כל נתב בדרך חוזר על זה, ולכן בכל קישור יש מסגרת חדשה ובכולן אותה חבילה.</p>
+  <p><strong>בשטח.</strong> השרת רואה כ-MAC מקור את הנתב, ובמטמון ה-ARP שלו לא תמצאו את התחנה המרוחקת. ב-Ping רואים את ה-TTL של התשובה. Windows מתחיל בדרך כלל ב-128, כך ש-<span class="ltr">TTL=127</span> משרת Windows אומר שבדרך נתב אחד.</p>
+  <table style="break-inside:avoid">
+    <tr><th style="width:36%">שאלה</th><th>תשובה</th></tr>
+    <tr><td class="k">גם מתג מחליף MAC?</td><td>לא. מתג מעביר את המסגרת כמו שהיא בתוך ה-VLAN. רק מכשיר שמנתב בין רשתות בונה מסגרת חדשה.</td></tr>
+    <tr><td class="k">אם ה-MAC מתחלף, איך השרת יודע למי לענות?</td><td>לפי כתובת ה-IP של המקור, שלא השתנתה. התשובה עוברת את אותו תהליך בכיוון ההפוך, דרך ה-Gateway של השרת.</td></tr>
+  </table>
+
+  <h2 style="break-after:avoid">שקופית 9 · הנתב או התחנה בוחרים את הנתיב הספציפי ביותר שמתאים ליעד</h2>
+  <p><strong>על המסך:</strong> שדה לכתובת יעד עם כפתורים (<span class="ltr">10.30.5.7</span>, ״שרת C״, ״מחשב B״) וכפתור ״בלי Default Gateway״. מתחת, פלט מקוצר של <span class="ltr">route print</span> בעמודות של Windows: <span class="ltr">Network Destination</span>, <span class="ltr">Netmask</span>, <span class="ltr">Gateway</span>, <span class="ltr">Interface</span> ו-Metric. משמאל להן נוספו שתי עמודות שאינן בפלט האמיתי: ״היעד AND המסכה״, ו״מתאים?״ עם ✓ ואורך ה-Prefix או ✗. השורה שנבחרה צבועה בירוק, ומתחת לטבלה כתוב לאן החבילה הולכת. בשורה התחתונה: <span class="ltr">10.20.30.2</span> הוא נתב נוסף ברשת המקומית, שמוביל לרשת <span class="ltr">10.30.0.0/16</span>.</p>
+  <p><strong>רקע.</strong> כל שורה בטבלת ניתוב אומרת: לכתובות ברשת הזו (יעד ומסכה) שולחים דרך ה-Gateway הזה, מהממשק הזה. גם לתחנת Windows יש טבלה כזו, וההחלטה שבשקופית 2 נעשית בעצם דרכה: כשמגדירים כתובת ומסכה נוספת שורה לרשת המקומית, שבעמודת ה-Gateway שלה כתוב On-link (שולחים ישירות), וכשמגדירים Default Gateway נוספת השורה <span class="ltr">0.0.0.0 0.0.0.0</span>.</p>
+  <p>כדי לבדוק אם שורה מתאימה, עושים AND בין כתובת היעד למסכה של השורה, בדיוק כמו בשקופית 2, ומשווים ל-Network Destination. מכל השורות שהיעד מתאים להן נבחרת זו עם המסכה הארוכה ביותר, כלומר זו שמתארת את קבוצת הכתובות הקטנה ביותר. מסכה <span class="ltr">0.0.0.0</span> מתאימה לכל כתובת, ולכן נתיב ברירת המחדל נבחר רק כשאין התאמה אחרת. בין שתי שורות באותו אורך מכריע המדד (Metric), והנמוך נבחר. ב-Windows הערך שמוצג הוא סכום של מדד הנתיב ומדד הממשק, ולכן מופיעים מספרים כמו 25 ו-281. בלי התאמה ובלי נתיב ברירת מחדל, Windows לא שולח את החבילה בכלל.</p>
+  <p>השורות בטבלה: ברירת המחדל דרך <span class="ltr">10.20.30.1</span>; הרשת המקומית <span class="ltr">10.20.30.0/24</span> On-link; הכתובת של התחנה עצמה ככתובת בודדת (<span class="ltr">/32</span>); כתובת השידור של הרשת; נתיב קבוע לרשת <span class="ltr">10.30.0.0/16</span> דרך הנתב השני <span class="ltr">10.20.30.2</span>; ו-<span class="ltr">127.0.0.0/8</span>, Loopback, שבו התחנה מדברת עם עצמה. עמודת Interface היא הכתובת של הכרטיס שדרכו יוצאים; כאן יש כרטיס אחד, ולכן כמעט בכל השורות כתוב <span class="ltr">10.20.30.15</span>.</p>
+  <p><strong>ההדגמה.</strong> בפתיחה היעד <span class="ltr">10.30.5.7</span>. שתי שורות מסומנות ✓: <span class="ltr">0.0.0.0</span> עם <span class="ltr">/0</span> ו-<span class="ltr">10.30.0.0</span> עם <span class="ltr">/16</span>, והשנייה ירוקה. מתחת: ״נבחר <span class="ltr">10.30.0.0/16</span>, ספציפי יותר מ-<span class="ltr">0.0.0.0/0</span>. יוצאים מהממשק <span class="ltr">10.20.30.15</span> אל <span class="ltr">10.20.30.2</span> ושואלים ב-ARP על <span class="ltr">10.20.30.2</span>.״ החבילה לא הולכת ל-Default Gateway, אף שהוא מוגדר.</p>
+  <ul>
+    <li>״שרת C״: רק שורת ברירת המחדל מתאימה, והתיבה הצהובה אומרת שהחבילה הולכת ל-<span class="ltr">10.20.30.1</span>, כמו בשקופיות 2 ו-5.</li>
+    <li>״מחשב B״: מתאימות ברירת המחדל ו-<span class="ltr">10.20.30.0/24</span>, ונבחרת <span class="ltr">/24</span>, On-link: שולחים ישירות ושואלים ב-ARP על <span class="ltr">10.20.30.80</span>.</li>
+    <li>״בלי Default Gateway״: השורה הראשונה נמחקת בקו. B עדיין עובד. לשרת C מופיעה תיבה אדומה: ״אין נתיב שמתאים ל-<span class="ltr">10.20.40.25</span>. בלי נתיב ברירת מחדל Windows לא שולח את החבילה בכלל.״ <span class="ltr">10.30.5.7</span> ממשיך לעבוד דרך הנתב השני. לחיצה נוספת מחזירה את השורה.</li>
+    <li>אפשר להקליד גם <span class="ltr">10.20.30.15</span> (הכתובת של התחנה עצמה, החבילה לא יוצאת לרשת), <span class="ltr">10.20.30.255</span> (שידור, בלי ARP) או <span class="ltr">127.0.0.1</span> (Loopback). כתובות Multicast לא נכללות בטבלה המקוצרת, וההדגמה אומרת זאת.</li>
+  </ul>
+  <p>הטכנאי צריך לזהות יעד, מסכה, Gateway וממשק. לאלגוריתמי ניתוב לא נכנסים. בקשו מחניך להצביע על העמודות האלה בשורה שנבחרה.</p>
+  <p><strong>בשטח.</strong> Default Gateway הוא נתיב כללי, ואינו מבטיח שכל יעד נגיש. נתיב שגוי יכול לשלוח תעבורה לכיוון הלא נכון גם כשהשער המקומי עונה כרגיל. נתיבים ספציפיים נפוצים בתחנות עם יותר מממשק אחד, למשל עם חיבור VPN. כשאין נתיב בכלל, Ping לא מגיע לשלב השליחה, ובדרך כלל מופיעה הודעה כמו <span class="ltr">General failure</span> ולא <span class="ltr">Request timed out</span>. הטכנאי קורא את הטבלה ומדווח; שינוי נתיבים נעשה לפי נוהל היחידה.</p>
+  <div class="note red" style="break-inside:avoid"><h3>טעות נפוצה</h3>
+    <p>״יש Default Gateway, אז הכול הולך אליו״. בדוגמת ברירת המחדל מוגדר Gateway, ובכל זאת החבילה ל-<span class="ltr">10.30.5.7</span> הולכת לנתב אחר, כי יש לה נתיב ספציפי יותר.</p>
+  </div>
+</div>
+
+<!-- 10-12 -->
+<div class="pg">
+  <div class="eyebrow">05 · שקופיות <span class="ltr">10-12</span></div>
+  <h1>פתרון שמות ובידוד תקלת שם</h1><hr class="rule">
+
+  <h2 style="break-after:avoid">שקופית 10 · DNS הופך שם שירות לכתובת IP לפני שהקשר מתחיל</h2>
+  <p><strong>על המסך:</strong> התחנה שואלת את שרת ה-DNS (״Cache + אזור מקומי״) מה הכתובת של <span class="ltr">server.unit</span>, מקבלת <span class="ltr">10.20.40.25</span>, ורק אז נפתח קשר IP אל השרת.</p>
+  <p><strong>רקע.</strong> משתמשים פונים לשמות, והרשת עובדת עם כתובות. כל מה שבשקופיות <span class="ltr">2-9</span> קורה רק אחרי שיש כתובת. Windows בודק קודם את מטמון ה-DNS של התחנה, שכולל גם את קובץ hosts. אם אין שם תשובה, השאלה נשלחת לשרת ה-DNS שמוגדר בכרטיס, בדרך כלל ב-UDP לפורט 53. השרת עונה מאזור (Zone) שהוא אחראי עליו, או מהמטמון שלו. ברשתות Windows עם Domain שרתי ה-DNS הם בדרך כלל בקרי הדומיין.</p>
+  <p>כשמוגדרים שני שרתי DNS, התחנה פונה לשני רק אם הראשון לא עונה. תשובה ״השם לא קיים״ מהראשון היא תשובה סופית.</p>
+  <p>שאלת ה-DNS היא בעצמה חבילת IP. בדוגמת <span class="ltr">ipconfig /all</span> שבמדריך לשקופית 12 שרת ה-DNS הוא <span class="ltr">10.20.10.10</span>, ברשת אחרת, ולכן השאלה יוצאת דרך ה-Gateway. כשה-Gateway שגוי גם שמות לא נפתרים, וזה נראה כמו תקלת DNS. בתרגיל בשקופית 14 החניכים רואים את זה בעצמם.</p>
+  <p>מתמקדים בשרת DNS פנימי ובאזור המקומי, בלי ההיררכיה של האינטרנט הציבורי.</p>
+
+  <h2 style="break-after:avoid">שקופית 11 · רשומות DNS ותשובות שנשמרות ב-Cache</h2>
+  <p><strong>על המסך:</strong> רשומת A שקושרת את <span class="ltr">server.unit</span> ל-<span class="ltr">10.20.40.25</span>, רשומת CNAME שמפנה את <span class="ltr">app.unit</span> אל <span class="ltr">server.unit</span>, ושורת Cache: ״תשובה שמורה לזמן מוגבל״.</p>
+  <p><strong>רקע.</strong> רשומת A קושרת שם לכתובת <span class="ltr">IPv4</span>. CNAME הוא כינוי שמפנה לשם אחר, ומשם ממשיכים לרשומת ה-A שלו; כך כמה שירותים יושבים על שרת אחד, וכשהשרת מחליף כתובת מעדכנים רשומה אחת. לכל רשומה יש TTL, זמן בשניות שבו מותר לשמור את התשובה (לא קשור ל-TTL של חבילת IP). גם שרת ה-DNS וגם התחנה שומרים תשובות עד שהזמן נגמר, ו-Windows שומר לזמן מה גם תשובות ״השם לא קיים״.</p>
+  <p>רשומות SRV יופיעו בשיעור Domain. לידיעתכם, בסביבת Domain ה-DNS מאתר באמצעותן Domain Controllers ושירותים; אין צורך ללמד תחביר מתקדם.</p>
+  <p><strong>בשטח.</strong> שרת עבר לכתובת חדשה והרשומה עודכנה, אבל תחנות שכבר שאלו ממשיכות לפנות לכתובת הישנה עד שהתשובה במטמון פגה. את המטמון של התחנה רואים ב-<span class="ltr">ipconfig /displaydns</span> ומנקים ב-<span class="ltr">ipconfig /flushdns</span>. אם התשובה הישנה שמורה גם בשרת ה-DNS, ניקוי בתחנה לא יעזור.</p>
+
+  <h2 style="break-after:avoid">שקופית 12 · IP עובד ושם נכשל: המסלול תקין והבעיה בפתרון השם</h2>
+  <p><strong>על המסך:</strong> <span class="ltr">10.20.40.25</span> עובד לפי IP, <span class="ltr">server.unit</span> נכשל לפי שם, וביניהם DNS עם החשודים: שרת, רשומה ו-Cache.</p>
+  <p><strong>רקע.</strong> פונים לאותו שרת פעם לפי כתובת ופעם לפי שם. אם הכתובת עובדת, המסכה, ה-Gateway, הנתבים ו-ARP תקינים לאותו יעד, ונשאר רק פתרון השם. ב-Ping לפי שם Windows כותב בשורה הראשונה לאיזו כתובת השם נפתר (<span class="ltr">Pinging server.unit [10.20.40.25]</span>). כשהשם לא נפתר כלל מופיע <span class="ltr">Ping request could not find host</span>. כשהוא נפתר לכתובת לא צפויה, החשודים הם רשומה שגויה או תשובה ישנה במטמון. כדאי גם לוודא שהשם שהמשתמש מקליד הוא השם הצפוי. <span class="ltr">nslookup server.unit</span> מראה גם איזה שרת ענה.</p>
+  <p>השדות ב-<span class="ltr">ipconfig /all</span> שמשווים לתכנון או לתחנה תקינה:</p>
+  <table style="break-inside:avoid">
+    <tr><th>שדה (<span class="ltr">ipconfig /all</span>)</th><th>ערך בדוגמה</th></tr>
+    <tr><td class="k"><span class="ltr">IPv4 Address</span></td><td><span class="ltr">10.20.30.15</span></td></tr>
+    <tr><td class="k"><span class="ltr">Subnet Mask</span></td><td><span class="ltr">255.255.255.0</span></td></tr>
+    <tr><td class="k"><span class="ltr">Default Gateway</span></td><td><span class="ltr">10.20.30.1</span></td></tr>
+    <tr><td class="k"><span class="ltr">DNS Servers</span></td><td><span class="ltr">10.20.10.10</span></td></tr>
+    <tr><td class="k"><span class="ltr">DHCP Enabled</span></td><td><span class="ltr">No</span>, בסביבה עם כתובות קבועות</td></tr>
+  </table>
+  <p>אלה גם ערכי ״הגדרה תקינה״ בתרגיל שבשקופית 14. ההשוואה בין גישה לפי IP לגישה לפי שם רק מכוונת לאן להסתכל, כי יישום יכול להשתמש בשם גם לתעודה או לזהות. תעודת TLS מונפקת לשם, ולכן אתר פנימי שנפתח לפי IP מציג שגיאת תעודה גם כשהרשת תקינה; גם Kerberos בדומיין נשען על שמות.</p>
+</div>
+
+<!-- 13-14 -->
+<div class="pg">
+  <div class="eyebrow">06 · שקופיות <span class="ltr">13-14</span></div>
+  <h1>Ping מול שירות, ותרגול</h1><hr class="rule">
+
+  <h2 style="break-after:avoid">שקופית 13 · תשובה ל-Ping אינה מוכיחה שהשירות זמין</h2>
+  <p><strong>על המסך:</strong> ״Ping הצליח״, ״השרת חי, אבל מה עם השירות?״, ו״פורט 443 נכשל: שירות או סינון״.</p>
+  <p><strong>רקע.</strong> Ping שולח ICMP Echo Request ומחכה ל-Echo Reply. ל-ICMP אין פורטים, ותשובה אומרת רק שהכתובת קיימת, שיש דרך אליה ובחזרה ושמערכת ההפעלה עונה. אתר פנימי ב-HTTPS מאזין ב-TCP לפורט 443, והשירות יכול להיות כבוי, תקוע או חסום בחומת אש בזמן שהשרת ממשיך לענות ל-Ping.</p>
+  <p>גם ההפך קורה: השירות עובד ו-Ping נכשל, כי ICMP מסונן. חומת האש של Windows בהגדרות ברירת המחדל בדרך כלל לא עונה ל-Ping, ובהרבה רשתות מסננים ICMP בדרך. בדיקת פורט מבחינה בין המקרים: פורט שאף שירות לא מאזין בו נדחה מיד, ופורט מסונן בדרך כלל לא עונה עד שנגמר הזמן. ב-PowerShell זה <span class="ltr">Test-NetConnection server.unit -Port 443</span>; את הפקודות משאירים לשיעור הכלים, וכאן מספיק להבחין בין תחנה, מסלול ושירות.</p>
+  <div class="note red" style="break-inside:avoid"><h3>טעות נפוצה</h3>
+    <p>Ping לשרת מצליח, והטכנאי סוגר את התקלה כ״שרת זמין״, אף שהשירות בפורט 443 לא עונה.</p>
+  </div>
+
+  <h2 style="break-after:avoid">שקופית 14 · תסמינים של הגדרת IP שגויה</h2>
+  <p><strong>על המסך:</strong> ההגדרות של תחנה A: כתובת IP קבועה <span class="ltr">10.20.30.15</span>, ושדות למסכה, ל-Default Gateway ולשרת DNS. מתחתן טבלה של שלוש בדיקות: <span class="ltr">ping 10.20.30.80</span> (מחשב B), <span class="ltr">ping 10.20.40.25</span> (שרת C לפי כתובת) ו-<span class="ltr">ping server.unit</span> (שרת C לפי שם). לכל בדיקה ✓ עובד או ✗ נכשל, ומשפט שמסביר מה קרה. משמאל שלוש שאלות, ומתחתן כפתורים שטוענים את ההגדרה של כל שאלה, וכפתור ״הגדרה תקינה״.</p>
+  <p><strong>איך להעביר.</strong> בפתיחה ההגדרה תקינה (<span class="ltr">255.255.255.0</span>, <span class="ltr">10.20.30.1</span>, <span class="ltr">10.20.10.10</span>) ושלוש הבדיקות ירוקות. קראו שאלה, תנו לחניכים לענות, בזוגות אם אפשר, ורק אז לחצו על הכפתור של השאלה או הקלידו את הערך בעצמכם. השאלות נשענות על שקופית 2 למסכה, על שקופית 5 ל-Gateway, על שקופית 7 למטמון ה-ARP ועל שקופית 12 להבדל בין גישה לפי IP לגישה לפי שם.</p>
+  <p><strong>רקע.</strong> ההדגמה מחשבת כל בדיקה כמו בשקופית 2: לפי המסכה של A היא מחליטה אם היעד מקומי, בוחרת את היעד הבא (היעד עצמו או ה-Gateway), ובודקת אם יש ברשת המקומית מכשיר שיענה ל-ARP על הכתובת הזו. ברשת של ההדגמה עונים ל-ARP רק ה-Gateway <span class="ltr">10.20.30.1</span>, הנתב השני <span class="ltr">10.20.30.2</span> ומחשב B. מאחורי ה-Gateway נמצאים שרת C ושרת ה-DNS <span class="ltr">10.20.10.10</span>, ושרת DNS יש רק בכתובת הזו. בבדיקה לפי שם נשלחת קודם שאלת DNS, שהיא בעצמה חבילה שצריכה להגיע לשרת ה-DNS, ורק אחר כך ה-Ping לשרת.</p>
+  <h3 style="font-size:10.5pt;color:#0f2740;margin:10pt 0 4pt">תשובות</h3>
+  <p><strong>1. במסכה הוקלד <span class="ltr">255.255.0.0</span>. אילו בדיקות ייכשלו, ולמה גם השם לא נפתר?</strong> B עובד: ״ישירות, אחרי ARP על <span class="ltr">10.20.30.80</span>״. השרת נכשל: ב-<span class="ltr">/16</span> הכתובת <span class="ltr">10.20.40.25</span> נראית מקומית, A שואל עליה ב-ARP, ואף אחד ברשת המקומית לא עונה. השם נכשל מאותה סיבה: גם <span class="ltr">10.20.10.10</span> נראה מקומי ב-<span class="ltr">/16</span>, ושאלת ה-DNS לא יוצאת מהרשת. בטבלה: ״שאלת ה-DNS לא מגיעה ל-<span class="ltr">10.20.10.10</span>. לפי המסכה <span class="ltr">10.20.10.10</span> מקומי. אין תשובה ל-ARP על <span class="ltr">10.20.10.10</span>.״ ב-Ping לפי שם המשתמש יראה <span class="ltr">could not find host</span>, וזה נראה כמו תקלת DNS אף שה-DNS תקין.</p>
+  <p><strong>2. ב-Gateway הוקלד <span class="ltr">10.20.30.10</span>. מה עדיין עובד, ואיך מבדילים בין התקלה הזו לשאלה 1?</strong> B עובד. השרת והשם נכשלים, כי היעד הבא של שניהם הוא <span class="ltr">10.20.30.10</span>, ואין מי שיענה ל-ARP על הכתובת הזו. למשתמש זה נראה בדיוק כמו שאלה 1: הרשת המקומית עובדת וכל השאר לא. מבדילים בהגדרות, ב-<span class="ltr">ipconfig /all</span>: פעם המסכה שונה מהתכנון ופעם ה-Gateway. ב-<span class="ltr">arp -a</span> לא תופיע רשומה עם MAC לכתובת <span class="ltr">10.20.30.10</span>.</p>
+  <p><strong>3. בשרת ה-DNS הוקלדה הכתובת של שרת C. מה נכשל, ואיך יודעים שהבעיה בפתרון השם?</strong> B ושרת C לפי כתובת עובדים, ורק השם נכשל: ״השאלה מגיעה ל-<span class="ltr">10.20.40.25</span>, אבל אין שם שרת DNS. השם לא נפתר.״ זה הדפוס של שקופית 12: IP עובד ושם נכשל. ב-<span class="ltr">ipconfig /all</span> רואים איזה שרת DNS מוגדר, ו-<span class="ltr">nslookup</span> מראה שהשרת הזה לא עונה.</p>
+  <p>אם נשאר זמן, אפשר לנסות עוד הגדרות: Gateway ריק (״אין Default Gateway לשלוח אליו״); Gateway <span class="ltr">10.20.30.80</span>, כלומר מחשב B (״הוא מחשב ולא נתב, והוא לא מעביר את החבילה״); או Gateway <span class="ltr">10.20.30.2</span>, ואז הבדיקות לשרת מקבלות סימן שאלה, כי התוצאה תלויה בטבלת הניתוב של הנתב השני. מסכה לא רציפה, למשל <span class="ltr">255.255.0.255</span>, מסומנת כ״מסכה לא תקינה״.</p>
+  <div class="note red" style="break-inside:avoid"><h3>טעות נפוצה</h3>
+    <p>לראות ש״אין רשת״ ולחפש בכבל, כשהרשת המקומית עובדת. אם B עונה, הכבל, הכרטיס והמתג תקינים, והתקלה בהגדרות או מעבר ל-Gateway.</p>
+  </div>
+</div>
+
+<!-- 15-16 -->
+<div class="pg">
+  <div class="eyebrow">07 · שקופיות <span class="ltr">15-16</span></div>
+  <h1>מגבלות ההדגמות, והדרך המלאה</h1><hr class="rule">
+
+  <h2 style="break-after:avoid">שקופית 15 · מגבלות ההדגמות</h2>
+  <p><strong>על המסך:</strong> טבלה שמפרטת לכל הדגמה מה הופשט ומה יש בפועל, ומתחתיה מה כן אמין.</p>
+  <p>עברו על הטבלה בקצרה. ההחלטה בשקופית 2 מוצגת כהשוואה ישירה של חלקי הרשת; ב-Windows היא נעשית דרך טבלת הניתוב, בשורת ה-On-link של הרשת המקומית (שקופית 9), והתוצאה זהה. בתחנה אמיתית יכולים להיות כמה כרטיסים, VPN ו-IPv6, וכל אחד מוסיף שורות. טבלת הניתוב בשקופית 9 מקוצרת: ב-<span class="ltr">route print</span> המלא יש גם שורות Multicast ושידור כללי, טבלת IPv6, ורשימה נפרדת של נתיבים קבועים (Persistent Routes).</p>
+  <p>העיקר לשטח: בתרגיל ובשקופית 16 כל מכשיר קיים עונה מיד ל-ARP ול-Ping, ו-ARP ו-DNS עונים מטבלה קבועה, בלי זמני תפוגה. בפועל Ping נחסם לעתים קרובות, כמו בשקופית 13, ולכן Ping שנכשל לבדו לא מוכיח שאין קשר. גם תקלה בכבל, בפורט או ב-VLAN נראית אחרת מתקלת הגדרה.</p>
+  <p>מה כן אמין: חישוב חלק הרשת, בחירת הנתיב הספציפי ביותר, והסדר שבו התחנה עוברת מהשם אל המסגרת הם כמו ב-Windows.</p>
+
+  <h2 style="break-after:avoid">שקופית 16 · מהשם ועד שליחת המסגרת</h2>
+  <p><strong>על המסך:</strong> שדה ״שם או כתובת״ עם כפתורים לדוגמאות, ומתחתיו חמש תיבות בסדר שבו השלבים קורים: DNS, מסכה, טבלת ניתוב, ARP ו-Ethernet. כל תיבה מראה מה יצא בשלב שלה, נצבעת בירוק כשהשלב הצליח ובאדום כשנכשל, ותיבות שאחרי שלב שנכשל נשארות כהות. מתחת שורת ״המסגרת שיוצאת מ-A״: MAC יעד, MAC מקור, IP מקור, IP יעד ונתונים, ובתחתית תיבה שמסכמת.</p>
+  <p><strong>רקע.</strong> אלה השלבים שהופיעו לאורך השיעור, בסדר שבו הם קורים באמת: השם נפתר לכתובת (שקופיות <span class="ltr">10-12</span>); חלק הרשת מושווה (<span class="ltr">2-4</span>); טבלת הניתוב בוחרת את היעד הבא (5 ו-9); ARP מביא את ה-MAC שלו (<span class="ltr">6-7</span>); ונבנית מסגרת, שכל נתב בדרך יחליף (8). ההדגמה משתמשת באותה רשת ובאותה טבלת ניתוב כמו בשקופיות 2 ו-9, ובאותו מטמון ARP כמו בשקופית 7. ב-DNS שלה יש <span class="ltr">server.unit</span> ו-<span class="ltr">app.unit</span> כמו בשקופית 11, ועוד <span class="ltr">pc-b.unit</span> למחשב B. שם בלי נקודה מקבל את הסיומת <span class="ltr">unit</span>, כמו ש-Windows מוסיף את סיומת ה-DNS של הדומיין.</p>
+  <p><strong>ההדגמה.</strong> בפתיחה <span class="ltr">server.unit</span>: DNS מחזיר <span class="ltr">10.20.40.25</span>; במסכה <span class="ltr">10.20.40.0</span> מול <span class="ltr">10.20.30.0</span>, ״שונים: מרוחק״; בטבלה נבחר <span class="ltr">0.0.0.0/0</span> עם Gateway <span class="ltr">10.20.30.1</span>; ב-ARP מגיע מהמטמון ה-MAC שלו, <span class="ltr">00-15-5d-01-02-03</span>; ובשלב ה-Ethernet יוצאת מסגרת שה-MAC ביעד שלה הוא של ה-Gateway, וה-IP ביעד הוא של השרת. בשורת המסגרת ה-MAC ביעד מודגש בתכלת וה-IP ביעד בצהוב, וכך רואים את שקופיות 5 ו-8 יחד. כשהאנימציות פועלות, התיבות נדלקות אחת אחרי השנייה. עוד דוגמאות:</p>
+  <table style="break-inside:avoid">
+    <tr><th style="width:20%">קלט</th><th>מה רואים</th></tr>
+    <tr><td class="k"><span class="ltr">app.unit</span></td><td>ב-DNS שורת CNAME אל <span class="ltr">server.unit</span>, ומשם כמו ברירת המחדל.</td></tr>
+    <tr><td class="k"><span class="ltr">pc-b.unit</span></td><td><span class="ltr">10.20.30.80</span>, ״זהים: מקומי״, נתיב <span class="ltr">10.20.30.0/24</span> On-link, ו-ARP מחזיר <span class="ltr">34-7a-60-aa-bb-cc</span>. ה-MAC ביעד וה-IP ביעד שייכים הפעם לאותו מחשב.</td></tr>
+    <tr><td class="k"><span class="ltr">srv.unit</span></td><td>שם שגוי. תיבת ה-DNS אדומה, כל השאר כהות, ובתחתית: ״ב-Ping רואים: <span class="ltr">Ping request could not find host srv.unit.</span>״</td></tr>
+    <tr><td class="k"><span class="ltr">10.30.5.7</span></td><td>DNS לא נדרש. נבחר <span class="ltr">10.30.0.0/16</span> דרך <span class="ltr">10.20.30.2</span>, שלא נמצא במטמון, ולכן נשלחת שאלת ARP והנתב עונה. זו הדוגמה לרשומה חסרה שאינה תקלה.</td></tr>
+    <tr><td class="k"><span class="ltr">10.20.30.99</span></td><td>מקומי, אבל לשאלת ה-ARP אין תשובה. תיבת ה-ARP אדומה, ובתחתית: <span class="ltr">Reply from 10.20.30.15: Destination host unreachable.</span></td></tr>
+  </table>
+  <p>בקשו מחניך להקליד שם או כתובת ולנחש איפה התהליך ייעצר, ובכל שלב שנכשל שאלו מה הטכנאי יראה ב-Windows. אם ישאלו איך כל שלב נכשל:</p>
+  <table style="break-inside:avoid">
+    <tr><th style="width:22%">שלב</th><th>איך התקלה נראית</th></tr>
+    <tr><td class="k">DNS</td><td>לפי כתובת עובד. לפי שם מופיע <span class="ltr">could not find host</span>, או שהשם נפתר לכתובת לא צפויה.</td></tr>
+    <tr><td class="k">מסכה</td><td>יעדים מסוימים נכשלים בלי סיבה נראית, לפעמים רק בכיוון אחד. ב-<span class="ltr">ipconfig</span> המסכה שונה מהתכנון.</td></tr>
+    <tr><td class="k">ניתוב ו-Gateway</td><td>הרשת המקומית עובדת וכל השאר לא. ה-Gateway חסר או שגוי, או שיש נתיב לא צפוי ב-<span class="ltr">route print</span>.</td></tr>
+    <tr><td class="k">ARP</td><td>ה-Gateway או היעד חסרים ב-<span class="ltr">arp -a</span> או מופיעים עם MAC לא צפוי. Ping ליעד מקומי שלא עונה ל-ARP מחזיר בדרך כלל <span class="ltr">Destination host unreachable</span> מהכתובת של התחנה עצמה.</td></tr>
+    <tr><td class="k">Ethernet</td><td>אין קישור: ב-<span class="ltr">ipconfig</span> מופיע <span class="ltr">Media disconnected</span>, ונורית הקישור כבויה.</td></tr>
+  </table>
+  <div class="note teal" style="break-inside:avoid"><h3>שאלת סיום</h3>
+    <p>גישה לפי IP עובדת ולפי שם נכשלת. מה ב-DNS משווים לציפייה? את השם שנשאל, את השרת שענה, את סוג הרשומה ואת הכתובת שהוחזרה.</p>
+  </div>
+</div>
+
+<!-- נספחים -->
+<div class="pg">
+  <div class="eyebrow">נספחים</div>
+  <h1>מפת המצגת, ערכי בדיקה ומילון</h1><hr class="rule">
+  <h2 style="break-after:avoid">מפת המצגת</h2>
+  <table style="break-inside:avoid">
+    <tr><th class="n">מס׳</th><th>כותרת השקופית</th><th class="n">מס׳</th><th>כותרת השקופית</th></tr>
+    <tr><td class="n">1</td><td>IP וניתוב: מתי פונים ישירות ומתי דרך שער (שער)</td><td class="n">9</td><td>הנתב או התחנה בוחרים את הנתיב הספציפי ביותר שמתאים ליעד</td></tr>
+    <tr><td class="n">2</td><td>התחנה בודקת קודם אם היעד נמצא ברשת שלה</td><td class="n">10</td><td>DNS הופך שם שירות לכתובת IP לפני שהקשר מתחיל</td></tr>
+    <tr><td class="n">3</td><td>כתובת IP מזהה גם רשת וגם תחנה בתוך הרשת</td><td class="n">11</td><td>רשומות DNS ותשובות שנשמרות ב-Cache</td></tr>
+    <tr><td class="n">4</td><td>ב־<span class="ltr">/24</span> שלוש האוקטטות הראשונות קובעות את הרשת</td><td class="n">12</td><td>IP עובד ושם נכשל: המסלול תקין והבעיה בפתרון השם</td></tr>
+    <tr><td class="n">5</td><td>ה-Gateway הוא היעד המקומי שמקבל חבילות לרשתות אחרות</td><td class="n">13</td><td>תשובה ל-Ping אינה מוכיחה שהשירות זמין</td></tr>
+    <tr><td class="n">6</td><td>ARP מתרגם כתובת IP מקומית לכתובת MAC</td><td class="n">14</td><td>תסמינים של הגדרת IP שגויה</td></tr>
+    <tr><td class="n">7</td><td>מערכת ההפעלה זוכרת לזמן מה תשובות ARP</td><td class="n">15</td><td>מגבלות ההדגמות</td></tr>
+    <tr><td class="n">8</td><td>הנתב מעביר את חבילת ה-IP במסגרת Ethernet חדשה</td><td class="n">16</td><td>מהשם ועד שליחת המסגרת</td></tr>
+  </table>
+
+  <h2 style="break-after:avoid">ערכי הדוגמה</h2>
+  <p>הכתובות שחוזרות במצגת, וההחלטה של תחנה A (<span class="ltr">10.20.30.15/24</span>, Gateway <span class="ltr">10.20.30.1</span>) לכל יעד:</p>
+  <table style="break-inside:avoid">
+    <tr><th>יעד</th><th>כתובת</th><th>מקומי?</th><th>על מי שואלים ב-ARP</th><th>שקופיות</th></tr>
+    <tr><td class="k">מחשב B, <span class="ltr">pc-b.unit</span></td><td><span class="ltr">10.20.30.80</span></td><td>כן</td><td><span class="ltr">10.20.30.80</span></td><td><span class="ltr">2, 4, 6, 7, 9, 14, 16</span></td></tr>
+    <tr><td class="k">Gateway</td><td><span class="ltr">10.20.30.1</span></td><td>כן</td><td><span class="ltr">10.20.30.1</span></td><td><span class="ltr">2, 5, 7, 9, 16</span></td></tr>
+    <tr><td class="k">נתב שני, לרשת <span class="ltr">10.30.0.0/16</span></td><td><span class="ltr">10.20.30.2</span></td><td>כן</td><td><span class="ltr">10.20.30.2</span></td><td><span class="ltr">9, 16</span></td></tr>
+    <tr><td class="k">שרת C, <span class="ltr">server.unit</span></td><td><span class="ltr">10.20.40.25</span></td><td>לא</td><td>ה-Gateway, <span class="ltr">10.20.30.1</span></td><td><span class="ltr">2, 4, 5, 8-12, 14, 16</span></td></tr>
+    <tr><td class="k">שרת DNS</td><td><span class="ltr">10.20.10.10</span></td><td>לא</td><td>ה-Gateway, <span class="ltr">10.20.30.1</span></td><td>14, ומדריך לשקופית 12</td></tr>
+  </table>
+
+  <h2 style="break-after:avoid;break-before:page">ערכי בדיקה להדגמות</h2>
+  <p>אם רוצים לוודא לפני השיעור שההדגמות עובדות, אלה התוצאות שצריכות לצאת:</p>
+  <table style="break-inside:avoid">
+    <tr><th style="width:17%">הדגמה</th><th style="width:36%">קלט</th><th>תוצאה</th></tr>
+    <tr><td class="k">שקופית 2</td><td>A <span class="ltr">10.20.30.15</span>, <span class="ltr">/24</span>, יעד <span class="ltr">10.20.40.25</span></td><td><span class="ltr">10.20.30.0</span> מול <span class="ltr">10.20.40.0</span>, מרוחק, ARP על <span class="ltr">10.20.30.1</span></td></tr>
+    <tr><td class="k">שקופית 2</td><td>אותו דבר, יעד <span class="ltr">10.20.30.80</span></td><td>מקומי, ARP על <span class="ltr">10.20.30.80</span></td></tr>
+    <tr><td class="k">שקופית 2</td><td><span class="ltr">/16</span>, יעד <span class="ltr">10.20.40.25</span></td><td><span class="ltr">10.20.0.0</span> בשני הצדדים, מקומי, אין תשובה ל-ARP</td></tr>
+    <tr><td class="k">שקופית 2</td><td><span class="ltr">/25</span>, יעד <span class="ltr">10.20.30.200</span></td><td><span class="ltr">10.20.30.0</span> מול <span class="ltr">10.20.30.128</span>, מרוחק, דרך ה-Gateway בלי צורך</td></tr>
+    <tr><td class="k">שקופית 9</td><td><span class="ltr">10.30.5.7</span> / <span class="ltr">10.20.40.25</span> / <span class="ltr">10.20.30.80</span></td><td><span class="ltr">10.30.0.0/16</span> אל <span class="ltr">10.20.30.2</span> / <span class="ltr">0.0.0.0/0</span> אל <span class="ltr">10.20.30.1</span> / <span class="ltr">10.20.30.0/24</span> On-link</td></tr>
+    <tr><td class="k">שקופית 9</td><td>״בלי Default Gateway״, יעד <span class="ltr">10.20.40.25</span></td><td>אין נתיב מתאים</td></tr>
+    <tr><td class="k">שקופית 14</td><td>תקינה / שאלה 1 / שאלה 2 / שאלה 3</td><td>B, שרת, שם: ✓✓✓ / ✓✗✗ / ✓✗✗ / ✓✓✗</td></tr>
+    <tr><td class="k">שקופית 16</td><td><span class="ltr">server.unit</span>, <span class="ltr">app.unit</span></td><td><span class="ltr">10.20.40.25</span>, MAC יעד <span class="ltr">00-15-5d-01-02-03</span> (ה-Gateway)</td></tr>
+    <tr><td class="k">שקופית 16</td><td><span class="ltr">pc-b.unit</span> / <span class="ltr">srv.unit</span> / <span class="ltr">10.20.30.99</span></td><td>MAC יעד <span class="ltr">34-7a-60-aa-bb-cc</span> / נעצר ב-DNS / נעצר ב-ARP</td></tr>
+  </table>
+
+  <h2 style="break-after:avoid">מילון קצר</h2>
+  <table style="break-inside:avoid">
+    <tr><th>מונח</th><th>הסבר</th><th>מונח</th><th>הסבר</th></tr>
+    <tr><td class="k">Prefix</td><td>מספר הביטים של חלק הרשת.</td><td class="k">מסכה</td><td>אותו מידע בכתיב של ארבעה מספרים, למשל <span class="ltr">255.255.255.0</span>.</td></tr>
+    <tr><td class="k">AND</td><td>פעולה ביט אחר ביט: 1 רק כששני הביטים 1. כתובת AND מסכה נותנת את חלק הרשת.</td><td class="k">Subnet</td><td>תחום כתובות מקומי.</td></tr>
+    <tr><td class="k">Gateway</td><td>השער הבא ליעד מרוחק.</td><td class="k">MAC</td><td>כתובת של כרטיס רשת, תקפה בקישור המקומי.</td></tr>
+    <tr><td class="k">ARP</td><td>מיפוי IP מקומי ל-MAC.</td><td class="k">VLAN</td><td>רשת מקומית לוגית ותחום שידור נפרד.</td></tr>
+    <tr><td class="k">Cache</td><td>תשובה שמורה זמנית, ב-ARP או ב-DNS.</td><td class="k">Route</td><td>כלל בחירת דרך: יעד, מסכה, Gateway וממשק.</td></tr>
+    <tr><td class="k">On-link</td><td>רשת מחוברת ישירות, בלי Gateway.</td><td class="k">Metric</td><td>מדד שמכריע בין שני נתיבים באותו אורך; הנמוך נבחר.</td></tr>
+    <tr><td class="k">חבילה (Packet)</td><td>יחידת IP, עוברת מקצה לקצה.</td><td class="k">מסגרת (Frame)</td><td>מעטפת Ethernet, תקפה לקישור אחד.</td></tr>
+    <tr><td class="k">DNS</td><td>פתרון שם לכתובת.</td><td class="k">TTL</td><td>ב-IP מונה שיורד בכל נתב; ב-DNS זמן השמירה של תשובה.</td></tr>
+    <tr><td class="k">ICMP</td><td>פרוטוקול בקרה שעליו נשען Ping.</td><td class="k">פורט</td><td>מספר שמזהה שירות בשרת, למשל 443 ל-HTTPS.</td></tr>
+  </table>
+</div>
+</body></html>

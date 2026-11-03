@@ -1,0 +1,23 @@
+{
+  "id": "galilee",
+  "name": "גליל מערבי",
+  "nameEn": "Western Galilee",
+  "blurb": "גבעות ועמקים לאורך גבול הצפון — שטח חצוב שמסתיר ומגלה.",
+  "gridSize": 384,
+  "bounds": {
+    "west": 34.98046875,
+    "east": 35.419921875,
+    "north": 33.28461996888768,
+    "south": 32.9164853473144
+  },
+  "elevation": {
+    "min": -14,
+    "max": 1196
+  },
+  "spanMeters": {
+    "x": 40981,
+    "y": 40912
+  },
+  "source": "AWS Terrain Tiles (terrarium / SRTM)",
+  "zoom": 12
+}

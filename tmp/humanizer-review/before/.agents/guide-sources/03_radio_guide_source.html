@@ -1,0 +1,257 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>רדיו בסיסי: שרשרת רדיו, רזוננטיות ותקציב קישור</title><style>
+@page{size:A4;margin:52pt 54pt 46pt 54pt;
+  @bottom-right{content:"מחלקת תקשוב · רדיו בסיסי · שיעור 3";
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:right;vertical-align:top;padding-top:10pt;direction:rtl}
+  @bottom-left{content:counter(page) " / " counter(pages);
+    font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
+    width:100%;text-align:left;vertical-align:top;padding-top:10pt;direction:ltr}}
+@page:first{@bottom-right{content:""}@bottom-left{content:""}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Liberation Sans",Arial,sans-serif;color:#1b2a38;font-size:10pt;line-height:1.55;direction:rtl}
+.pg{page-break-after:always}
+.pg:last-child{page-break-after:auto}
+.eyebrow{font-size:9pt;font-weight:bold;color:#0f2740;margin-bottom:9pt}
+h1{font-size:20pt;font-weight:bold;margin:0 0 14pt;color:#0f2740;line-height:1.24;text-align:center}
+h2{font-size:13pt;margin:16pt 0 8pt;color:#0f2740;font-weight:bold}
+.rule{border:0;border-top:1px solid #dbe3ea;margin:0 0 16pt}
+p{margin:0 0 7pt}
+ul{margin:0 0 7pt;padding-right:15pt}
+li{margin-bottom:4pt}
+
+/* stat chips */
+.chips{display:flex;gap:11pt;margin:0 0 16pt}
+.chip{flex:1;background:#0f2740;border-radius:6pt;padding:11pt 8pt;text-align:center}
+.chip b{display:block;font-size:14pt;color:#3fd0e0;line-height:1.15}
+.chip span{display:block;font-size:8.5pt;color:#b6c6d4;margin-top:3pt}
+
+/* two rounded cards with a coloured inner edge */
+.cards{display:flex;gap:11pt;margin:0 0 14pt}
+.cards.three>*{flex:1}
+.cards>*{flex:1;min-width:0}
+.pc{border-radius:7pt;padding:10pt 13pt;position:relative;overflow:hidden}
+.pc::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.pc h3{margin:0 0 5pt;font-size:10pt;font-weight:bold}
+.pc p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.pc p:last-child{margin-bottom:0}
+.pc.teal{background:#e9f4f7}.pc.teal::after{background:#0f8793}.pc.teal h3{color:#0f6f7a}
+.pc.amber{background:#fdf4e6}.pc.amber::after{background:#e0a038}.pc.amber h3{color:#a8701a}
+.pc.red{background:#fdeef0}.pc.red::after{background:#d9556a}.pc.red h3{color:#a83a4c}
+.pc.green{background:#eef7f0}.pc.green::after{background:#4a9c62}.pc.green h3{color:#2f7546}
+
+/* full-width note block, same visual family */
+.note{border-radius:7pt;padding:9pt 13pt;margin:0 0 10pt;position:relative;overflow:hidden}
+.note::after{content:"";position:absolute;top:0;bottom:0;right:0;width:5pt;border-radius:0 7pt 7pt 0}
+.note h3{margin:0 0 4pt;font-size:9pt;font-weight:bold;letter-spacing:.02em}
+.note p{margin:0 0 5pt;font-size:9.5pt;line-height:1.5;color:#3c5266}
+.note p:last-child{margin-bottom:0}
+.note.teal{background:#e9f4f7}.note.teal::after{background:#0f8793}.note.teal h3{color:#0f6f7a}
+.note.amber{background:#fdf4e6}.note.amber::after{background:#e0a038}.note.amber h3{color:#a8701a}
+.note.red{background:#fdeef0}.note.red::after{background:#d9556a}.note.red h3{color:#a83a4c}
+.note.green{background:#eef7f0}.note.green::after{background:#4a9c62}.note.green h3{color:#2f7546}
+
+/* dark headline band (used for the formula / the one-line rule of a page) */
+.band{background:#0f2740;border-radius:8pt;padding:14pt 18pt;margin:0 0 14pt;text-align:center;
+  color:#3fd0e0;font-size:16pt;font-weight:bold}
+.band.sm{font-size:12.5pt;padding:11pt 16pt}
+.band .w{color:#fff}
+
+table{width:100%;border-collapse:collapse;font-size:9pt;margin:0 0 11pt}
+th,td{border:1px solid #dbe3ea;padding:5pt 8pt;text-align:right;vertical-align:top}
+th{background:#eef4f8;color:#0f6f7a;font-weight:bold}
+td.k{font-weight:bold;color:#0f2740}
+td.n,th.n{text-align:center;width:52pt;white-space:nowrap;direction:ltr;unicode-bidi:embed}
+.ltr{direction:ltr;unicode-bidi:embed;display:inline-block}
+
+.title-pg{height:660pt;display:flex;flex-direction:column;justify-content:center;text-align:center}
+.title-pg .kick{font-size:10pt;color:#0f8793;font-weight:bold;margin-bottom:20pt}
+.title-pg h1{font-size:27pt;margin-bottom:12pt}
+.title-pg .sub{font-size:12pt;color:#5b7186;margin:0 auto 26pt;max-width:400pt;line-height:1.55}
+.title-pg .meta{font-size:9.5pt;color:#5b7186}
+</style></head><body>
+
+<!-- 1 ─────────────────────────── -->
+<div class="pg title-pg">
+  <div class="kick">מחלקת תקשוב · שבוע רדיו · דף הנחיה למדריך</div>
+  <h1>רדיו בסיסי</h1>
+  <div class="sub">שרשרת רדיו, אנטנות, רזוננטיות, אימפדנס, יעילות, רעש ותקציב קישור</div>
+  <div class="chips" style="max-width:400pt;margin:0 auto">
+    <div class="chip"><b><span class="ltr">50–55</span> דקות</b><span>משך מומלץ</span></div>
+  </div>
+  <div class="meta" style="margin-top:20pt">מותאם לטכנאי שטח · מוקד VHF</div>
+</div>
+
+<!-- 2 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">00 · בריף למדריך</div>
+  <h1>לפני שמתחילים</h1><hr class="rule">
+  <div class="chips">
+    <div class="chip"><b><span class="ltr">50–55</span> דקות</b><span>משך מומלץ</span></div>
+    <div class="chip"><b>12</b><span>שקופיות כולל שער</span></div>
+    <div class="chip"><b>VHF</b><span>תחום המיקוד</span></div>
+  </div>
+
+  <div class="cards">
+    <div style="flex:1">
+      <h2 style="margin-top:0">מטרת השיעור</h2>
+      <p>לחבר את תורת הגלים למערכת שלמה: ממקור המידע דרך המשדר והקו המזין אל האנטנה, דרך הערוץ ועד המקלט.</p>
+      <div class="note teal"><h3>תוצר נדרש</h3>
+        <p>בסיום, החניך ימפה את שרשרת הקשר, יסביר התאמה ורזוננטיות, ויבנה תקציב קישור איכותי שמפריד רווחים, הפסדים ורזרבה.</p>
+      </div>
+    </div>
+    <div style="flex:1">
+      <h2 style="margin-top:0">הכנה מראש</h2>
+      <ul>
+        <li>לפתוח את המצגת ולזהות מראש את נקודות השרשרת.</li>
+        <li>להכין תרחיש של קשר חלש ולשאול איפה יכול להיעלם ההספק.</li>
+        <li>אין צורך במספרי רגישות או הפסד ספציפיים לדגם ציוד.</li>
+      </ul>
+      <div class="note amber"><h3>גבול ההעמקה</h3>
+        <p>לא מתכננים אנטנות או מגברי RF. המטרה היא להבין ממשקים, הפסדים ומונחים לצורך בדיקה.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>חלוקת זמן מוצעת</h2>
+  <table>
+    <tr><th>חלק</th><th>מה עושים</th><th class="n">דקות</th></tr>
+    <tr><td class="k">פתיחה</td><td>מיפוי שרשרת קשר מלאה</td><td class="n">6</td></tr>
+    <tr><td class="k">אנטנה ומזין</td><td>המרת הספק מוליך לקרינה</td><td class="n">8</td></tr>
+    <tr><td class="k">רזוננטיות ואימפדנס</td><td>למה ההתאמה תלויה בתדר</td><td class="n">10</td></tr>
+    <tr><td class="k">יעילות ורוחב פס</td><td>לאן הולך ההספק</td><td class="n">8</td></tr>
+    <tr><td class="k">מקלט ורעש</td><td>SNR, רגישות וסלקטיביות</td><td class="n">9</td></tr>
+    <tr><td class="k">תקציב קישור</td><td>חיבור רווחים, הפסדים ורזרבה</td><td class="n">10</td></tr>
+    <tr><td class="k">סגירה</td><td>נקודת הבדיקה הבאה</td><td class="n">4</td></tr>
+  </table>
+
+  <div class="note green"><h3>פתיחה מומלצת</h3>
+    <p>אם המשדר מוציא הספק תקין, באילו נקודות עדיין יכול להיעלם הקישור לפני שהמידע מגיע למקלט?</p>
+  </div>
+</div>
+
+<!-- 3 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">01 · מבט מערכתי</div>
+  <h1>מידע והספק עוברים שרשרת שלמה</h1><hr class="rule">
+  <p>המשדר יוצר אות RF, הקו המזין מוביל אותו, האנטנה ממירה אותו לשדה, והמקלט מבצע את התהליך ההפוך.</p>
+
+  <div class="band sm">מקור מידע ← משדר ← כבל ומחברים ← אנטנת <span class="ltr">TX</span> ← ערוץ <span class="ltr">VHF</span> ← אנטנת <span class="ltr">RX</span> ← מקלט</div>
+
+  <div class="note teal"><h3>הנחיית מדריך</h3>
+    <p>בכל חוליה שאל: מה יכול להשתבש כאן, ואיזו בדיקה מבודדת את החוליה בלי להניח שהקודמת תקינה?</p>
+  </div>
+
+  <div class="note amber"><h3>הבחנה</h3>
+    <p>מידע יכול להיות תקין בזמן שמסלול ההספק לקוי, ולהפך.</p>
+  </div>
+</div>
+
+<!-- 4 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">02 · ממשק תדר</div>
+  <h1>רזוננטיות ואימפדנס קובעות את ההתאמה</h1><hr class="rule">
+  <p>אנטנה מתנהגת אחרת בתדרים שונים. סביב התהודה הרכיב התגובתי קטן, והאימפדנס יכול להתקרב לערך של הקו והרדיו.</p>
+
+  <div class="pc teal"><h3>סביב תדר התהודה</h3>
+    <p>התגובה החשמלית (הרכיב התגובתי) מתקרבת לאיזון, וההחזרה יורדת לאזור המינימום שלה, סביב תדר התהודה.</p>
+    <p>שקע ההחזרה נמצא במקום הנכון רק אם המבנה, הסביבה וההזנה מתאימים לתחום העבודה.</p>
+  </div>
+
+  <div class="note red"><h3>אל תקצר</h3>
+    <p>רזוננטיות אינה מילה נרדפת להתאמה. אנטנה יכולה להיות רזוננטית אך לא מותאמת בדיוק למערכת.</p>
+  </div>
+</div>
+
+<!-- 5 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">03 · לאן ההספק הולך</div>
+  <h1>יעילות ורוחב פס הם שני מבחנים שונים</h1><hr class="rule">
+  <p>התאמה מתארת כמה הספק נכנס למערכת האנטנה. יעילות מתארת כמה ממנו הופך לקרינה במקום לחום. רוחב פס מתאר על פני איזה תחום הביצועים נשארים שימושיים.</p>
+
+  <div class="cards">
+    <div class="pc teal"><h3>יעילות: לאן ההספק הולך</h3>
+      <p>ההספק המוזן לאנטנה מתפצל לקרינה מוקרנת ולהפסד. יעילות היא היחס בין השניים.</p>
+    </div>
+    <div class="pc teal"><h3>רוחב פס: התחום השימושי</h3>
+      <p>רוחב הפס מתאר על פני איזה תחום תדרים ההתאמה וההקרנה נשארות שימושיות.</p>
+    </div>
+  </div>
+
+  <div class="note amber"><h3>מלכודת מדידה</h3>
+    <p>כבל אובדני עשוי להסתיר החזרה ולהציג התאמה נאה, תוך איבוד הספק.</p>
+  </div>
+
+  <div class="note green"><h3>שאלת ביניים</h3>
+    <p>איזו תוצאה תקבל אם מחליפים אנטנה טובה בעומס תקני? SWR מצוין, אבל כמעט אין קשר.</p>
+  </div>
+</div>
+
+<!-- 6 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">04 · בצד הקליטה</div>
+  <h1>אות שימושי חייב להיות מובחן מהרעש</h1><hr class="rule">
+  <p>רמת אות לבדה אינה מספיקה. חשוב המרווח מעל רצפת הרעש והיכולת של המקלט לדחות אותות חזקים סמוכים.</p>
+
+  <div class="pc teal"><h3>קליטה אינה רק "שומעים"</h3>
+    <p>שלושה מושגים קובעים: רגישות, סלקטיביות ו-SNR, המרווח של האות מעל רצפת הרעש.</p>
+    <p>רגישות עוסקת בחלש הרצוי; סלקטיביות עוסקת בחזק הלא רצוי.</p>
+  </div>
+
+  <div class="note teal"><h3>תרחיש</h3>
+    <p>אם הקשר משתפר כשמתרחקים ממשדר אחר, ייתכן שהבעיה אינה חוסר הספק אלא סביבת RF או סלקטיביות.</p>
+  </div>
+</div>
+
+<!-- 7 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">05 · חשבון מערכת</div>
+  <h1>תקציב קישור: רווחים פחות הפסדים</h1><hr class="rule">
+  <p>מתחילים בהספק המשדר, מפחיתים הפסדי כבל, מחברים רווחי אנטנה, מפחיתים הפסד דרך ומכשולים, ומשווים לרגישות המקלט עם רזרבה.</p>
+
+  <div class="band sm">הספק <span class="ltr">TX</span> ← כבל ומחברים (הפסד) ← דרך ומכשולים (הפסד) ← <span class="ltr">RX</span>: מעל הסף?</div>
+
+  <div class="note teal"><h3>dB מול dBm</h3>
+    <p>dBm מתאר רמה; dB מתאר שינוי. בתקציב קישור מחברים ומחסרים אותם.</p>
+  </div>
+
+  <div class="note amber"><h3>מיקוד לשטח</h3>
+    <p>אין צורך לחשב מודל דרך מדויק בשיעור. המטרה היא לדעת שכל dB שאבד בכבל אינו מגיע לאוויר.</p>
+  </div>
+</div>
+
+<!-- 8 ─────────────────────────── -->
+<div class="pg">
+  <div class="eyebrow">סיום · מפת העברה</div>
+  <h1>מהלך המצגת ונקודות אימות</h1><hr class="rule">
+
+  <table>
+    <tr><td class="n">1</td><td><b>שער</b><br>מהגל למערכת.</td><td class="n">2</td><td><b>שרשרת רדיו</b><br>עקוב אחר מידע והספק בנפרד.</td></tr>
+    <tr><td class="n">3</td><td><b>תפקיד האנטנה</b><br>המרה בין אות מוליך לשדה מוקרן.</td><td class="n">4</td><td><b>רזוננטיות</b><br>מבנה שתלוי בתדר.</td></tr>
+    <tr><td class="n">5</td><td><b>אימפדנס</b><br>היחס המלא בין מתח לזרם ב-RF.</td><td class="n">6</td><td><b>התאמה</b><br>פחות החזרה בממשקים.</td></tr>
+    <tr><td class="n">7</td><td><b>יעילות</b><br>הספק מותאם לא בהכרח מוקרן היטב.</td><td class="n">8</td><td><b>רוחב פס</b><br>התאמה שימושית על פני תחום.</td></tr>
+    <tr><td class="n">9</td><td><b>רעש ו-SNR</b><br>אות צריך לבלוט מעל הרעש.</td><td class="n">10</td><td><b>רגישות וסלקטיביות</b><br>חלש רצוי מול חזק סמוך.</td></tr>
+    <tr><td class="n">11</td><td><b>dB ו-dBm</b><br>יחסים מול רמת הספק.</td><td class="n">12</td><td><b>תקציב קישור</b><br>כל רווח והפסד מצטברים.</td></tr>
+  </table>
+
+  <div class="cards">
+    <div style="flex:1">
+      <div class="note green"><h3>שאלת סיום</h3>
+        <p>איזו מדידה תוכיח שהבעיה נמצאת אחרי יציאת המשדר אבל לפני האוויר?</p>
+      </div>
+      <div class="note red"><h3>טעות שאסור להשאיר</h3>
+        <p>לא להסיק מהספק משדר תקין שההספק מגיע לאנטנה, ולא להסיק מ-SWR טוב שהאנטנה מקרינה ביעילות.</p>
+      </div>
+    </div>
+    <div style="flex:1">
+      <h2 style="margin-top:0">מילון קצר למדריך</h2>
+      <table>
+        <tr><td><b>רזוננטיות:</b> תגובה חזקה סביב תדר מסוים.</td><td><b>אימפדנס:</b> יחס מתח/זרם כולל פאזה ב-AC.</td></tr>
+        <tr><td><b>יעילות:</b> חלק ההספק שהופך לקרינה שימושית.</td><td><b>SNR:</b> יחס אות לרעש.</td></tr>
+        <tr><td><b>רגישות:</b> היכולת לקלוט אות חלש.</td><td><b>סלקטיביות:</b> דחיית אותות סמוכים.</td></tr>
+        <tr><td><b>dB:</b> יחס לוגריתמי.</td><td><b>dBm:</b> רמת הספק ביחס ל-1mW.</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+</body></html>

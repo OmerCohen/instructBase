@@ -1,0 +1,164 @@
+{
+  "decks": [
+    {
+      "file": "radio/01-electricity-electronics/01-electricity-electronics-deck.html",
+      "slides": 9
+    },
+    {
+      "file": "radio/02-waves-vhf-propagation/02-waves-vhf-propagation-deck.html",
+      "slides": 14
+    },
+    {
+      "file": "radio/03-radio-basics/03-radio-basics-deck.html",
+      "slides": 12
+    },
+    {
+      "file": "radio/04-antennas-swr/04-antennas-swr-deck.html",
+      "slides": 11
+    },
+    {
+      "file": "radio/05-field-troubleshooting/05-field-troubleshooting-deck.html",
+      "slides": 14
+    },
+    {
+      "file": "radio/06-monopole-fresnel-patterns/06-monopole-fresnel-patterns-deck.html",
+      "slides": 30
+    },
+    {
+      "file": "networks/01-layers-and-metrics/01-layers-and-metrics-deck.html",
+      "slides": 13
+    },
+    {
+      "file": "networks/02-ip-routing-dns-arp/02-ip-routing-dns-arp-deck.html",
+      "slides": 14
+    },
+    {
+      "file": "networks/03-domain-auth-certificates/03-domain-auth-certificates-deck.html",
+      "slides": 17
+    },
+    {
+      "file": "networks/04-windows-diagnostic-tools/04-windows-diagnostic-tools-deck.html",
+      "slides": 14
+    },
+    {
+      "file": "networks/05-network-troubleshooting/05-network-troubleshooting-deck.html",
+      "slides": 15
+    },
+    {
+      "file": "networks/06-dhcp-and-addressing/06-dhcp-and-addressing-deck.html",
+      "slides": 13
+    },
+    {
+      "file": "networks/07-physical-layer-cabling/07-physical-layer-cabling-deck.html",
+      "slides": 13
+    }
+  ],
+  "pdfs": [
+    {
+      "source": ".agents/guide-sources/01_net_guide_source.html",
+      "staged": "tmp\\humanizer-review\\rendered\\01_net_guide_source.pdf",
+      "target": "networks\\01-layers-and-metrics\\01-layers-and-metrics-guide.pdf",
+      "pages": 8,
+      "old_pages": 8
+    },
+    {
+      "source": ".agents/guide-sources/01_radio_guide_source.html",
+      "staged": "tmp\\humanizer-review\\rendered\\01_radio_guide_source.pdf",
+      "target": "radio\\01-electricity-electronics\\01-electricity-electronics-guide.pdf",
+      "pages": 7,
+      "old_pages": 7
+    },
+    {
+      "source": ".agents/guide-sources/02_net_guide_source.html",
+      "staged": "tmp\\humanizer-review\\rendered\\02_net_guide_source.pdf",
+      "target": "networks\\02-ip-routing-dns-arp\\02-ip-routing-dns-arp-guide.pdf",
+      "pages": 8,
+      "old_pages": 8
+    },
+    {
+      "source": ".agents/guide-sources/02_radio_guide_source.html",
+      "staged": "tmp\\humanizer-review\\rendered\\02_radio_guide_source.pdf",
+      "target": "radio\\02-waves-vhf-propagation\\02-waves-vhf-propagation-guide.pdf",
+      "pages": 8,
+      "old_pages": 8
+    },
+    {
+      "source": ".agents/guide-sources/03_net_guide_source.html",
+      "staged": "tmp\\humanizer-review\\rendered\\03_net_guide_source.pdf",
+      "target": "networks\\03-domain-auth-certificates\\03-domain-auth-certificates-guide.pdf",
+      "pages": 8,
+      "old_pages": 8
+    },
+    {
+      "source": ".agents/guide-sources/03_radio_guide_source.html",
+      "staged": "tmp\\humanizer-review\\rendered\\03_radio_guide_source.pdf",
+      "target": "radio\\03-radio-basics\\03-radio-basics-guide.pdf",
+      "pages": 8,
+      "old_pages": 8
+    },
+    {
+      "source": ".agents/guide-sources/04_net_guide_source.html",
+      "staged": "tmp\\humanizer-review\\rendered\\04_net_guide_source.pdf",
+      "target": "networks\\04-windows-diagnostic-tools\\04-windows-diagnostic-tools-guide.pdf",
+      "pages": 8,
+      "old_pages": 8
+    },
+    {
+      "source": ".agents/guide-sources/04_radio_guide_source.html",
+      "staged": "tmp\\humanizer-review\\rendered\\04_radio_guide_source.pdf",
+      "target": "radio\\04-antennas-swr\\04-antennas-swr-guide.pdf",
+      "pages": 9,
+      "old_pages": 9
+    },
+    {
+      "source": ".agents/guide-sources/05_net_guide_source.html",
+      "staged": "tmp\\humanizer-review\\rendered\\05_net_guide_source.pdf",
+      "target": "networks\\05-network-troubleshooting\\05-network-troubleshooting-guide.pdf",
+      "pages": 8,
+      "old_pages": 8
+    },
+    {
+      "source": ".agents/guide-sources/05_radio_guide_source.html",
+      "staged": "tmp\\humanizer-review\\rendered\\05_radio_guide_source.pdf",
+      "target": "radio\\05-field-troubleshooting\\05-field-troubleshooting-guide.pdf",
+      "pages": 9,
+      "old_pages": 9
+    },
+    {
+      "source": ".agents/guide-sources/06_guide_source.html",
+      "staged": "tmp\\humanizer-review\\rendered\\06_guide_source.pdf",
+      "target": "radio\\06-monopole-fresnel-patterns\\06-monopole-fresnel-patterns-guide.pdf",
+      "pages": 15,
+      "old_pages": 16
+    },
+    {
+      "source": ".agents/guide-sources/06_net_guide_source.html",
+      "staged": "tmp\\humanizer-review\\rendered\\06_net_guide_source.pdf",
+      "target": "networks\\06-dhcp-and-addressing\\06-dhcp-and-addressing-guide.pdf",
+      "pages": 8,
+      "old_pages": 8
+    },
+    {
+      "source": ".agents/guide-sources/07_net_guide_source.html",
+      "staged": "tmp\\humanizer-review\\rendered\\07_net_guide_source.pdf",
+      "target": "networks\\07-physical-layer-cabling\\07-physical-layer-cabling-guide.pdf",
+      "pages": 8,
+      "old_pages": 8
+    },
+    {
+      "source": "reference/technician-card-a6-source.html",
+      "staged": "tmp\\humanizer-review\\rendered\\technician-card-a6-source.pdf",
+      "target": "reference\\technician-card-a6.pdf",
+      "pages": 2,
+      "old_pages": 2
+    }
+  ],
+  "published": true,
+  "checks": [
+    "source emoji and editorial-marker scan",
+    "slide and speaker-note preservation",
+    "JavaScript syntax",
+    "index links",
+    "PDF page count, dimensions and Hebrew text"
+  ]
+}
