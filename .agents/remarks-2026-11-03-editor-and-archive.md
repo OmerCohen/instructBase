@@ -233,6 +233,31 @@ no network, which is the point. Tests: the whole e2e suite runs against it (`SIN
 `file://` start). A model test fails when the committed file differs from a fresh build, so it cannot
 silently go stale. Rule: never edit `dist/` by hand.
 
+## Follow-up 5: proof that the single file needs no network
+
+Omer asked whether it was verified. Honest state before this step: a static check in the build and a CSP,
+but every browser test had network access. Now:
+- **Static scan** of `dist/instructbase-editor.html`: no fetch/XHR/WebSocket/EventSource/beacon/worker/
+  import; the only scheme URLs are the XHTML namespace identifier and `http://ib.invalid/`, a resolution base that
+  is never requested; `navigator.serviceWorker` is disabled in this build. Decks, guides and the index:
+  the only external URLs are the TechGame link in `index.html` (a plain link) and a paper reference
+  inside a GLSL comment in r06's three.js bundle.
+- **`editor/tests/offline.cjs`** (12 tests): (A) `file://`, network off, folder through the read-only
+  picker, all 16 decks previewed with scripts, preview edit, modal + image, save, new lesson from the
+  embedded templates in a folder without `editor/`, index save, present window, ZIP; (B) the same file
+  served in-browser by `route.fulfill` with network off, writing a real folder handle; (C) older
+  Chrome/Edge. Every non-local request, CSP violation or page error fails it. A negative probe (fetch, page
+  image, iframe image and fetch to example.com) confirmed the recorder catches all four.
+- **Found and fixed while doing this:** `CompressionStream('deflate-raw')` only exists from Chrome/Edge
+  103. Older versions have `CompressionStream` and threw, so ZIP creation failed outright. It now falls back
+  to STORE. Added a "פתיחה לקריאה בלבד" button: when an enterprise policy blocks the folder API,
+  `showDirectoryPicker` fails and there was no way in.
+- **Minimum browser: Chrome/Edge 88** (CSS `inset`/`:is`; the decks already need 87+ for `inset` and
+  80+ for `?.`). Not tested on an actual old Edge; derived from a feature inventory.
+- **Open for Omer:** in a disconnected network the index's TechGame link (`https://kesher-net.vercel.app/`)
+  cannot work, although the built game is in the repo (`techGame/`). Changing the link is a content
+  decision, so it was not touched.
+
 ## Tests
 
 - `node editor/tests/model.test.cjs`: 92 tests over the real files (round trips, renumber no-op,

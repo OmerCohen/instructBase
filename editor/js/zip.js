@@ -21,7 +21,15 @@
     };
   }
   var STORED_EXT = /\.(zip|png|jpe?g|gif|webp|mp4|webm|mp3|gz|7z|woff2?|bin)$/i;
-  function canDeflate() { return typeof CompressionStream === 'function'; }
+  /* 'deflate-raw' exists from Chrome/Edge 103; older versions have CompressionStream
+     but throw on that format, so test it once and fall back to STORE */
+  var deflateOK = null;
+  function canDeflate() {
+    if (deflateOK === null) {
+      try { new CompressionStream('deflate-raw'); deflateOK = true; } catch (e) { deflateOK = false; }
+    }
+    return deflateOK;
+  }
   async function deflateRaw(bytes) {
     var cs = new CompressionStream('deflate-raw');
     var stream = new Blob([bytes]).stream().pipeThrough(cs);

@@ -285,7 +285,9 @@
       if ((await fs.permission(true)) !== 'granted') { toast('בלי הרשאת כתיבה העורך לא יוכל לשמור.', 'error'); return; }
       try { await F.kvSet('lastDir', dir); } catch (e) { /* ignore */ }
       await setFS(fs);
-    } catch (e) { if (e && e.name !== 'AbortError') toast('פתיחת התיקייה נכשלה: ' + e.message, 'error'); }
+    } catch (e) {
+      if (e && e.name !== 'AbortError') toast('פתיחת התיקייה נכשלה (' + e.name + '). אם הדפדפן חוסם גישה לתיקיות, למשל במדיניות ארגונית, אפשר להשתמש ב"פתיחה לקריאה בלבד": השינויים נשמרים בזיכרון ויוצאים כ-ZIP.', 'error', 12000);
+    }
   }
   async function reopenLast() {
     var dir;
@@ -449,7 +451,8 @@
       h('p', { class: 'lead' }, 'טעינה, עריכה ושמירה של המצגות, מקורות דפי ההנחיה והאינדקס, ויצירת שיעורים חדשים בתבנית הבית.'),
       h('div', { class: 'welcome-actions' },
         btn('פתיחת תיקיית המאגר…', pickFolder, 'primary big'),
-        supported ? btn('פתיחה מחדש של התיקייה האחרונה', reopenLast, 'big') : null),
+        supported ? btn('פתיחה מחדש של התיקייה האחרונה', reopenLast, 'big') : null,
+        supported ? btn('פתיחה לקריאה בלבד…', function () { $('#fallback-input').click(); }, 'big', 'כשהדפדפן חוסם כתיבה לתיקייה: קוראים את התיקייה, עורכים, ומורידים את הקבצים ששונו כ-ZIP') : null),
       h('div', { class: 'note ' + (supported ? '' : 'warn') }, supported
         ? 'בחרו את תיקיית השורש של המאגר (זו שיש בה index.html). הדפדפן יבקש אישור לקריאה ולכתיבה; השמירה נעשית ישירות בקבצים.'
         : 'הדפדפן הזה לא תומך בכתיבה לתיקייה מקומית (File System Access). אפשר לפתוח תיקייה לקריאה, לערוך, ולהוריד את הקבצים ששונו כ-ZIP. לשמירה ישירה פתחו את העורך ב-Chrome או ב-Edge.'),
