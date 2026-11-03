@@ -125,11 +125,54 @@ notes"), number agreement through a `count(n, one, many)` helper ("קובץ אח
 hard-coded date in the ZIP dialog, "ניקוי עיצוב" to match the other noun labels, guide-template
 heading matches its content.
 
+## Follow-up: full-size slide editor (modal), same day
+
+Omer asked for more comfortable editing: WYSIWYG at least, images, preferably a slide modal. Built
+`editor/js/slide-editor.js` (+ `richtext.js`, shared with the main editor). Usage in `editor/README.md`.
+
+Design decisions:
+- **Static canvas.** The slide is rendered in an iframe with `sandbox="allow-same-origin"` (no
+  allow-scripts) and a CSP that forbids all scripts. Probed first: the file's own scripts and inline
+  handlers do not run, the editor's listeners do, contenteditable works. Demos therefore show their
+  initial state. Running the deck's scripts here would put runtime state into the saved file.
+- **Minimal serializer.** Every start tag gets `data-ibsrc="<base>.<index>"`. On apply, untouched
+  elements emit their original bytes, changed elements with the same attributes keep their original start
+  and end tags, and only new elements are serialized fresh. Inserted, duplicated and code-view markup is
+  registered as a new "base", so it keeps its own exact text too. A parser-implied `<tbody>` (no
+  annotation, no attributes) is emitted as its children only. Verified on all 424 units of the set
+  (decks, guides, A6 card): unchanged = identical bytes; forced full walk = same DOM after reparse.
+- **Blocks follow the template**, not free positioning. Palette markup uses only house classes. Text
+  colours are limited to the four tokens plus ink (skill rule: no new hues). Photos are capped at
+  1280px on the longest side, saved as JPEG q80 (PNG if transparent), and embedded as data URIs.
+- **Layout checks are relative to the state at open.** Measured on all 271 slides: with tuned
+  thresholds (glyph overflow, form controls and a few px of tolerance excluded), only 2 slides "overflow"
+  in the static render (r02 #11, r06 #26). Both are fine in the live deck, where the scripts size the demo.
+  So the modal reports only elements that broke through the edit. A static absolute check would have
+  nagged on those demo slides.
+
+Bugs found while building, fixed with tests: inserting text while an image was selected put it inside the
+picture frame, where `overflow:hidden` hid it, so `.visual` is no longer a text container. Clipped and
+squeezed content was not detected at first. The checks timer fired after the modal closed. A tooltip
+concatenation produced "הקודםת" (final mem in the middle of a word).
+
+Critical remarks / limits:
+- **No free positioning and no drag-to-reorder inside the canvas**; moving is by buttons or Alt+arrows.
+  Deliberate (flex/grid flow keeps projector scaling and set consistency), but it is a real limit.
+- **SVG labels are not editable visually** (the SVG is one block; edit its HTML). Table `colspan` is
+  not handled by the row/column operations.
+- **The editor cannot enforce the content rules** of the skill: wording (count headings, mirrored cards,
+  hinges), image rights, cropping stickers, numbers and frequencies out of photos. The check panel covers
+  only mechanical rules.
+- **Embedded photos grow the deck**: roughly 100-300 KB per downscaled photo. The device decks are
+  already 376/499 KB.
+- **Found in the set, not changed:** r06 slide 26 uses `.key.violet`, a hue outside the four tokens
+  (the skill bans new hues). Omer's call.
+
 ## Tests
 
 - `node editor/tests/model.test.cjs`: 92 tests over the real files (round trips, renumber no-op,
   field set/get identity, slide operations, index regeneration, templates, lint baseline).
-- `node editor/tests/e2e.cjs`: 26 tests in headless Chromium (6 of them are regressions from the review). The repo is copied into the Origin Private
+- `node editor/tests/e2e.cjs`: 34 tests in headless Chromium (6 regressions from the review, 8 for the slide modal). The repo is copied into the Origin Private
   File System, whose directory handle has the same API as a picked folder, so the real save path runs.
   Covers visual edit, LTR/bold, side panel, layouts, move, refused runtime text, raw HTML validation,
   undo/redo, save + backup, blocked save on a broken script, heavy decks (r06/n08/d01), sandboxed present

@@ -56,86 +56,10 @@
   function count(n, one, many) { return n === 1 ? one : n + ' ' + many; }
 
   /* ================================================================== */
-  /* rich-text helpers (side panel boxes)                                */
+  /* rich-text helpers (shared with the slide edit modal: richtext.js)   */
   /* ================================================================== */
-  var INLINE_OK = { a: 1, abbr: 1, b: 1, bdi: 1, bdo: 1, br: 1, cite: 1, code: 1, em: 1, i: 1, kbd: 1, mark: 1, q: 1, s: 1, samp: 1, small: 1, span: 1, strong: 1, sub: 1, sup: 1, time: 1, u: 1, 'var': 1, wbr: 1 };
-  function frag(html) { var t = document.createElement('template'); t.innerHTML = html || ''; return t; }
-  function unwrapNode(el) { var p = el.parentNode; while (el.firstChild) p.insertBefore(el.firstChild, el); p.removeChild(el); }
-  /* keep only inline markup; drop browser-added styles the original did not have */
-  function sanitize(html, origHtml) {
-    var t = frag(html), styles = new Set();
-    if (origHtml) frag(origHtml).content.querySelectorAll('[style]').forEach(function (n) { styles.add(n.getAttribute('style')); });
-    (function clean(node) {
-      Array.prototype.slice.call(node.childNodes).forEach(function (ch) {
-        if (ch.nodeType !== 1) return;          // text and comments stay as they are
-        clean(ch);
-        ch.removeAttribute('contenteditable'); ch.removeAttribute('data-ib');
-        if (ch.hasAttribute('style') && !styles.has(ch.getAttribute('style'))) ch.removeAttribute('style');
-        var tag = ch.tagName.toLowerCase();
-        if (tag === 'div' || tag === 'p') {
-          // a browser block is one line: one <br> before it, and an empty <div><br></div> adds nothing more
-          if (ch.childNodes.length === 1 && ch.firstChild.nodeName === 'BR') ch.removeChild(ch.firstChild);
-          if (ch.previousSibling) ch.parentNode.insertBefore(document.createElement('br'), ch);
-          unwrapNode(ch); return;
-        }
-        if (!INLINE_OK[tag] || (tag === 'span' && !ch.attributes.length)) unwrapNode(ch);
-      });
-    })(t.content);
-    // a line break typed at the very end renders nothing; keep only as many trailing <br> as the original had
-    var keep = 0, om = /((?:<br\s*\/?>\s*)+)$/i.exec(origHtml || '');
-    if (om) keep = (om[1].match(/<br/gi) || []).length;
-    function trailingBrs() {
-      var n = 0;
-      for (var c = t.content.lastChild; c; c = c.previousSibling) {
-        if (c.nodeName === 'BR') n++;
-        else if (!(c.nodeType === 3 && !c.data.trim())) break;
-      }
-      return n;
-    }
-    while (trailingBrs() > keep) {
-      var c = t.content.lastChild;
-      while (c && c.nodeName !== 'BR') c = c.previousSibling;
-      if (!c) break;
-      c.remove();
-    }
-    // Chrome types U+00A0 for a space at a line end or next to another space.
-    // If the original had none, they are typing artefacts: make them plain spaces.
-    if (!/&nbsp;|\u00a0/.test(origHtml || '')) {
-      var tw = document.createTreeWalker(t.content, NodeFilter.SHOW_TEXT), tn;
-      while ((tn = tw.nextNode())) if (tn.data.indexOf('\u00a0') >= 0) tn.data = tn.data.replace(/\u00a0/g, ' ').replace(/ {2,}/g, ' ');
-    }
-    return t.innerHTML;
-  }
-  /* loose: ignore trailing <br> and whitespace (Chrome leaves a placeholder <br> in an emptied element) */
-  function sameHtml(a, b, loose) {
-    var x = frag(a).content, y = frag(b).content;
-    [x, y].forEach(function (f) {
-      f.querySelectorAll('[data-ib],[contenteditable]').forEach(function (n) { n.removeAttribute('data-ib'); n.removeAttribute('contenteditable'); });
-      if (loose) while (f.lastChild && (f.lastChild.nodeName === 'BR' || (f.lastChild.nodeType === 3 && !f.lastChild.data.trim()))) f.removeChild(f.lastChild);
-      f.normalize();
-    });
-    return x.isEqualNode(y);
-  }
-  function wrapIn(box, tag, cls) {
-    var sel = getSelection();
-    if (!sel.rangeCount) return;
-    var r = sel.getRangeAt(0);
-    if (!box.contains(r.commonAncestorContainer)) return;
-    var anc = r.commonAncestorContainer.nodeType === 1 ? r.commonAncestorContainer : r.commonAncestorContainer.parentNode;
-    var hit = anc.closest(cls ? tag + '.' + cls : (tag === 'strong' ? 'strong,b' : tag));
-    if (hit && hit !== box && box.contains(hit)) { unwrapNode(hit); box.normalize(); box.dispatchEvent(new Event('input')); return; }
-    if (r.collapsed) return;
-    var w = document.createElement(tag); if (cls) w.className = cls;
-    w.appendChild(r.extractContents()); r.insertNode(w);
-    var nr = document.createRange(); nr.selectNodeContents(w); sel.removeAllRanges(); sel.addRange(nr);
-    box.dispatchEvent(new Event('input'));
-  }
-  function clearIn(box) {
-    var sel = getSelection(); if (!sel.rangeCount) return;
-    var r = sel.getRangeAt(0); if (r.collapsed || !box.contains(r.commonAncestorContainer)) return;
-    var t = r.toString(); r.deleteContents(); r.insertNode(document.createTextNode(t)); box.normalize();
-    box.dispatchEvent(new Event('input'));
-  }
+  var R = window.IBRich;
+  var sanitize = R.sanitize, sameHtml = R.sameHtml, wrapIn = R.wrapIn, clearIn = R.clearIn;
   /* a contenteditable box bound to an HTML string */
   function richBox(html, onCommit, opts) {
     opts = opts || {};
@@ -562,6 +486,8 @@
     var editToggle = h('label', { class: 'switch', title: 'כשמצב עריכה כבוי, ההדגמות במצגת מגיבות ללחיצות כרגיל' },
       h('input', { type: 'checkbox', checked: d.editing !== false, onchange: function (e) { d.editing = e.target.checked; sendPreview(d, { type: 'mode', editing: d.editing }); } }), ' מצב עריכה');
     var tools = h('div', { class: 'toolbar' },
+      btn(isDeck ? 'עריכת השקופית' : 'עריכת העמוד', function () { openSlideEditor(d, d.cur); }, 'primary small', 'עורך חזותי במסך מלא: טקסט, בלוקים, טבלאות ותמונות'),
+      h('span', { class: 'sep' }),
       editToggle,
       h('span', { class: 'sep' }),
       toolBtn('B', 'strong', 'הדגשה (Ctrl+B)'),
@@ -592,13 +518,14 @@
     d.model.units.forEach(function (u, i) {
       var info = isDeck ? M.slideInfo(u.html) : M.pageInfo(u.html);
       var li = h('li', { class: (i === d.cur ? 'on ' : '') + (info.isTitle ? 'title-unit' : ''), draggable: 'true', 'data-i': i },
-        h('button', { type: 'button', class: 'u-main', onclick: function () { gotoUnit(d, i); } },
+        h('button', { type: 'button', class: 'u-main', onclick: function () { gotoUnit(d, i); }, ondblclick: function () { openSlideEditor(d, i); }, title: 'לחיצה כפולה: עריכה במסך מלא' },
           h('span', { class: 'u-n' }, i + 1),
           h('span', { class: 'u-t' }, h('b', null, info.title || '(ללא כותרת)'), info.eyebrow ? h('small', null, info.eyebrow) : null),
           h('span', { class: 'u-flags' },
             info.interactive ? h('i', { class: 'flag live', title: 'יש בשקופית הדגמה חיה (כפתורים/שדות/canvas)' }, 'חי') : null,
             isDeck && !info.hasNote ? h('i', { class: 'flag warn', title: 'אין הערות מדריך' }, 'הערות') : null)),
         h('span', { class: 'u-acts' },
+          btn('✎', function () { openSlideEditor(d, i); }, 'icon', 'עריכה במסך מלא'),
           btn('↑', function () { moveUnit(d, i, i - 1); }, 'icon', 'הזזה למעלה'),
           btn('↓', function () { moveUnit(d, i, i + 1); }, 'icon', 'הזזה למטה'),
           btn('⧉', function () { duplicateUnit(d, i); }, 'icon', 'שכפול'),
@@ -611,6 +538,25 @@
       rail.appendChild(li);
     });
     var on = rail.querySelector('li.on'); if (on && on.scrollIntoView) on.scrollIntoView({ block: 'nearest' });
+  }
+  /* full-size visual editor for one slide/page (slide-editor.js) */
+  function openSlideEditor(d, i) {
+    if (!(d.kind === 'deck' || d.kind === 'guide') || !d.model.units[i]) return null;
+    flushDraft(d);
+    if (i !== d.cur) gotoUnit(d, i);
+    var styles = S.qsa(S.scan(d.model.head), 'style').map(function (n) { return S.outer(d.model.head, n); }).join('');
+    var n = d.model.units.length;
+    return window.IBSlideEditor.open({
+      kind: d.kind, html: d.model.units[i].html, styles: styles,
+      title: (d.kind === 'deck' ? 'שקופית ' : 'עמוד ') + (i + 1) + ' מתוך ' + n + ' ·', file: d.path.split('/').pop(),
+      hasPrev: i > 0, hasNext: i < n - 1,
+      onApply: function (html) {
+        change(d, function () { d.model.units[i].html = html; if (d.kind === 'deck') M.renumberDeck(d.model); }, { reload: true });
+      },
+      onSave: function () { saveDoc(d); },
+      onNav: function (dir) { openSlideEditor(d, i + dir); },
+      toast: toast
+    });
   }
   function gotoUnit(d, i) {
     if (i < 0 || i >= d.model.units.length) return;
@@ -1359,7 +1305,7 @@
   window.IBApp = {
     state: state,
     openWithHandle: function (dir) { return setFS(new F.HandleFS(dir)); },
-    openDoc: openDoc, saveDoc: saveDoc, serialize: serialize, activeDoc: activeDoc, createLesson: createLesson,
+    openDoc: openDoc, saveDoc: saveDoc, openSlideEditor: openSlideEditor, serialize: serialize, activeDoc: activeDoc, createLesson: createLesson,
     change: change, gotoUnit: gotoUnit, insertUnit: insertUnit, moveUnit: moveUnit, deleteUnit: deleteUnit, refreshLibrary: refreshLibrary
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();

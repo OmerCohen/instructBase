@@ -40,6 +40,20 @@ function serve() {
   });
 }
 
+/* a synthetic RGB gradient PNG, larger than the 1280px limit, written to the OS temp dir */
+function makeTestPng(W, H) {
+  const zlib = require('zlib'), os = require('os');
+  const raw = Buffer.alloc((W * 3 + 1) * H);
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { const o = y * (W * 3 + 1) + 1 + x * 3; raw[o] = (x * 255 / W) | 0; raw[o + 1] = (y * 255 / H) | 0; raw[o + 2] = 128; }
+  const crc = (b) => { let c = ~0; for (const v of b) { c ^= v; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; } return (~c) >>> 0; };
+  const chunk = (t, d) => { const l = Buffer.alloc(4); l.writeUInt32BE(d.length); const td = Buffer.concat([Buffer.from(t), d]); const c = Buffer.alloc(4); c.writeUInt32BE(crc(td)); return Buffer.concat([l, td, c]); };
+  const ihdr = Buffer.alloc(13); ihdr.writeUInt32BE(W, 0); ihdr.writeUInt32BE(H, 4); ihdr[8] = 8; ihdr[9] = 2;
+  const png = Buffer.concat([Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), chunk('IHDR', ihdr), chunk('IDAT', zlib.deflateSync(raw)), chunk('IEND', Buffer.alloc(0))]);
+  const f = path.join(os.tmpdir(), 'ib-e2e-photo.png');
+  fs.writeFileSync(f, png);
+  return f;
+}
+
 let passed = 0, failed = 0;
 async function step(name, fn) {
   try { await fn(); passed++; console.log('  ok  ' + name); }
@@ -446,8 +460,168 @@ async function step(name, fn) {
     assert.strictEqual(new Set(ids).size, ids.length, 'duplicate ids');
   });
 
+  /* ---- slide edit modal (slide-editor.js) ---- */
+  const N08 = 'networks/08-cryptography/08-cryptography-deck.html';
+  const IMG = makeTestPng(1800, 1000);
+  const se = (fn, arg) => page.evaluate(fn, arg);
+  const cnv = () => page.frameLocator('iframe.se-frame');
+  async function openModal(i) {
+    await page.evaluate(() => { const c = window.IBSlideEditor.current; if (c) c.close(); });
+    await page.evaluate((i) => window.IBApp.gotoUnit(window.IBApp.activeDoc(), i), i);
+    await page.waitForTimeout(300);
+    await page.locator('.center .toolbar button.primary').first().click();
+    await page.waitForSelector('dialog.se-dlg');
+    await page.evaluate(() => window.IBSlideEditor.current.ready);
+    await page.waitForTimeout(300);
+  }
+  const unitHtml = (i) => page.evaluate((i) => window.IBApp.activeDoc().model.units[i].html, i);
+
+  await step('modal: opens static (no deck scripts, CSP), and apply without edits changes nothing', async () => {
+    await page.evaluate((p) => window.IBApp.openDoc(p, { kind: 'deck' }), N08);
+    await page.waitForTimeout(1200);
+    const before = await ser();
+    await openModal(4);
+    const r = await se(() => { const d = window.IBSlideEditor.current.doc; return { scripts: d.querySelectorAll('script').length, csp: !!d.querySelector('meta[http-equiv="Content-Security-Policy"]'), sandbox: document.querySelector('iframe.se-frame').getAttribute('sandbox') }; });
+    assert.deepStrictEqual(r, { scripts: 0, csp: true, sandbox: 'allow-same-origin' });
+    await page.locator('.se-top button', { hasText: 'החלה וסגירה' }).click();
+    await page.waitForTimeout(400);
+    assert.strictEqual(await ser(), before);
+    assert.strictEqual(await page.evaluate(() => window.IBApp.activeDoc().undo.length > 0 && window.IBApp.activeDoc().dirty), false);
+  });
+
+  await step('modal: typing in the title changes only the title bytes', async () => {
+    const before = await unitHtml(4);
+    await openModal(4);
+    await cnv().locator('h1.title').click();
+    await page.keyboard.press('Control+End');
+    await page.keyboard.type(' נבדק');
+    await page.keyboard.press('Escape');
+    await page.locator('.se-top button', { hasText: 'החלה וסגירה' }).click();
+    await page.waitForTimeout(500);
+    const after = await unitHtml(4);
+    const t0 = M.getField(before, 'title');
+    assert.strictEqual(M.getField(after, 'title'), t0 + ' נבדק');
+    assert.strictEqual(M.setField(after, 'title', t0), before, 'bytes outside the title changed');
+  });
+
+  await step('modal: list (Enter adds an item), table (+row, +column), block delete, undo/redo', async () => {
+    await openModal(4);
+    await page.locator('.se-palette button', { hasText: 'תבליטים' }).click();
+    await cnv().locator('ul.checklist').last().locator('li').first().click();
+    await page.keyboard.press('Control+End');
+    await page.keyboard.press('Enter');
+    await page.keyboard.type('פריט חדש');
+    await page.keyboard.press('Escape');
+    let out = await se(() => window.IBSlideEditor.current.serialize());
+    assert.ok(out.includes('<ul class="checklist"><li>נקודה</li><li>פריט חדש</li><li>נקודה</li></ul>'), 'list item not added');
+    await page.locator('.se-palette button', { hasText: 'טבלה' }).click();
+    await cnv().locator('table.table').last().locator('td').first().click();
+    await page.keyboard.press('Escape');
+    await page.locator('.se-selpanel button', { hasText: '+ שורה' }).click();
+    await page.locator('.se-selpanel button', { hasText: '+ עמודה' }).click();
+    const dims = await se(() => { const t = [...window.IBSlideEditor.current.doc.querySelectorAll('table.table')].pop(); return [t.querySelectorAll('tr').length, t.querySelector('tr').children.length]; });
+    assert.deepStrictEqual(dims, [4, 4]);
+    // select the whole table and delete it with the keyboard
+    await se(() => { const c = window.IBSlideEditor.current; c.select([...c.doc.querySelectorAll('table.table')].pop()); });
+    await cnv().locator('body').press('Delete');
+    assert.strictEqual(await se(() => window.IBSlideEditor.current.doc.querySelectorAll('table.table').length), 0);
+    await page.locator('.se-top button[title^="ביטול"]').click();
+    assert.strictEqual(await se(() => window.IBSlideEditor.current.doc.querySelectorAll('table.table').length), 1, 'undo did not restore');
+    await page.locator('.se-top button[title^="חזרה"]').click();
+    assert.strictEqual(await se(() => window.IBSlideEditor.current.doc.querySelectorAll('table.table').length), 0, 'redo did not delete');
+  });
+
+  await step('modal: an image from a file goes into the selected frame, downscaled and embedded', async () => {
+    await page.locator('.se-palette button', { hasText: 'טקסט ותמונה' }).click();
+    await cnv().locator('.split .visual').last().click({ position: { x: 8, y: 8 } });
+    const [fc] = await Promise.all([page.waitForEvent('filechooser'), page.locator('.se-palette button', { hasText: 'תמונה…' }).click()]);
+    await fc.setFiles(IMG);
+    await page.waitForFunction(() => window.IBSlideEditor.current.doc.querySelector('.split .visual img'));
+    const img = await se(() => { const im = window.IBSlideEditor.current.doc.querySelector('.split .visual img'); return { w: im.naturalWidth, h: im.naturalHeight, jpeg: im.getAttribute('src').startsWith('data:image/jpeg;base64,'), label: !!im.parentElement.querySelector('.visual-label') }; });
+    assert.ok(img.jpeg, 'not a JPEG data URI');
+    assert.ok(Math.max(img.w, img.h) <= 1280, 'not downscaled: ' + img.w + 'x' + img.h);
+    assert.strictEqual(img.label, false, 'placeholder label kept');
+  });
+
+  await step('modal: overflow after an edit is reported, and goes back on undo', async () => {
+    const marks = () => page.locator('.se-warnlayer .se-overflow').count();
+    await se(() => window.IBSlideEditor.current.checks());
+    const before = await marks();
+    for (let k = 0; k < 7; k++) await page.locator('.se-palette button', { hasText: 'פסקה' }).click();
+    await page.waitForTimeout(300);
+    const c = await se(() => window.IBSlideEditor.current.checks());
+    assert.ok(c.some((x) => x.level === 'error'), 'no overflow reported');
+    assert.ok(await page.locator('.se-warn').isVisible());
+    assert.ok((await marks()) > before, 'no new red marks');
+    for (let k = 0; k < 7; k++) await page.locator('.se-top button[title^="ביטול"]').click();
+    await se(() => window.IBSlideEditor.current.checks());
+    assert.strictEqual(await marks(), before, 'undo did not restore the previous layout state');
+  });
+
+  await step('modal: apply keeps every untouched element byte-identical', async () => {
+    const before = await unitHtml(4);
+    await page.locator('.se-top button', { hasText: 'החלה וסגירה' }).click();
+    await page.waitForTimeout(600);
+    const after = await unitHtml(4);
+    const sb = M.unitRoot(before), sa = M.unitRoot(after);
+    // fixed parts of the slide keep their exact source text
+    for (const sel of ['div.slide-mark', 'div.eyebrow', 'h1.title', 'p.subtitle', 'aside.speaker-note', 'div.footer']) {
+      const a = S.qs(sa, sel), b = S.qs(sb, sel);
+      assert.strictEqual(a && S.outer(after, a), b && S.outer(before, b), sel);
+    }
+    // every original body child is still there, byte for byte, in order
+    const kidsB = S.qs(sb, 'div.body').children.map((n) => S.outer(before, n));
+    const kidsA = S.qs(sa, 'div.body').children.map((n) => S.outer(after, n));
+    assert.deepStrictEqual(kidsA.slice(0, kidsB.length), kidsB);
+    assert.ok(kidsA.length > kidsB.length);
+    const doc = M.parseUnits(await ser(), 'deck');
+    assert.deepStrictEqual(M.renumberDeck(doc, true), []);
+    assert.deepStrictEqual(M.checkScripts(await ser()), []);
+  });
+
+  await step('modal: duplicating a block keeps its source bytes; code view edits apply back', async () => {
+    await openModal(4);
+    const out0 = await se(() => window.IBSlideEditor.current.serialize());
+    // the split added by the image step (the slide's own split is a demo, whose copy loses its ids)
+    const splits = S.qsa(M.unitRoot(out0), 'div.split');
+    const one = S.outer(out0, splits[splits.length - 1]);
+    await se(() => { const c = window.IBSlideEditor.current; c.select([...c.doc.querySelectorAll('.split')].pop()); });
+    await page.locator('.se-selpanel button', { hasText: 'שכפול' }).click();
+    let out = await se(() => window.IBSlideEditor.current.serialize());
+    assert.ok(out.includes(one + one), 'duplicate is not a byte copy');
+    await page.locator('.se-top').getByRole('button', { name: 'קוד', exact: true }).click();
+    const ta = page.locator('textarea.se-code');
+    await ta.fill((await ta.inputValue()).replace('טקסט.</p>', 'טקסט מהקוד.</p>'));
+    await page.locator('.se-top').getByRole('button', { name: 'תצוגה', exact: true }).click();
+    out = await se(() => window.IBSlideEditor.current.serialize());
+    assert.ok(out.includes('טקסט מהקוד.</p>'));
+    await page.locator('.se-top button', { hasText: 'ביטול' }).last().click();
+    await page.waitForTimeout(300);
+    assert.strictEqual(await page.locator('dialog.se-dlg').count(), 0, 'modal still open after cancel');
+    assert.ok(!(await unitHtml(4)).includes('טקסט מהקוד'), 'cancel applied changes');
+  });
+
+  await step('modal: guide page, colored note inserted and edited', async () => {
+    await page.evaluate(() => window.IBApp.openDoc('.agents/guide-sources/08_net_guide_source.html', { kind: 'guide' }));
+    await page.waitForTimeout(800);
+    const before = await unitHtml(2);
+    await openModal(2);
+    await se(() => { const c = window.IBSlideEditor.current; c.select(c.doc.querySelector('div.pg > h2')); });
+    await page.locator('.se-palette button', { hasText: 'הערה צבעונית' }).click();
+    await page.locator('.se-selpanel button', { hasText: 'ענבר' }).click();
+    await cnv().locator('div.note.amber p').click();
+    await page.keyboard.press('Control+End');
+    await page.keyboard.type(' נוסף');
+    await page.keyboard.press('Escape');
+    await page.locator('.se-top button', { hasText: 'החלה וסגירה' }).click();
+    await page.waitForTimeout(500);
+    const after = await unitHtml(2);
+    assert.ok(after.includes('<div class="note amber"><h3>כותרת</h3><p>טקסט. נוסף</p></div>'), 'note missing: ' + after.slice(after.indexOf('note'), after.indexOf('note') + 120));
+    assert.strictEqual(after.replace('<div class="note amber"><h3>כותרת</h3><p>טקסט. נוסף</p></div>', ''), before, 'other bytes changed');
+  });
+
   const relevant = errors.filter((e) => !/favicon|Failed to load resource/.test(e));
-  await step('no page errors', async () => { assert.deepStrictEqual(relevant, []); });
+  await step('no page errors', async () => { assert.deepStrictEqual(relevant, [], relevant.join('\n')); });
 
   console.log('\n' + passed + ' passed, ' + failed + ' failed');
   await browser.close();
