@@ -294,6 +294,12 @@ test('lessons stand on their own: no "previous/next lesson" phrasing (2026-11-24
   }
   assert.deepStrictEqual(bad, []);
 });
+test('every guide source states the required prior knowledge once (2026-11-24)', () => {
+  for (const f of guides) {
+    const n = (fs.readFileSync(f, 'utf8').match(/<strong>ידע קודם נדרש:<\/strong>/g) || []).length;
+    assert.strictEqual(n, 1, path.relative(ROOT, f));
+  }
+});
 test('index links point at files that exist', () => {
   const m = M.parseIndex(indexSrc);
   const missing = M.indexLinks(m).filter((l) => M.isLocalHref(l.href) && !fs.existsSync(path.join(ROOT, l.href)));

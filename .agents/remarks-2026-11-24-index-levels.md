@@ -217,3 +217,52 @@ change):
 6. Small Hebrew slips: 01_net "את שקופית המגבלות (14) לא מדלגים" (לדלג על); n07 guide "מעליה אפשר עדיין
    לטעות בהרבה מקומות" and "אם הן באותה רשת, זה תלוי…"; n07 "ומה נפגע בו" (ambiguous); n08 note "צעדו ידנית:
    ClientHello והשרת עונה…" (no subject); n06 notes in first person ("נרחיב בשקופית 6", "היום נראה").
+
+## Addendum 4 (same day): reviewer findings fixed, required prior knowledge in every guide
+
+Omer: "תקן את החדשים, אין צורך בשקופיות ריענון. אולי רק ידע קודם נדרש בדף למנחה."
+
+**Fixed (the findings listed above as "not fixed"):**
+
+- n06 guide objective: no longer claims a reserved address can be told from a dynamic one in the output. Now
+  "להבחין לפי פלט ipconfig /all בין כתובת סטטית לכתובת שהגיעה מהשרת, לדעת מהי כתובת שמורה".
+- 02_net guide: "התחנות מאתרות באמצעותן Domain Controllers" (was "ה-DNS מאתר").
+- r04 deck + guide: "כבל אובדני" → "כבל עם הפסד גבוה" (9 places, one of them a visible table cell on
+  slide 13, checked for overflow); "נגד אובדני" → "נגד שסופג את ההספק".
+- 05_radio guide: "הסטייה של רזוננס האנטנה מתדר העבודה" (was "ההזזה של האנטנה").
+- r03 note: "הגל הנושא יוצא בהספק מלא, בלי קול".
+- Small Hebrew fixes in 01_net, 07_net (guide + note), n08 note, n06 notes; n06 guide preparation bullet
+  now says plainly that release/renew are run only at the station itself, not over a remote session.
+- Not changed: "אם הן לא חלק מהערכה" (r04; "ערכה" = the kit, clear in context) and "מהאנטנה ועד המחבר"
+  (r04 guide and r05 slide 5 use the same phrase; which connector is meant is Omer's call).
+
+**"ידע קודם נדרש" in every instructor guide.** One labelled bullet in the "הכנה" list of all 16 guide
+sources and of the editor's guide template; a model test requires exactly one per guide. It names concepts,
+never the lesson that teaches them. No refresher slides were added (Omer's decision).
+
+| Guide | ידע קודם נדרש |
+|---|---|
+| devices 01, 02 · n01 · n07 · n08 · r01 | אין |
+| n02 IP וניתוב | מסגרת Ethernet, כתובת MAC, VLAN ופורט, ברמת היכרות |
+| n03 Domain | DNS, כתובת IP ו-Gateway (existing sentence, relabelled) |
+| n04 כלי תחקור | כתובת IP ומסכה, Gateway, ARP, DNS ופורט; לשקופיות 11-12 גם Domain, Kerberos ותעודה |
+| n05 איתור תקלות | כתובת IP ו-Prefix, Gateway, ARP, DNS ופורט; לשקופית 12 גם כניסה ל-Domain ותעודה |
+| n06 DHCP | כתובת IP, מסכה, Gateway ו-DNS: מה כל הגדרה קובעת בתחנה |
+| r02 גלים | dB כיחס הספקים, ברמת היכרות |
+| r03 רדיו בסיסי | תדר ואורך גל; מתח, זרם והספק |
+| r04 אנטנות ו-SWR | רזוננס, אימפדנס, קיטוב ו-dB כיחס (existing sentence, relabelled) |
+| r05 אבחון בשטח | SWR ו-Return Loss, רזוננס ו-dB כיחס |
+| r06 מונופול ופרנל | הספק ו-dB (existing sentence, relabelled) |
+
+**How the lists were derived, and their limit.** Three already existed in the guides. The rest are mine:
+terms that appear on the slides of a lesson with no slide that introduces them (checked by searching each
+deck's visible text), plus what the guide's own goal paragraph names. They were not reviewed by a second
+reader and Omer has not confirmed them. Doubts: r02 shows dB only as a readout (slides 2, 6, 9, 16), so
+"required" may be too strong; n08 is marked "אין" although part B uses bits and simple arithmetic; n04 and
+n05 would also benefit from having seen the commands, which is not listed because each command is
+explained on its own slide.
+
+Layout: the extra bullet pushed two guides (n06, n07) to an extra page with a single line on it. Fixed
+without touching the guide head: n06 lost a sentence in the goal paragraph that repeated a preparation
+bullet; n07's navigation bullet was shortened by a few words. All 16 guides re-printed with their original
+page counts.
