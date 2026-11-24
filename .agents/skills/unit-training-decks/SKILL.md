@@ -121,7 +121,7 @@ Title slide: `section.slide.title-slide.active` with `.brand` (crest-lg + `<b>ג
 
 ## 11. Delivery
 - Before overwriting: confirm the device copies are unchanged since the last delivery (sha256) and back them up.
-- Commit deck, guide PDF and guide source; verify sha256 on the device; update `index.html` descriptions/counts if the lesson changed (index uses the same dark tokens; lesson rows = number, title, one-sentence description, links מצגת / דף הנחיה).
+- Commit deck, guide PDF and guide source; verify sha256 on the device; update `index.html` descriptions/counts if the lesson changed (index uses the same dark tokens; lesson rows = title, one-sentence description, links מצגת / דף הנחיה; no number box since 2026-11-24, the folder keeps its NN- prefix).
 - Remarks file in `.agents/` (what changed, slide orders, durations, open items for Omer, contradictions between sources, image rights) + `agents.md` entry.
 - Reply in Hebrew, concise: what changed, what is still open (numbered questions), what you need next.
 

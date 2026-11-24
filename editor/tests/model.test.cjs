@@ -181,11 +181,18 @@ test('index: levels -> tracks structure (operator, intermediate, ICT)', () => {
   const heads = m.levels.filter((l) => l.head);
   assert.deepStrictEqual(heads.map((l) => [l.id, l.num, l.name]),
     [['level-operator', '1', 'רמת מפעיל'], ['level-intermediate', '2', 'רמת ביניים'], ['level-ict', '3', 'רמת תקשוב']]);
-  const shape = heads.map((lv) => M.levelTracks(m, lv).map((tr) => tr.tag + ':' + tr.name.trim() + ':' + M.trackLessons(tr).map((it) => it.lesson.num).join(',')));
+  // rows are identified by the lesson folder in their first link (the index has no number boxes since 2026-11-24)
+  const key = (it) => { const h = it.lesson.links[0].href; const f = /^(\w+)\/(\d+)-/.exec(h); return f ? f[1][0] + f[2] : h.replace(/^https:\/\/([\w-]+).*/, '$1').replace(/^reference\/.*/, 'A6'); };
+  const shape = heads.map((lv) => M.levelTracks(m, lv).map((tr) => tr.tag + ':' + tr.name.trim() + ':' + M.trackLessons(tr).map(key).join(',')));
   assert.deepStrictEqual(shape, [
-    ['h3:מכשירים:01,02', 'h3:תרגול:▶'],
-    ['h3:רדיו:03,05,06'],
-    ['h3:רדיו:01,02,04', 'h3:רשתות:01,02,03,04,05,06,07,08', 'h3:חומרי עזר:A6,▶']]);
+    ['h3:מכשירים:d01,d02', 'h3:תרגול:rf-game'],
+    ['h3:רדיו:r03,r05,r06'],
+    ['h3:רדיו:r01,r02,r04', 'h3:רשתות:n01,n02,n03,n04,n05,n06,n07,n08', 'h3:חומרי עזר:A6,kesher-net']]);
+  // no number boxes in the rows, no digits in the networks order block
+  assert.ok(!indexSrc.includes('<div class="num">'));
+  assert.ok(!/<span class="st"><i>/.test(indexSrc));
+  assert.strictEqual(M.indexHasNums(m), false);
+  assert.ok(M.trackLessons(m.tracks[0]).every((it) => it.lesson.num === null));
   // every level has at least one track, and the jump links match the level ids
   const nav = (indexSrc.match(/<nav class="levels"[^>]*>([\s\S]*?)<\/nav>/) || [])[1] || '';
   assert.deepStrictEqual([...nav.matchAll(/href="#([^"]+)"/g)].map((x) => x[1]), heads.map((l) => l.id));
@@ -210,6 +217,10 @@ test('index: the legacy flat index (archive) still round-trips and regenerates',
   const out = M.serializeIndex(m);
   assert.ok(out.includes('<h2>מסלול חדש <span class="cnt">אין שיעורים</span></h2>\n<p class="track-sub">תיאור המסלול.</p>'));
   assert.strictEqual(M.parseIndex(out).tracks.length, 5);
+  // the old index still numbers its rows; the editor keeps doing so there
+  assert.strictEqual(M.indexHasNums(m), true);
+  tr.items.push(M.newLessonItem({ num: '01', title: 'א', desc: 'ב', deck: 'x/01-a/01-a-deck.html' }));
+  assert.ok(M.serializeIndex(m).includes('<div class="lesson"><div class="num">01</div><div class="meta"><b>א</b>'));
 });
 test('index: lesson counts, header fields, add/move/delete', () => {
   const m = M.parseIndex(indexSrc);
@@ -220,10 +231,10 @@ test('index: lesson counts, header fields, add/move/delete', () => {
   assert.ok(M.getIndexField(m, 'h1'));
   assert.ok(M.setIndexField(m, 'h1', M.getIndexField(m, 'h1')));
   assert.strictEqual(M.serializeIndex(m), indexSrc);
-  radio.items.push(M.newLessonItem({ num: '07', title: 'שיעור חדש', desc: 'תיאור', deck: 'radio/07-x/07-x-deck.html', guide: 'radio/07-x/07-x-guide.pdf' }));
+  radio.items.push(M.newLessonItem({ num: null, title: 'שיעור חדש', desc: 'תיאור', deck: 'radio/07-x/07-x-deck.html', guide: 'radio/07-x/07-x-guide.pdf' }));
   const out = M.serializeIndex(m);
   assert.ok(out.includes('<h3>רדיו <span class="cnt">4 שיעורים</span></h3>'));
-  assert.ok(out.includes('<div class="lesson"><div class="num">07</div><div class="meta"><b>שיעור חדש</b><span class="desc">תיאור</span></div><div class="links"><a href="radio/07-x/07-x-deck.html">מצגת</a><a class="pdf" href="radio/07-x/07-x-guide.pdf">דף הנחיה</a></div></div>'));
+  assert.ok(out.includes('<div class="lesson"><div class="meta"><b>שיעור חדש</b><span class="desc">תיאור</span></div><div class="links"><a href="radio/07-x/07-x-deck.html">מצגת</a><a class="pdf" href="radio/07-x/07-x-guide.pdf">דף הנחיה</a></div></div>'));
   const m2 = M.parseIndex(out);
   const radio2 = M.levelTracks(m2, m2.levels[2])[0];
   assert.strictEqual(M.trackLessons(radio2).length, 4);

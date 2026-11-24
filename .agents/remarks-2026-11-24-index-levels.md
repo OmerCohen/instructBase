@@ -81,3 +81,24 @@ for byte.
 7. The archive (`archive/2026-11-03/`) keeps the old flat index, as it must (frozen).
 8. `SKILL.md` got one sentence: index.html groups tracks by level, a new lesson row goes under the level
    Omer assigns, and a folder can appear in more than one level.
+
+## Addendum (same day): lesson numbers removed from the index
+
+Omer: "תוריד את המספור של השיעורים, זה רק יוצר בלגן". After the split, radio showed 03/05/06 in one level
+and 01/02/04 in another.
+
+- All 19 number boxes (`div.num`) are gone from the index rows, including the `A6` and `▶` boxes of the card
+  and the two games, so every row has the same shape. The `.num` CSS rule went with them.
+- The networks "סדר העברה מומלץ" block referred to lessons by those numbers (`<i>7</i> שכבה פיזית`); the
+  digits are removed and the block now lists names only.
+- Editor: a row's number box is optional (`L.num === null`); new rows get one only if the index still has
+  numbered rows (`M.indexHasNums`), so the archive index keeps working as before. The lesson number still
+  names the folder and files (`radio/07-<slug>/`), as the ASCII path convention requires.
+- **Not changed, waiting for Omer:** the decks and guides still say "שיעור N" (deck footers "שיעור 3 · רדיו
+  בסיסי", guide titles and `@page` footers, cross references such as "כאן מתחברים לשיעור 4 (SWR)" and the
+  "המשך" list in guide 06). Removing those means rewording the cross references by name and re-printing
+  the guide PDFs. The URLs keep the numbers regardless.
+- Open suggestion: with no numbers on screen, the networks rows could simply be listed in the recommended
+  order (שכבות, שכבה פיזית, IP, Domain, כלי תחקור, DHCP, איתור תקלות, הצפנה), and the order block dropped.
+  Not done: it moves rows, which Omer did not ask for.
+- The level circles (1, 2, 3) are not lesson numbers and stay; see remark 2 above.

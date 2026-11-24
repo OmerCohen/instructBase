@@ -430,9 +430,9 @@
     var num = S.qs(node, 'div.num'), meta = S.qs(node, 'div.meta');
     var b = meta && S.childrenMatching(meta, 'b')[0], desc = meta && S.qs(meta, 'span.desc');
     var links = S.qs(node, 'div.links');
-    if (!num || !meta || !b || !desc || !links) return null;
+    if (!meta || !b || !desc || !links) return null;
     return {
-      num: S.inner(src, num), title: S.inner(src, b), desc: S.inner(src, desc),
+      num: num ? S.inner(src, num) : null, title: S.inner(src, b), desc: S.inner(src, desc),
       links: S.childrenMatching(links, 'a').map(function (a) {
         return { raw: S.outer(src, a), href: a.attrs.href || '', cls: a.attrs['class'] || '', text: S.inner(src, a), extra: attrsExcept(src, a, ['href', 'class']), dirty: false };
       })
@@ -444,7 +444,7 @@
   }
   function lessonHtml(L) {
     if (!L.dirty && L.raw) return L.raw;
-    return '<div class="lesson"><div class="num">' + L.num + '</div><div class="meta"><b>' + L.title + '</b><span class="desc">' + L.desc + '</span></div><div class="links">' + L.links.map(linkHtml).join('') + '</div></div>';
+    return '<div class="lesson">' + (L.num == null ? '' : '<div class="num">' + L.num + '</div>') + '<div class="meta"><b>' + L.title + '</b><span class="desc">' + L.desc + '</span></div><div class="links">' + L.links.map(linkHtml).join('') + '</div></div>';
   }
   function cntText(n) { return n === 1 ? 'שיעור אחד' : n === 0 ? 'אין שיעורים' : n + ' שיעורים'; }
 
@@ -549,7 +549,11 @@
     var links = [];
     if (o.deck) links.push({ href: o.deck, cls: '', text: 'מצגת', extra: '', dirty: true });
     if (o.guide) links.push({ href: o.guide, cls: 'pdf', text: 'דף הנחיה', extra: '', dirty: true });
-    return { lead: '\n', raw: '', kind: 'lesson', dirty: true, lesson: { num: S.escapeText(o.num), title: S.escapeText(o.title), desc: S.escapeText(o.desc || ''), links: links, dirty: true, raw: '' } };
+    return { lead: '\n', raw: '', kind: 'lesson', dirty: true, lesson: { num: o.num == null ? null : S.escapeText(o.num), title: S.escapeText(o.title), desc: S.escapeText(o.desc || ''), links: links, dirty: true, raw: '' } };
+  }
+  /* rows carry a number box only while the index still uses them (it dropped them on 2026-11-24) */
+  function indexHasNums(model) {
+    return model.tracks.some(function (tr) { return tr.items.some(function (it) { return it.lesson && it.lesson.num != null; }); });
   }
   /* level numbers follow the order, and the jump links in nav.levels (in the head) follow the levels */
   function syncLevels(model) {
@@ -686,7 +690,7 @@
     slideInfo: slideInfo, pageInfo: pageInfo, renumberDeck: renumberDeck, slideContext: slideContext, newSlide: newSlide,
     deckMeta: deckMeta, setDeckMeta: setDeckMeta, instantiateDeck: instantiateDeck, stageKeepsSize: stageKeepsSize, ensureStageNoShrink: ensureStageNoShrink, instantiateGuide: instantiateGuide,
     parseIndex: parseIndex, serializeIndex: serializeIndex, trackLessons: trackLessons, newTrack: newTrack, newLessonItem: newLessonItem,
-    newLevel: newLevel, levelHtml: levelHtml, syncLevels: syncLevels, levelOf: levelOf, levelTracks: levelTracks, nextLessonNum: nextLessonNum,
+    newLevel: newLevel, levelHtml: levelHtml, syncLevels: syncLevels, indexHasNums: indexHasNums, levelOf: levelOf, levelTracks: levelTracks, nextLessonNum: nextLessonNum,
     lessonHtml: lessonHtml, linkHtml: linkHtml, cntText: cntText, getIndexField: getIndexField, setIndexField: setIndexField,
     indexLinks: indexLinks, isLocalHref: isLocalHref,
     lintUnits: lintUnits, checkScripts: checkScripts, textSegments: textSegments,

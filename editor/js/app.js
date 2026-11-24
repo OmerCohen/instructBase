@@ -335,7 +335,7 @@
           else if (/\.pdf$/i.test(l.href) && /guide/.test(l.href)) pdf = l.href;
           else other.push(l);
         });
-        var info = { L: L, ii: ii, deck: deck, pdf: pdf, other: other, num: S.decodeEntities(L.num.replace(/<[^>]+>/g, '')), title: S.decodeEntities(L.title.replace(/<[^>]+>/g, '')) };
+        var info = { L: L, ii: ii, deck: deck, pdf: pdf, other: other, num: L.num == null ? '' : S.decodeEntities(L.num.replace(/<[^>]+>/g, '')), title: S.decodeEntities(L.title.replace(/<[^>]+>/g, '')) };
         if (deck) {
           var parts = deck.split('/');
           info.trackDir = parts[0];
@@ -431,7 +431,7 @@
         if (x.deck && !x.pdf && x.pdfExists) acts.appendChild(btn('קישור ה-PDF באינדקס', function () { linkPdfInIndex(tr.ti, x.ii, x.expectedPdf); }));
         if (!x.deck) x.other.forEach(function (l) { if (M.isLocalHref(l.href) && /\.html?$/i.test(l.href)) acts.appendChild(btn('עריכת ' + S.decodeEntities(l.text.replace(/<[^>]+>/g, '')), function () { openDoc(l.href); })); });
         grid.appendChild(h('article', { class: 'card' },
-          h('div', { class: 'card-top' }, h('span', { class: 'num' }, x.num), h('b', null, x.title)),
+          h('div', { class: 'card-top' }, x.num ? h('span', { class: 'num' }, x.num) : null, h('b', null, x.title)),
           h('p', { class: 'desc' }, S.decodeEntities(x.L.desc.replace(/<[^>]+>/g, ''))), chips, acts));
       });
       sec.appendChild(grid);
@@ -994,7 +994,7 @@
     });
     card.appendChild(h('div', { class: 'row' },
       btn('+ שיעור חדש במסלול', function () { newLessonDialog({ trackIndex: ti }); }, 'small'),
-      btn('+ שורה ריקה', function () { var dir = trackDirOf(tr); change(d, function () { insertLessonItem(tr, M.newLessonItem({ num: dir ? M.nextLessonNum(m, dir, state.lib ? state.lib.decks : []) : M.pad(lessons.length + 1), title: 'שם השיעור', desc: 'תיאור קצר.' })); }); }, 'small'),
+      btn('+ שורה ריקה', function () { var dir = trackDirOf(tr); change(d, function () { insertLessonItem(tr, M.newLessonItem({ num: !M.indexHasNums(m) ? null : dir ? M.nextLessonNum(m, dir, state.lib ? state.lib.decks : []) : M.pad(lessons.length + 1), title: 'שם השיעור', desc: 'תיאור קצר.' })); }); }, 'small'),
       orphanDecks().length ? btn('+ קישור למצגת קיימת…', function (e) { orphanMenu(d, tr, e.currentTarget); }, 'small') : null));
     form.appendChild(card);
   }
@@ -1015,7 +1015,7 @@
     var deck = L.links.find(function (l) { return /-deck\.html$/.test(l.href); });
     return h('div', { class: 'idx-lesson' },
       h('div', { class: 'idx-lesson-head' },
-        plainInput(S.decodeEntities(L.num), function (v) { set(function () { L.num = esc(v.trim()); }); }, { class: 'num-in', title: 'מספר' }),
+        L.num == null ? null : plainInput(S.decodeEntities(L.num), function (v) { set(function () { L.num = esc(v.trim()); }); }, { class: 'num-in', title: 'מספר' }),
         richBox(L.title, function (v) { set(function () { L.title = v; }); }, { cls: 'title-in' }),
         btn('↑', function () { moveLesson(d, ti, ii, -1); }, 'icon', 'למעלה'),
         btn('↓', function () { moveLesson(d, ti, ii, 1); }, 'icon', 'למטה'),
@@ -1100,7 +1100,7 @@
         closeMenus();
         var nn = (/\/(\d+)-[^/]*\/[^/]*$/.exec(p) || [])[1] || '00';
         var pdf = p.replace(/-deck\.html$/, '-guide.pdf');
-        change(d, function () { insertLessonItem(tr, M.newLessonItem({ num: nn, title: 'שם השיעור', desc: 'תיאור קצר.', deck: p, guide: state.lib.files.has(pdf) ? pdf : null })); });
+        change(d, function () { insertLessonItem(tr, M.newLessonItem({ num: M.indexHasNums(d.model) ? nn : null, title: 'שם השיעור', desc: 'תיאור קצר.', deck: p, guide: state.lib.files.has(pdf) ? pdf : null })); });
       }));
     });
     document.body.appendChild(menu);
@@ -1270,7 +1270,7 @@
             tr = M.newTrack(esc(o.newTrackName || t.dir), esc(o.newTrackSub || 'תיאור קצר של המסלול.'), lv);
             placeTrack(idx.model, tr, lv);
           } else tr = idx.model.tracks[t.ti];
-          insertLessonItem(tr, M.newLessonItem({ num: o.num, title: o.title, desc: o.desc, deck: p.deck, guide: null }));
+          insertLessonItem(tr, M.newLessonItem({ num: M.indexHasNums(idx.model) ? o.num : null, title: o.title, desc: o.desc, deck: p.deck, guide: null }));
         });
         toast('נוספה שורה לאינדקס (בלי קישור ל-PDF עד שיודפס). האינדקס עוד לא נשמר.', 'ok', 8000);
       }

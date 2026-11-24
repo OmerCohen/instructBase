@@ -375,7 +375,7 @@ async function step(name, fn) {
     assert.strictEqual(M.deckMeta(deck).title, 'שיעור בדיקה');
     assert.deepStrictEqual(M.checkScripts(deck), []);
     const idx = await page.evaluate(() => window.IBApp.serialize(window.IBApp.state.docs.find((d) => d.path === 'index.html')));
-    assert.ok(idx.includes('<div class="lesson"><div class="num">07</div><div class="meta"><b>שיעור בדיקה</b><span class="desc">תיאור בדיקה.</span></div><div class="links"><a href="radio/07-test-lesson/07-test-lesson-deck.html">מצגת</a></div></div>'));
+    assert.ok(idx.includes('<div class="lesson"><div class="meta"><b>שיעור בדיקה</b><span class="desc">תיאור בדיקה.</span></div><div class="links"><a href="radio/07-test-lesson/07-test-lesson-deck.html">מצגת</a></div></div>'));
     assert.ok(idx.includes('<h3>רדיו <span class="cnt">4 שיעורים</span></h3>\n<p class="track-sub">יסודות'), 'the row went into the ICT radio track');
     assert.ok(idx.indexOf('radio/07-test-lesson/') > idx.indexOf('id="level-ict"'));
     await shot('09-new-deck');
