@@ -189,3 +189,31 @@ lesson teaches (r04 needs resonance, impedance, polarisation and dB; n03 needs D
 ipconfig output). They now state this as a prerequisite to check with the group, without saying where it
 was learned. If Omer wants a lesson to be teachable to a group with none of that background, it needs a
 short recap slide, which is new content and was not added.
+
+### Independent wording review of Addendum 3 (context-free reviewer, 63 passages)
+
+Verdict: no order assumption left. It flagged several of my new sentences; fixed in a follow-up commit:
+
+- r03 (deck + guide): "רשמו את נקודות הכשל שעלו…" only made sense as preparation for another lesson; now
+  "איתור נקודות הכשל שעלו מפורט בשיעור האבחון בשטח."
+- n06 (deck + guide): after dropping the reference to the other lesson, "DHCP Enabled: No … הוגדרה ידנית,
+  **בכוונה**" had become a general claim the output cannot support. Now "…מוגדרת ידנית; בתחנה שתוכננה כסטטית
+  זה תקין." Also the slide-15 subtitle ("בחוליית הכתובת בודקים גם מאיפה הכתובת הגיעה.") and two guide
+  sentences.
+- r04 (deck + guide): clumsy phrasing of the cable-loss pointer; dB added to the stated prerequisites.
+- n07 (deck + guide): "אטימה" → "איטום"; the filler "זו אותה חשיבה על תווך אחר." removed.
+
+**Found by the reviewer in text I did not write; NOT fixed, for Omer to decide** (out of scope of this
+change):
+
+1. Technical, n06 guide objective: "להבחין בין כתובת סטטית, דינמית ושמורה לפי פלט ipconfig /all". A reserved
+   address looks exactly like a dynamic one in `ipconfig /all`; the reservation exists only on the server.
+2. Technical, 02_net guide: "בסביבת Domain ה-DNS מאתר באמצעותן Domain Controllers". It is the stations that
+   locate DCs through SRV records.
+3. r04 deck + guide: "כבל אובדני" for a lossy cable reads as "suicidal"; suggest "כבל עם הפסד גבוה".
+4. 05_radio guide: "ההזזה של האנטנה מתדר העבודה" sounds like physically moving the antenna; suggest
+   "הסטייה של תדר התהודה של האנטנה מתדר העבודה".
+5. r03 note: "הנושא יוצא בהספק מלא בלי קול" ("הנושא" reads as "the topic"); suggest "הגל הנושא".
+6. Small Hebrew slips: 01_net "את שקופית המגבלות (14) לא מדלגים" (לדלג על); n07 guide "מעליה אפשר עדיין
+   לטעות בהרבה מקומות" and "אם הן באותה רשת, זה תלוי…"; n07 "ומה נפגע בו" (ambiguous); n08 note "צעדו ידנית:
+   ClientHello והשרת עונה…" (no subject); n06 notes in first person ("נרחיב בשקופית 6", "היום נראה").
