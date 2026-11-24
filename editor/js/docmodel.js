@@ -448,29 +448,53 @@
   }
   function cntText(n) { return n === 1 ? 'שיעור אחד' : n === 0 ? 'אין שיעורים' : n + ' שיעורים'; }
 
+  /* The index is head + groups + tail. A group start is a level heading
+     (div.level-head, 2026-11 structure: levels -> tracks -> lessons) or a track
+     heading (h3 inside a level, or h2 in the older flat index, which the archive
+     still has). model.tracks is the flat list of tracks in document order; each
+     track points at its level. A flat index gets one implicit level without a head. */
+  function isLevelHead(n) { return n.name === 'div' && S.hasClass(n, 'level-head'); }
+  function isTrackHead(n) { return n.name === 'h2' || n.name === 'h3'; }
+  function parseLevel(src, node, lead) {
+    var num = S.qs(node, 'span.lvl-num'), h2 = S.qs(node, 'h2'), sub = S.qs(node, 'p.level-sub');
+    return {
+      lead: lead, raw: S.outer(src, node), dirty: false, head: true, pre: [],
+      id: node.attrs.id || '', num: num ? S.inner(src, num) : '', name: h2 ? S.inner(src, h2) : '', sub: sub ? S.inner(src, sub) : null
+    };
+  }
+  function levelHtml(lv) {
+    if (!lv.dirty && lv.raw) return lv.raw;
+    return '<div class="level-head"' + (lv.id ? ' id="' + S.escapeAttr(lv.id) + '"' : '') + '><span class="lvl-num">' + lv.num +
+      '</span><div class="lvl-txt"><h2>' + lv.name + '</h2>' + (lv.sub ? '<p class="level-sub">' + lv.sub + '</p>' : '') + '</div></div>';
+  }
+  function newLevel(o) {
+    return { lead: '\n\n', raw: '', dirty: true, head: true, pre: [], id: o.id || '', num: S.escapeText(String(o.num || '')), name: S.escapeText(o.name || ''), sub: o.sub ? S.escapeText(o.sub) : null };
+  }
   function parseIndex(src) {
     var t = S.scan(src);
     var wrap = S.qs(t, 'div.wrap');
     if (!wrap) return null;
     var kids = wrap.children;
-    var firstH2 = -1, footer = -1;
+    var first = -1, footer = -1;
     for (var k = 0; k < kids.length; k++) {
-      if (kids[k].name === 'h2' && firstH2 < 0) firstH2 = k;
+      if (first < 0 && (isLevelHead(kids[k]) || isTrackHead(kids[k]))) first = k;
       if (kids[k].name === 'footer') footer = k;
     }
-    if (firstH2 < 0) return null;
+    if (first < 0) return null;
     var endIdx = footer >= 0 ? footer : kids.length;
     var tailStart = footer >= 0 ? gapStart(src, kids[footer].start, kids[footer - 1].end) : gapStart(src, wrap.closeStart, kids[kids.length - 1].end);
-    var headEnd = gapStart(src, kids[firstH2].start, firstH2 > 0 ? kids[firstH2 - 1].end : wrap.openEnd);
-    var model = { head: src.slice(0, headEnd), tracks: [], tail: src.slice(tailStart) };
-    var prevEnd = headEnd, tr = null;
-    for (k = firstH2; k < endIdx; k++) {
+    var headEnd = gapStart(src, kids[first].start, first > 0 ? kids[first - 1].end : wrap.openEnd);
+    var model = { head: src.slice(0, headEnd), levels: [], tracks: [], tail: src.slice(tailStart) };
+    var prevEnd = headEnd, lv = null, tr = null;
+    for (k = first; k < endIdx; k++) {
       var node = kids[k], lead = src.slice(prevEnd, node.start), raw = S.outer(src, node);
       prevEnd = node.end;
-      if (node.name === 'h2') {
+      if (isLevelHead(node)) { lv = parseLevel(src, node, lead); model.levels.push(lv); tr = null; continue; }
+      if (isTrackHead(node)) {
+        if (!lv) { lv = { head: false, lead: '', raw: '', pre: [] }; model.levels.push(lv); }
         var cnt = S.childrenMatching(node, 'span.cnt')[0];
         tr = {
-          lead: lead, raw: raw, dirty: false,
+          lead: lead, raw: raw, dirty: false, tag: node.name, level: lv,
           name: cnt ? src.slice(node.openEnd, cnt.start) : S.inner(src, node),
           hasCnt: !!cnt, cntRaw: cnt ? S.inner(src, cnt) : '', items: []
         };
@@ -483,39 +507,71 @@
         if (L) { item.kind = 'lesson'; L.raw = raw; L.dirty = false; item.lesson = L; }
       } else if (node.name === 'p' && S.hasClass(node, 'track-sub')) { item.kind = 'sub'; item.html = S.inner(src, node); }
       else if (node.name === 'div' && S.hasClass(node, 'order')) item.kind = 'order';
-      tr.items.push(item);
+      if (tr) tr.items.push(item); else lv.pre.push(item);
     }
     return model;
   }
   function trackLessons(tr) { return tr.items.filter(function (it) { return it.kind === 'lesson'; }); }
-  function h2Html(tr) {
-    var n = trackLessons(tr).length;
+  function headHtml(tr) {
+    var n = trackLessons(tr).length, tag = tr.tag || 'h2';
     var cnt = tr.hasCnt ? (tr.cntOverride != null ? tr.cntOverride : cntText(n)) : '';
     if (!tr.dirty && (!tr.hasCnt || cnt === tr.cntRaw)) return tr.raw;
-    return '<h2>' + tr.name + (tr.hasCnt ? '<span class="cnt">' + cnt + '</span>' : '') + '</h2>';
+    return '<' + tag + '>' + tr.name + (tr.hasCnt ? '<span class="cnt">' + cnt + '</span>' : '') + '</' + tag + '>';
   }
   function itemHtml(it) {
     if (it.kind === 'lesson') return lessonHtml(it.lesson);
     if (it.kind === 'sub' && it.dirty) return '<p class="track-sub">' + it.html + '</p>';
     return it.raw;
   }
+  /* the level a track is shown under (a track without a known level goes to the last one) */
+  function levelOf(model, tr) {
+    return tr.level && model.levels.indexOf(tr.level) >= 0 ? tr.level : model.levels[model.levels.length - 1];
+  }
+  function levelTracks(model, lv) { return model.tracks.filter(function (tr) { return levelOf(model, tr) === lv; }); }
   function serializeIndex(model) {
     var out = [model.head];
-    model.tracks.forEach(function (tr) {
-      out.push(tr.lead, h2Html(tr));
-      tr.items.forEach(function (it) { out.push(it.lead, itemHtml(it)); });
+    model.levels.forEach(function (lv) {
+      if (lv.head) out.push(lv.lead, levelHtml(lv));
+      lv.pre.forEach(function (it) { out.push(it.lead, itemHtml(it)); });
+      levelTracks(model, lv).forEach(function (tr) {
+        out.push(tr.lead, headHtml(tr));
+        tr.items.forEach(function (it) { out.push(it.lead, itemHtml(it)); });
+      });
     });
     out.push(model.tail);
     return out.join('');
   }
-  function newTrack(name, sub) {
-    return { lead: '\n\n', raw: '', dirty: true, name: name + ' ', hasCnt: true, cntRaw: '', items: [{ lead: '\n', raw: '', kind: 'sub', dirty: true, html: sub }] };
+  function newTrack(name, sub, level) {
+    var inLevel = !!(level && level.head);
+    return { lead: inLevel ? '\n' : '\n\n', raw: '', dirty: true, tag: inLevel ? 'h3' : 'h2', level: level || null, name: name + ' ', hasCnt: true, cntRaw: '', items: sub ? [{ lead: '\n', raw: '', kind: 'sub', dirty: true, html: sub }] : [] };
   }
   function newLessonItem(o) {
     var links = [];
     if (o.deck) links.push({ href: o.deck, cls: '', text: 'מצגת', extra: '', dirty: true });
     if (o.guide) links.push({ href: o.guide, cls: 'pdf', text: 'דף הנחיה', extra: '', dirty: true });
     return { lead: '\n', raw: '', kind: 'lesson', dirty: true, lesson: { num: S.escapeText(o.num), title: S.escapeText(o.title), desc: S.escapeText(o.desc || ''), links: links, dirty: true, raw: '' } };
+  }
+  /* level numbers follow the order, and the jump links in nav.levels (in the head) follow the levels */
+  function syncLevels(model) {
+    var n = 0;
+    model.levels.forEach(function (lv) {
+      if (!lv.head) return;
+      var want = String(++n);
+      if (lv.num !== want) { lv.num = want; lv.dirty = true; }
+    });
+    var t = S.scan(model.head), nav = S.qs(t, 'nav.levels');
+    if (!nav) return;
+    var links = model.levels.filter(function (lv) { return lv.head && lv.id; })
+      .map(function (lv) { return '<a href="#' + S.escapeAttr(lv.id) + '">' + lv.name + '</a>'; }).join('');
+    if (S.inner(model.head, nav) !== links) model.head = S.splice(model.head, [{ start: nav.openEnd, end: nav.closeStart, text: links }]);
+  }
+  /* highest lesson number already used in a track folder, in the index or on disk */
+  function nextLessonNum(model, dir, diskPaths) {
+    var max = 0, re = new RegExp('^' + dir.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '/(\\d+)-');
+    (model ? indexLinks(model).map(function (l) { return l.href; }) : []).concat(diskPaths || []).forEach(function (h) {
+      var m = re.exec(h); if (m && +m[1] > max) max = +m[1];
+    });
+    return pad(max + 1);
   }
   /* header/footer fields of the index live inside head/tail */
   var INDEX_FIELDS = { h1: ['head', 'header h1'], sub: ['head', 'p.sub'], unit: ['head', 'p.unit'], legend: ['head', 'div.legend'], pageTitle: ['head', 'title'], footer: ['tail', 'footer'] };
@@ -630,6 +686,7 @@
     slideInfo: slideInfo, pageInfo: pageInfo, renumberDeck: renumberDeck, slideContext: slideContext, newSlide: newSlide,
     deckMeta: deckMeta, setDeckMeta: setDeckMeta, instantiateDeck: instantiateDeck, stageKeepsSize: stageKeepsSize, ensureStageNoShrink: ensureStageNoShrink, instantiateGuide: instantiateGuide,
     parseIndex: parseIndex, serializeIndex: serializeIndex, trackLessons: trackLessons, newTrack: newTrack, newLessonItem: newLessonItem,
+    newLevel: newLevel, levelHtml: levelHtml, syncLevels: syncLevels, levelOf: levelOf, levelTracks: levelTracks, nextLessonNum: nextLessonNum,
     lessonHtml: lessonHtml, linkHtml: linkHtml, cntText: cntText, getIndexField: getIndexField, setIndexField: setIndexField,
     indexLinks: indexLinks, isLocalHref: isLocalHref,
     lintUnits: lintUnits, checkScripts: checkScripts, textSegments: textSegments,

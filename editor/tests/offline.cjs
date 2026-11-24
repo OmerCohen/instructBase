@@ -119,7 +119,12 @@ function zipOk(file) { return /No errors detected/.test(execFileSync('unzip', ['
     assert.deepStrictEqual(r, { changed: true, title: true, img: true });
   });
   await step('A: new lesson from the templates embedded in the file', async () => {
-    const ok = await page.evaluate(() => window.IBApp.createLesson({ track: { dir: 'radio', name: 'רדיו', ti: 0 }, num: '07', slug: 'offline-test', title: 'שיעור בדיקה', desc: 'תיאור.', badge: '', footer: 'שיעור 7 · בדיקה', src: 'template', withGuide: true, withIndex: true }));
+    const ok = await page.evaluate(() => {
+      const app = window.IBApp, m = app.state.lib.indexModel;
+      const ict = m.levels.find((l) => l.id === 'level-ict');
+      const ti = m.tracks.findIndex((tr) => tr.level === ict && /רדיו/.test(tr.name));
+      return app.createLesson({ track: { dir: 'radio', name: 'רדיו', ti: ti }, num: '07', slug: 'offline-test', title: 'שיעור בדיקה', desc: 'תיאור.', badge: '', footer: 'שיעור 7 · בדיקה', src: 'template', withGuide: true, withIndex: true });
+    });
     assert.strictEqual(ok, true);
     const has = await page.evaluate(() => ['radio/07-offline-test/07-offline-test-deck.html', '.agents/guide-sources/07_radio_guide_source.html'].map((p) => window.IBApp.state.fs.changed.has(p)));
     assert.deepStrictEqual(has, [true, true]);

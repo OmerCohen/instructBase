@@ -252,6 +252,12 @@ button.crumb { padding: 2px 7px; font-size: 12px; border-radius: 6px; }
 button.crumb.on, button.small.on { background: rgba(34,211,238,.2); border-color: var(--cyan); color: #e6fbff; }
 .se-selpanel .field { margin-top: 6px; }
 .se-selpanel input[type=text] { width: 100%; }
+
+/* index structure: levels -> tracks */
+.idx-level { display: flex; align-items: center; gap: 8px; margin: 22px 0 4px; padding: 8px 12px; border: 1px solid rgba(34,211,238,.35); border-right: 4px solid var(--cyan); border-radius: 12px; background: rgba(34,211,238,.07); }
+.idx-level .lvl-num { flex: 0 0 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--cyan); color: #04212a; font-weight: 800; }
+.idx-level .level-name { font-size: 17px; font-weight: 800; width: 220px; }
+.home-level { font-size: 22px; margin: 34px 0 0; padding-bottom: 6px; border-bottom: 1px solid rgba(34,211,238,.35); }
 </style>
 </head>
 <body>
@@ -1035,29 +1041,53 @@ button.crumb.on, button.small.on { background: rgba(34,211,238,.2); border-color
   }
   function cntText(n) { return n === 1 ? 'שיעור אחד' : n === 0 ? 'אין שיעורים' : n + ' שיעורים'; }
 
+  /* The index is head + groups + tail. A group start is a level heading
+     (div.level-head, 2026-11 structure: levels -> tracks -> lessons) or a track
+     heading (h3 inside a level, or h2 in the older flat index, which the archive
+     still has). model.tracks is the flat list of tracks in document order; each
+     track points at its level. A flat index gets one implicit level without a head. */
+  function isLevelHead(n) { return n.name === 'div' && S.hasClass(n, 'level-head'); }
+  function isTrackHead(n) { return n.name === 'h2' || n.name === 'h3'; }
+  function parseLevel(src, node, lead) {
+    var num = S.qs(node, 'span.lvl-num'), h2 = S.qs(node, 'h2'), sub = S.qs(node, 'p.level-sub');
+    return {
+      lead: lead, raw: S.outer(src, node), dirty: false, head: true, pre: [],
+      id: node.attrs.id || '', num: num ? S.inner(src, num) : '', name: h2 ? S.inner(src, h2) : '', sub: sub ? S.inner(src, sub) : null
+    };
+  }
+  function levelHtml(lv) {
+    if (!lv.dirty && lv.raw) return lv.raw;
+    return '<div class="level-head"' + (lv.id ? ' id="' + S.escapeAttr(lv.id) + '"' : '') + '><span class="lvl-num">' + lv.num +
+      '</span><div class="lvl-txt"><h2>' + lv.name + '</h2>' + (lv.sub ? '<p class="level-sub">' + lv.sub + '</p>' : '') + '</div></div>';
+  }
+  function newLevel(o) {
+    return { lead: '\n\n', raw: '', dirty: true, head: true, pre: [], id: o.id || '', num: S.escapeText(String(o.num || '')), name: S.escapeText(o.name || ''), sub: o.sub ? S.escapeText(o.sub) : null };
+  }
   function parseIndex(src) {
     var t = S.scan(src);
     var wrap = S.qs(t, 'div.wrap');
     if (!wrap) return null;
     var kids = wrap.children;
-    var firstH2 = -1, footer = -1;
+    var first = -1, footer = -1;
     for (var k = 0; k < kids.length; k++) {
-      if (kids[k].name === 'h2' && firstH2 < 0) firstH2 = k;
+      if (first < 0 && (isLevelHead(kids[k]) || isTrackHead(kids[k]))) first = k;
       if (kids[k].name === 'footer') footer = k;
     }
-    if (firstH2 < 0) return null;
+    if (first < 0) return null;
     var endIdx = footer >= 0 ? footer : kids.length;
     var tailStart = footer >= 0 ? gapStart(src, kids[footer].start, kids[footer - 1].end) : gapStart(src, wrap.closeStart, kids[kids.length - 1].end);
-    var headEnd = gapStart(src, kids[firstH2].start, firstH2 > 0 ? kids[firstH2 - 1].end : wrap.openEnd);
-    var model = { head: src.slice(0, headEnd), tracks: [], tail: src.slice(tailStart) };
-    var prevEnd = headEnd, tr = null;
-    for (k = firstH2; k < endIdx; k++) {
+    var headEnd = gapStart(src, kids[first].start, first > 0 ? kids[first - 1].end : wrap.openEnd);
+    var model = { head: src.slice(0, headEnd), levels: [], tracks: [], tail: src.slice(tailStart) };
+    var prevEnd = headEnd, lv = null, tr = null;
+    for (k = first; k < endIdx; k++) {
       var node = kids[k], lead = src.slice(prevEnd, node.start), raw = S.outer(src, node);
       prevEnd = node.end;
-      if (node.name === 'h2') {
+      if (isLevelHead(node)) { lv = parseLevel(src, node, lead); model.levels.push(lv); tr = null; continue; }
+      if (isTrackHead(node)) {
+        if (!lv) { lv = { head: false, lead: '', raw: '', pre: [] }; model.levels.push(lv); }
         var cnt = S.childrenMatching(node, 'span.cnt')[0];
         tr = {
-          lead: lead, raw: raw, dirty: false,
+          lead: lead, raw: raw, dirty: false, tag: node.name, level: lv,
           name: cnt ? src.slice(node.openEnd, cnt.start) : S.inner(src, node),
           hasCnt: !!cnt, cntRaw: cnt ? S.inner(src, cnt) : '', items: []
         };
@@ -1070,39 +1100,71 @@ button.crumb.on, button.small.on { background: rgba(34,211,238,.2); border-color
         if (L) { item.kind = 'lesson'; L.raw = raw; L.dirty = false; item.lesson = L; }
       } else if (node.name === 'p' && S.hasClass(node, 'track-sub')) { item.kind = 'sub'; item.html = S.inner(src, node); }
       else if (node.name === 'div' && S.hasClass(node, 'order')) item.kind = 'order';
-      tr.items.push(item);
+      if (tr) tr.items.push(item); else lv.pre.push(item);
     }
     return model;
   }
   function trackLessons(tr) { return tr.items.filter(function (it) { return it.kind === 'lesson'; }); }
-  function h2Html(tr) {
-    var n = trackLessons(tr).length;
+  function headHtml(tr) {
+    var n = trackLessons(tr).length, tag = tr.tag || 'h2';
     var cnt = tr.hasCnt ? (tr.cntOverride != null ? tr.cntOverride : cntText(n)) : '';
     if (!tr.dirty && (!tr.hasCnt || cnt === tr.cntRaw)) return tr.raw;
-    return '<h2>' + tr.name + (tr.hasCnt ? '<span class="cnt">' + cnt + '</span>' : '') + '</h2>';
+    return '<' + tag + '>' + tr.name + (tr.hasCnt ? '<span class="cnt">' + cnt + '</span>' : '') + '</' + tag + '>';
   }
   function itemHtml(it) {
     if (it.kind === 'lesson') return lessonHtml(it.lesson);
     if (it.kind === 'sub' && it.dirty) return '<p class="track-sub">' + it.html + '</p>';
     return it.raw;
   }
+  /* the level a track is shown under (a track without a known level goes to the last one) */
+  function levelOf(model, tr) {
+    return tr.level && model.levels.indexOf(tr.level) >= 0 ? tr.level : model.levels[model.levels.length - 1];
+  }
+  function levelTracks(model, lv) { return model.tracks.filter(function (tr) { return levelOf(model, tr) === lv; }); }
   function serializeIndex(model) {
     var out = [model.head];
-    model.tracks.forEach(function (tr) {
-      out.push(tr.lead, h2Html(tr));
-      tr.items.forEach(function (it) { out.push(it.lead, itemHtml(it)); });
+    model.levels.forEach(function (lv) {
+      if (lv.head) out.push(lv.lead, levelHtml(lv));
+      lv.pre.forEach(function (it) { out.push(it.lead, itemHtml(it)); });
+      levelTracks(model, lv).forEach(function (tr) {
+        out.push(tr.lead, headHtml(tr));
+        tr.items.forEach(function (it) { out.push(it.lead, itemHtml(it)); });
+      });
     });
     out.push(model.tail);
     return out.join('');
   }
-  function newTrack(name, sub) {
-    return { lead: '\n\n', raw: '', dirty: true, name: name + ' ', hasCnt: true, cntRaw: '', items: [{ lead: '\n', raw: '', kind: 'sub', dirty: true, html: sub }] };
+  function newTrack(name, sub, level) {
+    var inLevel = !!(level && level.head);
+    return { lead: inLevel ? '\n' : '\n\n', raw: '', dirty: true, tag: inLevel ? 'h3' : 'h2', level: level || null, name: name + ' ', hasCnt: true, cntRaw: '', items: sub ? [{ lead: '\n', raw: '', kind: 'sub', dirty: true, html: sub }] : [] };
   }
   function newLessonItem(o) {
     var links = [];
     if (o.deck) links.push({ href: o.deck, cls: '', text: 'מצגת', extra: '', dirty: true });
     if (o.guide) links.push({ href: o.guide, cls: 'pdf', text: 'דף הנחיה', extra: '', dirty: true });
     return { lead: '\n', raw: '', kind: 'lesson', dirty: true, lesson: { num: S.escapeText(o.num), title: S.escapeText(o.title), desc: S.escapeText(o.desc || ''), links: links, dirty: true, raw: '' } };
+  }
+  /* level numbers follow the order, and the jump links in nav.levels (in the head) follow the levels */
+  function syncLevels(model) {
+    var n = 0;
+    model.levels.forEach(function (lv) {
+      if (!lv.head) return;
+      var want = String(++n);
+      if (lv.num !== want) { lv.num = want; lv.dirty = true; }
+    });
+    var t = S.scan(model.head), nav = S.qs(t, 'nav.levels');
+    if (!nav) return;
+    var links = model.levels.filter(function (lv) { return lv.head && lv.id; })
+      .map(function (lv) { return '<a href="#' + S.escapeAttr(lv.id) + '">' + lv.name + '</a>'; }).join('');
+    if (S.inner(model.head, nav) !== links) model.head = S.splice(model.head, [{ start: nav.openEnd, end: nav.closeStart, text: links }]);
+  }
+  /* highest lesson number already used in a track folder, in the index or on disk */
+  function nextLessonNum(model, dir, diskPaths) {
+    var max = 0, re = new RegExp('^' + dir.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '/(\\d+)-');
+    (model ? indexLinks(model).map(function (l) { return l.href; }) : []).concat(diskPaths || []).forEach(function (h) {
+      var m = re.exec(h); if (m && +m[1] > max) max = +m[1];
+    });
+    return pad(max + 1);
   }
   /* header/footer fields of the index live inside head/tail */
   var INDEX_FIELDS = { h1: ['head', 'header h1'], sub: ['head', 'p.sub'], unit: ['head', 'p.unit'], legend: ['head', 'div.legend'], pageTitle: ['head', 'title'], footer: ['tail', 'footer'] };
@@ -1217,6 +1279,7 @@ button.crumb.on, button.small.on { background: rgba(34,211,238,.2); border-color
     slideInfo: slideInfo, pageInfo: pageInfo, renumberDeck: renumberDeck, slideContext: slideContext, newSlide: newSlide,
     deckMeta: deckMeta, setDeckMeta: setDeckMeta, instantiateDeck: instantiateDeck, stageKeepsSize: stageKeepsSize, ensureStageNoShrink: ensureStageNoShrink, instantiateGuide: instantiateGuide,
     parseIndex: parseIndex, serializeIndex: serializeIndex, trackLessons: trackLessons, newTrack: newTrack, newLessonItem: newLessonItem,
+    newLevel: newLevel, levelHtml: levelHtml, syncLevels: syncLevels, levelOf: levelOf, levelTracks: levelTracks, nextLessonNum: nextLessonNum,
     lessonHtml: lessonHtml, linkHtml: linkHtml, cntText: cntText, getIndexField: getIndexField, setIndexField: setIndexField,
     indexLinks: indexLinks, isLocalHref: isLocalHref,
     lintUnits: lintUnits, checkScripts: checkScripts, textSegments: textSegments,
@@ -2926,6 +2989,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = IBPreviewA
     try { if (v === undefined) return localStorage.getItem('ib.' + k); localStorage.setItem('ib.' + k, v); } catch (e) { return null; }
   }
   function esc(s) { return S.escapeText(s); }
+  function plainText(html) { return S.decodeEntities(String(html || '').replace(/<[^>]+>/g, '')).trim(); }
   /* Hebrew count: count(1, 'קובץ אחד', 'קבצים') -> 'קובץ אחד', count(3, ...) -> '3 קבצים' */
   function count(n, one, many) { return n === 1 ? one : n + ' ' + many; }
 
@@ -3198,7 +3262,8 @@ if (typeof module !== 'undefined' && module.exports) module.exports = IBPreviewA
     var m = currentIndexModel(), lib = state.lib, out = [];
     if (!m) return out;
     m.tracks.forEach(function (tr, ti) {
-      var row = { name: S.decodeEntities(tr.name.replace(/<[^>]+>/g, '')).trim(), track: tr, ti: ti, lessons: [] };
+      var lv = M.levelOf(m, tr);
+      var row = { name: plainText(tr.name), level: lv && lv.head ? plainText(lv.name) : '', track: tr, ti: ti, lessons: [] };
       tr.items.forEach(function (it, ii) {
         if (it.kind !== 'lesson') return;
         var L = it.lesson, deck = null, pdf = null, other = [];
@@ -3285,7 +3350,9 @@ if (typeof module !== 'undefined' && module.exports) module.exports = IBPreviewA
         btn('רענון', function () { refreshLibrary(); })));
     main.appendChild(head);
     if (!lessons.length) main.appendChild(h('p', { class: 'empty' }, 'לא נמצאו שיעורים באינדקס.'));
+    var lastLevel = null;
     lessons.forEach(function (tr) {
+      if (tr.level && tr.level !== lastLevel) { main.appendChild(h('h2', { class: 'home-level' }, tr.level)); lastLevel = tr.level; }
       var sec = h('section', { class: 'track' }, h('h2', null, tr.name, h('span', { class: 'cnt' }, tr.lessons.length + '')));
       var grid = h('div', { class: 'cards' });
       tr.lessons.forEach(function (x) {
@@ -3788,7 +3855,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = IBPreviewA
         h('div', { class: 'toolbar' }, h('b', null, 'אינדקס השיעורים'), h('span', { class: 'grow' }),
           toolBtn('B', 'strong', 'הדגשה'), toolBtn('LTR', 'ltr', 'עטיפה ב-span.ltr'),
           btn('+ שיעור חדש', function () { newLessonDialog(); }, 'small primary'),
-          btn('+ מסלול', function () { addTrack(d); }, 'small'),
+          btn(d.model.levels.some(function (l) { return l.head; }) ? '+ רמה' : '+ מסלול', function () { if (d.model.levels.some(function (l) { return l.head; })) addLevel(d); else addTrack(d, d.model.levels[0]); }, 'small'),
           btn('קוד מלא', function () { d.view = 'source'; renderActive(); }, 'small')),
         d.formEl),
       h('section', { class: 'center' }, h('div', { class: 'toolbar' }, h('b', null, 'תצוגה מקדימה'), h('span', { class: 'muted small' }, 'לחיצה על קישור פותחת את הקובץ בעורך')), d.frameWrap)));
@@ -3818,37 +3885,55 @@ if (typeof module !== 'undefined' && module.exports) module.exports = IBPreviewA
     form.appendChild(h('details', { class: 'panel' }, h('summary', null, 'כותרת הדף, הסבר הניווט ותחתית'),
       fieldRow('כותרת הלשונית בדפדפן', 'pageTitle'), fieldRow('כותרת ראשית', 'h1'), fieldRow('שורת תיאור', 'sub'), fieldRow('שורת היחידה', 'unit'),
       fieldRow('הסבר הניווט', 'legend', true), fieldRow('תחתית הדף', 'footer', true)));
-    m.tracks.forEach(function (tr, ti) {
-      var lessons = M.trackLessons(tr);
-      var card = h('section', { class: 'idx-track' });
-      card.appendChild(h('div', { class: 'idx-track-head' },
-        plainInput(S.decodeEntities(tr.name.trim()), function (val) { change(d, function () { tr.name = esc(val.trim()) + (tr.hasCnt ? ' ' : ''); tr.dirty = true; }); }, { class: 'track-name' }),
-        tr.hasCnt ? h('span', { class: 'muted' }, M.cntText(lessons.length)) : h('span', { class: 'muted' }, 'ללא מונה'),
-        h('span', { class: 'grow' }),
-        btn('↑', function () { moveTrack(d, ti, ti - 1); }, 'icon', 'הזזת המסלול למעלה'),
-        btn('↓', function () { moveTrack(d, ti, ti + 1); }, 'icon', 'הזזת המסלול למטה'),
-        btn('🗑', function () { deleteTrack(d, ti); }, 'icon danger', 'מחיקת המסלול')));
-      tr.items.forEach(function (it, ii) {
-        if (it.kind === 'sub') {
-          card.appendChild(h('div', { class: 'field' }, h('label', null, 'תיאור המסלול'),
-            richBox(it.dirty ? it.html : rawInner(it.raw), function (val) { change(d, function () { it.html = val; it.dirty = true; }, { keepForm: true }); })));
-        } else if (it.kind === 'order' || it.kind === 'raw') {
-          var ta = h('textarea', { class: 'code', dir: 'ltr', rows: 3 }); ta.value = it.raw;
-          card.appendChild(h('details', { class: 'panel' }, h('summary', null, it.kind === 'order' ? 'סדר העברה מומלץ (HTML)' : 'בלוק HTML'), ta,
-            h('div', { class: 'row' }, btn('החלה', function () {
-              var r = M.unitRoot(ta.value.trim());
-              if (!r || r.end !== ta.value.trim().length) { toast('צריך אלמנט HTML אחד וסגור.', 'error'); return; }
-              change(d, function () { it.raw = ta.value.trim(); });
-            }, 'small primary'), btn('מחיקה', function () { change(d, function () { tr.items.splice(ii, 1); }); }, 'small danger'))));
-        } else if (it.kind === 'lesson') card.appendChild(lessonRow(d, tr, ti, it, ii));
-      });
-      card.appendChild(h('div', { class: 'row' },
-        btn('+ שיעור חדש במסלול', function () { newLessonDialog({ trackIndex: ti }); }, 'small'),
-        btn('+ שורה ריקה', function () { change(d, function () { insertLessonItem(tr, M.newLessonItem({ num: M.pad(lessons.length + 1), title: 'שם השיעור', desc: 'תיאור קצר.' })); }); }, 'small'),
-        orphanDecks().length ? btn('+ קישור למצגת קיימת…', function (e) { orphanMenu(d, tr, e.currentTarget); }, 'small') : null));
-      form.appendChild(card);
+    var heads = m.levels.filter(function (l) { return l.head; });
+    m.levels.forEach(function (lv, li) {
+      if (lv.head) {
+        form.appendChild(h('div', { class: 'idx-level' },
+          h('span', { class: 'lvl-num' }, plainText(lv.num)),
+          plainInput(plainText(lv.name), function (val) { change(d, function () { lv.name = esc(val.trim()); lv.dirty = true; M.syncLevels(m); }); }, { class: 'level-name', title: 'שם הרמה' }),
+          h('span', { class: 'grow' }),
+          btn('+ מסלול ברמה', function () { addTrack(d, lv); }, 'small'),
+          btn('↑', function () { moveLevel(d, li, -1); }, 'icon', 'הזזת הרמה למעלה'),
+          btn('↓', function () { moveLevel(d, li, 1); }, 'icon', 'הזזת הרמה למטה'),
+          btn('🗑', function () { deleteLevel(d, lv); }, 'icon danger', 'מחיקת הרמה (רק כשאין בה מסלולים)')));
+      }
+      M.levelTracks(m, lv).forEach(function (tr) { renderTrackCard(d, form, tr, heads); });
     });
     if (d.formEl.parentNode) d.formEl.parentNode.scrollTop = scrollTop;
+  }
+  function renderTrackCard(d, form, tr, heads) {
+    var m = d.model, ti = m.tracks.indexOf(tr);
+    var lessons = M.trackLessons(tr);
+    var card = h('section', { class: 'idx-track' });
+    var levelSel = heads.length > 1 ? h('select', { title: 'הרמה של המסלול', onchange: function (e) { moveTrackToLevel(d, tr, heads[+e.target.value]); } },
+      heads.map(function (l, i) { return h('option', { value: i, selected: M.levelOf(m, tr) === l }, plainText(l.name)); })) : null;
+    card.appendChild(h('div', { class: 'idx-track-head' },
+      plainInput(S.decodeEntities(tr.name.trim()), function (val) { change(d, function () { tr.name = esc(val.trim()) + (tr.hasCnt ? ' ' : ''); tr.dirty = true; }); }, { class: 'track-name' }),
+      tr.hasCnt ? h('span', { class: 'muted' }, M.cntText(lessons.length)) : h('span', { class: 'muted' }, 'ללא מונה'),
+      h('span', { class: 'grow' }),
+      levelSel,
+      btn('↑', function () { moveTrack(d, tr, -1); }, 'icon', 'הזזת המסלול למעלה'),
+      btn('↓', function () { moveTrack(d, tr, 1); }, 'icon', 'הזזת המסלול למטה'),
+      btn('🗑', function () { deleteTrack(d, ti); }, 'icon danger', 'מחיקת המסלול')));
+    tr.items.forEach(function (it, ii) {
+      if (it.kind === 'sub') {
+        card.appendChild(h('div', { class: 'field' }, h('label', null, 'תיאור המסלול'),
+          richBox(it.dirty ? it.html : rawInner(it.raw), function (val) { change(d, function () { it.html = val; it.dirty = true; }, { keepForm: true }); })));
+      } else if (it.kind === 'order' || it.kind === 'raw') {
+        var ta = h('textarea', { class: 'code', dir: 'ltr', rows: 3 }); ta.value = it.raw;
+        card.appendChild(h('details', { class: 'panel' }, h('summary', null, it.kind === 'order' ? 'סדר העברה מומלץ (HTML)' : 'בלוק HTML'), ta,
+          h('div', { class: 'row' }, btn('החלה', function () {
+            var r = M.unitRoot(ta.value.trim());
+            if (!r || r.end !== ta.value.trim().length) { toast('צריך אלמנט HTML אחד וסגור.', 'error'); return; }
+            change(d, function () { it.raw = ta.value.trim(); });
+          }, 'small primary'), btn('מחיקה', function () { change(d, function () { tr.items.splice(ii, 1); }); }, 'small danger'))));
+      } else if (it.kind === 'lesson') card.appendChild(lessonRow(d, tr, ti, it, ii));
+    });
+    card.appendChild(h('div', { class: 'row' },
+      btn('+ שיעור חדש במסלול', function () { newLessonDialog({ trackIndex: ti }); }, 'small'),
+      btn('+ שורה ריקה', function () { var dir = trackDirOf(tr); change(d, function () { insertLessonItem(tr, M.newLessonItem({ num: dir ? M.nextLessonNum(m, dir, state.lib ? state.lib.decks : []) : M.pad(lessons.length + 1), title: 'שם השיעור', desc: 'תיאור קצר.' })); }); }, 'small'),
+      orphanDecks().length ? btn('+ קישור למצגת קיימת…', function (e) { orphanMenu(d, tr, e.currentTarget); }, 'small') : null));
+    form.appendChild(card);
   }
   function rawInner(raw) { var r = M.unitRoot(raw); return r ? S.inner(raw, r) : raw; }
   function lessonRow(d, tr, ti, it, ii) {
@@ -3889,9 +3974,48 @@ if (typeof module !== 'undefined' && module.exports) module.exports = IBPreviewA
     if (j < 0 || j >= tr.items.length) return;
     change(d, function () { var a = tr.items[ii], b = tr.items[j]; var la = a.lead; a.lead = b.lead; b.lead = la; tr.items[ii] = b; tr.items[j] = a; });
   }
-  function moveTrack(d, from, to) {
-    if (to < 0 || to >= d.model.tracks.length) return;
-    change(d, function () { var t = d.model.tracks.splice(from, 1)[0]; d.model.tracks.splice(to, 0, t); });
+  /* tracks move within their level; their order in model.tracks only matters inside a level */
+  function moveTrack(d, tr, dir) {
+    var m = d.model, list = M.levelTracks(m, M.levelOf(m, tr)), i = list.indexOf(tr), other = list[i + dir];
+    if (!other) return;
+    change(d, function () { var a = m.tracks.indexOf(tr), b = m.tracks.indexOf(other); m.tracks[a] = other; m.tracks[b] = tr; });
+  }
+  /* insert a track at the end of a level, before a trailing track without a counter ("חומרי עזר") */
+  function placeTrack(m, tr, lv) {
+    var list = M.levelTracks(m, lv).filter(function (x) { return x !== tr; });
+    var i = m.tracks.indexOf(tr); if (i >= 0) m.tracks.splice(i, 1);
+    tr.level = lv;
+    var tail = list.length && !list[list.length - 1].hasCnt && tr.hasCnt ? list[list.length - 1] : null;
+    if (tail) m.tracks.splice(m.tracks.indexOf(tail), 0, tr);
+    else if (list.length) m.tracks.splice(m.tracks.indexOf(list[list.length - 1]) + 1, 0, tr);
+    else m.tracks.push(tr);
+  }
+  function moveTrackToLevel(d, tr, lv) {
+    if (!lv || M.levelOf(d.model, tr) === lv) return;
+    change(d, function () {
+      placeTrack(d.model, tr, lv);
+      var tag = lv.head ? 'h3' : 'h2';
+      if (tr.tag !== tag) { tr.tag = tag; tr.dirty = true; }
+    });
+  }
+  function addLevel(d) {
+    var name = prompt('שם הרמה (למשל: רמת מפעיל):');
+    if (!name) return;
+    var m = d.model, ids = m.levels.map(function (l) { return l.id; }), n = m.levels.length + 1;
+    while (ids.indexOf('level-' + n) >= 0) n++;
+    change(d, function () { m.levels.push(M.newLevel({ id: 'level-' + n, num: '', name: name.trim() })); M.syncLevels(m); });
+    toast('הרמה נוספה בסוף האינדקס. מוסיפים לה מסלולים ב"+ מסלול ברמה", או מעבירים אליה מסלולים קיימים.', 'ok', 8000);
+  }
+  function moveLevel(d, li, dir) {
+    var m = d.model, j = li + dir;
+    if (j < 0 || j >= m.levels.length || !m.levels[j].head) return;
+    change(d, function () { var a = m.levels[li]; m.levels[li] = m.levels[j]; m.levels[j] = a; var la = m.levels[li].lead; m.levels[li].lead = m.levels[j].lead; m.levels[j].lead = la; M.syncLevels(m); });
+  }
+  function deleteLevel(d, lv) {
+    var m = d.model;
+    if (M.levelTracks(m, lv).length) { toast('אפשר למחוק רק רמה ריקה. העבירו קודם את המסלולים שלה לרמה אחרת.', 'warn'); return; }
+    if (!confirm('למחוק את הרמה מהאינדקס?')) return;
+    change(d, function () { m.levels.splice(m.levels.indexOf(lv), 1); M.syncLevels(m); });
   }
   function deleteTrack(d, ti) {
     var tr = d.model.tracks[ti];
@@ -3899,14 +4023,11 @@ if (typeof module !== 'undefined' && module.exports) module.exports = IBPreviewA
     if (!confirm('למחוק את המסלול מהאינדקס?')) return;
     change(d, function () { d.model.tracks.splice(ti, 1); });
   }
-  function trackInsertIndex(m) {
-    var last = m.tracks[m.tracks.length - 1];
-    return last && !last.hasCnt ? m.tracks.length - 1 : m.tracks.length;   // before "חומרי עזר"
-  }
-  function addTrack(d) {
+  function addTrack(d, lv) {
     var name = prompt('שם המסלול (יופיע ככותרת באינדקס):');
     if (!name) return;
-    change(d, function () { d.model.tracks.splice(trackInsertIndex(d.model), 0, M.newTrack(esc(name.trim()), 'תיאור קצר של המסלול.')); });
+    lv = lv || d.model.levels[d.model.levels.length - 1];
+    change(d, function () { placeTrack(d.model, M.newTrack(esc(name.trim()), 'תיאור קצר של המסלול.', lv), lv); });
   }
   function orphanMenu(d, tr, anchor) {
     closeMenus();
@@ -3949,23 +4070,23 @@ if (typeof module !== 'undefined' && module.exports) module.exports = IBPreviewA
     }
     return '';
   }
-  function nextNum(tr) {
-    var max = 0;
-    M.trackLessons(tr).forEach(function (it) { var n = parseInt(S.decodeEntities(it.lesson.num), 10); if (n > max) max = n; });
-    return M.pad(max + 1);
-  }
+  /* the next free number in the track's folder: across the whole index and the folders on disk
+     (a folder can be split across levels, e.g. radio 03/05/06 and 01/02/04) */
+  function nextNum(dir) { return M.nextLessonNum(currentIndexModel(), dir, state.lib ? state.lib.decks : []); }
 
   async function newLessonDialog(opts) {
     opts = opts || {};
     if (!state.fs) { toast('קודם פותחים תיקייה.', 'warn'); return; }
     var m = currentIndexModel();
-    var tracks = m ? m.tracks.map(function (tr, ti) { return { ti: ti, name: S.decodeEntities(tr.name.replace(/<[^>]+>/g, '')).trim(), dir: trackDirOf(tr), tr: tr }; }).filter(function (t) { return t.dir || t.tr.hasCnt; }) : [];
-    var trackSel = h('select', null, tracks.map(function (t) { return h('option', { value: t.ti, selected: opts.trackIndex === t.ti }, t.name + (t.dir ? ' (' + t.dir + '/)' : '')); }), h('option', { value: 'new' }, 'מסלול חדש…'));
+    var tracks = m ? m.tracks.map(function (tr, ti) { var lv = M.levelOf(m, tr); return { ti: ti, name: plainText(tr.name), level: lv && lv.head ? plainText(lv.name) : '', dir: trackDirOf(tr), tr: tr }; }).filter(function (t) { return t.dir || t.tr.hasCnt; }) : [];
+    var heads = m ? m.levels.filter(function (l) { return l.head; }) : [];
+    var trackSel = h('select', null, tracks.map(function (t) { return h('option', { value: t.ti, selected: opts.trackIndex === t.ti }, (t.level ? t.level + ' · ' : '') + t.name + (t.dir ? ' (' + t.dir + '/)' : '')); }), h('option', { value: 'new' }, 'מסלול חדש…'));
+    var newLevelSel = heads.length ? h('select', null, heads.map(function (l, i) { return h('option', { value: i }, plainText(l.name)); })) : null;
     var newName = h('input', { type: 'text', placeholder: 'שם המסלול בעברית' });
     var newDir = h('input', { type: 'text', dir: 'ltr', placeholder: 'folder-name' });
     var newSub = h('input', { type: 'text', placeholder: 'משפט שמתאר את המסלול' });
     var newTrackBox = h('fieldset', { class: 'sub', hidden: true }, h('legend', null, 'מסלול חדש'),
-      h('label', null, 'שם', newName), h('label', null, 'תיאור', newSub));
+      h('label', null, 'שם', newName), h('label', null, 'תיאור', newSub), newLevelSel ? h('label', null, 'רמה', newLevelSel) : null);
     var dirBox = h('label', { hidden: true }, 'תיקיית המסלול (אותיות לטיניות קטנות, ספרות ומקפים)', newDir);
     var num = h('input', { type: 'text', dir: 'ltr', size: 4 });
     var slug = h('input', { type: 'text', dir: 'ltr', placeholder: 'radio-antenna-basics' });
@@ -3992,8 +4113,8 @@ if (typeof module !== 'undefined' && module.exports) module.exports = IBPreviewA
       var t = curTrack();
       newTrackBox.hidden = trackSel.value !== 'new';
       dirBox.hidden = !(t && (t.isNew || t.needsDir));
-      if (!num.dataset.touched && t && t.tr) num.value = nextNum(t.tr);
-      if (!num.dataset.touched && t && t.isNew) num.value = '01';
+      if (!num.dataset.touched && t && t.dir) num.value = nextNum(t.dir);
+      if (!num.dataset.touched && t && !t.dir) num.value = '01';
       if (!footer.dataset.touched) footer.value = 'שיעור ' + (parseInt(num.value, 10) || '') + ' · ' + (title.value || 'שם השיעור');
       var problems = [];
       if (!t || !t.dir) problems.push('צריך שם לתיקיית המסלול.');
@@ -4027,7 +4148,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = IBPreviewA
       e.preventDefault();
       if (!update()) return;
       createBtn.disabled = true;
-      try { if (await createLesson({ track: curTrack(), newTrackName: newName.value.trim(), newTrackSub: newSub.value.trim(), num: M.pad(parseInt(num.value, 10)), slug: slug.value.trim(), title: title.value.trim(), desc: desc.value.trim(), badge: badge.value.trim(), footer: footer.value.trim(), src: srcKind, dup: dupSel.value, withGuide: withGuide.checked, withIndex: withIndex.checked })) dlg.close(); }
+      try { if (await createLesson({ track: curTrack(), newTrackLevel: newLevelSel ? +newLevelSel.value : null, newTrackName: newName.value.trim(), newTrackSub: newSub.value.trim(), num: M.pad(parseInt(num.value, 10)), slug: slug.value.trim(), title: title.value.trim(), desc: desc.value.trim(), badge: badge.value.trim(), footer: footer.value.trim(), src: srcKind, dup: dupSel.value, withGuide: withGuide.checked, withIndex: withIndex.checked })) dlg.close(); }
       finally { createBtn.disabled = false; }
     }, 'primary');
     var dlg = dialog('שיעור חדש', body, createBtn);
@@ -4080,8 +4201,12 @@ if (typeof module !== 'undefined' && module.exports) module.exports = IBPreviewA
       if (idx && idx.kind === 'index') {
         change(idx, function () {
           var tr;
-          if (t.isNew) { tr = M.newTrack(esc(o.newTrackName || t.dir), esc(o.newTrackSub || 'תיאור קצר של המסלול.')); idx.model.tracks.splice(trackInsertIndex(idx.model), 0, tr); }
-          else tr = idx.model.tracks[t.ti];
+          if (t.isNew) {
+            var heads = idx.model.levels.filter(function (l) { return l.head; });
+            var lv = heads.length ? heads[o.newTrackLevel || 0] : idx.model.levels[idx.model.levels.length - 1];
+            tr = M.newTrack(esc(o.newTrackName || t.dir), esc(o.newTrackSub || 'תיאור קצר של המסלול.'), lv);
+            placeTrack(idx.model, tr, lv);
+          } else tr = idx.model.tracks[t.ti];
           insertLessonItem(tr, M.newLessonItem({ num: o.num, title: o.title, desc: o.desc, deck: p.deck, guide: null }));
         });
         toast('נוספה שורה לאינדקס (בלי קישור ל-PDF עד שיודפס). האינדקס עוד לא נשמר.', 'ok', 8000);

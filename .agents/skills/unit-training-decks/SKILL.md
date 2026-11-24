@@ -5,7 +5,7 @@ description: Create or revise Hebrew training decks and instructor guides for Om
 
 # Training decks and instructor guides (גדס״ם 5059 · מחלקת תקשוב)
 
-Hebrew (RTL) lessons for young field technicians/operators, taught by an instructor who **projects the deck on a 16:9 screen or TV** (1920x1080 / 1366x768; not phones). Every lesson = one HTML deck + one detailed A4 instructor guide (HTML source rendered to PDF). Owner: Omer. Tracks: רדיו (radio/), רשתות (networks/), מכשירים (devices/), plus reference/ and index.html.
+Hebrew (RTL) lessons for young field technicians/operators, taught by an instructor who **projects the deck on a 16:9 screen or TV** (1920x1080 / 1366x768; not phones). Every lesson = one HTML deck + one detailed A4 instructor guide (HTML source rendered to PDF). Owner: Omer. Tracks: רדיו (radio/), רשתות (networks/), מכשירים (devices/), plus reference/ and index.html. Since 2026-11-24 index.html groups tracks by training level (רמת מפעיל, רמת ביניים, רמת תקשוב); a new lesson row goes under the track of the level Omer assigns, and a folder can appear in more than one level.
 
 ## 0. Start of every task
 - Read `agents.md` and everything in `.agents/` (treat `.agents` like `.claude`): remarks files, the standing-rules list in `.agents/README.md`, guide sources in `.agents/guide-sources/`, device sources in `.agents/devices-sources/`. Do not reverse a recorded decision without saying why.

@@ -163,35 +163,104 @@ test('index round-trip is byte-identical', () => {
   assert.ok(m.tracks.length >= 4);
   assert.strictEqual(M.serializeIndex(m), indexSrc);
 });
-test('index regenerates every block byte-identically', () => {
-  const m = M.parseIndex(indexSrc);
+function markAllDirty(m) {
+  m.levels.forEach((lv) => { lv.dirty = true; });
   m.tracks.forEach((tr) => {
     tr.dirty = true;
     tr.items.forEach((it) => { it.dirty = true; if (it.lesson) { it.lesson.dirty = true; it.lesson.links.forEach((l) => { l.dirty = true; }); } });
   });
+}
+const archiveIndexSrc = fs.readFileSync(path.join(ROOT, 'archive', '2026-11-03', 'index.html'), 'utf8');
+test('index regenerates every block byte-identically', () => {
+  const m = M.parseIndex(indexSrc);
+  markAllDirty(m);
   assert.strictEqual(M.serializeIndex(m), indexSrc);
+});
+test('index: levels -> tracks structure (operator, intermediate, ICT)', () => {
+  const m = M.parseIndex(indexSrc);
+  const heads = m.levels.filter((l) => l.head);
+  assert.deepStrictEqual(heads.map((l) => [l.id, l.num, l.name]),
+    [['level-operator', '1', 'רמת מפעיל'], ['level-intermediate', '2', 'רמת ביניים'], ['level-ict', '3', 'רמת תקשוב']]);
+  const shape = heads.map((lv) => M.levelTracks(m, lv).map((tr) => tr.tag + ':' + tr.name.trim() + ':' + M.trackLessons(tr).map((it) => it.lesson.num).join(',')));
+  assert.deepStrictEqual(shape, [
+    ['h3:מכשירים:01,02', 'h3:תרגול:▶'],
+    ['h3:רדיו:03,05,06'],
+    ['h3:רדיו:01,02,04', 'h3:רשתות:01,02,03,04,05,06,07,08', 'h3:חומרי עזר:A6,▶']]);
+  // every level has at least one track, and the jump links match the level ids
+  const nav = (indexSrc.match(/<nav class="levels"[^>]*>([\s\S]*?)<\/nav>/) || [])[1] || '';
+  assert.deepStrictEqual([...nav.matchAll(/href="#([^"]+)"/g)].map((x) => x[1]), heads.map((l) => l.id));
+  M.syncLevels(m);
+  assert.strictEqual(M.serializeIndex(m), indexSrc, 'syncLevels is a no-op on the shipped index');
+  // both games carry the mobile note and open outside the page
+  for (const href of ['https://rf-game.vercel.app/']) assert.ok(M.indexLinks(m).some((l) => l.href === href), href);
+  assert.strictEqual((indexSrc.match(/<span class="mob">/g) || []).length, 2);
+});
+test('index: the legacy flat index (archive) still round-trips and regenerates', () => {
+  const m = M.parseIndex(archiveIndexSrc);
+  assert.strictEqual(m.levels.length, 1);
+  assert.strictEqual(m.levels[0].head, false);
+  assert.deepStrictEqual(m.tracks.map((tr) => tr.tag + ':' + tr.name.trim()), ['h2:רדיו', 'h2:רשתות', 'h2:מכשירים', 'h2:חומרי עזר']);
+  assert.strictEqual(M.serializeIndex(m), archiveIndexSrc);
+  markAllDirty(m);
+  assert.strictEqual(M.serializeIndex(m), archiveIndexSrc);
+  // a new track in the flat index is an h2 like its neighbours
+  const lv = m.levels[0];
+  const tr = M.newTrack('מסלול חדש', 'תיאור המסלול.', lv);
+  m.tracks.splice(3, 0, tr);
+  const out = M.serializeIndex(m);
+  assert.ok(out.includes('<h2>מסלול חדש <span class="cnt">אין שיעורים</span></h2>\n<p class="track-sub">תיאור המסלול.</p>'));
+  assert.strictEqual(M.parseIndex(out).tracks.length, 5);
 });
 test('index: lesson counts, header fields, add/move/delete', () => {
   const m = M.parseIndex(indexSrc);
-  const radio = m.tracks[0];
-  assert.strictEqual(M.trackLessons(radio).length, 6);
-  assert.strictEqual(radio.cntRaw, '6 שיעורים');
+  const ict = m.levels.find((l) => l.id === 'level-ict');
+  const radio = M.levelTracks(m, ict)[0];
+  assert.strictEqual(M.trackLessons(radio).length, 3);
+  assert.strictEqual(radio.cntRaw, '3 שיעורים');
   assert.ok(M.getIndexField(m, 'h1'));
   assert.ok(M.setIndexField(m, 'h1', M.getIndexField(m, 'h1')));
   assert.strictEqual(M.serializeIndex(m), indexSrc);
   radio.items.push(M.newLessonItem({ num: '07', title: 'שיעור חדש', desc: 'תיאור', deck: 'radio/07-x/07-x-deck.html', guide: 'radio/07-x/07-x-guide.pdf' }));
   const out = M.serializeIndex(m);
-  assert.ok(out.includes('<span class="cnt">7 שיעורים</span>'));
+  assert.ok(out.includes('<h3>רדיו <span class="cnt">4 שיעורים</span></h3>'));
   assert.ok(out.includes('<div class="lesson"><div class="num">07</div><div class="meta"><b>שיעור חדש</b><span class="desc">תיאור</span></div><div class="links"><a href="radio/07-x/07-x-deck.html">מצגת</a><a class="pdf" href="radio/07-x/07-x-guide.pdf">דף הנחיה</a></div></div>'));
   const m2 = M.parseIndex(out);
-  assert.strictEqual(M.trackLessons(m2.tracks[0]).length, 7);
-  m2.tracks[0].items.pop();
+  const radio2 = M.levelTracks(m2, m2.levels[2])[0];
+  assert.strictEqual(M.trackLessons(radio2).length, 4);
+  radio2.items.pop();
   assert.strictEqual(M.serializeIndex(m2), indexSrc);
-  m2.tracks.splice(3, 0, M.newTrack('מסלול חדש', 'תיאור המסלול.'));
+  // a new track inside a level is an h3 under that level
+  const op = m2.levels[0];
+  const tr = M.newTrack('מסלול חדש', 'תיאור המסלול.', op);
+  m2.tracks.splice(m2.tracks.indexOf(M.levelTracks(m2, op)[1]) + 1, 0, tr);
   const out3 = M.serializeIndex(m2);
   const m3 = M.parseIndex(out3);
   assert.strictEqual(m3.tracks.length, m.tracks.length + 1);
-  assert.ok(out3.includes('<h2>מסלול חדש <span class="cnt">אין שיעורים</span></h2>\n<p class="track-sub">תיאור המסלול.</p>'));
+  assert.deepStrictEqual(M.levelTracks(m3, m3.levels[0]).map((t) => t.name.trim()), ['מכשירים', 'תרגול', 'מסלול חדש']);
+  assert.ok(out3.includes('<h3>מסלול חדש <span class="cnt">אין שיעורים</span></h3>\n<p class="track-sub">תיאור המסלול.</p>'));
+});
+test('index: levels can be renamed, added and reordered; numbers and jump links follow', () => {
+  const m = M.parseIndex(indexSrc);
+  m.levels[1].name = 'רמה מתקדמת'; m.levels[1].dirty = true;
+  m.levels.push(M.newLevel({ id: 'level-4', num: '', name: 'רמה חדשה' }));
+  const a = m.levels[0]; m.levels[0] = m.levels[1]; m.levels[1] = a;
+  M.syncLevels(m);
+  const out = M.serializeIndex(m);
+  const m2 = M.parseIndex(out);
+  assert.deepStrictEqual(m2.levels.map((l) => l.num + ':' + l.name), ['1:רמה מתקדמת', '2:רמת מפעיל', '3:רמת תקשוב', '4:רמה חדשה']);
+  assert.ok(out.includes('<nav class="levels" aria-label="מעבר לרמה"><a href="#level-intermediate">רמה מתקדמת</a><a href="#level-operator">רמת מפעיל</a><a href="#level-ict">רמת תקשוב</a><a href="#level-4">רמה חדשה</a></nav>'));
+  // tracks travel with their level
+  assert.deepStrictEqual(M.levelTracks(m2, m2.levels[0]).map((t) => t.name.trim()), ['רדיו']);
+  assert.deepStrictEqual(M.levelTracks(m2, m2.levels[3]), []);
+  assert.strictEqual(M.serializeIndex(m2), out);
+});
+test('index: next lesson number is per folder across the whole index and disk', () => {
+  const m = M.parseIndex(indexSrc);
+  assert.strictEqual(M.nextLessonNum(m, 'radio', []), '07');
+  assert.strictEqual(M.nextLessonNum(m, 'networks', []), '09');
+  assert.strictEqual(M.nextLessonNum(m, 'devices', []), '03');
+  assert.strictEqual(M.nextLessonNum(m, 'radio', ['radio/11-extra/11-extra-deck.html']), '12');
+  assert.strictEqual(M.nextLessonNum(m, 'newtrack', []), '01');
 });
 test('index links point at files that exist', () => {
   const m = M.parseIndex(indexSrc);

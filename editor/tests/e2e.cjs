@@ -306,7 +306,7 @@ async function step(name, fn) {
   await step('index editor: edit a description, preview updates, save', async () => {
     await page.evaluate(() => window.IBApp.openDoc('index.html', { kind: 'index' }));
     await page.waitForSelector('.idx-lesson');
-    const desc = page.locator('.idx-lesson .desc-in').first();
+    const desc = page.locator('.idx-lesson .desc-in', { hasText: 'שקצותיה פתוחים' }).first();
     await desc.click();
     await page.keyboard.press('End');
     await page.keyboard.type(' עוד מילה.');
@@ -319,12 +319,50 @@ async function step(name, fn) {
     await shot('07-index');
   });
 
+  await step('index editor: move a track between levels and reorder levels, both round-trip', async () => {
+    await page.evaluate(() => window.IBApp.openDoc('index.html', { kind: 'index' }));
+    await page.waitForSelector('.idx-level');
+    const ser = () => page.evaluate(() => window.IBApp.serialize(window.IBApp.activeDoc()));
+    const before = await ser();
+    // "תרגול" is the second track card (operator level); move it to the intermediate level
+    await page.locator('.idx-track').nth(1).locator('select').selectOption({ label: 'רמת ביניים' });
+    await page.waitForTimeout(300);
+    let t = await ser();
+    const at = t.indexOf('<h3>תרגול</h3>');
+    assert.ok(at > t.indexOf('id="level-intermediate"') && at < t.indexOf('id="level-ict"'), 'track moved into the intermediate level');
+    await page.locator('.idx-track').nth(2).locator('select').selectOption({ label: 'רמת מפעיל' });
+    await page.waitForTimeout(300);
+    assert.strictEqual(await ser(), before, 'moving the track back restores the file byte for byte');
+    // levels: operator down, then back up; numbers and the jump links follow
+    await page.locator('.idx-level').nth(0).locator('button[title="הזזת הרמה למטה"]').click();
+    await page.waitForTimeout(300);
+    t = await ser();
+    assert.ok(t.indexOf('id="level-intermediate"') < t.indexOf('id="level-operator"'));
+    assert.ok(t.includes('<div class="level-head" id="level-intermediate"><span class="lvl-num">1</span>'));
+    assert.ok(t.includes('<a href="#level-intermediate">רמת ביניים</a><a href="#level-operator">רמת מפעיל</a>'));
+    await page.locator('.idx-level').nth(1).locator('button[title="הזזת הרמה למעלה"]').click();
+    await page.waitForTimeout(300);
+    assert.strictEqual(await ser(), before, 'moving the level back restores the file byte for byte');
+    // a non-empty level cannot be deleted
+    await page.locator('.idx-level').nth(0).locator('button[title^="מחיקת הרמה"]').click();
+    await page.waitForTimeout(200);
+    assert.strictEqual(await ser(), before);
+  });
+
   await step('new lesson wizard creates deck + guide source + index row', async () => {
     await page.evaluate(() => window.IBApp.openDoc('index.html', { kind: 'index' }));
     await page.locator('.idx-pane .toolbar button', { hasText: 'שיעור חדש' }).click();
     await page.waitForSelector('dialog.dlg');
     const dlg = page.locator('dialog.dlg');
-    await dlg.locator('select').first().selectOption({ index: 0 });
+    const trackSel = dlg.locator('select').first();
+    const labels = await trackSel.locator('option').allTextContents();
+    assert.ok(labels.includes('רמת מפעיל · מכשירים (devices/)'), labels.join(' | '));
+    assert.ok(labels.includes('רמת ביניים · רדיו (radio/)'), labels.join(' | '));
+    // radio is split across two levels: the next number is per folder (07), not per track
+    await trackSel.selectOption({ label: 'רמת ביניים · רדיו (radio/)' });
+    assert.strictEqual(await dlg.locator('input[size="4"]').inputValue(), '07');
+    await trackSel.selectOption({ label: 'רמת תקשוב · רדיו (radio/)' });
+    assert.strictEqual(await dlg.locator('input[size="4"]').inputValue(), '07');
     await dlg.locator('input[placeholder="radio-antenna-basics"]').fill('test-lesson');
     await dlg.locator('input[placeholder="שם השיעור"]').fill('שיעור בדיקה');
     await dlg.locator('input[placeholder="משפט או שניים לאינדקס"]').fill('תיאור בדיקה.');
@@ -338,7 +376,8 @@ async function step(name, fn) {
     assert.deepStrictEqual(M.checkScripts(deck), []);
     const idx = await page.evaluate(() => window.IBApp.serialize(window.IBApp.state.docs.find((d) => d.path === 'index.html')));
     assert.ok(idx.includes('<div class="lesson"><div class="num">07</div><div class="meta"><b>שיעור בדיקה</b><span class="desc">תיאור בדיקה.</span></div><div class="links"><a href="radio/07-test-lesson/07-test-lesson-deck.html">מצגת</a></div></div>'));
-    assert.ok(idx.includes('<span class="cnt">7 שיעורים</span>'));
+    assert.ok(idx.includes('<h3>רדיו <span class="cnt">4 שיעורים</span></h3>\n<p class="track-sub">יסודות'), 'the row went into the ICT radio track');
+    assert.ok(idx.indexOf('radio/07-test-lesson/') > idx.indexOf('id="level-ict"'));
     await shot('09-new-deck');
   });
 

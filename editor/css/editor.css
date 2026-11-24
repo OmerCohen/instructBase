@@ -239,3 +239,9 @@ button.crumb { padding: 2px 7px; font-size: 12px; border-radius: 6px; }
 button.crumb.on, button.small.on { background: rgba(34,211,238,.2); border-color: var(--cyan); color: #e6fbff; }
 .se-selpanel .field { margin-top: 6px; }
 .se-selpanel input[type=text] { width: 100%; }
+
+/* index structure: levels -> tracks */
+.idx-level { display: flex; align-items: center; gap: 8px; margin: 22px 0 4px; padding: 8px 12px; border: 1px solid rgba(34,211,238,.35); border-right: 4px solid var(--cyan); border-radius: 12px; background: rgba(34,211,238,.07); }
+.idx-level .lvl-num { flex: 0 0 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--cyan); color: #04212a; font-weight: 800; }
+.idx-level .level-name { font-size: 17px; font-weight: 800; width: 220px; }
+.home-level { font-size: 22px; margin: 34px 0 0; padding-bottom: 6px; border-bottom: 1px solid rgba(34,211,238,.35); }

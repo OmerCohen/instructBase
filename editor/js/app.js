@@ -52,6 +52,7 @@
     try { if (v === undefined) return localStorage.getItem('ib.' + k); localStorage.setItem('ib.' + k, v); } catch (e) { return null; }
   }
   function esc(s) { return S.escapeText(s); }
+  function plainText(html) { return S.decodeEntities(String(html || '').replace(/<[^>]+>/g, '')).trim(); }
   /* Hebrew count: count(1, 'קובץ אחד', 'קבצים') -> 'קובץ אחד', count(3, ...) -> '3 קבצים' */
   function count(n, one, many) { return n === 1 ? one : n + ' ' + many; }
 
@@ -324,7 +325,8 @@
     var m = currentIndexModel(), lib = state.lib, out = [];
     if (!m) return out;
     m.tracks.forEach(function (tr, ti) {
-      var row = { name: S.decodeEntities(tr.name.replace(/<[^>]+>/g, '')).trim(), track: tr, ti: ti, lessons: [] };
+      var lv = M.levelOf(m, tr);
+      var row = { name: plainText(tr.name), level: lv && lv.head ? plainText(lv.name) : '', track: tr, ti: ti, lessons: [] };
       tr.items.forEach(function (it, ii) {
         if (it.kind !== 'lesson') return;
         var L = it.lesson, deck = null, pdf = null, other = [];
@@ -411,7 +413,9 @@
         btn('רענון', function () { refreshLibrary(); })));
     main.appendChild(head);
     if (!lessons.length) main.appendChild(h('p', { class: 'empty' }, 'לא נמצאו שיעורים באינדקס.'));
+    var lastLevel = null;
     lessons.forEach(function (tr) {
+      if (tr.level && tr.level !== lastLevel) { main.appendChild(h('h2', { class: 'home-level' }, tr.level)); lastLevel = tr.level; }
       var sec = h('section', { class: 'track' }, h('h2', null, tr.name, h('span', { class: 'cnt' }, tr.lessons.length + '')));
       var grid = h('div', { class: 'cards' });
       tr.lessons.forEach(function (x) {
@@ -914,7 +918,7 @@
         h('div', { class: 'toolbar' }, h('b', null, 'אינדקס השיעורים'), h('span', { class: 'grow' }),
           toolBtn('B', 'strong', 'הדגשה'), toolBtn('LTR', 'ltr', 'עטיפה ב-span.ltr'),
           btn('+ שיעור חדש', function () { newLessonDialog(); }, 'small primary'),
-          btn('+ מסלול', function () { addTrack(d); }, 'small'),
+          btn(d.model.levels.some(function (l) { return l.head; }) ? '+ רמה' : '+ מסלול', function () { if (d.model.levels.some(function (l) { return l.head; })) addLevel(d); else addTrack(d, d.model.levels[0]); }, 'small'),
           btn('קוד מלא', function () { d.view = 'source'; renderActive(); }, 'small')),
         d.formEl),
       h('section', { class: 'center' }, h('div', { class: 'toolbar' }, h('b', null, 'תצוגה מקדימה'), h('span', { class: 'muted small' }, 'לחיצה על קישור פותחת את הקובץ בעורך')), d.frameWrap)));
@@ -944,37 +948,55 @@
     form.appendChild(h('details', { class: 'panel' }, h('summary', null, 'כותרת הדף, הסבר הניווט ותחתית'),
       fieldRow('כותרת הלשונית בדפדפן', 'pageTitle'), fieldRow('כותרת ראשית', 'h1'), fieldRow('שורת תיאור', 'sub'), fieldRow('שורת היחידה', 'unit'),
       fieldRow('הסבר הניווט', 'legend', true), fieldRow('תחתית הדף', 'footer', true)));
-    m.tracks.forEach(function (tr, ti) {
-      var lessons = M.trackLessons(tr);
-      var card = h('section', { class: 'idx-track' });
-      card.appendChild(h('div', { class: 'idx-track-head' },
-        plainInput(S.decodeEntities(tr.name.trim()), function (val) { change(d, function () { tr.name = esc(val.trim()) + (tr.hasCnt ? ' ' : ''); tr.dirty = true; }); }, { class: 'track-name' }),
-        tr.hasCnt ? h('span', { class: 'muted' }, M.cntText(lessons.length)) : h('span', { class: 'muted' }, 'ללא מונה'),
-        h('span', { class: 'grow' }),
-        btn('↑', function () { moveTrack(d, ti, ti - 1); }, 'icon', 'הזזת המסלול למעלה'),
-        btn('↓', function () { moveTrack(d, ti, ti + 1); }, 'icon', 'הזזת המסלול למטה'),
-        btn('🗑', function () { deleteTrack(d, ti); }, 'icon danger', 'מחיקת המסלול')));
-      tr.items.forEach(function (it, ii) {
-        if (it.kind === 'sub') {
-          card.appendChild(h('div', { class: 'field' }, h('label', null, 'תיאור המסלול'),
-            richBox(it.dirty ? it.html : rawInner(it.raw), function (val) { change(d, function () { it.html = val; it.dirty = true; }, { keepForm: true }); })));
-        } else if (it.kind === 'order' || it.kind === 'raw') {
-          var ta = h('textarea', { class: 'code', dir: 'ltr', rows: 3 }); ta.value = it.raw;
-          card.appendChild(h('details', { class: 'panel' }, h('summary', null, it.kind === 'order' ? 'סדר העברה מומלץ (HTML)' : 'בלוק HTML'), ta,
-            h('div', { class: 'row' }, btn('החלה', function () {
-              var r = M.unitRoot(ta.value.trim());
-              if (!r || r.end !== ta.value.trim().length) { toast('צריך אלמנט HTML אחד וסגור.', 'error'); return; }
-              change(d, function () { it.raw = ta.value.trim(); });
-            }, 'small primary'), btn('מחיקה', function () { change(d, function () { tr.items.splice(ii, 1); }); }, 'small danger'))));
-        } else if (it.kind === 'lesson') card.appendChild(lessonRow(d, tr, ti, it, ii));
-      });
-      card.appendChild(h('div', { class: 'row' },
-        btn('+ שיעור חדש במסלול', function () { newLessonDialog({ trackIndex: ti }); }, 'small'),
-        btn('+ שורה ריקה', function () { change(d, function () { insertLessonItem(tr, M.newLessonItem({ num: M.pad(lessons.length + 1), title: 'שם השיעור', desc: 'תיאור קצר.' })); }); }, 'small'),
-        orphanDecks().length ? btn('+ קישור למצגת קיימת…', function (e) { orphanMenu(d, tr, e.currentTarget); }, 'small') : null));
-      form.appendChild(card);
+    var heads = m.levels.filter(function (l) { return l.head; });
+    m.levels.forEach(function (lv, li) {
+      if (lv.head) {
+        form.appendChild(h('div', { class: 'idx-level' },
+          h('span', { class: 'lvl-num' }, plainText(lv.num)),
+          plainInput(plainText(lv.name), function (val) { change(d, function () { lv.name = esc(val.trim()); lv.dirty = true; M.syncLevels(m); }); }, { class: 'level-name', title: 'שם הרמה' }),
+          h('span', { class: 'grow' }),
+          btn('+ מסלול ברמה', function () { addTrack(d, lv); }, 'small'),
+          btn('↑', function () { moveLevel(d, li, -1); }, 'icon', 'הזזת הרמה למעלה'),
+          btn('↓', function () { moveLevel(d, li, 1); }, 'icon', 'הזזת הרמה למטה'),
+          btn('🗑', function () { deleteLevel(d, lv); }, 'icon danger', 'מחיקת הרמה (רק כשאין בה מסלולים)')));
+      }
+      M.levelTracks(m, lv).forEach(function (tr) { renderTrackCard(d, form, tr, heads); });
     });
     if (d.formEl.parentNode) d.formEl.parentNode.scrollTop = scrollTop;
+  }
+  function renderTrackCard(d, form, tr, heads) {
+    var m = d.model, ti = m.tracks.indexOf(tr);
+    var lessons = M.trackLessons(tr);
+    var card = h('section', { class: 'idx-track' });
+    var levelSel = heads.length > 1 ? h('select', { title: 'הרמה של המסלול', onchange: function (e) { moveTrackToLevel(d, tr, heads[+e.target.value]); } },
+      heads.map(function (l, i) { return h('option', { value: i, selected: M.levelOf(m, tr) === l }, plainText(l.name)); })) : null;
+    card.appendChild(h('div', { class: 'idx-track-head' },
+      plainInput(S.decodeEntities(tr.name.trim()), function (val) { change(d, function () { tr.name = esc(val.trim()) + (tr.hasCnt ? ' ' : ''); tr.dirty = true; }); }, { class: 'track-name' }),
+      tr.hasCnt ? h('span', { class: 'muted' }, M.cntText(lessons.length)) : h('span', { class: 'muted' }, 'ללא מונה'),
+      h('span', { class: 'grow' }),
+      levelSel,
+      btn('↑', function () { moveTrack(d, tr, -1); }, 'icon', 'הזזת המסלול למעלה'),
+      btn('↓', function () { moveTrack(d, tr, 1); }, 'icon', 'הזזת המסלול למטה'),
+      btn('🗑', function () { deleteTrack(d, ti); }, 'icon danger', 'מחיקת המסלול')));
+    tr.items.forEach(function (it, ii) {
+      if (it.kind === 'sub') {
+        card.appendChild(h('div', { class: 'field' }, h('label', null, 'תיאור המסלול'),
+          richBox(it.dirty ? it.html : rawInner(it.raw), function (val) { change(d, function () { it.html = val; it.dirty = true; }, { keepForm: true }); })));
+      } else if (it.kind === 'order' || it.kind === 'raw') {
+        var ta = h('textarea', { class: 'code', dir: 'ltr', rows: 3 }); ta.value = it.raw;
+        card.appendChild(h('details', { class: 'panel' }, h('summary', null, it.kind === 'order' ? 'סדר העברה מומלץ (HTML)' : 'בלוק HTML'), ta,
+          h('div', { class: 'row' }, btn('החלה', function () {
+            var r = M.unitRoot(ta.value.trim());
+            if (!r || r.end !== ta.value.trim().length) { toast('צריך אלמנט HTML אחד וסגור.', 'error'); return; }
+            change(d, function () { it.raw = ta.value.trim(); });
+          }, 'small primary'), btn('מחיקה', function () { change(d, function () { tr.items.splice(ii, 1); }); }, 'small danger'))));
+      } else if (it.kind === 'lesson') card.appendChild(lessonRow(d, tr, ti, it, ii));
+    });
+    card.appendChild(h('div', { class: 'row' },
+      btn('+ שיעור חדש במסלול', function () { newLessonDialog({ trackIndex: ti }); }, 'small'),
+      btn('+ שורה ריקה', function () { var dir = trackDirOf(tr); change(d, function () { insertLessonItem(tr, M.newLessonItem({ num: dir ? M.nextLessonNum(m, dir, state.lib ? state.lib.decks : []) : M.pad(lessons.length + 1), title: 'שם השיעור', desc: 'תיאור קצר.' })); }); }, 'small'),
+      orphanDecks().length ? btn('+ קישור למצגת קיימת…', function (e) { orphanMenu(d, tr, e.currentTarget); }, 'small') : null));
+    form.appendChild(card);
   }
   function rawInner(raw) { var r = M.unitRoot(raw); return r ? S.inner(raw, r) : raw; }
   function lessonRow(d, tr, ti, it, ii) {
@@ -1015,9 +1037,48 @@
     if (j < 0 || j >= tr.items.length) return;
     change(d, function () { var a = tr.items[ii], b = tr.items[j]; var la = a.lead; a.lead = b.lead; b.lead = la; tr.items[ii] = b; tr.items[j] = a; });
   }
-  function moveTrack(d, from, to) {
-    if (to < 0 || to >= d.model.tracks.length) return;
-    change(d, function () { var t = d.model.tracks.splice(from, 1)[0]; d.model.tracks.splice(to, 0, t); });
+  /* tracks move within their level; their order in model.tracks only matters inside a level */
+  function moveTrack(d, tr, dir) {
+    var m = d.model, list = M.levelTracks(m, M.levelOf(m, tr)), i = list.indexOf(tr), other = list[i + dir];
+    if (!other) return;
+    change(d, function () { var a = m.tracks.indexOf(tr), b = m.tracks.indexOf(other); m.tracks[a] = other; m.tracks[b] = tr; });
+  }
+  /* insert a track at the end of a level, before a trailing track without a counter ("חומרי עזר") */
+  function placeTrack(m, tr, lv) {
+    var list = M.levelTracks(m, lv).filter(function (x) { return x !== tr; });
+    var i = m.tracks.indexOf(tr); if (i >= 0) m.tracks.splice(i, 1);
+    tr.level = lv;
+    var tail = list.length && !list[list.length - 1].hasCnt && tr.hasCnt ? list[list.length - 1] : null;
+    if (tail) m.tracks.splice(m.tracks.indexOf(tail), 0, tr);
+    else if (list.length) m.tracks.splice(m.tracks.indexOf(list[list.length - 1]) + 1, 0, tr);
+    else m.tracks.push(tr);
+  }
+  function moveTrackToLevel(d, tr, lv) {
+    if (!lv || M.levelOf(d.model, tr) === lv) return;
+    change(d, function () {
+      placeTrack(d.model, tr, lv);
+      var tag = lv.head ? 'h3' : 'h2';
+      if (tr.tag !== tag) { tr.tag = tag; tr.dirty = true; }
+    });
+  }
+  function addLevel(d) {
+    var name = prompt('שם הרמה (למשל: רמת מפעיל):');
+    if (!name) return;
+    var m = d.model, ids = m.levels.map(function (l) { return l.id; }), n = m.levels.length + 1;
+    while (ids.indexOf('level-' + n) >= 0) n++;
+    change(d, function () { m.levels.push(M.newLevel({ id: 'level-' + n, num: '', name: name.trim() })); M.syncLevels(m); });
+    toast('הרמה נוספה בסוף האינדקס. מוסיפים לה מסלולים ב"+ מסלול ברמה", או מעבירים אליה מסלולים קיימים.', 'ok', 8000);
+  }
+  function moveLevel(d, li, dir) {
+    var m = d.model, j = li + dir;
+    if (j < 0 || j >= m.levels.length || !m.levels[j].head) return;
+    change(d, function () { var a = m.levels[li]; m.levels[li] = m.levels[j]; m.levels[j] = a; var la = m.levels[li].lead; m.levels[li].lead = m.levels[j].lead; m.levels[j].lead = la; M.syncLevels(m); });
+  }
+  function deleteLevel(d, lv) {
+    var m = d.model;
+    if (M.levelTracks(m, lv).length) { toast('אפשר למחוק רק רמה ריקה. העבירו קודם את המסלולים שלה לרמה אחרת.', 'warn'); return; }
+    if (!confirm('למחוק את הרמה מהאינדקס?')) return;
+    change(d, function () { m.levels.splice(m.levels.indexOf(lv), 1); M.syncLevels(m); });
   }
   function deleteTrack(d, ti) {
     var tr = d.model.tracks[ti];
@@ -1025,14 +1086,11 @@
     if (!confirm('למחוק את המסלול מהאינדקס?')) return;
     change(d, function () { d.model.tracks.splice(ti, 1); });
   }
-  function trackInsertIndex(m) {
-    var last = m.tracks[m.tracks.length - 1];
-    return last && !last.hasCnt ? m.tracks.length - 1 : m.tracks.length;   // before "חומרי עזר"
-  }
-  function addTrack(d) {
+  function addTrack(d, lv) {
     var name = prompt('שם המסלול (יופיע ככותרת באינדקס):');
     if (!name) return;
-    change(d, function () { d.model.tracks.splice(trackInsertIndex(d.model), 0, M.newTrack(esc(name.trim()), 'תיאור קצר של המסלול.')); });
+    lv = lv || d.model.levels[d.model.levels.length - 1];
+    change(d, function () { placeTrack(d.model, M.newTrack(esc(name.trim()), 'תיאור קצר של המסלול.', lv), lv); });
   }
   function orphanMenu(d, tr, anchor) {
     closeMenus();
@@ -1075,23 +1133,23 @@
     }
     return '';
   }
-  function nextNum(tr) {
-    var max = 0;
-    M.trackLessons(tr).forEach(function (it) { var n = parseInt(S.decodeEntities(it.lesson.num), 10); if (n > max) max = n; });
-    return M.pad(max + 1);
-  }
+  /* the next free number in the track's folder: across the whole index and the folders on disk
+     (a folder can be split across levels, e.g. radio 03/05/06 and 01/02/04) */
+  function nextNum(dir) { return M.nextLessonNum(currentIndexModel(), dir, state.lib ? state.lib.decks : []); }
 
   async function newLessonDialog(opts) {
     opts = opts || {};
     if (!state.fs) { toast('קודם פותחים תיקייה.', 'warn'); return; }
     var m = currentIndexModel();
-    var tracks = m ? m.tracks.map(function (tr, ti) { return { ti: ti, name: S.decodeEntities(tr.name.replace(/<[^>]+>/g, '')).trim(), dir: trackDirOf(tr), tr: tr }; }).filter(function (t) { return t.dir || t.tr.hasCnt; }) : [];
-    var trackSel = h('select', null, tracks.map(function (t) { return h('option', { value: t.ti, selected: opts.trackIndex === t.ti }, t.name + (t.dir ? ' (' + t.dir + '/)' : '')); }), h('option', { value: 'new' }, 'מסלול חדש…'));
+    var tracks = m ? m.tracks.map(function (tr, ti) { var lv = M.levelOf(m, tr); return { ti: ti, name: plainText(tr.name), level: lv && lv.head ? plainText(lv.name) : '', dir: trackDirOf(tr), tr: tr }; }).filter(function (t) { return t.dir || t.tr.hasCnt; }) : [];
+    var heads = m ? m.levels.filter(function (l) { return l.head; }) : [];
+    var trackSel = h('select', null, tracks.map(function (t) { return h('option', { value: t.ti, selected: opts.trackIndex === t.ti }, (t.level ? t.level + ' · ' : '') + t.name + (t.dir ? ' (' + t.dir + '/)' : '')); }), h('option', { value: 'new' }, 'מסלול חדש…'));
+    var newLevelSel = heads.length ? h('select', null, heads.map(function (l, i) { return h('option', { value: i }, plainText(l.name)); })) : null;
     var newName = h('input', { type: 'text', placeholder: 'שם המסלול בעברית' });
     var newDir = h('input', { type: 'text', dir: 'ltr', placeholder: 'folder-name' });
     var newSub = h('input', { type: 'text', placeholder: 'משפט שמתאר את המסלול' });
     var newTrackBox = h('fieldset', { class: 'sub', hidden: true }, h('legend', null, 'מסלול חדש'),
-      h('label', null, 'שם', newName), h('label', null, 'תיאור', newSub));
+      h('label', null, 'שם', newName), h('label', null, 'תיאור', newSub), newLevelSel ? h('label', null, 'רמה', newLevelSel) : null);
     var dirBox = h('label', { hidden: true }, 'תיקיית המסלול (אותיות לטיניות קטנות, ספרות ומקפים)', newDir);
     var num = h('input', { type: 'text', dir: 'ltr', size: 4 });
     var slug = h('input', { type: 'text', dir: 'ltr', placeholder: 'radio-antenna-basics' });
@@ -1118,8 +1176,8 @@
       var t = curTrack();
       newTrackBox.hidden = trackSel.value !== 'new';
       dirBox.hidden = !(t && (t.isNew || t.needsDir));
-      if (!num.dataset.touched && t && t.tr) num.value = nextNum(t.tr);
-      if (!num.dataset.touched && t && t.isNew) num.value = '01';
+      if (!num.dataset.touched && t && t.dir) num.value = nextNum(t.dir);
+      if (!num.dataset.touched && t && !t.dir) num.value = '01';
       if (!footer.dataset.touched) footer.value = 'שיעור ' + (parseInt(num.value, 10) || '') + ' · ' + (title.value || 'שם השיעור');
       var problems = [];
       if (!t || !t.dir) problems.push('צריך שם לתיקיית המסלול.');
@@ -1153,7 +1211,7 @@
       e.preventDefault();
       if (!update()) return;
       createBtn.disabled = true;
-      try { if (await createLesson({ track: curTrack(), newTrackName: newName.value.trim(), newTrackSub: newSub.value.trim(), num: M.pad(parseInt(num.value, 10)), slug: slug.value.trim(), title: title.value.trim(), desc: desc.value.trim(), badge: badge.value.trim(), footer: footer.value.trim(), src: srcKind, dup: dupSel.value, withGuide: withGuide.checked, withIndex: withIndex.checked })) dlg.close(); }
+      try { if (await createLesson({ track: curTrack(), newTrackLevel: newLevelSel ? +newLevelSel.value : null, newTrackName: newName.value.trim(), newTrackSub: newSub.value.trim(), num: M.pad(parseInt(num.value, 10)), slug: slug.value.trim(), title: title.value.trim(), desc: desc.value.trim(), badge: badge.value.trim(), footer: footer.value.trim(), src: srcKind, dup: dupSel.value, withGuide: withGuide.checked, withIndex: withIndex.checked })) dlg.close(); }
       finally { createBtn.disabled = false; }
     }, 'primary');
     var dlg = dialog('שיעור חדש', body, createBtn);
@@ -1206,8 +1264,12 @@
       if (idx && idx.kind === 'index') {
         change(idx, function () {
           var tr;
-          if (t.isNew) { tr = M.newTrack(esc(o.newTrackName || t.dir), esc(o.newTrackSub || 'תיאור קצר של המסלול.')); idx.model.tracks.splice(trackInsertIndex(idx.model), 0, tr); }
-          else tr = idx.model.tracks[t.ti];
+          if (t.isNew) {
+            var heads = idx.model.levels.filter(function (l) { return l.head; });
+            var lv = heads.length ? heads[o.newTrackLevel || 0] : idx.model.levels[idx.model.levels.length - 1];
+            tr = M.newTrack(esc(o.newTrackName || t.dir), esc(o.newTrackSub || 'תיאור קצר של המסלול.'), lv);
+            placeTrack(idx.model, tr, lv);
+          } else tr = idx.model.tracks[t.ti];
           insertLessonItem(tr, M.newLessonItem({ num: o.num, title: o.title, desc: o.desc, deck: p.deck, guide: null }));
         });
         toast('נוספה שורה לאינדקס (בלי קישור ל-PDF עד שיודפס). האינדקס עוד לא נשמר.', 'ok', 8000);
