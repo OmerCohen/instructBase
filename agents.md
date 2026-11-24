@@ -59,6 +59,7 @@ carry the lesson number (`04-antennas-swr`). Every link in `index.html` is
 1. Read this file and everything in `.agents/`.
 2. Check `.agents/README.md` for the index of prior remarks.
 3. Do not reverse a decision recorded in `.agents/` without explaining why.
+4. **Work on `main` directly** (Omer, 2026-11-24): commit and push to `main`, no feature branches. The editor work from `ccr-03535dcd-qdden9` was fast-forwarded into `main` that day.
 
 ## Remarks index
 
