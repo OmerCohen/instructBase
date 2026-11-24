@@ -284,6 +284,16 @@ test('no lesson numbers in decks, guide sources or the templates (2026-11-24)', 
   }
   assert.deepStrictEqual(bad, []);
 });
+test('lessons stand on their own: no "previous/next lesson" phrasing (2026-11-24)', () => {
+  // order-neutral pointers ("נלמד בשיעור X", "שיעור X מציג") are fine; these assume a teaching order
+  const re = /השיעור(?:ים)? הקודמ|מהשיעור הקודם|שיעורים הקודמים|ה?שיעור הבא|שיעורים הבאים|בהמשך ה(?:הכשרה|קורס|מסלול)|כבר (?:ראו|למדו|נלמדו?|הוזכר[הו]?|הוצג[הו]?) בשיעור|שכבר (?:למדתם|נלמדו)|לקראת שיעור|חברו לשיעור|פותח את (?:מסלול|שיעור)/g;
+  const bad = [];
+  for (const f of decks.concat(guides)) {
+    const s = fs.readFileSync(f, 'utf8').replace(/<script\b[\s\S]*?<\/script>/g, '');
+    for (const m of s.matchAll(re)) bad.push(path.relative(ROOT, f) + ': ' + s.slice(Math.max(0, m.index - 30), m.index + 40));
+  }
+  assert.deepStrictEqual(bad, []);
+});
 test('index links point at files that exist', () => {
   const m = M.parseIndex(indexSrc);
   const missing = M.indexLinks(m).filter((l) => M.isLocalHref(l.href) && !fs.existsSync(path.join(ROOT, l.href)));

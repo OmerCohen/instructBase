@@ -150,3 +150,42 @@ Decks (16) and guide sources (16), 381 occurrences:
 
 Omer's own copy of the skill (the one Cowork loads from his account) still has the old footer formats with
 "שיעור N"; the repo copy in `.agents/skills/unit-training-decks/SKILL.md` is updated and should be synced.
+
+## Addendum 3 (same day): every lesson stands on its own
+
+Omer, answering the two order questions of Addendum 2: "לנסח מחדש בלי הנחה על הסדר" for both, and
+"ככלל כל שיעור אמור לעמוד בפני עצמו". This closes order problems 1-3 above.
+
+Rule applied to all 16 decks and 16 guide sources (now also in SKILL.md section 3):
+
+- Removed or reworded: anything that assumes another lesson was taught before or comes after
+  ("כבר ראו בשיעור…", "חברו לשיעורים הקודמים", "מהשיעור הקודם", "בכלים שכבר למדתם", "סכמו לקראת שיעור…",
+  "השלב הזה פותח את שיעור…", "חוזרים אליהן בשיעור…", "יופיעו בשיעור…", "בהמשך ההכשרה", "פותח את מסלול
+  הרשתות").
+- Kept: order-neutral pointers ("נלמד בשיעור X", "שיעור X מציג…", "להרחבה: שיעור X, שקופית N"),
+  prerequisites stated as knowledge ("ודאו שרזוננס, אימפדנס וקיטוב ברורים לקבוצה"), conditionals that
+  already handled both cases (r06 "אם הקהל עבר אותו… אם לא, מספיקה התיבה האדומה"; r04 "חפיפה" box).
+- 63 edits in 18 files (18 in decks, 45 in guides). Visible slide text changed in three places only:
+  n06 slide 11 subtitle ("כל שלב מצמצם את החשודים לפני שנוגעים בשרת."), n06 slide 15 subtitle ("לחוליית
+  הכתובת בשרשרת מוסיפים את המקור שלה."), n07 slide 15 key ("…ממשיכים לשכבות שמעליה לפי הסדר."). The rest
+  are speaker notes and guide prose.
+- n06 (DHCP) leaned on "the ipconfig output from the tools lesson". Its own slide 4 is an `ipconfig /all`
+  output, so the notes and guide now point there ("חזרו לפלט של ipconfig בשקופית 4"), and the guide's
+  recommended opening is to run `ipconfig /all` on a station, or open with slide 4 if none is available.
+- "Move the exercise to the opening of lesson X / the next lesson" became "המפגש הבא" (01_net, 02_net,
+  04_radio).
+- The r06 guide box "המשך" (three lesson titles) is now "שיעורים קשורים".
+- "הנושאים האלה … נלמדים בהמשך ההכשרה" (n06, n07) became "… דורשים הכשרה נפרדת": I could not verify that
+  those topics (IPv6, switch DHCP protections, structured cabling, fibre types) are taught anywhere, so the
+  text no longer promises it.
+- Names unified: "שיעור הכלים" → "שיעור כלי התחקור", "שיעור Domain" → "שיעור ה-Domain".
+- Index: the networks track description now says the rows are in the recommended order and that each
+  lesson stands on its own (my wording, replaces the stale five-lesson description).
+- A second model test fails on "previous/next lesson" phrasing in any deck or guide source.
+- Changed guides re-printed (10 of 16); page counts unchanged.
+
+**Still true, by nature of the content (not a wording issue):** some lessons need concepts that another
+lesson teaches (r04 needs resonance, impedance, polarisation and dB; n03 needs DNS/IP/Gateway; n06 reads
+ipconfig output). They now state this as a prerequisite to check with the group, without saying where it
+was learned. If Omer wants a lesson to be teachable to a group with none of that background, it needs a
+short recap slide, which is new content and was not added.
