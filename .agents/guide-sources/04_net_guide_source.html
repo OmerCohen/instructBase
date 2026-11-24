@@ -1,6 +1,6 @@
 <!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>כלי תחקור ב-Windows</title><style>
 @page{size:A4;margin:52pt 54pt 46pt 54pt;
-  @bottom-right{content:"מחלקת תקשוב · כלי תחקור · שיעור 4";
+  @bottom-right{content:"מחלקת תקשוב · כלי תחקור";
     font-family:"Liberation Sans",Arial,sans-serif;font-size:8pt;color:#8b9bab;
     width:100%;text-align:right;vertical-align:top;padding-top:10pt;direction:rtl}
   @bottom-left{content:counter(page) " / " counter(pages);
@@ -393,7 +393,7 @@ td.n,th.n{text-align:center;width:52pt;white-space:nowrap;direction:ltr;unicode-
     <li><strong>זמן.</strong> <span class="ltr">Valid from</span> ו-<span class="ltr">Valid to</span>. התחנה משווה אותם לשעון שלה, ולכן שעון שגוי בתחנה נראה כמו תעודה שפג תוקפה.</li>
     <li><strong>מנפיק ושרשרת.</strong> Issuer הוא מי שחתם על התעודה. בלשונית Certification Path רואים אם השרשרת מגיעה לשורש שהתחנה סומכת עליו. תחנה שחסר בה השורש הפנימי של הארגון לא תסמוך על אף תעודה שהוא הנפיק.</li>
   </ul>
-  <p>שגיאות תעודה וההסבר למה כל חוליה נבדקת מפורטים בשיעור 8 (הצפנה וזהות). כאן מספיק לדעת איפה רואים כל שדה.</p>
+  <p>שגיאות תעודה וההסבר למה כל חוליה נבדקת מפורטים בשיעור ההצפנה והזהות. כאן מספיק לדעת איפה רואים כל שדה.</p>
   <p><strong>Event Viewer</strong> (<span class="ltr">eventvwr.msc</span>) מציג את יומני האירועים של Windows. תחת Windows Logs נמצאים System (שירותים, מנהלי התקן, רשת, שירות הזמן, Netlogon), Application (תוכנות), ו-Security (כניסות וביקורת, צריך הרשאת מנהל). לכל אירוע יש רמה (<span class="ltr">Information</span>, <span class="ltr">Warning</span>, <span class="ltr">Error</span>), תאריך ושעה, מקור (Source), מזהה (<span class="ltr">Event ID</span>) והודעה. Event ID מזהה סוג אירוע של מקור מסוים, ולכן מתעדים תמיד את שניהם יחד. <span class="ltr">Filter Current Log</span> מסנן לפי זמן, רמה, מקור ומזהה, וכשיש מאות אירועים זה הכלי שמוצא את הרלוונטי.</p>
   <p>כותרת המשנה מבקשת להצליב: בתעודה בודקים תאריך, <span class="ltr">Subject</span>, <span class="ltr">Issuer</span> ושרשרת, ומצליבים אותם עם האירועים מאותה שעה ב-Event Viewer כדי לראות מה קרה קודם ומה גרם למה. למשל, אם תעודה פגה ב-08:00, ושגיאות התחברות מתחילות ב-08:00, הקשר ברור. אם התחילו שגיאות Kerberos מיד אחרי אירוע של שירות הזמן על שינוי שעה, החשוד הוא השעון. דוגמאות לאירועים שקשורים לנושאי השיעור, בלוג System ובמקור NETLOGON: 5719 (התחנה לא הצליחה ליצור ערוץ מאובטח עם DC, לרוב בגלל רשת או DNS), ו-3210 (התחנה לא הצליחה להזדהות מול DC, לרוב בגלל חשבון מחשב שלא תואם). בלוג <span class="ltr">Security</span>, <span class="ltr">4625</span> הוא כניסה שנכשלה ו-4624 כניסה שהצליחה.</p>
   <p>הקפידו לתעד הודעה מלאה, Event ID ושעה. צילום חלון ללא זמן או הקשר מקשה על השוואה. בלחיצה ימנית על האירוע יש <span class="ltr">Copy</span> ואז <span class="ltr">Copy Details as Text</span>, שמעתיק את כל השדות כטקסט, וזה עדיף על צילום מסך.</p>

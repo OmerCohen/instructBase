@@ -40,7 +40,7 @@ Title slide h1 70px/800; slide title `.title` 42px/800 (≤ 2 lines, ~45 Hebrew 
   <p class="subtitle">משפט אחד שמסביר מה רואים.</p>
   <div class="body"> ... </div>
   <aside class="speaker-note">מה עושים, מה מדגישים, טעות נפוצה, תשובות.</aside>
-  <div class="footer"><span>שיעור 6 · שם השיעור</span><span class="ltr">04 / 15</span></div>
+  <div class="footer"><span>שם השיעור</span><span class="ltr">04 / 15</span></div>
 </section>
 ```
 Title slide: `section.slide.title-slide.active` with `.brand` (crest-lg + `<b>גדס״ם 5059</b><i>מחלקת תקשוב</i>`), `.badge` (track · topic chip), h1, one `<p>` describing the lesson, and a small live visual (hero SVG/animated element); no footer, no eyebrow. Root: `<div class="deck-root motion-on" dir="rtl"><div class="stage-shell"><main class="stage">` + `.motion-badge` ("אנימציות כבויות") + `.kbd-hint` ("← → ניווט · N הערות · F מסך מלא · A כיבוי אנימציות") + slides + `.nav` (הקודם, הבא, progress bar cyan→amber, counter, הערות) + `.notes-panel` (amber border).
@@ -54,7 +54,7 @@ Title slide: `section.slide.title-slide.active` with `.brand` (crest-lg + `<b>ג
 - Photos: real photos (Omer's or rights-cleared) cropped tight, rounded corners, inside `.visual`; embed as data URIs (≤ ~900-1280px wide, JPEG ~80). Crop stickers, numbers, real frequencies.
 - Sparse is fine; never shrink fonts to fit: cut text or split the slide.
 
-**Guide template (A4, light theme):** copy the head of an existing guide byte-for-byte; change only `<title>` and the `@page @bottom-right` footer text ("מחלקת תקשוב · <שם השיעור> · שיעור N"). Palette: text `#1b2a38`, navy `#0f2740` (h1/h2/eyebrow/chips/band), teal `#0f8793`/`#0f6f7a`, soft boxes teal `#e9f4f7`, amber `#fdf4e6`, red `#fdeef0`, green `#eef7f0` with a 5pt side bar; chips navy with `#3fd0e0` values; tables with `#dbe3ea` borders and `#eef4f8` headers. Font "Liberation Sans", Arial, 10pt/1.55. Pages are `div.pg` (title page `div.pg.title-pg` with `.kick`, h1, `.sub`, `.chips`, `.meta`); each page has `.eyebrow` "NN · שקופיות a-b", h1, `hr.rule`, then h2 per slide.
+**Guide template (A4, light theme):** copy the head of an existing guide byte-for-byte; change only `<title>` and the `@page @bottom-right` footer text ("מחלקת תקשוב · <שם השיעור>"). Palette: text `#1b2a38`, navy `#0f2740` (h1/h2/eyebrow/chips/band), teal `#0f8793`/`#0f6f7a`, soft boxes teal `#e9f4f7`, amber `#fdf4e6`, red `#fdeef0`, green `#eef7f0` with a 5pt side bar; chips navy with `#3fd0e0` values; tables with `#dbe3ea` borders and `#eef4f8` headers. Font "Liberation Sans", Arial, 10pt/1.55. Pages are `div.pg` (title page `div.pg.title-pg` with `.kick`, h1, `.sub`, `.chips`, `.meta`); each page has `.eyebrow` "NN · שקופיות a-b", h1, `hr.rule`, then h2 per slide.
 
 ## 3. Content rules
 - **Accuracy first.** Textbook-level, verifiable facts; when unsure use "בערך" / "בדרך כלל" instead of false precision. Verify every number, formula and rule of thumb (Python reference) before it goes on a slide.
@@ -63,6 +63,7 @@ Title slide: `section.slide.title-slide.active` with `.brand` (crest-lg + `<b>ג
 - **No conversation leaks:** nothing that exists only because of how the material was gathered (alternative names Omer used to explain, corrections of a source, "the photo shows", reasoning he gave you to steer you, history/manufacturer trivia, explanations of how a demo was built, "computed in the browser", "verified against X").
 - **Relevance:** only what the audience needs for the job. No irrelevant technical remarks. Technical-data slides list only what is used in the field.
 - **Titles name the concept** ("קידוד מול הצפנה"), never a specific example or spec number as the title.
+- **No lesson numbers in decks or guides** (since 2026-11-24, Omer): not in footers, `<title>`, kickers, badges or prose. Refer to another lesson by its subject ("בשיעור כלי התחקור", "בשיעור האבחון בשטח"), and avoid "before/after" claims, since the teaching order depends on the level. Slide numbers ("שקופית 7") stay. Folder and file names keep their `NN-` prefix.
 - Lessons that ship a model/simulator keep a short "מגבלות ההדגמות" slide stating what the demos simplify, **except** device (operator) lessons, which have no limits slide.
 - Slide 2 is a **live opening** that shows the lesson's core idea on the trainee's own input (not an agenda/"מהלך השיעור" slide; the lesson structure goes to the title slide's speaker note). Each lesson has an **exercise slide** (2-4 questions or symptom cards, answers in the speaker note and the guide), normally at the end of the practical part.
 - Example values only (illustrative frequencies, addresses, keys); never real ones seen in sources or photos.

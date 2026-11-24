@@ -187,10 +187,11 @@ test('index: levels -> tracks structure (operator, intermediate, ICT)', () => {
   assert.deepStrictEqual(shape, [
     ['h3:מכשירים:d01,d02', 'h3:תרגול:rf-game'],
     ['h3:רדיו:r03,r05,r06'],
-    ['h3:רדיו:r01,r02,r04', 'h3:רשתות:n01,n02,n03,n04,n05,n06,n07,n08', 'h3:חומרי עזר:A6,kesher-net']]);
+    ['h3:רדיו:r01,r02,r04', 'h3:רשתות:n01,n07,n02,n03,n04,n06,n05,n08', 'h3:חומרי עזר:A6,kesher-net']]);
   // no number boxes in the rows, no digits in the networks order block
   assert.ok(!indexSrc.includes('<div class="num">'));
-  assert.ok(!/<span class="st"><i>/.test(indexSrc));
+  // networks are listed in teaching order, so there is no separate order block
+  assert.ok(!indexSrc.includes('class="order"'));
   assert.strictEqual(M.indexHasNums(m), false);
   assert.ok(M.trackLessons(m.tracks[0]).every((it) => it.lesson.num === null));
   // every level has at least one track, and the jump links match the level ids
@@ -272,6 +273,16 @@ test('index: next lesson number is per folder across the whole index and disk', 
   assert.strictEqual(M.nextLessonNum(m, 'devices', []), '03');
   assert.strictEqual(M.nextLessonNum(m, 'radio', ['radio/11-extra/11-extra-deck.html']), '12');
   assert.strictEqual(M.nextLessonNum(m, 'newtrack', []), '01');
+});
+test('no lesson numbers in decks, guide sources or the templates (2026-11-24)', () => {
+  const files = decks.concat(guides, [path.join(ROOT, 'editor', 'templates', 'deck-template.html'), path.join(ROOT, 'editor', 'templates', 'guide-template.html')]);
+  const re = /שיעור(?:ים)?\s*\d+|שיעור(?:ים)?\s+ה(?:ראשון|שני|שלישי|רביעי|חמישי|שישי|שביעי|שמיני)\b/g;
+  const bad = [];
+  for (const f of files) {
+    const s = fs.readFileSync(f, 'utf8');
+    for (const m of s.matchAll(re)) bad.push(path.relative(ROOT, f) + ': ' + s.slice(Math.max(0, m.index - 30), m.index + 30));
+  }
+  assert.deepStrictEqual(bad, []);
 });
 test('index links point at files that exist', () => {
   const m = M.parseIndex(indexSrc);

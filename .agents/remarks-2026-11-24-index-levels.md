@@ -94,11 +94,59 @@ and 01/02/04 in another.
 - Editor: a row's number box is optional (`L.num === null`); new rows get one only if the index still has
   numbered rows (`M.indexHasNums`), so the archive index keeps working as before. The lesson number still
   names the folder and files (`radio/07-<slug>/`), as the ASCII path convention requires.
-- **Not changed, waiting for Omer:** the decks and guides still say "שיעור N" (deck footers "שיעור 3 · רדיו
-  בסיסי", guide titles and `@page` footers, cross references such as "כאן מתחברים לשיעור 4 (SWR)" and the
-  "המשך" list in guide 06). Removing those means rewording the cross references by name and re-printing
-  the guide PDFs. The URLs keep the numbers regardless.
-- Open suggestion: with no numbers on screen, the networks rows could simply be listed in the recommended
-  order (שכבות, שכבה פיזית, IP, Domain, כלי תחקור, DHCP, איתור תקלות, הצפנה), and the order block dropped.
-  Not done: it moves rows, which Omer did not ask for.
+- Decks and guides: done in Addendum 2 below. Networks order: done in Addendum 2.
 - The level circles (1, 2, 3) are not lesson numbers and stay; see remark 2 above.
+
+## Addendum 2 (same day): no lesson numbers anywhere in the set; networks in teaching order
+
+Omer: "אפשר להוריד את סדר העברה מומלץ בכלל. פשוט תסדר את האינדקס לפי הסדר המומלץ. ותוריד את ההתייחסויות
+למספרי שיעורים מהמצגות ומהדפים".
+
+**This reverses the 2026-08-04 "Numbering decision (do not fix this)"** in
+`remarks-2026-08-04-new-lessons-and-index.md`, on Omer's explicit instruction. That decision kept the numbers
+to avoid set-wide churn; the churn is now done once, and the numbers no longer exist to go out of sync.
+
+Index: networks rows are now in the recommended order (שכבות, שכבה פיזית, IP וניתוב, Domain, כלי תחקור,
+DHCP, איתור תקלות, הצפנה וזהות); the "סדר העברה מומלץ" block and its CSS are gone.
+
+Decks (16) and guide sources (16), 381 occurrences:
+
+- Mechanical: slide footers ("שיעור 3 · רדיו בסיסי" → "רדיו בסיסי"; radio 06 had the number at the end),
+  `<title>` and stage `aria-label` of the two device decks, the n08 title badge ("רשתות · שיעור 8" →
+  "רשתות"), every guide `@page` footer, guide title-page meta/kick lines, and the amber "שיעור 5" label above
+  the h1 of both lesson-5 guides (removed).
+- 91 prose edits: cross references now name the lesson by subject. Names used, so they stay consistent:
+  שיעור השכבות · שיעור השכבה הפיזית · שיעור ה-IP והניתוב · שיעור ה-Domain · שיעור כלי התחקור ·
+  שיעור ה-DHCP · שיעור איתור התקלות · שיעור ההצפנה והזהות · שיעור הגלים · שיעור רדיו בסיסי ·
+  שיעור האנטנות וה-SWR · שיעור האבחון בשטח · שיעור המונופול ופרנל. The guide-06 "המשך" list keeps the
+  three titles without numbers. Ordinals went too ("השיעור הראשון/השני במסלול המכשירים", "השיעור הראשון
+  בסדרת הרשתות" → "פותח את מסלול הרשתות"); 01_net "בפתיחת שיעור 2" → "לפתיחת השיעור הבא".
+- Visible on slides (not only notes): the n03 limits slide, the n07 summary key ("לפי סדר הבדיקות של איתור
+  תקלות"), the n08 badge. Checked at 1920x1080: no overflow, the n07 key stays on one line.
+- Not touched: `<script>` blocks (asserted byte-identical), CSS comments like `/* lesson 4 demos */`
+  (invisible), the `id="devices-lesson-1"` attributes, slide numbers ("שקופית 7"), folder/file names,
+  `archive/`.
+- A model test now fails if "שיעור N" (or an ordinal) reappears in any deck, guide source or template.
+- Editor: the new-lesson footer defaults to the lesson title, the guide `@page` footer to
+  "מחלקת תקשוב · <title>"; both templates lost "שיעור 0".
+- All 16 guide PDFs re-printed with headless Chrome (m153; the shipped ones were m141). A baseline render of
+  two unchanged sources first matched the shipped PDFs (same pages; text identical or differing only in
+  line wraps). After the change every guide kept its page count, and a word diff shows only the intended
+  edits plus a few line-wrap differences.
+- Backups: git is the backup (last commit before this change: `722b2de`); nothing copied into `tmp/`, which
+  is already 90 MB in the repo.
+
+**Order problems this exposes (pre-existing, not fixed, waiting for Omer):**
+
+1. Networks: the list order is now 01 → 07 → 02 → 03 → 04 → 06 → 05 → 08, but **n06 (DHCP) and n07
+   (physical layer) both treat n05 (troubleshooting) as already taught**: n07 "שיעור איתור התקלות קבע ״הפיזי
+   קודם״", n06 "חברו לשיעורים הקודמים: … ושיעור איתור התקלות אמר לבדוק את הגדרות ה-IP". In the recommended
+   order n05 comes after both. This was already true with the order block; it is just more visible now.
+2. Radio: r04 (ICT level) says "סכמו לקראת שיעור האבחון בשטח" and "השלב הזה פותח את שיעור האבחון בשטח", but
+   r05 is in the intermediate level, which may be taught before r04. r03 (intermediate) builds on r02 (ICT),
+   see remark 1 at the top.
+3. 01_net "לפתיחת השיעור הבא" now means the physical-layer lesson in the recommended order, not IP; moving
+   the exercise there still works, but the instructor should know.
+
+Omer's own copy of the skill (the one Cowork loads from his account) still has the old footer formats with
+"שיעור N"; the repo copy in `.agents/skills/unit-training-decks/SKILL.md` is updated and should be synced.

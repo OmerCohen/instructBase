@@ -1178,7 +1178,7 @@
       dirBox.hidden = !(t && (t.isNew || t.needsDir));
       if (!num.dataset.touched && t && t.dir) num.value = nextNum(t.dir);
       if (!num.dataset.touched && t && !t.dir) num.value = '01';
-      if (!footer.dataset.touched) footer.value = 'שיעור ' + (parseInt(num.value, 10) || '') + ' · ' + (title.value || 'שם השיעור');
+      if (!footer.dataset.touched) footer.value = title.value || 'שם השיעור';   // no lesson numbers on slides (2026-11-24)
       var problems = [];
       if (!t || !t.dir) problems.push('צריך שם לתיקיית המסלול.');
       else if (!M.validSlug(t.dir)) problems.push('שם תיקיית המסלול: רק a-z, ספרות ומקפים.');
@@ -1254,7 +1254,7 @@
         if (!gsrc) gsrc = await readTemplate('editor/templates/guide-template.html');
         if (gsrc) {
           var trackName = t.isNew ? o.newTrackName : t.name;
-          await fs.write(p.guideSource, M.instantiateGuide(gsrc, { title: o.title, footer: 'מחלקת תקשוב · ' + trackName + ' · שיעור ' + parseInt(o.num, 10), kick: 'מחלקת תקשוב · ' + trackName + ' · מדריך למעביר השיעור' }));
+          await fs.write(p.guideSource, M.instantiateGuide(gsrc, { title: o.title, footer: 'מחלקת תקשוב · ' + o.title, kick: 'מחלקת תקשוב · ' + trackName + ' · מדריך למעביר השיעור' }));
           made.push(p.guideSource);
         } else toast('לא נמצאה תבנית לדף ההנחיה (editor/templates/guide-template.html).', 'warn');
       }
